@@ -177,7 +177,7 @@ export default {
       max_size: "",
       unit_price: "",
       description: "",
-      company_id: "1",
+      company_id: "",
     },
 
     luggageaAddingResponse: "",
@@ -192,6 +192,8 @@ export default {
 
   methods: {
     submit1() {
+      console.log(this.new_luggage);
+
       Vue.prototype.$http
         .post("http://127.0.0.1:3333/Luggage/add", this.new_luggage)
         .then((response) => {
@@ -228,6 +230,10 @@ export default {
     forceRerenderReturn() {
       return this.$store.state.luggagecomponentKey;
     },
+  },
+
+  created() {
+    this.new_luggage.company_id = localStorage.getItem("user-station");
   },
 };
 </script>

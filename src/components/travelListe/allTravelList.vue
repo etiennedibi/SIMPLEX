@@ -12,36 +12,36 @@
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>{{ selectedItem.details.vendus }} TICKETS</h2>
-                <h4>nombre de tickets vendus</h4>
+                <h2>{{ selectedItem.details.vendus }} PLACES</h2>
+                <h4>nombre de places vendus</h4>
               </div>
             </div>
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>{{ selectedItem.details.aVendre }} TICKETS</h2>
-                <h4>nombre de tickets à vendre</h4>
+                <h2>{{ selectedItem.details.aVendre }} PLACES</h2>
+                <h4>nombre de places à vendre</h4>
               </div>
             </div>
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>{{ selectedItem.details.restant }} TICKETS</h2>
-                <h4>nombre de tickets restant</h4>
+                <h2>{{ selectedItem.details.restant }} PLACES</h2>
+                <h4>nombre de places restant</h4>
               </div>
             </div>
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>{{ selectedItem.details.annules }} TICKETS</h2>
-                <h4>nombre de tickets annulés</h4>
+                <h2>{{ selectedItem.details.annules }} PLACES</h2>
+                <h4>nombre de places annulés</h4>
               </div>
             </div>
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>{{ selectedItem.details.gains }} TICKETS</h2>
-                <h4>gains total des ventes de tickets</h4>
+                <h2>{{ selectedItem.details.gains }} PLACES</h2>
+                <h4>gains total des ventes de places</h4>
               </div>
             </div>
           </v-container>
@@ -161,7 +161,7 @@
             <form class="updateForm">
               <v-container fluid>
                 <v-row>
-                  <v-col cols="12" md="12" lg="12">
+                  <!-- <v-col cols="12" md="12" lg="12">
                     <v-text-field
                       solo
                       label="Append"
@@ -174,7 +174,7 @@
                       required
                       disabled
                     ></v-text-field>
-                  </v-col>
+                  </v-col> -->
                   <v-col cols="12" md="12" lg="12">
                     <v-text-field
                       background-color="#3e886d4a"
@@ -216,7 +216,7 @@
                     <v-text-field
                       solo
                       append-icon="mdi-car-seat"
-                      v-model="travelToEdit.total_car_place_number"
+                      v-model="travelToEdit.place_to_sell_by_mino_number"
                       ref="pla_number"
                       type="number"
                       label="Nombre de place à disponible"
@@ -270,7 +270,7 @@
                       v-model="travelToEdit.Intemediatestation"
                       ref="st_inter"
                       type="text"
-                      label="atation intermediaires"
+                      label="station intermediaires"
                       persistent-hint
                       required
                     ></v-text-field>
@@ -450,8 +450,8 @@ export default {
       destination: "",
       departure_date: "",
       departure_time: "",
-
-      departure_place: "",
+      place_to_sell_by_mino_number:"",
+      // departure_place: "",
       total_car_place_number: "",
       car_informations: "",
 
@@ -504,8 +504,8 @@ export default {
       if (this.travelToEdit.departure_time) {
         fieldEdited.departure_time = this.travelToEdit.departure_time;
       }
-      if (this.travelToEdit.departure_place) {
-        fieldEdited.departure_place = this.travelToEdit.departure_place;
+      if (this.travelToEdit.place_to_sell_by_mino_number) {
+        fieldEdited.place_to_sell_by_mino_number = this.travelToEdit.place_to_sell_by_mino_number;
       }
       if (this.travelToEdit.total_car_place_number) {
         fieldEdited.total_car_place_number = this.travelToEdit.total_car_place_number;
@@ -579,6 +579,7 @@ export default {
 
     editTravelConfirm() {
       this.fielsdChanged = this.changedField();
+      console.log(this.fielsdChanged);
       Vue.prototype.$http
         .put("http://127.0.0.1:3333/travel/update", this.fielsdChanged)
         .then((response) => {

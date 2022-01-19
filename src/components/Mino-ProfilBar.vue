@@ -115,6 +115,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: var(--Important-font-color);
+  text-align: center;
 }
 .profilBox p:nth-child(3) {
   font-size: 13px;

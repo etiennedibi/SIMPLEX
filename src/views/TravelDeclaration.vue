@@ -7,7 +7,7 @@
           <v-form>
             <v-container fluid class="lolplp">
               <v-row>
-                <v-col cols="12" md="6" lg="6">
+                <!-- <v-col cols="12" md="6" lg="6">
                   <v-text-field
                     solo
                     label="Append"
@@ -21,7 +21,7 @@
                     required
                     disabled
                   ></v-text-field>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" md="6" lg="6">
                   <v-text-field
                     background-color="#3e886d4a"
@@ -130,12 +130,11 @@
                     append-icon="mdi-bus-stop"
                     height="70"
                     v-model="newTravel_1.Intemediatestation"
-                    :rules="[() => !!newTravel_1.Intemediatestation]"
                     ref="st_inter"
                     type="text"
-                    label="atation intermediaires"
+                    label="station intermediaires"
                     persistent-hint
-                    required
+                    
                   ></v-text-field>
                 </v-col>
 
@@ -213,7 +212,7 @@ export default {
     newTravel_1: {
       car_informations: "",
       car_matriculation: "",
-      departure_place: "Abidjan",
+      // departure_place: "Abidjan",
       destination: "",
       departure_time: "",
 
@@ -248,7 +247,7 @@ export default {
 
   methods: {
     submit1() {
-      // for intermadiate station
+      // for intermadiate station 
       if (this.newTravel_1.Intemediatestation) {
         this.newTravel_1.Intemediatestation = this.newTravel_1.Intemediatestation.split(
           " "
@@ -263,6 +262,8 @@ export default {
           };
         }
       }
+      // Compagnie and user id
+      console.log(this.newTravel_1);
 
       Vue.prototype.$http
         .post("http://127.0.0.1:3333/travel/add", this.newTravel_1)
@@ -303,7 +304,8 @@ export default {
   },
 
   created() {
-    this.company_id = localStorage.getItem("user-station");
+    this.newTravel_1.company_id = localStorage.getItem("user-station");
+    this.newTravel_1.user_id = localStorage.getItem("user-id");
   },
 };
 </script>

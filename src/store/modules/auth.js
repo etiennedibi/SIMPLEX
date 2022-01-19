@@ -53,6 +53,7 @@ const actions = {
           localStorage.setItem("user-info", theuser.pseudo); // store UserPseudo in localstorage
           localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
           localStorage.setItem("user-station", theuser.company_id); // store UserStation in localstorage
+          localStorage.setItem("user-id", theuser.id); // store UserID in localstorage
 
           const token = resp.data.token.token; //The token
           localStorage.setItem("user-token", token); // store the token in localstorage

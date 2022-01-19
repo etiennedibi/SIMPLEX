@@ -232,7 +232,7 @@ export default {
 
     UpdateConfirm() {
       Vue.prototype.$http
-        .put("http://127.0.0.1:3333/lostObjet/statUpdate", this.editedItem)
+        .put("http://127.0.0.1:3333/lostObjet/UpdateDeclaration", this.editedItem)
         .then((response) => {
           this.objetUpdateResponse = response.data;
           if (this.objetUpdateResponse.message == "success") {

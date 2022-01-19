@@ -192,8 +192,6 @@ export default {
 
   methods: {
     submit1() {
-      console.log(this.new_luggage);
-
       Vue.prototype.$http
         .post("http://127.0.0.1:3333/Luggage/add", this.new_luggage)
         .then((response) => {

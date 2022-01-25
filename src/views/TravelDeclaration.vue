@@ -262,7 +262,7 @@ export default {
           };
         }
       }
-
+      console.log(this.newTravel_1);
       Vue.prototype.$http
         .post("http://127.0.0.1:3333/travel/add", this.newTravel_1)
         .then((response) => {

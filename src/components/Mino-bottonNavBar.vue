@@ -22,7 +22,7 @@
         <p>Gestion des voyages</p>
         <div class="menuBox" v-if="travelMenuClick">
           <div class="menuTitle">
-            GESTIONNAIRE DES VOYAGES
+             VOYAGES
             <img
               src="@/assets/icone/close.png"
               alt=""

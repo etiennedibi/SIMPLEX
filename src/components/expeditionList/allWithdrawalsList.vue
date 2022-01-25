@@ -1,6 +1,48 @@
 <template>
   <div class="tableWrapperDiv">
-    <!-- DELETE TRAVEL DIALOG -->
+
+    <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
+    <v-dialog v-model="BeforeDialogDelete" max-width="420">
+      <v-card>
+        <v-card-text>
+          <div class="confirmTitle">supprimer ?</div>
+          <v-container>
+            <!-- <div class="CancelVerification">
+              Cette action supprimera le type de colis
+              <b>{{ editedItem.denomination }}</b> et toutes les variantes de
+              prix qui y sont liées.<br />
+              <br />
+              <span style="font-weight: bold"
+                >voulez-vous vraiment supprimer <br />
+                ce type de colis ?</span
+              >
+            </div> -->
+            <div class="verificationAction">
+              <v-btn
+                color="Titlecolor"
+                rounded
+                x-large
+                depressed
+                @click="deleteOneItemVriante"
+                style="color: white"
+                >cette variante</v-btn
+              >
+              <v-btn
+                color="mainGreenColor"
+                rounded
+                x-large
+                depressed
+                @click="deleteItemNature"
+                style="color: white"
+                >Cette nature</v-btn
+              >
+            </div>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
     <v-dialog v-model="dialogDelete" max-width="420">
       <v-card>
         <v-card-text>
@@ -30,6 +72,39 @@
                 rounded
                 depressed
                 @click="deleteItemConfirm"
+                style="color: white"
+                >Oui</v-btn
+              >
+            </div>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <!-- DELETE WHITHDRAWAL ON OCCURENCE  DIALOG -->
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
+      <v-card>
+        <v-card-text>
+          <div class="confirmTitle">AVERTISSEMENT !</div>
+          <v-container>
+            <div class="CancelVerification">
+              voulez-vous vraiment supprimer <br />
+              cette variante de prix du type de colis <b>{{ editedItem.denomination }} </b> ?
+            </div>
+            <div class="verificationAction">
+              <v-btn
+                color="Titlecolor"
+                rounded
+                depressed
+                @click="closeDeleteOnevariante"
+                style="color: white"
+                >Non</v-btn
+              >
+              <v-btn
+                color="mainGreenColor"
+                rounded
+                depressed
+                @click="deleteItemVarinteConfirm"
                 style="color: white"
                 >Oui</v-btn
               >
@@ -339,7 +414,9 @@ export default {
     editedIndex: -1,
 
     // For withdrawal deleted
+    BeforeDialogDelete:false,
     dialogDelete: false,
+    dialogDeleteOneVariante: false,
     itemToDelete: "",
   }),
 
@@ -402,9 +479,21 @@ export default {
       this.editedIndex = this.Withdrawals.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.itemToDelete = { id: this.editedItem.withdrawals_id };
+      // if it is a variante of prise
+      this.OneVarianteitemToDelete = { id: this.editedItem.id };
+      // this.dialogDelete = true;
+      this.BeforeDialogDelete = true;
+    },
+    deleteItemNature() {
       this.dialogDelete = true;
+      this.BeforeDialogDelete = false;
     },
 
+    deleteOneItemVriante() {
+      this.dialogDeleteOneVariante = true;
+      this.BeforeDialogDelete = false;
+    },
+          // confirm deleted of nature
     deleteItemConfirm() {
       Vue.prototype.$http
         .delete(
@@ -438,6 +527,42 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false;
+    },
+
+          // confirm deleted of one variante
+    deleteItemVarinteConfirm() {
+      Vue.prototype.$http
+        .delete(
+          "http://127.0.0.1:3333/withdrawal/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+        )
+        .then((response) => {
+          this.withdrawalaAddingResponse = response.data;
+
+          if (this.withdrawalaAddingResponse.message == "success") {
+            // Annulation effectuée
+            this.withdrawalaAddingResponse.message = "Suppression effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.forceRerender2();
+            }, 3000);
+          } else if (this.withdrawalaAddingResponse.message != "success") {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.withdrawalaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeDeleteOnevariante();
+    },
+
+    closeDeleteOnevariante() {
+      this.dialogDeleteOneVariante = false;
     },
 
     // For table re-render after delete or update an item

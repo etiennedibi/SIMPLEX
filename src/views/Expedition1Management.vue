@@ -30,6 +30,7 @@
                         solo
                         label="Nom complet"
                         v-model="new_Sender.complet_name"
+                        :rules="[() => !!new_Sender.complet_name]"
                         append-icon="mdi-account-details-outline"
                         ref="total_name"
                         type="text"
@@ -46,6 +47,7 @@
                         ref="location"
                         type="text"
                         v-model="new_Sender.city"
+                        :rules="[() => !!new_Sender.city]"
                         value=""
                         label="Lieu d'habitation"
                         persistent-hint
@@ -59,6 +61,7 @@
                         solo
                         append-icon="mdi-motorbike"
                         v-model="new_Sender.conveyance"
+                        :rules="[() => !!new_Sender.conveyance]"
                         ref="transport"
                         type="text"
                         label="Moyen de transport"
@@ -74,6 +77,7 @@
                         ref="pla_number"
                         type="number"
                         v-model="new_Sender.contact"
+                        :rules="[() => !!new_Sender.contact]"
                         label="Numero de téléphone"
                         persistent-hint
                         required
@@ -234,7 +238,7 @@ export default {
   },
 
   created() {
-    this.company_id = localStorage.getItem("user-station");
+    this.new_Sender.company_id = localStorage.getItem("user-station");
   },
 };
 </script>

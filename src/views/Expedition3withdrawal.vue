@@ -194,6 +194,7 @@ export default {
 
   methods: {
     submit1() {
+      console.log(this.new_withdrawal.denomination);
       Vue.prototype.$http
         .post("http://127.0.0.1:3333/withdrawal/add", this.new_withdrawal)
         .then((response) => {
@@ -233,7 +234,7 @@ export default {
   },
 
   created() {
-    this.company_id = localStorage.getItem("user-station");
+    this.new_withdrawal.company_id = localStorage.getItem("user-station");
   },
 };
 </script>

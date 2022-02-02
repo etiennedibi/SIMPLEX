@@ -324,6 +324,7 @@ export default {
 }
 .numberWrapper h5 {
   color: var(--font-color);
+  text-align: center;
 }
 
 </style>

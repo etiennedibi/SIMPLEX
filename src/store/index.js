@@ -6,6 +6,7 @@ import lostObjet from "./modules/lostObjet";
 import expedition from "./modules/expedition";
 import senders from "./modules/senders";
 import analytics from "./modules/analytics";
+import rating from "./modules/ratings";
 import auth from "./modules/auth";
 import gestion from "./modules/gestion";
 import message from "./modules/message";
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     travel,
     lostObjet,
     analytics,
+    rating,
     expedition,
     senders,
     auth,

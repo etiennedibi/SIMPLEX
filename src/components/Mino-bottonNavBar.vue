@@ -153,6 +153,7 @@ export default {
 
   created() {
     this.$store.dispatch("init_analitic");
+    this.$store.dispatch("init_ratings");
     this.role = localStorage.getItem("user-role");
   },
 };

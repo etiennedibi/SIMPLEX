@@ -59,7 +59,7 @@
               <h4>Notes clients</h4>
               <div class="noteWrapper">
                 <apexchart
-                  height="100%"
+                  height="120%"
                   :options="chartOptions2"
                   :series="series2"
                 ></apexchart>
@@ -134,34 +134,46 @@ export default {
     },
 
     /* FOR SERVICE MARCK */
-    series2: [44, 55, 67],
+    series2: [45, 55, 30],
 
     chartOptions2: {
       chart: {
-        type: "radialBar",
+        // width: 380,
+        type: 'polarArea'
       },
-      plotOptions: {
-        radialBar: {
-          dataLabels: {
-            name: {
-              fontSize: "16px",
-            },
-            value: {
-              fontSize: "16px",
-            },
-            total: {
-              show: true,
-              label: "Total",
-              formatter: function () {
-                return 249;
-              },
-            },
-          },
+      fill: {
+        opacity: 1
+      },
+      stroke: {
+        width: 1,
+        colors: undefined
+      },
+      yaxis: {
+          show: false
         },
-      },
+      legend: {
+          position: 'bottom'
+        },
+      plotOptions: {
+          polarArea: {
+            rings: {
+              strokeWidth: 0
+            },
+            spokes: {
+              strokeWidth: 0
+            },
+          }
+        },
+      // theme: {
+      //   monochrome: {
+      //     enabled: true,
+      //     shadeTo: 'light',
+      //     shadeIntensity: 0.6
+      //   }
+      // },
 
       colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
-      labels: ["Apples", "Oranges", "Bananas", "Berries"],
+      labels: ["SBTA", "ABOUSSOUAN", "VOUS 4eme"],
     },
   }),
 
@@ -186,11 +198,16 @@ export default {
           },
         },
       };
+
+      this.series2 = this.Ratings.rates;
+      this.chartOptions2 = {
+        labels: this.Ratings.station,
+      };
     },
   },
 
   computed: {
-    ...mapGetters(["Analytics"]),
+    ...mapGetters(["Analytics", "Ratings"]),
   },
 };
 </script>

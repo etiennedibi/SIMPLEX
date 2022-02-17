@@ -7,7 +7,7 @@
           <v-container>
             <div class="imgAndTitle">
               <p v-if="!editedItem.station_creator_id">Message - lecture</p>
-              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id == 0)">Envoyé <br> à <br> MINO</p>
+              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id == null)">Envoyé <br> à <br> MINO</p>
               <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id > 0)">Envoyé <br> à <br> CENTRALE</p>
             </div>
             <div class="TheMessage">
@@ -58,12 +58,12 @@
           <v-btn icon color="mainGreenColor" @click="showItem(item)">
               <v-icon small> mdi-eye </v-icon>
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             icon
             color="mainGreenColor"
             @click="showItem(item)"
             ><v-icon small> mdi-email-send </v-icon></v-btn
-          >
+          > -->
         </template>
         <template v-slot:[`item.central_dest_id`]="{ item }"> 
           <div v-if="item.station_creator_id">

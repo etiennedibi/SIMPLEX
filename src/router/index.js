@@ -15,6 +15,7 @@ import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
 
 import login from "../views/login.vue";
+import abonnement from "../views/abonnementChekpage.vue";
 
 Vue.use(VueRouter);
 
@@ -96,6 +97,15 @@ const routes = [
     path: "/login",
     name: "login",
     component: login,
+    beforeEnter: ifNotAuthenticated,
+    meta: {
+      plainLayout: true,
+    },
+  },
+  {
+    path: "/abonnement",
+    name: "abonnement",
+    component: abonnement,
     beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,

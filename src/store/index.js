@@ -10,6 +10,7 @@ import rating from "./modules/ratings";
 import auth from "./modules/auth";
 import gestion from "./modules/gestion";
 import message from "./modules/message";
+import checkabonnement from "./modules/checkabonnement";
 
 Vue.use(Vuex);
 
@@ -42,5 +43,6 @@ export default new Vuex.Store({
     auth,
     gestion,
     message,
+    checkabonnement,
   },
 });

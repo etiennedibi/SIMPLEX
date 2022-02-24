@@ -155,6 +155,16 @@ export default {
     this.$store.dispatch("init_analitic");
     this.$store.dispatch("init_ratings");
     this.role = localStorage.getItem("user-role");
+
+    this.$store.dispatch("init_check");
+    
+   console.log(localStorage.getItem("Comapany-activation_state"));
+    if ( localStorage.getItem("Comapany-activation_state") != true) {
+      localStorage.removeItem("Comapany-activation_state")
+      this.$store.dispatch("auth_logout").then(() => {
+        this.$router.push("/abonnement");
+      });
+    }
   },
 };
 </script>

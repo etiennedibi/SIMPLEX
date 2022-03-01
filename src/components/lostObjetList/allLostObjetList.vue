@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -231,8 +231,7 @@ export default {
     },
 
     UpdateConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/lostObjet/UpdateDeclaration", this.editedItem)
+        axios({ url: "lostObjet/UpdateDeclaration", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.objetUpdateResponse = response.data;
           if (this.objetUpdateResponse.message == "success") {

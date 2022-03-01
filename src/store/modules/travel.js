@@ -1,5 +1,5 @@
-// import travel from "../../data/travel"
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   travels: [],
   travel_analytics: "",
@@ -97,9 +97,10 @@ const mutations = {
 
 const actions = {
   init_travelListe: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/travel/Liste/" +
+        "travel/Liste/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -109,9 +110,10 @@ const actions = {
   },
 
   init_travel_analitic: ({ commit }, period) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/travel/getTravelAnalytics/" +
+        "travel/getTravelAnalytics/" +
           localStorage.getItem("user-station") +
           "/" +
           period
@@ -123,9 +125,10 @@ const actions = {
   },
 
   init_luggage: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/Luggage/List/" +
+        "Luggage/List/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

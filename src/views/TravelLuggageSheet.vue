@@ -158,7 +158,8 @@
 </template>
 
 <script>
-import Vue from "vue";
+// import Vue from "vue";
+import axios from "axios";
 import allLuggageList from "../components/travelListe/allLuggageList.vue";
 
 export default {
@@ -192,8 +193,7 @@ export default {
 
   methods: {
     submit1() {
-      Vue.prototype.$http
-        .post("http://127.0.0.1:3333/Luggage/add", this.new_luggage)
+        axios({ url: "Luggage/add", data: this.new_luggage, method: "POST" })
         .then((response) => {
           this.luggageaAddingResponse = response.data;
           console.log(response.data);

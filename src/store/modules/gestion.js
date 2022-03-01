@@ -1,4 +1,5 @@
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   adminitrators: [],
 };
@@ -21,9 +22,10 @@ const mutations = {
 
 const actions = {
   init_adminitrator: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/station/user/list/" +
+        "station/user/list/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

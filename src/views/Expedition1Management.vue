@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import allSendersList from "../components/expeditionList/alleSendersList.vue";
 
 export default {
@@ -177,8 +177,7 @@ export default {
   methods: {
     submit1() {
       this.matriculeGeneration();
-      Vue.prototype.$http
-        .post("http://127.0.0.1:3333/expedition/addsender", this.new_Sender)
+      axios({ url: "expedition/addsender", data: this.new_Sender, method: "POST" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           console.log(response.data);

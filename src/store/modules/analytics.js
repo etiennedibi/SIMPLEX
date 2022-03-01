@@ -1,4 +1,5 @@
-import Vue from "vue";
+// import Vue from "vue";
+import axios from "axios";
 const state = {
   analytics: "",
 };
@@ -19,9 +20,10 @@ const mutations = {
 
 const actions = {
   init_analitic: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/analytics/" +
+        "analytics/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

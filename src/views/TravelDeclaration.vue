@@ -197,7 +197,8 @@
 </template>
 
 <script>
-import Vue from "vue";
+// import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -262,9 +263,7 @@ export default {
           };
         }
       }
-      console.log(this.newTravel_1);
-      Vue.prototype.$http
-        .post("http://127.0.0.1:3333/travel/add", this.newTravel_1)
+      axios({ url: "travel/add", data: this.newTravel_1, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
           console.log(response.data);

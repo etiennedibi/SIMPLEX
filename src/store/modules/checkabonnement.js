@@ -1,5 +1,5 @@
-// import axios from "axios";
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 
 const state = {
 };
@@ -17,9 +17,10 @@ const mutations = {
 
 const actions = {
   init_check: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/station/check/" +
+        "station/check/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

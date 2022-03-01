@@ -367,7 +367,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -440,8 +440,7 @@ export default {
     },
 
     editItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/withdrawal/update", this.editedItem)
+        axios({ url: "withdrawal/update", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.withdrawalaAddingResponse = response.data;
           if (this.withdrawalaAddingResponse.message == "success") {
@@ -495,9 +494,9 @@ export default {
     },
           // confirm deleted of nature
     deleteItemConfirm() {
-      Vue.prototype.$http
+      axios
         .delete(
-          "http://127.0.0.1:3333/withdrawal/delete/" + this.itemToDelete.id
+          "withdrawal/delete/" + this.itemToDelete.id
         )
         .then((response) => {
           this.withdrawalaAddingResponse = response.data;
@@ -531,9 +530,9 @@ export default {
 
           // confirm deleted of one variante
     deleteItemVarinteConfirm() {
-      Vue.prototype.$http
+      axios
         .delete(
-          "http://127.0.0.1:3333/withdrawal/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "withdrawal/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.withdrawalaAddingResponse = response.data;

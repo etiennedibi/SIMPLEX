@@ -1,4 +1,5 @@
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   lostObjets: [],
 };
@@ -19,9 +20,10 @@ const mutations = {
 
 const actions = {
   init_lostObjet: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/lostObjet/Liste/" +
+        "lostObjet/Liste/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

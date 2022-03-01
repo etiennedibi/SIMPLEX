@@ -380,7 +380,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -539,8 +539,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/travel/cancellation", this.travelToDelete)
+        axios({ url: "travel/cancellation", data: this.travelToDelete, method: "PUT" })
         .then((response) => {
           this.travelDeleteResponse = response.data;
 
@@ -579,9 +578,7 @@ export default {
 
     editTravelConfirm() {
       this.fielsdChanged = this.changedField();
-      console.log(this.fielsdChanged);
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/travel/update", this.fielsdChanged)
+      axios({ url: "travel/update", data: this.fielsdChanged, method: "PUT" })
         .then((response) => {
           this.travelDeleteResponse = response.data;
           if (this.travelDeleteResponse.message == "success") {

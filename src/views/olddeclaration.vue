@@ -164,7 +164,9 @@
 </template>
 
 <script>
-import Vue from "vue";
+
+// import Vue from "vue";
+import axios from "axios";
 
 export default {
   name: "TravelDeclaration",
@@ -229,8 +231,7 @@ export default {
         }
       }
 
-      Vue.prototype.$http
-        .post("http://127.0.0.1:3333/travel/add", this.newTravel_1)
+      axios({ url: "travel/add", data: this.newTravel_1, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
           console.log(response.data);

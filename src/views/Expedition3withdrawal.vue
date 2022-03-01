@@ -160,7 +160,9 @@
 </template>
 
 <script>
-import Vue from "vue";
+
+// import Vue from "vue";
+import axios from "axios";
 import allWithdrawalsList from "../components/expeditionList/allWithdrawalsList.vue";
 
 export default {
@@ -194,9 +196,7 @@ export default {
 
   methods: {
     submit1() {
-      console.log(this.new_withdrawal.denomination);
-      Vue.prototype.$http
-        .post("http://127.0.0.1:3333/withdrawal/add", this.new_withdrawal)
+        axios({ url: "withdrawal/add", data: this.new_withdrawal, method: "POST" })
         .then((response) => {
           this.withdrawalaAddingResponse = response.data;
           console.log(response.data);

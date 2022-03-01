@@ -1,4 +1,5 @@
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   messages: [],
 
@@ -23,9 +24,10 @@ const mutations = {
 
 const actions = {
   init_message: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/station/message/list/" +
+        "station/message/list/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -35,9 +37,10 @@ const actions = {
   },
   message_view: ({ commit }, message_id) => {
     console.log('lo', message_id);
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .put(
-        "http://127.0.0.1:3333/message/view/update/" +
+        "message/view/update/" +
         message_id
       )
       .then((res) => {

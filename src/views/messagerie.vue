@@ -138,7 +138,6 @@ export default {
   methods: {
     submit1() {
       this.destDEf()
-      console.log(this.new_message);
       axios({ url: "station/message/add", data: this.new_message, method: "POST" })
       .then((response) => {
         this.messageaAddingResponse = response.data;

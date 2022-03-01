@@ -1,4 +1,5 @@
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   expedition: [],
   withdrawal: [],
@@ -30,9 +31,10 @@ const mutations = {
 
 const actions = {
   init_expedition: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/expedition/expeditionList/" +
+        "expedition/expeditionList/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -42,9 +44,10 @@ const actions = {
   },
 
   init_withdrawal: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/withdrawal/List/" +
+        "withdrawal/List/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

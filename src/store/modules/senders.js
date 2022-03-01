@@ -1,4 +1,5 @@
-import Vue from "vue";
+import axios from "axios";
+// import Vue from "vue";
 const state = {
   senders: [],
   availebleSenders: [],
@@ -30,9 +31,10 @@ const mutations = {
 
 const actions = {
   init_sender: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/expedition/senderList/" +
+        "expedition/senderList/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -42,9 +44,10 @@ const actions = {
   },
 
   init_availableSender: ({ commit }) => {
-    Vue.prototype.$http
+    // Vue.prototype.$http
+    axios
       .get(
-        "http://127.0.0.1:3333/expedition/availableSender/" +
+        "expedition/availableSender/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

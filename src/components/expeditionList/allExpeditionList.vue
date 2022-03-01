@@ -261,7 +261,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -363,12 +363,8 @@ export default {
         this.UpdateData.deliveryManID = this.choiceSender;
       }
       // console.log(this.UpdateData);
-
-      Vue.prototype.$http
-        .put(
-          "http://127.0.0.1:3333/expedition/ExpeditionStatUpdate",
-          this.UpdateData
-        )
+      
+      axios({ url: "expedition/ExpeditionStatUpdate", data: this.UpdateData, method: "PUT" })
         .then((response) => {
           this.ExpeitionUpdateResponse = response.data;
           console.log(response.data);

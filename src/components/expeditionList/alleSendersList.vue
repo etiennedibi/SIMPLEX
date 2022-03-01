@@ -293,7 +293,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -362,8 +362,7 @@ export default {
     },
 
     editItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/expedition/senderUpdate", this.editedItem)
+        axios({ url: "expedition/senderUpdate", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse.message == "success") {
@@ -408,8 +407,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/expedition/senderCancel", this.itemToDelete)
+        axios({ url: "expedition/senderCancel", data: this.itemToDelete, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 

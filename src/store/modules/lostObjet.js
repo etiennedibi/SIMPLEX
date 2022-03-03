@@ -6,7 +6,13 @@ const state = {
 
 const getters = {
   LostObjets: (state) => {
-    let lostObjet = state.lostObjets;
+    let lostObjet = state.lostObjets
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    for (let index = 0; index < lostObjet.length; index++) {
+      let date = new Date(lostObjet[index].created_at);
+      lostObjet[index].created_at = date.toLocaleDateString("fr", options)
+    }
 
     return lostObjet;
   },

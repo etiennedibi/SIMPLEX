@@ -10,42 +10,10 @@ const state = {
 const getters = {
   Travels: (state) => {
     let travelListe = state.travels.map((travel) => {
-      // convert the depparture time
-      let dayInLetter = [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ];
-      let MonthInLetter = [
-        "",
-        "Janvier",
-        "Fevrier",
-        "Mars",
-        "Avril",
-        "Mai",
-        "Juin",
-        "Juillet",
-        "Aout",
-        "Septembre",
-        "Octobre",
-        "Novembre",
-        "Decembre",
-      ];
+     
+      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       var date = new Date(travel.departure_date);
-      // For the day
-      var dayInNum = date.getDate();
-      var dayInNumber = date.getDay();
-      var day = dayInLetter[dayInNumber];
-      // For the month
-      var month = MonthInLetter[date.getMonth() + 1];
-
-      var year = date.getFullYear();
-      // var month = date.getMonth()+1;
-      var date_of_departure = day + " " + dayInNum + " " + month + " " + year;
+      var date_of_departure = date.toLocaleDateString("fr", options)
 
       let gain = travel.place_price * travel.reservedPlaceNumber;
       let restPlace =

@@ -18,7 +18,7 @@
     </div>
     <router-link :to="{ name: 'Messagerie' }">
       <div class="timeBox">
-        <div>35</div>
+        <!-- <div>35</div> -->
         <v-icon color="mainGreenColor" x-large class="messgaeicon"
           >mdi-email-outline</v-icon
         >

@@ -51,7 +51,7 @@
             <div class="CancelVerification">
               Nous rappelons que l'objet <b> {{ editedItem.nature }}</b
               >, égaré par le porteur du numero
-              <b>{{ editedItem.contact }}</b> ce décrit comme <br />
+              <b>{{ editedItem.contact }}</b> se décrit comme <br />
               <b>{{ editedItem.description }}</b> <br />
               <br />
               <span style="font-weight: bold; color: #b71c1c"

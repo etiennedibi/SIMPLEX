@@ -19,6 +19,7 @@
               label="Pseudo"
               persistent-hint
               required
+              v-on:keyup.enter="submit"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="12" md="6" lg="6">
@@ -34,6 +35,7 @@
               label="password"
               persistent-hint
               required
+              v-on:keyup.enter="submit"
             ></v-text-field>
           </v-col>
         </v-row>

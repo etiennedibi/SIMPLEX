@@ -139,6 +139,20 @@
                 </v-col>
 
                 <v-col cols="12" md="6" lg="6">
+                  <v-text-field
+                    background-color="#3e886d4a"
+                    solo
+                    height="70"
+                    v-model="newTravel_1.travel_duration"
+                    :rules="[() => !!newTravel_1.travel_duration]"
+                    ref="dur_time"
+                    type="time"
+                    label="Durée du voyage"
+                    persistent-hint
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" md="6" lg="6">
                   <v-btn
                     large
                     depressed
@@ -222,7 +236,7 @@ export default {
       total_car_place_number: "",
       place_price: "",
       Intemediatestation: "",
-
+      travel_duration: "",
       company_id: "1",
       user_id: "1",
     },

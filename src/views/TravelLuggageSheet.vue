@@ -49,7 +49,6 @@
                         type="number"
                         value=""
                         persistent-hint
-                        required
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="12" lg="6">
@@ -63,7 +62,6 @@
                         value=""
                         label="Taille max"
                         persistent-hint
-                        required
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="12" lg="6">
@@ -77,7 +75,6 @@
                         type="number"
                         label="Poids min"
                         persistent-hint
-                        required
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="12" lg="6">
@@ -90,7 +87,6 @@
                         v-model="new_luggage.max_weight"
                         label="Poids max"
                         persistent-hint
-                        required
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="12" lg="12">
@@ -202,6 +198,7 @@ export default {
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender1();
+              this.$refs.form1.reset();
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -215,7 +212,7 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.$refs.form1.reset();
+      
     },
 
     // For table re-render after delete or update an item

@@ -91,7 +91,7 @@ export default {
 
   data: () => ({
     /* FOR  PARIOD*/
-    periode: ["de l'année", "du trimestre", "du mois", "de la semaine"],
+    periode: ["de l'année", "du semestre", "du mois", "de la semaine"],
     chosingPerod: "de l'année",
     travelAnalyticsPeriod: 1,
     /* FOR  SERVICE STATS */
@@ -193,9 +193,9 @@ export default {
 
     // Analytics periode
     perodeDef() {
-      if (this.chosingPerod == "du trimestre") {
+      if (this.chosingPerod == "du semestre") {
         this.travelAnalyticsPeriod = 2;
-        this.chosingPerod = "du trimestre";
+        this.chosingPerod = "du semestre";
       } else if (this.chosingPerod == "du mois") {
         this.travelAnalyticsPeriod = 3;
         this.chosingPerod = "du mois";

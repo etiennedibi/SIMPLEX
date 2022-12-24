@@ -2,7 +2,7 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <img src="@/assets/img/team2.jpg" alt="" srcset="" />
+        <img src="@/assets/img/Station MINO.png" alt="" srcset="" />
       </div>
       <p>{{ uUser }}</p>
       <p v-if="role == 1">Gestion des voyages</p>
@@ -106,8 +106,8 @@ export default {
   align-items: center;
 }
 .profilImg > img {
-  height: 97%;
-  width: 97%;
+  height: 80%;
+  width: 100%;
   border-radius: 100px;
 }
 .profilBox p:nth-child(2) {

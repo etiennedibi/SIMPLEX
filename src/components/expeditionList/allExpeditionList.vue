@@ -9,7 +9,8 @@
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>LKLLPKSJFDNIK KNKDNKL</h2>
+                <h2>DETAILS D'EXPEDITION</h2>
+                <h4>{{ editedItem.luggage_Nature }}</h4>
               </div>
             </div>
             <div class="statElment">
@@ -19,6 +20,15 @@
                 <h4>
                   poids: {{ editedItem.package_weight }} kg / taille:
                   {{ editedItem.package_size }} m
+                </h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <div>
+                <h2>SOMME PAYEE</h2>
+                <h4>
+                  {{ editedItem.expedition_price }} frcfa
                 </h4>
               </div>
             </div>
@@ -37,7 +47,7 @@
             <div class="statElment">
               <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
               <div>
-                <h2>EXPEDITEUR</h2>
+                <h2>DESTINATAIRE</h2>
                 <h4>
                   {{ editedItem.recipient_complet_name }} /
                   {{ editedItem.recipient_city }},
@@ -162,7 +172,7 @@
             rounded
             small
             v-if="item.expedition_state_id == 7"
-            >changer de livreur</v-btn
+            >changer livreur</v-btn
           >
           <v-btn
             color="#848383"

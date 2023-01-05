@@ -102,8 +102,9 @@
                     v-model="newTravel_1.car_matriculation"
                     :rules="[() => !!newTravel_1.car_matriculation]"
                     ref="car_matri"
-                    type="text"
-                    label="Matricule du car"
+                    type="number"
+                    prefix="DEPART N°"
+                    label=""
                     persistent-hint
                     required
                   ></v-text-field>

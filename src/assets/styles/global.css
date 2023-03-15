@@ -17,11 +17,13 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
     --Principal-font:'Poppins', sans-serif;
 
     /* Background-color */
-    --main-white-color: #f9f9f9;
+    /* --main-white-color: #f9f9f9; */
+    --main-white-color: #f5f5ff;
     
     /* Important-color */
     --main-green-color : #3e886d;
     --Important-font-color: #4c5d70 ;
+    --main-blue-important: #037bb8;
    
     /* Font color */
     --font-color: #b6bbc2 ;
@@ -116,6 +118,8 @@ transform: translateX(-20px)
     top: 20px;
     left: 82%;
   }
+
+
 
 /*++++++++++++++++
 ===> TITLES <===

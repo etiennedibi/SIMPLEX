@@ -5,9 +5,11 @@
         </div> -->
 
     <div class="header2">
-      <div class="Header2logoBox">
-        <img src="@/assets/icone/2-MinoA.png" alt="" srcset="" />
-      </div>
+      <router-link :to="{ name: 'Dashboard' }">
+        <div class="Header2logoBox">
+          <img src="@/assets/icone/simplexLogo.jpeg" alt="" srcset="" />
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -63,7 +65,7 @@ export default {
   box-shadow: -1px 10px 23px -1px rgb(206 204 204 / 50%);
 }
 .Header2logoBox img {
-  height: 80px;
+  height: 90px;
   margin-bottom: 30px;
 }
 </style>

@@ -1,30 +1,14 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
-      <p class="sectionTitle">Déclaration de voyage</p>
+      <p class="sectionTitle">Enregistrement d'employer</p>
       <v-row>
-        <v-col cols="12" md="9" lg="9">
+        <v-col cols="12" md="12" lg="12">
           <v-form>
             <v-container fluid class="lolplp">
               <v-row>
-                <!-- <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    solo
-                    label="Append"
-                    append-icon="mdi-map-marker"
-                    height="70"
-                    v-model="newTravel_1.departure_place"
-                    ref="dep_place"
-                    type="text"
-                    value="Lieu de départ"
-                    persistent-hint
-                    required
-                    disabled
-                  ></v-text-field>
-                </v-col> -->
-                <v-col cols="12" md="6" lg="6">
-                  <v-text-field
-                    background-color="#3e886d4a"
                     solo
                     height="70"
                     v-model="newTravel_1.departure_date"
@@ -37,8 +21,9 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
+                    background-color="#356eea24"
                     solo
                     append-icon="mdi-map-marker"
                     height="70"
@@ -51,9 +36,8 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    background-color="#3e886d4a"
                     solo
                     height="70"
                     v-model="newTravel_1.departure_time"
@@ -65,7 +49,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
                     append-icon="mdi-car-seat"
@@ -79,9 +63,9 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    background-color="#3e886d4a"
+                    background-color="#356eea24"
                     solo
                     append-icon="mdi-clipboard-text"
                     height="70"
@@ -94,7 +78,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
                     append-icon="mdi-numeric"
@@ -109,9 +93,8 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    background-color="#3e886d4a"
                     solo
                     append-icon="mdi-cash-multiple"
                     height="70"
@@ -125,8 +108,9 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
+                    background-color="#356eea24"
                     solo
                     append-icon="mdi-bus-stop"
                     height="70"
@@ -139,9 +123,8 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    background-color="#3e886d4a"
                     solo
                     height="70"
                     v-model="newTravel_1.travel_duration"
@@ -152,12 +135,92 @@
                     persistent-hint
                   ></v-text-field>
                 </v-col>
+                
 
-                <v-col cols="12" md="6" lg="6">
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    append-icon="mdi-car-seat"
+                    height="70"
+                    v-model="newTravel_1.total_car_place_number"
+                    :rules="[() => !!newTravel_1.total_car_place_number]"
+                    ref="pla_number"
+                    type="number"
+                    label="Nombre de place à disponible"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    background-color="#356eea24"
+                    solo
+                    append-icon="mdi-clipboard-text"
+                    height="70"
+                    v-model="newTravel_1.car_informations"
+                    :rules="[() => !!newTravel_1.car_informations]"
+                    ref="car_infos"
+                    type="text"
+                    label="type de car. ex: climatisé, dernière generation ..."
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    append-icon="mdi-numeric"
+                    height="70"
+                    v-model="newTravel_1.car_matriculation"
+                    :rules="[() => !!newTravel_1.car_matriculation]"
+                    ref="car_matri"
+                    type="number"
+                    prefix="DEPART N°"
+                    label=""
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    append-icon="mdi-cash-multiple"
+                    height="70"
+                    v-model="newTravel_1.place_price"
+                    :rules="[() => !!newTravel_1.place_price]"
+                    ref="pl_price"
+                    type="number"
+                    label="Prix du ticket"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    background-color="#356eea24"
+                    solo
+                    append-icon="mdi-bus-stop"
+                    height="70"
+                    v-model="newTravel_1.Intemediatestation"
+                    ref="st_inter"
+                    type="text"
+                    label="station intermediaires"
+                    persistent-hint
+                    
+                  ></v-text-field>
+                </v-col>
+
+                
+
+
+
+
+                <v-col cols="12" md="4" lg="4">
                   <v-btn
                     large
                     depressed
-                    color="mainGreenColor"
+                    color="mainBlueColor"
                     v-on:click.prevent="submit1"
                     >Enregistrer</v-btn
                   >
@@ -166,22 +229,7 @@
             </v-container>
           </v-form>
         </v-col>
-        <v-col cols="12" md="3" lg="3" class="leftNumber">
-          <div class="stat1">
-            <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-bus</v-icon>
-            </div>
-            <h1>{{ Analytics.declaredTravelNumber }}</h1>
-            <h5>voyages declarés</h5>
-          </div>
-          <div class="stat1">
-            <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
-            </div>
-            <h1>{{ Analytics.cancellingTravelNumber }}</h1>
-            <h5>voyages Annulés</h5>
-          </div>
-        </v-col>
+        
       </v-row>
     </div>
     <transition name="slide">
@@ -398,7 +446,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #3e886d4a;
+  background: #356eea24;
   border-radius: 100px;
 }
 .stat1 h1 {

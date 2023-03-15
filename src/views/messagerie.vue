@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Messagerie</p>
+      <p class="sectionTitle">Communiqué</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
@@ -18,9 +18,9 @@
                     </v-col>
                     <v-col cols="12" md="12" lg="12" style="margin-top:-25px"> 
                       <v-text-field height="60" 
-                        background-color="#3e886d4a" 
+                        background-color="#356eea24" 
                         solo
-                        label="Objet"
+                        label="Titre"
                         append-icon="mdi-matrix"
                         ref="topic"
                         type="text"
@@ -38,7 +38,7 @@
                         clear-icon="mdi-close-circle"
                         rows="7"
                         name="input-7-4"
-                        label="Solo textarea"
+                        label="Communiqué"
                         class="the-message-area"
                         v-model="new_message.content"
                       ></v-textarea>
@@ -47,7 +47,8 @@
                       <v-btn
                         large
                         depressed
-                        color="mainGreenColor"
+                        color="mainBlueColor"
+                        style="color: white"
                         v-on:click.prevent="submit1"
                         >Enregistrer</v-btn
                       >
@@ -228,6 +229,7 @@ export default {
 <style scoped>
 .sectionTitle {
   margin: 0;
+  margin-left: 15px;
   margin-bottom: 5px;
   font-size: 18px;
   font-weight: bold;

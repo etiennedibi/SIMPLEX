@@ -1,22 +1,36 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Gestion des visites</p>
+      <p class="sectionTitle">Gestion des RDV</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
-              <v-form ref="form1">
-                <v-container fluid class="addluggage">
+              <v-form ref="form1" class="forme1">
+                <v-container fluid class="addwithdrawal">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
-                        label="Nature"
-                        append-icon="mdi-pen"
+                        label="Nom complet"
+                        append-icon="mdi-account-arrow-right"
                         ref="matri"
-                        v-model="new_luggage.denomination"
+                        v-model="new_withdrawal.denomination"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="60"
+                        background-color="#356eea24"
+                        solo
+                        label="Telephone"
+                        v-model="new_withdrawal.min_size"
+                        append-icon="mdi-phone"
                         type="text"
                         value=""
                         persistent-hint
@@ -27,86 +41,46 @@
                       <v-text-field
                         height="60"
                         solo
-                        label="Description"
-                        append-icon="mdi-file-document-edit-outline"
+                        label="email"
+                        append-icon="mdi-at"
                         ref="desc"
-                        v-model="new_luggage.description"
+                        v-model="new_withdrawal.description"
                         type="text"
                         value=""
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        background-color="#3e886d4a"
-                        solo
-                        label="Taille min"
-                        v-model="new_luggage.min_size"
-                        append-icon="mdi-arrow-up-down"
-                        ref="total_name"
-                        type="number"
-                        value=""
-                        persistent-hint
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        solo
-                        append-icon="mdi-arrow-up-down"
-                        ref="location"
-                        type="number"
-                        v-model="new_luggage.max_size"
-                        value=""
-                        label="Taille max"
-                        persistent-hint
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        background-color="#3e886d4a"
-                        solo
-                        append-icon="mdi-weight-kilogram"
-                        v-model="new_luggage.min_weight"
-                        ref="transport"
-                        type="number"
-                        label="Poids min"
-                        persistent-hint
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        solo
-                        append-icon="mdi-weight-kilogram"
-                        ref="pla_number"
-                        type="number"
-                        v-model="new_luggage.max_weight"
-                        label="Poids max"
-                        persistent-hint
-                      ></v-text-field>
-                    </v-col>
+                   
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
+                        background-color="#356eea24"
                         solo
-                        append-icon="mdi-cash-multiple"
-                        ref="cash"
-                        type="number"
-                        v-model="new_luggage.unit_price"
-                        label="Prix"
+                        v-model="new_withdrawal.min_weight"
+                        ref="transport"
+                        type="date"
+                        label="Date du RDV"
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
+                    <div style="width:100%; padding: 15px 10px 0px 10px">
+                      <v-textarea
+                        solo
+                        clearable
+                        clear-icon="mdi-close-circle"
+                        rows="3"
+                        name="input-7-4"
+                        label="Description"
+                        class="the-message-area"
+                      ></v-textarea>
+                    </div>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
                         large
                         depressed
-                        color="mainGreenColor"
+                        color="mainBlueColor"
                         style="color: white"
                         v-on:click.prevent="submit1"
                         >Enregistrer</v-btn
@@ -119,7 +93,9 @@
           </v-col>
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper ">
-              <allLuggageList :key="forceRerenderReturn"></allLuggageList>
+              <allWithdrawalsList
+                :key="forceRerenderReturn"
+              ></allWithdrawalsList>
             </div>
           </v-col>
         </v-row>
@@ -147,26 +123,27 @@
         class="alert"
         color="error"
       >
-        {{ luggageaAddingResponse.message }}</v-alert
+        {{ withdrawalaAddingResponse.message }}</v-alert
       >
     </transition>
   </div>
 </template>
 
 <script>
+
 // import Vue from "vue";
 import axios from "axios";
-import allLuggageList from "../components/travelListe/allLuggageList.vue";
+import allWithdrawalsList from "../components/expeditionList/allWithdrawalsList.vue";
 
 export default {
-  name: "TravelLuggage",
+  name: "VisiteDeclaration",
   components: {
-    allLuggageList,
+    allWithdrawalsList,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_luggage: {
+    new_withdrawal: {
       denomination: "",
       min_weight: "",
       max_weight: "",
@@ -177,28 +154,27 @@ export default {
       company_id: "",
     },
 
-    luggageaAddingResponse: "",
+    withdrawalaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
-    luggagecomponentKey1: 0,
+    withdrawalcomponentKey1: 0,
 
     // FOR ANALYTICS
-    // theNumberluggage = 0,
+    // theNumberwithdrawal = 0,
   }),
 
   methods: {
     submit1() {
-        axios({ url: "Luggage/add", data: this.new_luggage, method: "POST" })
+        axios({ url: "withdrawal/add", data: this.new_withdrawal, method: "POST" })
         .then((response) => {
-          this.luggageaAddingResponse = response.data;
+          this.withdrawalaAddingResponse = response.data;
           console.log(response.data);
-          if (this.luggageaAddingResponse.message == "success") {
+          if (this.withdrawalaAddingResponse.message == "success") {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender1();
-              this.$refs.form1.reset();
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -208,38 +184,36 @@ export default {
           }
         })
         .catch((error) => {
-          this.luggageaAddingResponse = error.message;
+          this.withdrawalaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
-      
+      this.$refs.form1.reset();
     },
 
     // For table re-render after delete or update an item
     forceRerender1() {
-      this.$store.state.luggagecomponentKey += 1;
+      this.$store.state.withdrawalcomponentKey += 1;
     },
   },
 
   computed: {
     forceRerenderReturn() {
-      return this.$store.state.luggagecomponentKey;
+      return this.$store.state.withdrawalcomponentKey;
     },
   },
 
   created() {
-    this.new_luggage.company_id = localStorage.getItem("user-station");
+    this.new_withdrawal.company_id = localStorage.getItem("user-station");
   },
 };
 </script>
 
 <style scoped>
-.TheBoxBody{
-    
-}
 .sectionTitle {
   margin: 0;
   margin-bottom: 5px;
+  margin-left: 15px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -247,27 +221,26 @@ export default {
   border-radius: 10px;
   background: white;
 }
-/* .rightBox,
+/* ,
 .middleBox {
-  height: 57vh;
+  height:58vh;
 } */
-/* .addluggage {
-  height: 57vh;
-  overflow-y: auto;
-} */
-.addluggage::-webkit-scrollbar {
+.addwithdrawal {
+  height: 465px;
+  /* background-color:red; */
+}
+.addwithdrawal::-webkit-scrollbar {
   width: 7px;
 }
-.addluggage::-webkit-scrollbar-track {
+.addwithdrawal::-webkit-scrollbar-track {
   background: rgb(255, 255, 255);
 }
 
-.addluggage::-webkit-scrollbar-thumb {
+.addwithdrawal::-webkit-scrollbar-thumb {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 1px solid rgb(255, 255, 255);
 }
-
 
 /* 
 .statWrapper{
@@ -287,29 +260,21 @@ export default {
 
 @media (min-width: 960px) {
   .col-md-12 {
-    height: 90px;
-    margin-bottom: -15px;
-  }
-  .col-md-6 {
-    height: 90px;
+    height: 85px;
     margin-bottom: -15px;
   }
 }
-
-
-
 /*++++++++++++++++
 ===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
 +++++++++++++++++*/
 @media screen and (min-width: 960px) and (max-width: 1264px){
-  .addluggage {
+  .addwithdrawal {
     height: 57vh;
     overflow-y: auto;
     overflow-x: hidden;
   }
   .v-btn:not(.v-btn--round).v-size--large {
     width: 100%;
-}
-    
+  } 
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="singInContentBox">
     <div class="signInHeaderBox">
-      <img src="@/assets/icone/2-MinoA.png" alt="" srcset="" />
+      <img src="@/assets/icone/simplexLogo.jpeg" alt="" srcset="" />
     </div>
     <v-form class="signInBodyBox">
       <div>
@@ -12,7 +12,7 @@
               rounded
               ref="deno"
               v-model="userCredentials.pseudo"
-              background-color="accent"
+              background-color="white"
               height="100"
               type="text"
               :rules="[() => !!userCredentials.pseudo]"
@@ -28,7 +28,7 @@
               rounded
               ref="anag"
               v-model="userCredentials.password"
-              background-color="accent"
+              background-color="white"
               height="100"
               type="password"
               :rules="[() => !!userCredentials.password]"
@@ -49,13 +49,13 @@
       </div>
       <div>
         <div class="submitBouton" v-on:click.prevent="submit">
-          <img src="@/assets/icone/right-arrowA.png" alt="" srcset="" />
+          <v-icon color="mainBlueColor" size="40">mdi-arrow-right-thin</v-icon>
         </div>
       </div>
     </v-form>
     <div class="signInFooterBox">
-      <img src="@/assets/icone/1-MinordC.png" alt="" />
-      <p>minord software suit</p>
+      <!-- <img src="@/assets/icone/1-MinordC.png" alt="" /> -->
+      <p>By Blooraid for the Bloostore </p>
     </div>
 
     <!-- ALERT -->
@@ -122,21 +122,7 @@ export default {
 .singInContentBox {
   height: 100vh;
   width: 100vw;
-  background-image: radial-gradient(
-    circle,
-    #67d1ac,
-    #5fc3a0,
-    #57b594,
-    #50a788,
-    #489a7c,
-    #459477,
-    #418e72,
-    #3e886d,
-    #3e886d,
-    #3e886d,
-    #3e886d,
-    #3e886d
-  );
+   background-image: radial-gradient(circle, #51c1fa, #3f9ed2, #2c7dab, #185e85, #004061);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -147,16 +133,16 @@ export default {
   height: 85vh;
   margin-top: -60vh;
   width: 40vw;
-  background: var(--main-white-color);
+  background:white;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   border-radius: 100%;
-  box-shadow: -1px 10px 23px -1px rgb(28 28 28 / 64%);
+  box-shadow: -1px 10px 23px -1px rgba(28, 28, 28, 0.384);
 }
 .signInHeaderBox img {
-  height: 140px;
-  margin-bottom: 30px;
+  height: 130px;
+  margin-bottom: 50px;
 }
 
 .signInBodyBox {
@@ -219,22 +205,22 @@ export default {
   height: 45px;
   width: 70px;
   border-radius: 10px;
-  background: var(--main-white-color);
-  box-shadow: 2px 6px 20px -1px rgb(28 28 28 / 64%);
+  background: white;
+  box-shadow: 2px 6px 20px -1px rgba(28, 28, 28, 0.384);
   cursor: pointer;
 }
 
 .signInFooterBox {
   height: 10vh;
   width: 60vw;
-  background: var(--main-white-color);
+  background: white;
   border-radius: 200% 200% 10% 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--main-green-color);
-  font-size: 23px;
-  box-shadow: -1px -10px 25px -1px rgb(28 28 28 / 64%);
+  color: var(--main-blue-important);
+  font-size: 20px;
+  box-shadow: -1px -10px 25px -1px rgba(28, 28, 28, 0.384);
 }
 .signInFooterBox img {
   height: 17px;

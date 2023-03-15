@@ -1,16 +1,34 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store";
+// import store from "../store";
 
 import Dashboard from "../views/Dashboard.vue";
+import RdvStory from "../views/rdvStory.vue";
+import VisiteDeclaration from "../views/VisiteDeclaration.vue";
+
 import TravelDeclaration from "../views/TravelDeclaration.vue";
-import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
+import StaffList from "../views/staffList.vue";
+import FicheEmploye from "../views/ficheEmploye.vue";
+
+
 import TravelLuggage from "../views/TravelLuggageSheet.vue";
 import lostObjectList from "../views/lostObjectList.vue";
 import TravelStat from "../views/travelStat.vue";
-import Livreurs from "../views/Expedition1Management.vue";
 import ExpeditionSheet from "../views/Expedition2Management.vue";
-import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
+// import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
+
+import CongeDemande from "../views/congeDemande.vue";
+import BilanConge from "../views/bilanConge.vue";
+import Congemanagment from "../views/congemanagment.vue";
+import CongeStory from "../views/congeStory.vue";
+
+
+import Contract from "../views/contactManagment.vue";
+import conge from "../views/congeManagment.vue";
+import WorkManagment from "../views/workManagment.vue";
+import ServiceManagment from "../views/serviceManagment.vue";
+
+
 import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
 
@@ -19,28 +37,28 @@ import abonnement from "../views/abonnementChekpage.vue";
 
 Vue.use(VueRouter);
 
-const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
-    next();
-    return;
-  }
-  next("/");
-};
+// const ifNotAuthenticated = (to, from, next) => {
+//   if (!store.getters.isAuthenticated) {
+//     next();
+//     return;
+//   }
+//   next("/");
+// };
 
-const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next();
-    return;
-  }
-  next("/login");
-};
+// const ifAuthenticated = (to, from, next) => {
+//   if (store.getters.isAuthenticated) {
+//     next();
+//     return;
+//   }
+//   next("/login");
+// };
 
 const routes = [
   {
     path: "/",
     name: "Dashboard",
     component: Dashboard,
-    beforeEnter: ifAuthenticated,
+    // beforeEnter: ifAuthenticated,
   },
   {
     path: "/Messagerie",
@@ -51,7 +69,12 @@ const routes = [
     path: "/param",
     name: "param",
     component: param,
-    beforeEnter: ifAuthenticated,
+    // beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/RdvStory",
+    name: "RdvStory",
+    component: RdvStory,
   },
   {
     path: "/TravelDeclaration",
@@ -59,9 +82,29 @@ const routes = [
     component: TravelDeclaration,
   },
   {
-    path: "/TravelBalanceSheet",
-    name: "TravelBalanceSheet",
-    component: TravelBalanceSheet,
+    path: "/Contract",
+    name: "Contract",
+    component: Contract,
+  },
+  {
+    path: "/conge",
+    name: "conge",
+    component: conge,
+  },
+  {
+    path: "/WorkManagment",
+    name: "WorkManagment",
+    component: WorkManagment,
+  },
+  {
+    path: "/ServiceManagment",
+    name: "ServiceManagment",
+    component: ServiceManagment,
+  },
+  {
+    path: "/VisiteDeclaration",
+    name: "VisiteDeclaration",
+    component: VisiteDeclaration,
   },
   {
     path: "/lostObjectList",
@@ -74,11 +117,6 @@ const routes = [
     component: TravelStat,
   },
   {
-    path: "/Livreurs",
-    name: "Livreurs",
-    component: Livreurs,
-  },
-  {
     path: "/ExpeditionSheet",
     name: "ExpeditionSheet",
     component: ExpeditionSheet,
@@ -89,15 +127,40 @@ const routes = [
     component: TravelLuggage,
   },
   {
-    path: "/Withdrawalsheet",
-    name: "Withdrawalsheet",
-    component: Withdrawalsheet,
+    path: "/StaffList",
+    name: "StaffList",
+    component: StaffList,
+  },
+  {
+    path: "/FicheEmploye",
+    name: "FicheEmploye",
+    component: FicheEmploye,
+  },
+  {
+    path: "/CongeDemande",
+    name: "CongeDemande",
+    component: CongeDemande,
+  },
+  {
+    path: "/BilanConge",
+    name: "BilanConge",
+    component: BilanConge,
+  },
+  {
+    path: "/Congemanagment",
+    name: "Congemanagment",
+    component: Congemanagment,
+  },
+  {
+    path: "/CongeStory",
+    name: "CongeStory",
+    component: CongeStory,
   },
   {
     path: "/login",
     name: "login",
     component: login,
-    beforeEnter: ifNotAuthenticated,
+    // beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,
     },
@@ -106,7 +169,7 @@ const routes = [
     path: "/abonnement",
     name: "abonnement",
     component: abonnement,
-    beforeEnter: ifNotAuthenticated,
+    // beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,
     },

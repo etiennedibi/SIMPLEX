@@ -1,16 +1,9 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Gestion des types de colis</p>
+      <p class="sectionTitle">Demande de congé</p>
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="9" lg="9">
-            <div class="numberWrapper ">
-              <allWithdrawalsList
-                :key="forceRerenderReturn"
-              ></allWithdrawalsList>
-            </div>
-          </v-col>
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
@@ -20,8 +13,8 @@
                       <v-text-field
                         height="60"
                         solo
-                        label="Nature"
-                        append-icon="mdi-pen"
+                        label="type de congé"
+                        append-icon="mdi-view-day"
                         ref="matri"
                         v-model="new_withdrawal.denomination"
                         type="text"
@@ -30,94 +23,64 @@
                         required
                       ></v-text-field>
                     </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="60"
+                        background-color="#356eea24"
+                        solo
+                        label="Date de début"
+                        v-model="new_withdrawal.min_size"
+                        ref="total_name"
+                        type="date"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
-                        label="Description"
-                        append-icon="mdi-file-document-edit-outline"
+                        label="Date de fin"
                         ref="desc"
                         v-model="new_withdrawal.description"
-                        type="text"
+                        type="date"
                         value=""
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="6">
+                   
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
-                        background-color="#3e886d4a"
+                        background-color="#356eea24"
                         solo
-                        label="Taille min"
-                        v-model="new_withdrawal.min_size"
-                        append-icon="mdi-arrow-up-down"
-                        ref="total_name"
-                        type="number"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        solo
-                        append-icon="mdi-arrow-up-down"
-                        ref="location"
-                        type="number"
-                        v-model="new_withdrawal.max_size"
-                        value=""
-                        label="Taille max"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
-                        background-color="#3e886d4a"
-                        solo
-                        append-icon="mdi-weight-kilogram"
+                        append-icon="mdi-numeric"
                         v-model="new_withdrawal.min_weight"
                         ref="transport"
                         type="number"
-                        label="Poids min"
+                        label="Nombre de jours"
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="6">
-                      <v-text-field
-                        height="60"
+                    <div style="width:100%; padding: 15px 10px 0px 10px">
+                      <v-textarea
                         solo
-                        append-icon="mdi-weight-kilogram"
-                        ref="pla_number"
-                        type="number"
-                        v-model="new_withdrawal.max_weight"
-                        label="Poids max"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        append-icon="mdi-cash-multiple"
-                        ref="cash"
-                        type="number"
-                        v-model="new_withdrawal.unit_price"
-                        label="Prix"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
+                        clearable
+                        clear-icon="mdi-close-circle"
+                        rows="3"
+                        name="input-7-4"
+                        label="Justification"
+                        class="the-message-area"
+                      ></v-textarea>
+                    </div>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
                         large
                         depressed
-                        color="mainGreenColor"
+                        color="mainBlueColor"
                         style="color: white"
                         v-on:click.prevent="submit1"
                         >Enregistrer</v-btn
@@ -126,6 +89,13 @@
                   </v-row>
                 </v-container>
               </v-form>
+            </div>
+          </v-col>
+          <v-col cols="12" md="9" lg="9">
+            <div class="numberWrapper ">
+              <allWithdrawalsList
+                :key="forceRerenderReturn"
+              ></allWithdrawalsList>
             </div>
           </v-col>
         </v-row>
@@ -166,7 +136,7 @@ import axios from "axios";
 import allWithdrawalsList from "../components/expeditionList/allWithdrawalsList.vue";
 
 export default {
-  name: "Withdrawalsheet",
+  name: "CongeDemande",
   components: {
     allWithdrawalsList,
   },
@@ -242,6 +212,7 @@ export default {
 <style scoped>
 .sectionTitle {
   margin: 0;
+  margin-left: 15px;
   margin-bottom: 5px;
   font-size: 18px;
   font-weight: bold;
@@ -255,7 +226,8 @@ export default {
   height:58vh;
 } */
 .addwithdrawal {
-  height: 100%;
+  height: 465px;
+  /* background-color:red; */
 }
 .addwithdrawal::-webkit-scrollbar {
   width: 7px;

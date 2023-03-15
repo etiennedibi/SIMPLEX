@@ -4,10 +4,12 @@
       <!-- <p class="sectionTitle">Chiffres Importants</p> -->
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="6" lg="6">
+          <v-col cols="12" md="8" lg="8">
             <div class="Jumbultron">
               <div>
-                <h2>101ème client</h2>
+                <h2>NIANGO Paul-Phillips</h2>
+                <p class="postP">Responsable RH</p>
+                <!-- <p class="postP2">niangopaul blooraid.com</p> -->
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   <br />
@@ -17,35 +19,50 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" md="3" lg="3">
+          <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper">
               <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-archive</v-icon>
+                <img src="@/assets/img/team2.jpg" alt="" srcset="" />
               </div>
-              <h1>10</h1>
-              <h5>Nouvelles tâches</h5>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper">
-              <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-truck-delivery</v-icon>
-              </div>
-              <h1>7</h1>
-              <h5 style="text-align:center">nouveaux Fichiers <br> partagés</h5>
             </div>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="9" lg="9">
-            <!-- <p class="sectionTitle">Statistique</p> -->
-            <div class="statWrapper">
-               <p><span>+</span> <span>17</span> <span>U Simplex</span> </p>
+          <v-col cols="12" md="4" lg="4">
+            <div class="statWrapper1">
+              <div>
+               <div><p><v-icon>mdi-manjaro</v-icon> </p>CV</div>
+               <div><p><v-icon>mdi-file-document-plus</v-icon> </p>motivation</div>
+               <div><p><v-icon>mdi-card-account-details</v-icon> </p>identité</div>
+              </div>
+              <div>
+               <div><p><v-icon>mdi-file-document-check</v-icon> </p>Fiche de post</div>
+               <div><p><v-icon>mdi-file-sign</v-icon> </p>  contat</div>
+              </div>
+               
             </div>
           </v-col>
-          <v-col cols="12" md="3" lg="3">
-            <div class="statWrapper1">
-              <h1>09:05</h1>
+          <v-col cols="12" md="4" lg="4">
+            <div class="statWrapper0">
+               <div class="depBox">
+                <div>
+                  <p><span>departement</span><br> Ressources Humaine</p>
+                  <p><span>Attribution</span><br>tache & conge</p>
+                  <p><span>Habitation</span><br> Abidjan, cocody</p>
+                  <p><span>contact</span><br> niango blooraid.com</p>
+                </div>
+                <div>CDD </div>
+               </div>
+            </div>
+          </v-col>
+          <v-col cols="12" md="4" lg="4">
+            <div class="statWrapper2">
+              <span>Prise de parole en public </span>
+              <span>Anglais </span>
+              <span>JavaScript </span>
+              <span>Gestion de projet </span>
+              <span>anglais </span>
+              <span>Analyse de donnée </span>
             </div>
           </v-col>
         </v-row>
@@ -58,7 +75,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Dashboard",
+  name: "FicheEmploye",
   components: {
     // HelloWorld
   },
@@ -202,22 +219,28 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
-  margin-top: 3%;
+  margin-top: 2%;
   height: 170px;
-  border-radius: 10px;
-  background: white;
+  border-radius: 10px 10px 10px 0px;
+  background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
+  /* background: white; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .N-icon {
-  height: 40px;
-  width: 40px;
+  height: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #356eea24;
+  background: #E5F3FA48;
+  border-radius: 100px;
+}
+.N-icon img{
+  height:100px;
+  width: 100px;
   border-radius: 100px;
 }
 .numberWrapper h1 {
@@ -239,52 +262,120 @@ export default {
   align-items: flex-start;
   padding-left: 30px;
   background: white;
-  background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
-  color: white;
+  color: var(--Important-font-color);
 }
-
-
-/* .Jumbultron h2{
- color: var(--Important-font-color);
-} */
 
 .Jumbultron p {
   font-size: 13px;
 }
 
+.postP{
+  margin-top: -2px;
+  font-weight: bold;
+ color: var(--main-blue-important);
+}
+.postP2{
+  margin-top: -12px;
+  /* font-weight: bold; */
+ color: var(--main-blue-important);
+}
 
-.statWrapper {
-  margin-top: 3%;
-  height: 230px;
+.statWrapper0 {
+  /* margin-top: 1%; */
+  height: 270px;
   border-radius: 10px;
   background: white;
-  display: flex;
+  /* display: flex;
   justify-content:center;
+  align-items: center; */
+}
+.depBox {
+  width:100%;
+  /* height: 100px; */
+  display: flex;
+  justify-content:space-between;
+  /* align-items: center; */
+  font-size:15px;
+  overflow: hidden;
+  /* background-color: red */
+  padding-left: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  /* background:red; */
+}
+.depBox div:nth-child(1) span{
+  font-weight: 100;
+  font-size:9px;
+  letter-spacing:3px;
+}
+.depBox div:nth-child(2){
+  height: 130px;
+  width: 130px;
+  margin-top:-28px;
+  margin-right:-28px;
+  background: linear-gradient(to right top,#9238ce, #037bb8, #356eea);
+  border-radius: 100px;
+  display: flex;
+  justify-content:flex-start;
   align-items: center;
+  padding-left:40px;
+  padding-top:30px;
+  font-weight: bold;
+  font-size:20px;
+  color: #fff;
 }
 
-.statWrapper span:nth-child(2){
-  font-size: 60px;
-  font-weight: bold;
-}
-.statWrapper span:nth-child(3){
-  font-weight: bold;
-  color:var(--font-color)
-}
+
+
 .statWrapper1 {
+  background: white ;
   height: 270px;
   border-radius: 10px;
   display: flex;
   justify-content:center;
   align-items: center;
-  background: white;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.statWrapper1 > div{
+  width: 200px;
+  /* background:red; */
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  margin-left: 5px;
+  font-size:8px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing:1px
 }
 .statWrapper1 p {
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
-.noteWrapper {
-  margin-top: 5%;
-  height: 80%;
+.statWrapper1 .v-icon {
+  font-size:35px;
+  color: var(--main-blue-important);
+}
+
+.statWrapper2 {
+  background: white ;
+  height: 270px;
+  border-radius: 10px;
+  padding: 30px;
+  /* display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap; */
+}
+.statWrapper2 > span{
+  border-radius: 5px;
+  font-size:12px;
+  background:var(--main-blue-important);
+  padding: 5px;
+  display:inline-block;
+  margin: 5px;
+  color:white;
 }
 
 </style>

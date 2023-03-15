@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="tableWrapperDiv">
     <!-- SHOW DIALOG -->
     <v-dialog v-model="dialog" max-width="370">
@@ -308,8 +308,8 @@
       <v-col cols="12" md="5" lg="5">
         <v-text-field
           v-model="search"
-          dense
-          outlined
+          height="50"
+          solo
           hide-details
           prepend-inner-icon="mdi-search"
           label="Rechercher"
@@ -647,6 +647,7 @@ export default {
   overflow-y: scroll;
   background: #ffffff;
   padding: 0;
+  margin-top: 15px;
 }
 .dataWrapper::-webkit-scrollbar {
   width: 20px;

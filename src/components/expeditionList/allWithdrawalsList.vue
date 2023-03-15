@@ -274,10 +274,9 @@
       <v-col cols="12" md="5" lg="5">
         <v-text-field
           v-model="search"
-          dense
-          outlined
+          solo
+          height="50"
           hide-details
-          prepend-inner-icon="mdi-search"
           label="Rechercher"
           class="theSeachBar"
         ></v-text-field>

@@ -2,13 +2,11 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <img src="@/assets/img/Station MINO.png" alt="" srcset="" />
+        <img src="@/assets/img/team2.jpg" alt="" srcset="" />
       </div>
-      <p>{{ uUser }}</p>
-      <p v-if="role == 1">Gestion des voyages</p>
-      <p v-if="role == 2">Gestion des Objets égarés</p>
-      <p v-if="role == 3">Gestion des colis</p>
-      <p v-if="role == 4">Administrateur mino de la gare</p>
+      <!-- <p>{{ uUser }}</p> -->
+      <p>NIANGO PAUL</p>
+      <p>responsable RH</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -19,10 +17,10 @@
     <router-link :to="{ name: 'Messagerie' }">
       <div class="timeBox">
         <!-- <div>35</div> -->
-        <v-icon color="mainGreenColor" x-large class="messgaeicon"
-          >mdi-email-outline</v-icon
+        <v-icon color="mainBlueColor" x-large class="messgaeicon"
+          >mdi-bullhorn-outline</v-icon
         >
-        <p>messagerie</p>
+        <p>communiqués</p>
       </div>
     </router-link>
     <div class="footerBox">
@@ -79,11 +77,11 @@ export default {
   top: 0;
   left: 0;
   z-index: 50;
-  background-color: white;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 10px 0px 23px -1px rgb(206 204 204 / 50%);
+  box-shadow: 10px 0px 23px -1px #cecccc80;
 }
 
 .profilBox {
@@ -100,13 +98,13 @@ export default {
   height: 105px;
   width: 105px;
   border-radius: 100px;
-  border: solid 3px var(--main-green-color);
+  border: solid 3px var(--main-blue-important);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .profilImg > img {
-  height: 80%;
+  height: 100%;
   width: 100%;
   border-radius: 100px;
 }
@@ -128,7 +126,7 @@ export default {
   padding: 8px;
   border-radius: 5px;
   color: white;
-  background: var(--main-green-color);
+  background: var(--main-blue-important);
   cursor: pointer;
 }
 .settingdiv {
@@ -137,7 +135,7 @@ export default {
   left: 130px;
   height: 30px;
   width: 30px;
-  border: solid 3px var(--main-green-color);
+  border: solid 3px var(--main-blue-important);
   border-radius: 100px;
   background: white;
   display: flex;
@@ -176,9 +174,13 @@ export default {
   text-align: center;
   color: var(--Important-font-color);
 }
+.timeBox p{
+  color: var(--main-blue-important);
+}
 .messgaeicon {
   font-size: 70px !important;
   margin-bottom: -20px;
+  transform: rotate(-25deg);
 }
 
 .footerBox {

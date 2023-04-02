@@ -4,7 +4,7 @@
       <p class="sectionTitle">Bilan des Congés</p>
       <v-row>
         <v-col cols="12" md="9" lg="9">
-          <allTravelList :key="forceRerender"></allTravelList>
+          <BilanList :key="forceRerender"></BilanList>
         </v-col>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
@@ -29,12 +29,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allTravelList from "../components/travelListe/allTravelList.vue";
+import BilanList from "../components/Conge/BilanList.vue";
 
 export default {
   name: "BilanConge",
   components: {
-    allTravelList,
+    BilanList,
   },
 
   data() {

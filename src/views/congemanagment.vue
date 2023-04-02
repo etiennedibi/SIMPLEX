@@ -4,7 +4,7 @@
       <p class="sectionTitle">Gestion des Congés</p>
       <v-row>
         <v-col cols="12" md="9" lg="9">
-          <allTravelList :key="forceRerender"></allTravelList>
+          <UserCongeList></UserCongeList>
         </v-col>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1 stat2">
@@ -29,12 +29,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allTravelList from "../components/travelListe/allTravelList.vue";
+import UserCongeList from "../components/Conge/UserCongeList.vue";
 
 export default {
   name: "Congemanagment",
   components: {
-    allTravelList,
+    UserCongeList,
   },
 
   data() {

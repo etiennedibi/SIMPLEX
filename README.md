@@ -1,4 +1,4 @@
-# mino_entreprise1
+# simplex
 
 ## Project setup
 ```

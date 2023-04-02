@@ -287,7 +287,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="Withdrawals"
+        :items="items"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -295,44 +295,53 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="editItem(item)"
+          <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="deleteItem(item)"
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+            ><v-icon small> mdi-account-cancel </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+            ><v-icon small> mdi-redo-variant </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+            ><v-icon small> mdi-account-check </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
         </template>
         <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainGreenColor">frcfa</span>
+          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
         </template>
         <template v-slot:[`item.min_weight`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.min_weight }}
-          <v-icon color="mainGreenColor" small v-if="item.min_weight != null">
+          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
             mdi-weight-kilogram
           </v-icon>
         </template>
         <template v-slot:[`item.max_weight`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.max_weight }}
-          <v-icon color="mainGreenColor" small v-if="item.max_weight != null">
+          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
             mdi-weight-kilogram
           </v-icon>
         </template>
         <template v-slot:[`item.min_size`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.min_size }}
-          <v-icon color="mainGreenColor" small v-if="item.min_size != null">
+          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
             mdi-arrow-up-down
           </v-icon>
         </template>
         <template v-slot:[`item.max_size`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.max_size }}
-          <v-icon color="mainGreenColor" small v-if="item.max_size != null">
+          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
             mdi-arrow-up-down
           </v-icon>
         </template>
@@ -378,19 +387,138 @@ export default {
     search: "",
     headers: [
       {
-        text: "NATURE",
+        text: "NOM",
         align: "start",
         sortable: false,
-        value: "denomination",
+        value: "name",
       },
-      { text: "MIN (kg)", value: "min_weight" },
-      { text: "MAX (kg)", value: "max_weight" },
-      { text: "MIN (m)", value: "min_size" },
-      { text: "MAX (m)", value: "max_size" },
-      { text: "PRIX", value: "unit_price" },
+      { text: "DATE", value: "date" },
+      { text: "HEURE", value: "post" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
-    desserts: [],
+    items: [
+      {
+        name: "Frozen Yao Partrick ",
+        date: "21-01-2021",
+        post: "10:00",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Ice cream ",
+        date: "01-01-2021",
+        post: "10:30",
+        details: {
+          vendus: 45,
+          aVendre: 45,
+          restant: 0,
+          annules: 5,
+          gains: 160000,
+        },
+      },
+      {
+        name: "Eclair",
+        date: "25-03-2021",
+        post: "14:30",
+        details: {
+          vendus: 30,
+          aVendre: 20,
+          restant: 10,
+          annules: 0,
+          gains: 350000,
+        },
+      },
+      {
+        name: "Cupcake",
+        date: "25-03-2021",
+        post: "12:39",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Gingerbread",
+        date: "25-04-2021",
+        post: "13:40",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Jelly bean",
+        date: "25-03-2021",
+        post: "09:30",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Lollipop",
+        date: "25-03-2021",
+        post: "09:30",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Honeycomb",
+        date: "15-02-2021",
+        post: "09:30",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "Donut",
+        date: "25-03-2021",
+        post: "09:30",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+      {
+        name: "KitKat",
+        date: "25-03-2021",
+        post: "20:00",
+        details: {
+          vendus: 30,
+          aVendre: 45,
+          restant: 15,
+          annules: 5,
+          gains: 150000,
+        },
+      },
+    ],
+
 
     // for alerte
     addingSuccess: false,

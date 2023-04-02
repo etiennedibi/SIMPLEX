@@ -20,7 +20,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
-          <allTravelList :key="forceRerender"></allTravelList>
+          <allVisitStory :key="forceRerender"></allVisitStory>
         </v-col>
       </v-row>
     </div>
@@ -29,12 +29,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allTravelList from "../components/travelListe/allTravelList.vue";
+import allVisitStory from "../components/Visite/allVisitStory";
 
 export default {
   name: "RdvStory",
   components: {
-    allTravelList,
+    allVisitStory,
   },
 
   data() {
@@ -55,10 +55,7 @@ export default {
 
   computed: {
     ...mapGetters(["Analytics"]),
-    forceRerender() {
-      return this.$store.state.travelcomponentKey;
-      // console.log(this.componentKey);
-    },
+    
   },
 };
 </script>

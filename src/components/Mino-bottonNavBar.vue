@@ -158,7 +158,7 @@
                 <p>CONTRATS</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'conge' }">
+            <router-link :to="{ name: 'congeType' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>CONGES</p>

@@ -7,7 +7,7 @@
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper formBox">
               <v-form ref="form1">
-                <v-container fluid class="addSender">
+                <v-container fluid class="addconge">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
@@ -16,6 +16,8 @@
                         append-icon="mdi-map-marker"
                         ref="location"
                         type="text"
+                        v-model="new_Conge.type_conge"
+                        :rules="[() => !!new_Conge.type_conge]"
                         value=""
                         label="Denomination"
                         persistent-hint
@@ -26,6 +28,8 @@
                       <v-textarea
                         solo
                         clearable
+                         v-model="new_Conge.description"
+                        :rules="[() => !!new_Conge.description]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
                         rows="8"
@@ -37,7 +41,8 @@
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
-
+                         v-model="new_Conge.cota_conge"
+                        :rules="[() => !!new_Conge.cota_conge]"
                         solo
                         append-icon="mdi-phone"
                         ref="pla_number"
@@ -67,13 +72,13 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-calendar-badge</v-icon>
               </div>
-              <h1>{{ SenderNumber }}</h1>
+              <h1>{{ congeNumber }}</h1>
               <h5 style="text-align: center">types</h5>
             </div>
           </v-col>
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper">
-              <allSendersList :key="forceRerenderReturn"></allSendersList>
+              <allCongeType></allCongeType>
             </div>
           </v-col>
           
@@ -90,7 +95,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Livreur Enregistré avec succes</v-alert
+        Type de congé Enregistré avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -102,7 +107,7 @@
         class="alert"
         color="error"
       >
-        {{ senderaAddingResponse.message }}</v-alert
+        Echec de l'Ajout</v-alert
       >
     </transition>
   </div>
@@ -110,47 +115,43 @@
 
 <script>
 import axios from "axios";
-import allSendersList from "../components/expeditionList/alleSendersList.vue";
+import allCongeType from "../components/Config/allCongeType.vue";
 
 export default {
   name: "conge",
   components: {
-    allSendersList,
+    allCongeType,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_Sender: {
-      complet_name: "",
-      contact: "",
-      city: "",
-      conveyance: "",
-      matriculation: "",
-      company_id: "",
+    new_Conge: {
+      type_conge: "",
+      cota_conge: "",
+      // city: "",
     },
 
-    senderaAddingResponse: "",
+    congeaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
-    sendercomponentKey1: 0,
+    congecomponentKey1: 0,
 
     // FOR ANALYTICS
-    // theNumberSender = 0,
+    // theNumberconge = 0,
   }),
 
   methods: {
     submit1() {
-      this.matriculeGeneration();
-      axios({ url: "expedition/addsender", data: this.new_Sender, method: "POST" })
+      axios({ url: "admin/store_type_conges", data: this.new_Conge, method: "POST" })
         .then((response) => {
-          this.senderaAddingResponse = response.data;
+          this.congeaAddingResponse = response.data;
           console.log(response.data);
-          if (this.senderaAddingResponse.message == "success") {
+          if (this.congeaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender1();
+              this.$store.dispatch("init_conge");
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -160,49 +161,26 @@ export default {
           }
         })
         .catch((error) => {
-          this.senderaAddingResponse = error.message;
+          this.congeaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
-      this.$refs.form1.reset();
     },
 
-    matriculeGeneration() {
-      let CurrentDate = new Date();
-      let time = CurrentDate.getTime();
-      let matricule = "SENDER" + time;
-
-      this.new_Sender.matriculation = matricule;
-    },
-
-    // For table re-render after delete or update an item
-    forceRerender1() {
-      this.$store.state.sendercomponentKey += 1;
-    },
+    
   },
 
   computed: {
-    forceRerenderReturn() {
-      return this.$store.state.sendercomponentKey;
-      // console.log(this.componentKey);
-    },
+    
 
-    SenderNumber() {
-      // let sernders = this.$store.getters.Senders
-      // for (let index = 0; index < sernders.length; index++) {
-      //     if (sernders[index].activation_state == 1) {
-
-      //     }
-
-      // }
-
-      return this.$store.getters.Senders.length;
-      // console.log(this.componentKey);
+    congeNumber() {
+ 
+      return this.$store.getters.Conges.length;
     },
   },
 
   created() {
-    this.new_Sender.company_id = localStorage.getItem("user-station");
+    // this.new_Conge.company_id = localStorage.getItem("user-station");
   },
 };
 </script>
@@ -230,7 +208,7 @@ export default {
 .middleBox {
   height: 57vh;
 } */
-/* .addSender {
+/* .addconge {
   height: 150px;
 } */
 

@@ -42,17 +42,18 @@ const actions = {
     return new Promise((resolve, reject) => {
       // The Promise used for router redirect in login
       commit("AUTH_REQUEST");
-      axios({ url: "user/login", data: user, method: "POST" })
+      axios({ url: "login", data: user, method: "POST" })
         .then((resp) => {
+          console.log('resp.data');
           if (resp.data.status == "error") {
             // in case of falling authentification {c'est Le moniteur qui a fait le son}
             const authError = resp.data;
             resolve(authError);
           }
-          const theuser = resp.data.user; //The UserData
-          localStorage.setItem("user-info", theuser.pseudo); // store UserPseudo in localstorage
-          localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
-          localStorage.setItem("user-station", theuser.company_id); // store UserStation in localstorage
+          const theuser = resp.data.userInfos; //The UserData
+          localStorage.setItem("user-info", theuser.username); // store UserName in localstorage
+          //localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
+          //localStorage.setItem("user-station", theuser.company_id);  store UserStation in localstorage
           localStorage.setItem("user-id", theuser.id); // store UserID in localstorage
 
           const token = resp.data.token.token; //The token

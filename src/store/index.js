@@ -12,6 +12,14 @@ import gestion from "./modules/gestion";
 import message from "./modules/message";
 import checkabonnement from "./modules/checkabonnement";
 
+import visites from "./modules/visites";
+import contract from "./modules/contract";
+import service from "./modules/service";
+import work from "./modules/work";
+import conge from "./modules/conge";
+
+
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -21,7 +29,7 @@ export default new Vuex.Store({
     lostObjetcomponentKey: 0,
     sendercomponentKey: 1,
     expeditioncomponentKey: 1,
-    withdrawalcomponentKey: 1,
+    visitcomponentKey1: 1,
 
     MessageListRerender:1,
 
@@ -44,5 +52,11 @@ export default new Vuex.Store({
     gestion,
     message,
     checkabonnement,
+
+    visites,
+    contract,
+    service,
+    work,
+    conge,
   },
 });

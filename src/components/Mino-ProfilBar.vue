@@ -6,7 +6,7 @@
       </div>
       <!-- <p>{{ uUser }}</p> -->
       <p>NIANGO PAUL</p>
-      <p>responsable RH</p>
+      <p>{{ uUser }}</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -64,7 +64,7 @@ export default {
 
   created() {
     this.uUser = localStorage.getItem("user-info");
-    this.role = localStorage.getItem("user-role");
+    // this.role = localStorage.getItem("user-role");
   },
 };
 </script>

@@ -24,7 +24,7 @@ import CongeStory from "../views/congeStory.vue";
 
 
 import Contract from "../views/contactManagment.vue";
-import conge from "../views/congeManagment.vue";
+import conge from "../views/congeTypeManagment.vue";
 import WorkManagment from "../views/workManagment.vue";
 import ServiceManagment from "../views/serviceManagment.vue";
 
@@ -87,8 +87,8 @@ const routes = [
     component: Contract,
   },
   {
-    path: "/conge",
-    name: "conge",
+    path: "/congeType",
+    name: "congeType",
     component: conge,
   },
   {

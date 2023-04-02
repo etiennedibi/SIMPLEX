@@ -11,12 +11,12 @@
               solo
               rounded
               ref="deno"
-              v-model="userCredentials.pseudo"
+              v-model="userCredentials.email"
               background-color="white"
               height="100"
               type="text"
-              :rules="[() => !!userCredentials.pseudo]"
-              label="Pseudo"
+              :rules="[() => !!userCredentials.email]"
+              label="email"
               persistent-hint
               required
               v-on:keyup.enter="submit"
@@ -32,7 +32,7 @@
               height="100"
               type="password"
               :rules="[() => !!userCredentials.password]"
-              label="password"
+              label="mot de passe"
               persistent-hint
               required
               v-on:keyup.enter="submit"
@@ -89,7 +89,7 @@ export default {
 
     // for companies adding
     userCredentials: {
-      pseudo: "",
+      email: "",
       password: "",
       softLevel: "station",
     },
@@ -106,7 +106,7 @@ export default {
         })
         .catch((authError) => {
           this.companyaddingResponse =
-            "Le Pseudo ou le mot de passe est incorrecte";
+            "Le email ou le mot de passe est incorrecte";
           this.addingfalse = !this.addingfalses;
           setTimeout(() => {
             this.addingfalse = false;
@@ -218,7 +218,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--main-blue-important);
+  color: black;
   font-size: 20px;
   box-shadow: -1px -10px 25px -1px rgba(28, 28, 28, 0.384);
 }

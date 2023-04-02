@@ -9,21 +9,21 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-toolbox</v-icon>
               </div>
-              <h1>17</h1>
+              <h1>{{workNumber}}</h1>
               <h5 style="text-align: center">Postes</h5>
             </div>
           </v-col>
           
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper">
-              <allSendersList :key="forceRerenderReturn"></allSendersList>
+              <allWorkList></allWorkList>
             </div>
           </v-col>
 
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper formBox">
               <v-form ref="form1">
-                <v-container fluid class="addSender">
+                <v-container fluid class="addwork">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
@@ -31,8 +31,8 @@
                         solo
                         ref="location"
                         type="text"
-                        v-model="new_Sender.city"
-                        :rules="[() => !!new_Sender.city]"
+                        v-model="new_Work.nom_fonction"
+                        :rules="[() => !!new_Work.nom_fonction]"
                         value=""
                         label="Denomination"
                         persistent-hint
@@ -49,6 +49,7 @@
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
+                        
                       ></v-textarea>
                     </div>
                     <v-col cols="12" md="12" lg="12">
@@ -79,7 +80,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Livreur Enregistré avec succes</v-alert
+        Fonction Enregistré avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -91,7 +92,7 @@
         class="alert"
         color="error"
       >
-        {{ senderaAddingResponse.message }}</v-alert
+       Echec de l'enregistrement</v-alert
       >
     </transition>
   </div>
@@ -99,47 +100,41 @@
 
 <script>
 import axios from "axios";
-import allSendersList from "../components/expeditionList/alleSendersList.vue";
+import allWorkList from "../components/Config/allWorkList.vue";
 
 export default {
   name: "WorkManagment",
   components: {
-    allSendersList,
+    allWorkList,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_Sender: {
-      complet_name: "",
-      contact: "",
-      city: "",
-      conveyance: "",
-      matriculation: "",
-      company_id: "",
+    new_Work: {
+      nom_fonction: "",
+      // description: "",
     },
 
-    senderaAddingResponse: "",
+    workaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
-    sendercomponentKey1: 0,
 
     // FOR ANALYTICS
-    // theNumberSender = 0,
+    // theNumberwork = 0,
   }),
 
   methods: {
     submit1() {
-      this.matriculeGeneration();
-      axios({ url: "expedition/addsender", data: this.new_Sender, method: "POST" })
+      axios({ url: "admin/store_fonction", data: this.new_Work, method: "POST" })
         .then((response) => {
-          this.senderaAddingResponse = response.data;
+          this.workaAddingResponse = response.data;
           console.log(response.data);
-          if (this.senderaAddingResponse.message == "success") {
+          if (this.workaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender1();
+              this.$store.dispatch("init_work");
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -149,52 +144,32 @@ export default {
           }
         })
         .catch((error) => {
-          this.senderaAddingResponse = error.message;
+          this.workaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
       this.$refs.form1.reset();
     },
 
-    matriculeGeneration() {
-      let CurrentDate = new Date();
-      let time = CurrentDate.getTime();
-      let matricule = "SENDER" + time;
-
-      this.new_Sender.matriculation = matricule;
-    },
-
-    // For table re-render after delete or update an item
-    forceRerender1() {
-      this.$store.state.sendercomponentKey += 1;
-    },
+ 
   },
 
   computed: {
-    forceRerenderReturn() {
-      return this.$store.state.sendercomponentKey;
-      // console.log(this.componentKey);
-    },
+   
 
-    SenderNumber() {
-      // let sernders = this.$store.getters.Senders
-      // for (let index = 0; index < sernders.length; index++) {
-      //     if (sernders[index].activation_state == 1) {
-
-      //     }
-
-      // }
-
-      return this.$store.getters.Senders.length;
-      // console.log(this.componentKey);
+    workNumber() {
+      return this.$store.getters.Works.length;
     },
   },
 
   created() {
-    this.new_Sender.company_id = localStorage.getItem("user-station");
+    // this.new_Work.company_id = localStorage.getItem("user-station");
   },
 };
+
 </script>
+
+
 
 <style scoped>
 .sectionTitle {
@@ -219,7 +194,7 @@ export default {
 .middleBox {
   height: 57vh;
 } */
-/* .addSender {
+/* .addwork {
   height: 150px;
 } */
 

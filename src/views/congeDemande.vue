@@ -7,7 +7,7 @@
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
-                <v-container fluid class="addwithdrawal">
+                <v-container fluid class="addcongeAsk">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
@@ -16,7 +16,7 @@
                         label="type de congé"
                         append-icon="mdi-view-day"
                         ref="matri"
-                        v-model="new_withdrawal.denomination"
+                        v-model="new_conge_ask.denomination"
                         type="text"
                         value=""
                         persistent-hint
@@ -29,7 +29,7 @@
                         background-color="#356eea24"
                         solo
                         label="Date de début"
-                        v-model="new_withdrawal.min_size"
+                        v-model="new_conge_ask.min_size"
                         ref="total_name"
                         type="date"
                         value=""
@@ -43,7 +43,7 @@
                         solo
                         label="Date de fin"
                         ref="desc"
-                        v-model="new_withdrawal.description"
+                        v-model="new_conge_ask.description"
                         type="date"
                         value=""
                         persistent-hint
@@ -57,7 +57,7 @@
                         background-color="#356eea24"
                         solo
                         append-icon="mdi-numeric"
-                        v-model="new_withdrawal.min_weight"
+                        v-model="new_conge_ask.min_weight"
                         ref="transport"
                         type="number"
                         label="Nombre de jours"
@@ -93,9 +93,8 @@
           </v-col>
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper ">
-              <allWithdrawalsList
-                :key="forceRerenderReturn"
-              ></allWithdrawalsList>
+              <UserCongeList
+              ></UserCongeList>
             </div>
           </v-col>
         </v-row>
@@ -111,7 +110,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Nouveau type Enregistré avec succes</v-alert
+        Demande effectuée</v-alert
       >
     </transition>
     <transition name="slide">
@@ -123,7 +122,7 @@
         class="alert"
         color="error"
       >
-        {{ withdrawalaAddingResponse.message }}</v-alert
+        Echec de la demande</v-alert
       >
     </transition>
   </div>
@@ -133,17 +132,17 @@
 
 // import Vue from "vue";
 import axios from "axios";
-import allWithdrawalsList from "../components/expeditionList/allWithdrawalsList.vue";
+import UserCongeList from "../components/Conge/UserCongeList.vue";
 
 export default {
   name: "CongeDemande",
   components: {
-    allWithdrawalsList,
+    UserCongeList,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_withdrawal: {
+    new_conge_ask: {
       denomination: "",
       min_weight: "",
       max_weight: "",
@@ -154,27 +153,26 @@ export default {
       company_id: "",
     },
 
-    withdrawalaAddingResponse: "",
+    congeAskaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
-    withdrawalcomponentKey1: 0,
+    congeAskcomponentKey1: 0,
 
     // FOR ANALYTICS
-    // theNumberwithdrawal = 0,
+    // theNumbercongeAsk = 0,
   }),
 
   methods: {
     submit1() {
-        axios({ url: "withdrawal/add", data: this.new_withdrawal, method: "POST" })
+        axios({ url: "congeAsk/add", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
-          this.withdrawalaAddingResponse = response.data;
+          this.congeAskaAddingResponse = response.data;
           console.log(response.data);
-          if (this.withdrawalaAddingResponse.message == "success") {
+          if (this.congeAskaAddingResponse.message == "success") {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender1();
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -184,27 +182,21 @@ export default {
           }
         })
         .catch((error) => {
-          this.withdrawalaAddingResponse = error.message;
+          this.congeAskaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
       this.$refs.form1.reset();
     },
 
-    // For table re-render after delete or update an item
-    forceRerender1() {
-      this.$store.state.withdrawalcomponentKey += 1;
-    },
   },
 
   computed: {
-    forceRerenderReturn() {
-      return this.$store.state.withdrawalcomponentKey;
-    },
+    
   },
 
   created() {
-    this.new_withdrawal.company_id = localStorage.getItem("user-station");
+    // this.new_conge_ask.company_id = localStorage.getItem("user-station");
   },
 };
 </script>
@@ -225,18 +217,18 @@ export default {
 .middleBox {
   height:58vh;
 } */
-.addwithdrawal {
+.addcongeAsk {
   height: 465px;
   /* background-color:red; */
 }
-.addwithdrawal::-webkit-scrollbar {
+.addcongeAsk::-webkit-scrollbar {
   width: 7px;
 }
-.addwithdrawal::-webkit-scrollbar-track {
+.addcongeAsk::-webkit-scrollbar-track {
   background: rgb(255, 255, 255);
 }
 
-.addwithdrawal::-webkit-scrollbar-thumb {
+.addcongeAsk::-webkit-scrollbar-thumb {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 1px solid rgb(255, 255, 255);
@@ -268,7 +260,7 @@ export default {
 ===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
 +++++++++++++++++*/
 @media screen and (min-width: 960px) and (max-width: 1264px){
-  .addwithdrawal {
+  .addcongeAsk {
     height: 57vh;
     overflow-y: auto;
     overflow-x: hidden;

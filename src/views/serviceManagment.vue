@@ -30,6 +30,13 @@
                         required
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
+                      <v-switch
+                        inset
+                        v-model="switch1"
+                        :label="`Visites ${dest}`"
+                      ></v-switch>
+                    </v-col>
                     <div style="width:100%; padding: 0px 10px; margin-top:5px;">
                       <v-textarea 
                         solo
@@ -135,7 +142,8 @@ export default {
     addingSuccess: false,
     addingfalse: false,
 
-
+    // FOR DEST CHOSING
+    switch1: false,
     // FOR ANALYTICS
     // theNumberservice = 0,
   }),
@@ -177,6 +185,10 @@ export default {
     serviceNumber() {
       return this.$store.getters.Services.length;
       // console.log(this.componentKey);
+    },
+
+    dest() {
+      return this.switch1? 'autorisées':'interdites'
     },
   },
 

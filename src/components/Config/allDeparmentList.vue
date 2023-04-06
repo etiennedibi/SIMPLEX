@@ -14,7 +14,7 @@
             <v-container>
               <div class="CancelVerification">
                 Cette action supprimera le service  <br />
-                <b>Communication</b> 
+                <b>{{editedItem.nom_departement}}</b> 
               </div>
               <div class="verificationAction">
                 <v-btn
@@ -61,7 +61,7 @@
                         solo
                         label="Denomination"
                         ref="matri"
-                        v-model="items.denomination"
+                        v-model="editedItem.nom_departement"
                         type="text"
                         value=""
                         persistent-hint
@@ -71,6 +71,7 @@
                     <div style="width:92%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
+                        v-model="editedItem.description_departement"
                         clearable
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
@@ -118,12 +119,8 @@
             </div>
             <div class="statElment">
               <div>
-                <h5>DETAILS</h5>
-                <h4 style="text-align:justify">{{ editedItem.nom_visiteur }} 
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                  Reprehenderit placeat maxime quaerat doloribus nulla quas 
-                  saepe hic! Quae architecto libero omnis reprehenderit 
-                  quasi repudiandae, eos amet voluptate. Optio, distinctio neque.
+                <h5>DESCRIPTION</h5>
+                <h4 style="text-align:justify">{{ editedItem.description_departement }} 
                 </h4>
               </div>
             </div>
@@ -152,7 +149,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="items"
+        :items="Services"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -397,27 +394,27 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.Senders.indexOf(item);
+      this.editedIndex = this.Services.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-        axios({ url: "expedition/senderUpdate", data: this.editedItem, method: "PUT" })
+        axios({ url: "admin/update_departments/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
-          if (this.senderaAddingResponse.message == "success") {
+          if (this.senderaAddingResponse) {
             // Modification effectuée
             this.senderaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_service");
             }, 3000);
-          } else if (this.senderaAddingResponse.message != "success") {
+          } else if (!this.senderaAddingResponse) {
             console.log(
-              "des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés"
+              "desion vous devriez rembourser les tickets déjà achetés"
             );
             // Modification effectuée
             this.addingfalse = !this.addingfalse;
@@ -442,26 +439,26 @@ export default {
     // delete a travel
     // --------------------
     deleteItem(item) {
-      this.editedIndex = this.Senders.indexOf(item);
+      this.editedIndex = this.Services.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.itemToDelete = { id: this.editedItem.id };
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-        axios({ url: "expedition/senderCancel", data: this.itemToDelete, method: "PUT" })
+        axios({ url: "admin/destroy_departments/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 
-          if (this.senderaAddingResponse.message == "success") {
+          if (this.senderaAddingResponse) {
             // Annulation effectuée
-            this.senderaAddingResponse.message = "Desactivation effectuée";
+            this.senderaAddingResponse.message = "Suppresion effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_service")
             }, 3000);
-          } else if (this.senderaAddingResponse.message != "success") {
+          } else if (!this.senderaAddingResponse) {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;

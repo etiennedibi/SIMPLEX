@@ -1,10 +1,47 @@
 <template>
-  <div class="bodyBox">
-    <div class="TheBoxBody ForTravelDeclaration">
-      <!-- <p class="sectionTitle">Liste des employés</p> -->
+  <div class="TheBoxBody">
+     <!-- SHOW DIALOG -->
+     <v-dialog v-model="dialogProjet" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <img src="@/assets/icone/visit.png" alt="" srcset="" />
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>VISITEUR</h5>
+                <h4>llll</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>EMAIL</h5>
+                <h4>lllll</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>TELEPHONE</h5>
+                <h4>lmmm</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              
+              <div>
+                <h5>MOTIF</h5>
+                <h4 style="text-align:justify">kdkooeei</h4>
+              </div>
+            </div>
+            
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-container fluid>
       <v-row>
-        <v-col cols="12" md="12" lg="12">
-           <div class="stationListboxWrapper">
+        <v-col cols="12" md="12" lg="12" class="box">
+          <div class="stationListboxWrapper">
             <v-data-iterator
               :items="items"
               :items-per-page.sync="itemsPerPage"
@@ -19,8 +56,9 @@
                   <v-col cols="12" md="4" lg="4">
                     <v-text-field
                       v-model="search"
-                      height="50"
+                      dense
                       solo
+                      height="50"
                       hide-details
                       prepend-inner-icon="mdi-search"
                       label="Rechercher"
@@ -30,24 +68,33 @@
                 </v-row>
 
                 <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
-                <!-- <v-dialog
+                <v-dialog
                   v-model="dialog"
-                  transition="dialog-bottom-transition"
                   width="1200"
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainGreenColor
                 >
                   <v-card tile>
+                    <!-- 
+                      transition="dialog-bottom-transition"
+                  
+                      <v-toolbar flat color="Importantcolor Importantcolor--text" >
+                              <v-btn icon dark @click="dialog = false">
+                                <v-icon class="Titlecolor--text">mdi-close</v-icon>
+                              </v-btn> 
+                              <v-toolbar-title>POUET</v-toolbar-title>
+                            </v-toolbar>             -->
+
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <MinoOneTravelCompany></MinoOneTravelCompany>
+                          <UserTaskList></UserTaskList>
                         </v-row>
                       </v-container>
                     </v-card-text>
                   </v-card>
-                </v-dialog> -->
+                </v-dialog>
                 <!-- END PRDUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
               </template>
 
@@ -61,19 +108,18 @@
                     lg="3"
                   >
                     <div
-                      :class="getClass(item.details.vendus)"
+                      class="InvBox"
                       @click="openDialog(item)"
                     >
                       <div>
-                        <img src="@/assets/img/team2.jpg" alt="" srcset="">
+                        <v-icon color="mainBlueColor">mdi-folder</v-icon>
                         <p>{{ item.name }}</p>
-                        <p>{{ item.post }}</p>
+                        <p>{{ item.date }}</p>
                       </div>
                       <div class="price">
-                        <v-icon>mdi-folder-eye</v-icon>
-                        <v-icon>mdi-folder-edit</v-icon>
-                        <v-icon>mdi-redo</v-icon>
-                        <v-icon>mdi-archive-arrow-down</v-icon>
+                        <v-btn icon color="mainBlueColor" @click.stop="showItem(item)"
+                          ><v-icon>mdi-dots-horizontal-circle</v-icon></v-btn>
+                        <p>{{ item.city }}</p>
                       </div>
                     </div>
                   </v-col>
@@ -110,24 +156,26 @@
             </v-data-iterator>
           </div>
         </v-col>
-        
       </v-row>
-    </div>
+    </v-container>
   </div>
 </template>
 
 <script>
-// import Vue from "vue";
+import UserTaskList from "./UserTaskList.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "StaffList",
-  components: {},
+  name: "UserProjetTaskList",
+
+  components: {
+    UserTaskList,
+  },
 
   data: () => ({
-    row: "check",
-    DayType: true,
-
+    // For the list dialog
+    dialog: false,
+    selectedItem: {},
     /* FOR DATA ITERATOR */
     itemsPerPageArray: [4, 8, 12],
     search: "",
@@ -136,12 +184,12 @@ export default {
     page: 1,
     itemsPerPage: 8,
     sortBy: "name",
-    keys: ["id", "name", "date", "post"],
+    keys: ["id", "name", "date", "heure"],
     items: [
       {
-        name: "Frozen ",
+        name: "Frozen Yogurt",
         date: "21-01-2021",
-        post: "dev Full stack",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -151,9 +199,9 @@ export default {
         },
       },
       {
-        name: "Ice cream ",
+        name: "Ice cream sandwich",
         date: "01-01-2021",
-        post: "chef projet",
+        heure: "09:00",
         details: {
           vendus: 45,
           aVendre: 45,
@@ -165,7 +213,7 @@ export default {
       {
         name: "Eclair",
         date: "25-03-2021",
-        post: "directeur general",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 20,
@@ -177,7 +225,7 @@ export default {
       {
         name: "Cupcake",
         date: "25-03-2021",
-        post: "Secretaire",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -189,7 +237,7 @@ export default {
       {
         name: "Gingerbread",
         date: "25-04-2021",
-        post: "commercial",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -201,7 +249,7 @@ export default {
       {
         name: "Jelly bean",
         date: "25-03-2021",
-        post: "dev front-end",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -213,7 +261,7 @@ export default {
       {
         name: "Lollipop",
         date: "25-03-2021",
-        post: "dev front-end",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -225,7 +273,7 @@ export default {
       {
         name: "Honeycomb",
         date: "15-02-2021",
-        post: "dev front-end",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -237,7 +285,7 @@ export default {
       {
         name: "Donut",
         date: "25-03-2021",
-        post: "dev front-end",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -249,7 +297,7 @@ export default {
       {
         name: "KitKat",
         date: "25-03-2021",
-        post: "UI/UX Designer",
+        heure: "09:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -260,8 +308,84 @@ export default {
       },
     ],
 
-    
+    // FOR PROJECT DETAILS
+    dialogProjet:false,
+    // POUR VOIR
+    editedItem: {},
+
+    // FOR STAT
+    series: [
+      {
+        // name: 'series1',
+        // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
+      },
+    ],
+    chartOptions: {
+      chart: {
+        id: "FirstChart",
+        type: "bar",
+        sparkline: {
+          enabled: true,
+        },
+      },
+      // dataLabels: {
+      //     enabled: false
+      // },
+      colors: ["#3e886d"],
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        categories: [
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Aug",
+          "Sep",
+          "Oct",
+        ],
+      },
+      // markers: {
+      //     size: 4,
+      //     colors: ['#4c5d70'],
+      //     strokeColor: '#FFF',
+      //     strokeWidth: 2,
+      //   },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          gradientToColors: ["#4c5d70"],
+          shadeIntensity: 1,
+          type: "horizontal",
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [0, 100, 100, 100],
+        },
+      },
+    },
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.updateChart();
+      this.showChart = true;
+    }, 500);
+  },
+
+  computed: {
+    ...mapGetters(["Analytics", "items"]),
+
+    numberOfPages() {
+      return Math.ceil(this.items.length / this.itemsPerPage);
+    },
+  },
 
   methods: {
     /* FOR DIFFERENCIATION BETWEEN PRODUCT */
@@ -287,65 +411,49 @@ export default {
       this.dialog = !this.dialog;
     },
 
-   
-  },
-
-  computed: {
-    ...mapGetters(["Analytics"]),
-  },
-
-  created() {
-    this.newTravel_1.company_id = localStorage.getItem("user-station");
-    this.newTravel_1.user_id = localStorage.getItem("user-id");
+     showItem(item) {
+      this.editedItem = Object.assign({}, item);
+      this.dialogProjet = true;
+    },
+    // ------------------------
+    // DATA
+    // ------------------------
+    updateChart() {
+      this.series[0] = this.Analytics.GraphData.series[5];
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: this.Analytics.GraphData.month,
+          },
+        },
+      };
+    },
   },
 };
 </script>
 
 <style scoped>
-/* .TheBoxBody{
-    height: 60vh;
-   
-} */
-
-.ForTravelDeclaration {
-  /* background: red; */
+.bodyBox {
+  height: inherit;
 }
 
-.sectionTitle {
-  margin: 0;
-  margin-left: 15px;
-  margin-bottom: 5px;
-  font-size: 18px;
-  font-weight: bold;
-  /* text-align: start; */
-}
-
-/* .ForTravelDeclaration > div:nth-child(2){
-  border-bottom: solid 0.5px var(--font-color);
-  margin: 0 45px;
-} */
-
-/* .v-form{
-  padding: 0 35px;
-} */
-
-.lolplp {
-  background: white;
+.statboxWrapper {
+  padding-top: 10px;
+  /* background: white; */
   border-radius: 10px;
-  padding: 20px;
+  height: 56.5vh;
+}
+.statboxWrapper h4 {
+  margin-left: 10px;
 }
 
-.col-lg-4,
-.col-md-4 {
-  padding-bottom: 0px;
+.statboxWrapper div {
+  height: 94.5%;
 }
-
-
-
-
 
 .stationListboxWrapper {
-  background: transparent;
+  /* background: white; */
   border-radius: 10px;
   /* height: 53vh; */
   padding: 15px;
@@ -365,50 +473,45 @@ export default {
 .price {
   padding-top: 25px;
   width: 40%;
-  /* height: 50px; */
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   z-index: 15px;
-  /* background:red; */
 }
 .price > p {
   font-size: 12px;
 }
 .price .v-icon {
-  margin-bottom: 5px;
-  font-size: 15px;
-  color: var(--main-blue-important);
+  font-size: 17px;
+  color: var(--Important-font-color);
 }
 
 .InvBox div:first-child {
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  /* background-color:red; */
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-.InvBox div:first-child img {
-  margin-top: 30px;
-  height: 50px;
-  width:50px;
-  border-radius: 100px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) var(--main-white-color);
+.InvBox div:first-child .v-icon {
+  margin-top: 20px;
+  font-size: 35px;
+  color: var(--font-color);
 }
 .InvBox div:first-child p:nth-child(2) {
-  font-size: 20px;
-  margin-bottom: -5px;
-  font-weight: bold;
-  color: var(--Important-font-color);
-}
-.InvBox div:first-child p:nth-child(3) {
   font-size: 15px;
+  font-weight: bold;
   color: var(--Important-font-color);
 }
 
 .InvBox2 {
   height: 170px;
   border-radius: 10px;
-  background: var(--main-blue-important);
+  background: #60674b;
   line-height: 10px;
   padding-left: 30px;
   color: white;
@@ -418,36 +521,80 @@ export default {
 .InvBox2 div:first-child {
   width: 70%;
 }
-.InvBox2 div:first-child img {
-  margin-top: 30px;
-  height: 50px;
-  width:50px;
-  border-radius: 100px;
-  border: solid 3px;
-  border-color: var(--main-white-color);
+.InvBox2 div:first-child .v-icon {
+  margin-top: 20px;
+  font-size: 35px;
+  color: #35373a;
 }
 .InvBox2 div:first-child p:nth-child(2) {
+  font-size: 30px;
   font-weight: bold;
   color: white;
-  font-size: 20px;
-  margin-bottom: -5px;
 }
 .InvBox2 div:first-child p:nth-child(3) {
   line-height: 15px;
 }
-.InvBox2 .price .v-icon {
-  font-size: 18px;
-  color:white;
-}
 
 /* FOR THE TRAVEL LISTE DIALOG */
 .splxoverlay {
-  width: 50% !important;
+  /* width: 50% !important; */
 }
 .theme--light.v-card {
-  background-color: #ffffff00;
+  background-color: #ffffff;
 }
 
+
+/* Show details */
+.showDialog{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imgAndTitle {
+  margin: 15px 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  border: solid 3px;
+  border-color: var(--main-blue-important) rgb(176, 176, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-nappy-1058959.jpg);
+  background-position: center;
+  background-size: cover; */
+}
+.imgAndTitle > img{
+  height:50px;
+  width:50px
+}
+
+
+.statElment {
+  margin-bottom: 20px;
+  display: flex;
+  text-align: center;
+  /* background-color:red; */
+}
+.statElment > div {
+  /* margin-left: 10px; */
+}
+.statElment h5 {
+  color: var(--main-blue-important);
+}
+
+.statusChange {
+  display: flex;
+  justify-content: center;
+}
 
 
 
@@ -472,28 +619,4 @@ export default {
   }
 }
 /*-------END------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (min-width: 960px) {
-  .col-md-6 {
-    height: 90px;
-  }
-}
 </style>

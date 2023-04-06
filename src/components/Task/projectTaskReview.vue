@@ -237,7 +237,7 @@
                       <v-text-field
                         height="60"
                         solo
-                        v-model="editedItem.date_rdv"
+                        v-model="editedItem.status"
                         ref="transport"
                         type="date"
                         label="Date du RDV"
@@ -312,7 +312,7 @@
                       <v-text-field
                         height="60"
                         solo
-                        v-model="editedItem.date_rdv"
+                        v-model="editedItem.status"
                         type="date"
                         value=""
                         persistent-hint
@@ -424,15 +424,13 @@
     </v-dialog>
     <!-- THE SEACH BAR -->
     <v-row>
-      <v-col cols="12" md="5" lg="5">
-        <v-text-field
-          v-model="search"
-          solo
-          height="50"
-          hide-details
-          label="Rechercher"
-          class="theSeachBar"
-        ></v-text-field>
+      <v-col cols="12" md="12" lg="12">
+        <p style="margin-bottom: 40px;"> 
+          <span style="font-size: 17px; font-weight: bold;">
+            REVU DU PROJET :
+          </span> 
+          CREATION DE LOT DE CONSOLATION
+        </p>
       </v-col>
     </v-row>
     <!-- START DATA TABLE -->
@@ -440,7 +438,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="UserVisites"
+        :items="items"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -452,59 +450,18 @@
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="item.auteur_visite == 'Ajouté depuis administration'" 
           @click="editItem(item)"
+          v-if="!item.status"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_COURS'))" @click="reportItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          >
-          <!-- <v-btn icon color="mainBlueColor" @click="reportItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          > -->
-          <v-btn icon color="mainBlueColor"  
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_COURS'))"
-           @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          >
-          <!-- <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          > -->
           <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          v-if="!item.status"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
         </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
+        <template v-slot:[`item.status`]="{ item }">
+          <div v-if="item.status" class="status" style="background: #0DA36C94;; color:white;">fait</div>
+          <div v-if="!item.status" class="status" style="background: #FC070794; color:white;">pas fait</div>
         </template>
       </v-data-table>
     </div>
@@ -540,7 +497,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "undoVisitList",
+  name: "projectTaskReview",
   components: {},
 
   data: () => ({
@@ -548,19 +505,18 @@ export default {
     search: "",
     headers: [
       {
-        text: "NOM",
+        text: "INTITULE",
         align: "start",
         sortable: true,
         value: "nom_visiteur",
       },
-      { text: "DATE", value: "date_rdv" },
-      { text: "HEURE", value: "heure_rdv" },
+      { text: "STATUS", value: "status", sortable: false },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     items: [
       {
-        nom_visiteur: "Frozen Yao Partrick ",
-        date_rdv: "21-01-2021",
+        nom_visiteur: "Mettre en place la maquette du projet palomo ",
+        status: false,
         heure_rdv: "10:00",
         details: {
           vendus: 30,
@@ -571,8 +527,8 @@ export default {
         },
       },
       {
-        nom_visiteur: "Ice cream ",
-        date_rdv: "01-01-2021",
+        nom_visiteur: "Realiser les emballage du pacquet",
+        status: false,
         heure_rdv: "10:30",
         details: {
           vendus: 45,
@@ -583,8 +539,8 @@ export default {
         },
       },
       {
-        nom_visiteur: "Eclair",
-        date_rdv: "25-03-2021",
+        nom_visiteur: "Jouer sur la designation du logo",
+        status: true,
         heure_rdv: "14:30",
         details: {
           vendus: 30,
@@ -595,81 +551,9 @@ export default {
         },
       },
       {
-        nom_visiteur: "Cupcake",
-        date_rdv: "25-03-2021",
+        nom_visiteur: "Appeler tous les participant au jeu concours",
+        status: true,
         heure_rdv: "12:39",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Gingerbread",
-        date_rdv: "25-04-2021",
-        heure_rdv: "13:40",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Jelly bean",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Lollipop",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Honeycomb",
-        date: "15-02-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Donut",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "KitKat",
-        date: "25-03-2021",
-        post: "20:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -692,7 +576,7 @@ export default {
       prenoms_visiteur: "",
       email_visiteur: "",
       contact_visiteur: "",
-      date_rdv: "",
+      status: "",
       heure_rdv: "",
       objet: "",
     },
@@ -1051,6 +935,14 @@ export default {
 .statusChange {
   display: flex;
   justify-content: center;
+}
+
+.status{
+  display:inline-block;
+  padding: 7px;
+  border-radius:50px;
+  font-size:11px;
+  font-weight: bold
 }
 
 /* Edit travel */

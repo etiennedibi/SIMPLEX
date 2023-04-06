@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
-      <p class="sectionTitle">Historique des visites</p>
+      <p class="sectionTitle">Historique des tâches</p>
       <v-row>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
@@ -9,14 +9,14 @@
               <v-icon color="mainBlueColor">mdi-account-clock</v-icon>
             </div>
             <h1>{{ visiteNumber }}</h1>
-            <h5>RDV Enregistrés</h5>
+            <h5>Tâches enregistrés</h5>
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
               <v-icon color="white">mdi-account-cancel</v-icon>
             </div>
             <h1 style="color: white">25</h1>
-            <h5 style="color: white">RDV annulés</h5>
+            <h5 style="color: white">Tâches éffectuées</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
@@ -32,7 +32,7 @@ import { mapGetters } from "vuex";
 import allVisitStory from "../components/Visite/allVisitStory";
 
 export default {
-  name: "RdvStory",
+  name: "taskStory",
   components: {
     allVisitStory,
   },

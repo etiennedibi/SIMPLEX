@@ -7,7 +7,6 @@ const state = {
 const getters = {
   Services: (state) => {
     let service = state.services;
-
     return service;
   },
 

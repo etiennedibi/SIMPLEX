@@ -3,8 +3,11 @@
     <div class="TheBoxBody ForTravelDeclaration">
       <p class="sectionTitle">Bilan des Congés</p>
       <v-row>
-        <v-col cols="12" md="9" lg="9">
-          <BilanList :key="forceRerender"></BilanList>
+        <v-col cols="12" md="4" lg="4">
+          <BilanTypeList></BilanTypeList>
+        </v-col>
+        <v-col cols="12" md="4" lg="4">
+          <BilanList></BilanList>
         </v-col>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
@@ -30,11 +33,14 @@
 <script>
 import { mapGetters } from "vuex";
 import BilanList from "../components/Conge/BilanList.vue";
+import BilanTypeList from "../components/Conge/BilanTypeList.vue";
+
 
 export default {
   name: "BilanConge",
   components: {
     BilanList,
+    BilanTypeList,
   },
 
   data() {

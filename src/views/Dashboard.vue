@@ -23,7 +23,7 @@
                 <v-icon color="mainBlueColor">mdi-archive</v-icon>
               </div>
               <h1>10</h1>
-              <h5>Nouvelles tâches</h5>
+              <h5>Tâches en cours</h5>
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">

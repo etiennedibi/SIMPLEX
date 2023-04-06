@@ -79,19 +79,25 @@
             <v-icon color="red" v-on:click.stop="tastMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="tastMenuClick = false">
-            <router-link :to="{ name: 'TravelDeclaration' }">
+            <router-link :to="{ name: 'TaskDeclaration' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>CREER UNE TÂCHE</p>
               </div>
             </router-link>
+            <router-link :to="{ name: 'UserTaskManage' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>GERER MES TÂCHES</p>
+              </div>
+            </router-link>
             <router-link :to="{ name: 'TravelBalanceSheet' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GERER LES TÂCHES</p>
+                <p>GERER LES FICHIERS</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'TravelLuggage' }">
+            <router-link :to="{ name: 'taskStory' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE</p>
@@ -123,7 +129,7 @@
             <router-link :to="{ name: 'BilanConge' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>BIAN DES DEMANDES</p>
+                <p>BILAN DES DEMANDES</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'Congemanagment' }">

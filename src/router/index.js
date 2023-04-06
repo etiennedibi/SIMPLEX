@@ -3,8 +3,16 @@ import VueRouter from "vue-router";
 // import store from "../store";
 
 import Dashboard from "../views/Dashboard.vue";
+
 import RdvStory from "../views/rdvStory.vue";
 import VisiteDeclaration from "../views/VisiteDeclaration.vue";
+
+import TaskDeclaration from "../views/TaskDeclaration.vue";
+import taskStory from "../views/taskStory.vue";
+import UserTaskManage from "../views/UserTaskManage.vue";
+
+
+
 
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import StaffList from "../views/staffList.vue";
@@ -105,6 +113,21 @@ const routes = [
     path: "/VisiteDeclaration",
     name: "VisiteDeclaration",
     component: VisiteDeclaration,
+  },
+  {
+    path: "/TaskDeclaration",
+    name: "TaskDeclaration",
+    component: TaskDeclaration,
+  },
+  {
+    path: "/taskStory",
+    name: "taskStory",
+    component: taskStory,
+  },
+  {
+    path: "/UserTaskManage",
+    name: "UserTaskManage",
+    component: UserTaskManage,
   },
   {
     path: "/lostObjectList",

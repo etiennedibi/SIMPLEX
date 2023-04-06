@@ -14,7 +14,7 @@
             <v-container>
               <div class="CancelVerification">
                 Cette action supprimera le type de congé  <br />
-                <b>Arrêt maladie</b> 
+                <b>{{editedItem.type_conge}}</b> 
               </div>
               <div class="verificationAction">
                 <v-btn
@@ -61,7 +61,7 @@
                         solo
                         label="Denomination"
                         ref="matri"
-                        v-model="editedItem.denomination"
+                        v-model="editedItem.type_conge"
                         type="text"
                         value=""
                         persistent-hint
@@ -76,7 +76,7 @@
                         background-color="#356eea24"
                         label="Nombre de jours"
                         ref="matri"
-                        v-model="editedItem.description"
+                        v-model="editedItem.cota_conge"
                         type="Number"
                         value=""
                         persistent-hint
@@ -87,6 +87,7 @@
                       <v-textarea
                         solo
                         clearable
+                        v-model="editedItem.description"
                         clear-icon="mdi-close-circle"
                         rows="5"
                         name="input-7-4"
@@ -240,14 +241,14 @@ export default {
     // For the table
     search: "",
     headers: [
-      { text: "CODE", value: "id" }, 
       {
         text: "TYPE DE CONTRAT",
         align: "start",
         sortable: false,
         value: "type_conge",
       },
-      { text: "DETAILS", value: "actions", sortable: false },
+      { text: "COTA INITIAL", value: "cota_conge" }, 
+      { text: "PLUS", value: "actions", sortable: false },
     ],
      
     // for alerte
@@ -289,7 +290,6 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      console.log('pooooooo');
       this.editedIndex = this.Conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
@@ -297,16 +297,17 @@ export default {
     },
 
     editItemConfirm() {
-        axios({ url: "expedition/congeUpdate", data: this.editedItem, method: "PUT" })
+      console.log(this.editedItem.id);
+        axios({ url: "admin/update_type_conges/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
-          if (this.congeaAddingResponse.message == "success") {
+          if (this.congeaAddingResponse) {
             // Modification effectuée
             this.congeaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_conge");
             }, 3000);
           } else if (this.congeaAddingResponse.message != "success") {
             console.log(
@@ -342,16 +343,17 @@ export default {
     },
 
     deleteItemConfirm() {
-        axios({ url: "expedition/congeCancel", data: this.itemToDelete, method: "PUT" })
+      axios({ url: "admin/destroy_type_conges/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
 
-          if (this.congeaAddingResponse.message == "success") {
+          if (this.congeaAddingResponse) {
             // Annulation effectuée
-            this.congeaAddingResponse.message = "Desactivation effectuée";
+            this.congeaAddingResponse.message = "suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_conge");
             }, 3000);
           } else if (this.congeaAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;

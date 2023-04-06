@@ -43,6 +43,8 @@
                       <v-textarea
                         solo
                         clearable
+                        v-model="new_Work.description"
+                        :rules="[() => !!new_Work.description]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
                         rows="9"

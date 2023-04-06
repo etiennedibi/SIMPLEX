@@ -40,7 +40,6 @@
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
                         height="60"
-                        background-color="#356eea24"
                         solo
                         label="Telephone"
                         v-model="new_visit.contact_visiteur"
@@ -55,7 +54,6 @@
                       <v-text-field
                         height="60"
                         solo
-                        background-color="#356eea24"
                         label="email"
                         append-icon="mdi-at"
                         ref="desc"
@@ -94,12 +92,33 @@
                         required
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="6" lg="6">
+                      <div style="display:flex; justify-content:space-around">
+                        <p>Durée de la visite</p> 
+                        <v-icon>mdi-arrow-right</v-icon>
+                      </div>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="6">
+                      <v-text-field
+                        height="60"
+                        solo
+                        background-color="#356eea24"
+                        v-model="new_visit.heure_rdv"
+                        ref="transport"
+                        type="time"
+                        label="heure"
+                        persistent-hint
+                        append-icon="mdi-timer"
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <div style="width:100%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
                         clearable
+                        background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="5"
+                        rows="3"
                         name="input-7-4"
                         v-model="new_visit.objet"
                         label="objet"

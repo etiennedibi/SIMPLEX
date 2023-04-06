@@ -303,20 +303,7 @@
       </v-card>
     </v-dialog>
 
-    <!-- THE SEACH BAR -->
-    <v-row>
-      <v-col cols="12" md="5" lg="5">
-        <v-text-field
-          v-model="search"
-          height="50"
-          solo
-          hide-details
-          prepend-inner-icon="mdi-search"
-          label="Rechercher"
-          class="theSeachBar"
-        ></v-text-field>
-      </v-col>
-    </v-row>
+    
     <!-- START DATA TABLE -->
     <div class="dataWrapper">
       <v-data-table
@@ -392,15 +379,8 @@ export default {
     items: ["Foo", "Bar", "Fizz", "Buzz"],
     search: "",
     headers: [
-      {
-        text: "TYPE",
-        align: "start",
-        sortable: false,
-        value: "destination",
-      },
-      { text: "COTA INITIAL", value: "departure_date" },
-      { text: "COTA EPUISE", value: "departure_time" },
-      { text: "COTA RESTANT", value: "departure_time"},
+      { text: "COTA EPUISE", value: "departure_time", sortable: false, },
+      { text: "COTA RESTANT", value: "departure_time", sortable: false,},
     ],
     desserts: [],
 

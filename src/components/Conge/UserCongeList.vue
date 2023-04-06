@@ -481,7 +481,7 @@ export default {
         value: "nom_visiteur",
       },
       { text: "DATE FIN", value: "date_rdv" },
-      { text: "DETAILS", value: "actions", sortable: false },
+      { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
       {

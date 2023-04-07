@@ -18,7 +18,7 @@
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="60"
+                        height="40"
                         solo
                         ref="location"
                         type="text"
@@ -44,7 +44,7 @@
                         v-model="new_service.description_departement"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="8"
+                        rows="4"
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
@@ -66,7 +66,7 @@
                     </v-col> -->
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
-                        large
+                        medium
                         depressed
                         color="mainBlueColor"
                         style="color: white"
@@ -208,7 +208,7 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
-  height: 100%; /*100% de Thebody qui est dans le CSS global*/
+  height: 55vh; /*100% de Thebody qui est dans le CSS global*/
   border-radius: 10px;
   background: white;
 }

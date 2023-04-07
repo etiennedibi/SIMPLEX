@@ -17,7 +17,7 @@
                       ></v-switch>
                     </v-col>
                     <v-col cols="12" md="12" lg="12" style="margin-top:-25px"> 
-                      <v-text-field height="60" 
+                      <v-text-field height="40" 
                         background-color="#356eea24" 
                         solo
                         label="Titre"
@@ -36,7 +36,7 @@
                         solo
                         clearable
                         clear-icon="mdi-close-circle"
-                        rows="7"
+                        rows="4"
                         name="input-7-4"
                         label="Communiqué"
                         class="the-message-area"
@@ -45,7 +45,7 @@
                     </div>
                     <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
                       <v-btn
-                        large
+                        medium
                         depressed
                         color="mainBlueColor"
                         style="color: white"
@@ -231,12 +231,13 @@ export default {
   margin: 0;
   margin-left: 15px;
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
 }
 .numberWrapper {
   border-radius: 10px;
   background: white;
+  height: 55vh;
 }
 /* .rightBox,
 .middleBox {

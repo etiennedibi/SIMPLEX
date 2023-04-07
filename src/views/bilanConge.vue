@@ -82,7 +82,7 @@ export default {
 .sectionTitle {
   margin: 0;
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   /* text-align: start; */
 }
@@ -94,7 +94,7 @@ export default {
 
 .stat1 {
   background: white;
-  height: 225px;
+  height: 26.2vh;
   border-radius: 10px;
   margin-bottom: 15px;
 
@@ -108,8 +108,8 @@ export default {
 
 }
 .N-icon {
-  height: 50px;
-  width: 50px;
+  height: 35px;
+  width: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,8 +120,8 @@ export default {
   background: #1A223124;
 }
 .stat1 h1 {
-  margin-bottom: -15px;
-  font-size: 45px;
+  margin-bottom: -10px;
+  font-size: 35px;
 }
 .stat1 h5 {
   color: var(--font-color);

@@ -10,6 +10,7 @@ import VisiteDeclaration from "../views/VisiteDeclaration.vue";
 import TaskDeclaration from "../views/TaskDeclaration.vue";
 import taskStory from "../views/taskStory.vue";
 import UserTaskManage from "../views/UserTaskManage.vue";
+import fileManage from "../views/fileManage.vue";
 
 
 
@@ -128,6 +129,11 @@ const routes = [
     path: "/UserTaskManage",
     name: "UserTaskManage",
     component: UserTaskManage,
+  },
+  {
+    path: "/FileManage",
+    name: "FileManage",
+    component: fileManage,
   },
   {
     path: "/lostObjectList",

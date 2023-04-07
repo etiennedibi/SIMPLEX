@@ -220,7 +220,7 @@ export default {
 }
 .numberWrapper {
   margin-top: 2%;
-  height: 170px;
+  height: 21vh;
   border-radius: 10px 10px 10px 0px;
   background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
   /* background: white; */
@@ -230,8 +230,8 @@ export default {
   align-items: center;
 }
 .N-icon {
-  height: 150px;
-  width: 150px;
+  height: 130px;
+  width: 130px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -239,8 +239,8 @@ export default {
   border-radius: 100px;
 }
 .N-icon img{
-  height:100px;
-  width: 100px;
+  height:80px;
+  width: 80px;
   border-radius: 100px;
 }
 .numberWrapper h1 {
@@ -253,7 +253,7 @@ export default {
 
 .Jumbultron {
   margin-top: 1%;
-  height: 170px;
+  height: 21vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -266,13 +266,14 @@ export default {
 }
 
 .Jumbultron p {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .postP{
   margin-top: -2px;
   font-weight: bold;
  color: var(--main-blue-important);
+ background-color: #fff;
 }
 .postP2{
   margin-top: -12px;
@@ -282,9 +283,10 @@ export default {
 
 .statWrapper0 {
   /* margin-top: 1%; */
-  height: 270px;
+  /* height: 220px; */
   border-radius: 10px;
   background: white;
+  height:33.5vh;
   /* display: flex;
   justify-content:center;
   align-items: center; */
@@ -295,9 +297,9 @@ export default {
   display: flex;
   justify-content:space-between;
   /* align-items: center; */
-  font-size:15px;
+  font-size:13px;
   overflow: hidden;
-  /* background-color: red */
+  /* background-color: red; */
   padding-left: 10px;
   text-transform: uppercase;
   font-weight: bold;
@@ -305,7 +307,7 @@ export default {
 }
 .depBox div:nth-child(1) span{
   font-weight: 100;
-  font-size:9px;
+  font-size:7px;
   letter-spacing:3px;
 }
 .depBox div:nth-child(2){
@@ -329,7 +331,7 @@ export default {
 
 .statWrapper1 {
   background: white ;
-  height: 270px;
+  height: 33.5vh;
   border-radius: 10px;
   display: flex;
   justify-content:center;
@@ -353,13 +355,13 @@ export default {
   /* margin-left: 10px; */
 }
 .statWrapper1 .v-icon {
-  font-size:35px;
+  font-size:25px;
   color: var(--main-blue-important);
 }
 
 .statWrapper2 {
   background: white ;
-  height: 270px;
+  height: 33.5vh;;
   border-radius: 10px;
   padding: 30px;
   /* display: flex;
@@ -370,9 +372,9 @@ export default {
 }
 .statWrapper2 > span{
   border-radius: 5px;
-  font-size:12px;
+  font-size:10px;
   background:var(--main-blue-important);
-  padding: 5px;
+  padding: 3px;
   display:inline-block;
   margin: 5px;
   color:white;

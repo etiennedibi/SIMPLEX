@@ -1,47 +1,44 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Demande de congé</p>
+      <p class="sectionTitle">Gestion des fichiers</p>
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="3" lg="3">
+          <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addcongeAsk">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center; margin-bottom:-25px">
+                     <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px" >
+                       <v-file-input
+                        chips
+                        height="80"
+                        solo
+                        label="choisir un fichier"
+                        prepend-icon=""
+                      ></v-file-input>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px">
                       <v-select
                         v-model="new_conge_ask.id_type_conge"
                         :items="Conges"
                         item-text="type_conge"
                         item-value="id"
-                        label="Type de congé"
+                        multiple
+                        label="Ajouter des collaborateurs"
                         solo
+                        height="80"
                       >
                       </v-select>
                     </v-col>
-                     <v-col cols="12" md="12" lg="12">
+                    <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px">
                       <v-text-field
-                        height="40"
-                        background-color="#356eea24"
+                        height="60"
                         solo
-                        label="Date de début"
-                        v-model="new_conge_ask.date_debut"
-                        ref="total_name"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                        solo
-                        label="Date de fin"
+                        label="Nouvelle itutilé du fichier"
                         ref="desc"
                         v-model="new_conge_ask.date_fin"
-                        type="date"
+                        type="text"
                         value=""
                         persistent-hint
                         required
@@ -49,34 +46,8 @@
                     </v-col>
                    
                     <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                        background-color="#356eea24"
-                        solo
-                        append-icon="mdi-numeric"
-                        v-model="new_conge_ask.nbre_jour"
-                        ref="transport"
-                        type="number"
-                        label="Nombre de jours"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <div style="width:100%; padding: 15px 10px 0px 10px">
-                      <v-textarea
-                        solo
-                        clearable
-                        clear-icon="mdi-close-circle"
-                        v-model="new_conge_ask.motif_conge"
-                        rows="3"
-                        name="input-7-4"
-                        label="Justification"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div>
-                    <v-col cols="12" md="12" lg="12">
                       <v-btn
-                        small
+                        large
                         depressed
                         color="mainBlueColor"
                         style="color: white"
@@ -90,10 +61,10 @@
               </v-form>
             </div>
           </v-col>
-          <v-col cols="12" md="9" lg="9">
+          <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper ">
-              <UserCongeList
-              ></UserCongeList>
+              <UserFileList
+              ></UserFileList>
             </div>
           </v-col>
         </v-row>
@@ -132,12 +103,12 @@
 // import Vue from "vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import UserCongeList from "../components/Conge/UserCongeList.vue";
+import UserFileList from "../components/Task/UserFileList.vue";
 
 export default {
-  name: "CongeDemande",
+  name: "fileManage",
   components: {
-    UserCongeList,
+    UserFileList,
   },
 
   data: () => ({
@@ -206,7 +177,7 @@ export default {
   margin: 0;
   margin-left: 15px;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
 }
 .numberWrapper {
@@ -219,7 +190,6 @@ export default {
 } */
 .addcongeAsk {
   height: 55vh;
-  overflow-y: auto;
   /* background-color:red; */
 }
 .addcongeAsk::-webkit-scrollbar {

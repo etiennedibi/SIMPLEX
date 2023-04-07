@@ -362,7 +362,7 @@
         <v-text-field
           v-model="search"
           solo
-          height="50"
+          height="30"
           hide-details
           label="Rechercher"
           class="theSeachBar"
@@ -385,8 +385,11 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+            ><v-icon small> mdi-account-group </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="editItem(item)"
+            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
@@ -397,9 +400,6 @@
           <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
             <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
           </v-btn> -->
-          <v-btn icon color="mainBlueColor" class="statuBtn">
-            <div class="status" style="background: #FC070794; color:white;">refusé</div>
-          </v-btn>
         </template>
         <template v-slot:[`item.unit_price`]="{ item }">
           {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
@@ -466,26 +466,25 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "UserCongeList",
+  name: "UserFileList",
   components: {},
 
   data: () => ({
     // For the table
     search: "",
     headers: [
-      { text: "DEMANDEUR", value: "heure_rdv" },
       {
-        text: "DATE DEBUT",
+        text: "INTITULE",
         align: "start",
         sortable: true,
         value: "nom_visiteur",
       },
-      { text: "DATE FIN", value: "date_rdv" },
-      { text: "DETAILS", value: "actions", sortable: false },
+      { text: "DATE", value: "date_rdv" },
+      { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
       {
-        nom_visiteur: "Frozen Yao Partrick ",
+        nom_visiteur: "Frozen Yao Partrick Frozen Yao Partrick Frozen Yao",
         date_rdv: "21-01-2021",
         heure_rdv: "10:00",
         details: {
@@ -518,90 +517,6 @@ export default {
           restant: 10,
           annules: 0,
           gains: 350000,
-        },
-      },
-      {
-        nom_visiteur: "Cupcake",
-        date_rdv: "25-03-2021",
-        heure_rdv: "12:39",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Gingerbread",
-        date_rdv: "25-04-2021",
-        heure_rdv: "13:40",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Jelly bean",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Lollipop",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Honeycomb",
-        date: "15-02-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Donut",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "KitKat",
-        date: "25-03-2021",
-        post: "20:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
         },
       },
     ],
@@ -638,7 +553,7 @@ export default {
     itemToDelete: "",
 
     // For Visite Accept
-    dialogAccept:true,
+    dialogAccept:false,
   }),
 
   methods: {

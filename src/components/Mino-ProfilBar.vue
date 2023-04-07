@@ -6,7 +6,7 @@
       </div>
       <!-- <p>{{ uUser }}</p> -->
       <p>NIANGO PAUL</p>
-      <p>{{ uUser }}</p>
+      <p>ADMIN{{ uUser }}</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -72,7 +72,7 @@ export default {
 <style scoped>
 .profilInformationBox {
   height: 100vh;
-  width: 230px;
+  width: 181px;
   position: fixed;
   top: 0;
   left: 0;
@@ -95,8 +95,8 @@ export default {
   border-bottom: solid 2px var(--main-white-color);
 }
 .profilImg {
-  height: 105px;
-  width: 105px;
+  height: 85px;
+  width: 85px;
   border-radius: 100px;
   border: solid 3px var(--main-blue-important);
   display: flex;
@@ -110,7 +110,7 @@ export default {
 }
 .profilBox p:nth-child(2) {
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: var(--Important-font-color);
   text-align: center;
@@ -121,7 +121,7 @@ export default {
   color: var(--font-color);
 }
 .profilBox p:nth-child(4) {
-  /* font-size: 13px; */
+  font-size: 13px;
   margin-top: -5px;
   padding: 8px;
   border-radius: 5px;
@@ -132,15 +132,18 @@ export default {
 .settingdiv {
   position: absolute;
   top: 12%;
-  left: 130px;
-  height: 30px;
-  width: 30px;
+  left: 100px;
+  height: 25px;
+  width: 25px;
   border: solid 3px var(--main-blue-important);
   border-radius: 100px;
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.settingdiv .v-icon{
+  font-size: 15px;
 }
 
 .timeBox {
@@ -178,7 +181,7 @@ export default {
   color: var(--main-blue-important);
 }
 .messgaeicon {
-  font-size: 70px !important;
+  font-size: 50px !important;
   margin-bottom: -20px;
   transform: rotate(-25deg);
 }
@@ -192,8 +195,8 @@ export default {
   align-items: center;
 }
 .locationBox div:nth-child(1) {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   margin-left: 7px;
   border-radius: 100px;
   border: solid 1px var(--font-color);
@@ -203,12 +206,12 @@ export default {
   align-items: center;
 }
 .locationBox div:nth-child(1) img {
-  height: 20px;
-  width: 20px;
+  height: 10px;
+  width: 10px;
 }
 .locationBox div:nth-child(2) {
-  font-size: 12px;
-  line-height: 5px;
+  font-size: 10px;
+  line-height: 8px;
 }
 .locationBox div:nth-child(2) p:nth-child(1) {
   color: var(--font-color);

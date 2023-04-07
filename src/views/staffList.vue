@@ -19,7 +19,7 @@
                   <v-col cols="12" md="4" lg="4">
                     <v-text-field
                       v-model="search"
-                      height="50"
+                      height="30"
                       solo
                       hide-details
                       prepend-inner-icon="mdi-search"
@@ -315,7 +315,7 @@ export default {
   margin: 0;
   margin-left: 15px;
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   /* text-align: start; */
 }
@@ -352,7 +352,7 @@ export default {
 }
 
 .InvBox {
-  height: 170px;
+  height: 130px;
   border-radius: 10px;
   background: white;
   line-height: 14px;
@@ -378,7 +378,7 @@ export default {
 }
 .price .v-icon {
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 12px;
   color: var(--main-blue-important);
 }
 
@@ -388,25 +388,25 @@ export default {
 
 .InvBox div:first-child img {
   margin-top: 30px;
-  height: 50px;
-  width:50px;
+  height: 40px;
+  width:40px;
   border-radius: 100px;
-  border: solid 3px;
+  border: solid 2px;
   border-color: var(--main-blue-important) var(--main-white-color);
 }
 .InvBox div:first-child p:nth-child(2) {
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: -5px;
   font-weight: bold;
   color: var(--Important-font-color);
 }
 .InvBox div:first-child p:nth-child(3) {
-  font-size: 15px;
+  font-size: 10px;
   color: var(--Important-font-color);
 }
 
 .InvBox2 {
-  height: 170px;
+  height: 130px;
   border-radius: 10px;
   background: var(--main-blue-important);
   line-height: 10px;
@@ -420,8 +420,8 @@ export default {
 }
 .InvBox2 div:first-child img {
   margin-top: 30px;
-  height: 50px;
-  width:50px;
+  height: 40px;
+  width:40px;
   border-radius: 100px;
   border: solid 3px;
   border-color: var(--main-white-color);
@@ -429,14 +429,14 @@ export default {
 .InvBox2 div:first-child p:nth-child(2) {
   font-weight: bold;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: -5px;
 }
 .InvBox2 div:first-child p:nth-child(3) {
-  line-height: 15px;
+  font-size: 12px;
 }
 .InvBox2 .price .v-icon {
-  font-size: 18px;
+  font-size: 12px;
   color:white;
 }
 

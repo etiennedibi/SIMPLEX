@@ -3,7 +3,7 @@
     <div class="TheBoxBody">
       <p class="sectionTitle">CREATION DE TÂCHE
         <v-btn
-          large
+          small
           depressed
           color="mainBlueColor"
           style="color: white"
@@ -21,7 +21,7 @@
                   <v-row>
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="40"
                         solo
                         label="Projet"
                         append-icon="mdi-account-arrow-right"
@@ -35,7 +35,7 @@
                     </v-col>
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="40"
                         solo
                         label="Exécutant"
                         append-icon="mdi-account-arrow-right"
@@ -49,7 +49,7 @@
                     </v-col>
                      <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="60"
+                        height="40"
                         solo
                         label="Telephone"
                         v-model="new_visit.contact_visiteur"
@@ -66,7 +66,7 @@
                         clearable
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="7"
+                        rows="4"
                         name="input-7-4"
                         v-model="new_visit.objet"
                         label="objet"
@@ -75,7 +75,7 @@
                     </div>
                     <v-col cols="12" md="8" lg="8">
                       <v-btn
-                        large
+                        medium
                         depressed
                         color="mainBlueColor"
                         style="color: white"
@@ -207,13 +207,13 @@ export default {
   margin: 0;
   margin-bottom: 5px;
   margin-left: 15px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
 }
 .sectionTitle .v-btn{
-  margin-right: 14px;
+  margin-right: 15px;
 } 
 .numberWrapper {
   border-radius: 10px;
@@ -224,7 +224,8 @@ export default {
   height:58vh;
 } */
 .addvisit {
-  height: 465px;
+  height: 55vh;
+  overflow-y: scroll;
   /* background-color:red; */
 }
 .addvisit::-webkit-scrollbar {

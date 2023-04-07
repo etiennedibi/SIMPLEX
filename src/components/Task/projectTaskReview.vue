@@ -426,7 +426,7 @@
     <v-row>
       <v-col cols="12" md="12" lg="12">
         <p style="margin-bottom: 40px;"> 
-          <span style="font-size: 17px; font-weight: bold;">
+          <span style="font-size: 14px; font-weight: bold;">
             REVU DU PROJET :
           </span> 
           CREATION DE LOT DE CONSOLATION
@@ -843,7 +843,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 465px;
+  height: 55vh;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -939,9 +939,9 @@ export default {
 
 .status{
   display:inline-block;
-  padding: 7px;
+  padding: 5px;
   border-radius:50px;
-  font-size:11px;
+  font-size:10px;
   font-weight: bold
 }
 

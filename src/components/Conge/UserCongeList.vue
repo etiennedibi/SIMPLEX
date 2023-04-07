@@ -362,7 +362,7 @@
         <v-text-field
           v-model="search"
           solo
-          height="50"
+          height="30"
           hide-details
           label="Rechercher"
           class="theSeachBar"
@@ -882,7 +882,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 465px;
+  height: 55vh;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -926,7 +926,8 @@ export default {
   display:inline-block;
   padding: 5px;
   border-radius:50px;
-  font-size:10px;
+  font-size:8px;
+  font-weight: bold
 }
 
 .theSeachBar {

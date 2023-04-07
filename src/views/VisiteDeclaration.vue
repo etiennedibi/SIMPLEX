@@ -11,7 +11,7 @@
                   <v-row>
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        small
                         solo
                         label="Nom"
                         append-icon="mdi-account-arrow-right"
@@ -25,7 +25,7 @@
                     </v-col>
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         solo
                         label="Prenoms"
                         append-icon="mdi-account-arrow-right"
@@ -39,7 +39,7 @@
                     </v-col>
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         solo
                         label="Telephone"
                         v-model="new_visit.contact_visiteur"
@@ -52,7 +52,7 @@
                     </v-col>
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         solo
                         label="email"
                         append-icon="mdi-at"
@@ -67,7 +67,7 @@
                    
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         background-color="#356eea24"
                         solo
                         v-model="new_visit.date_rdv"
@@ -80,7 +80,7 @@
                     </v-col>
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         solo
                         background-color="#356eea24"
                         v-model="new_visit.heure_rdv"
@@ -100,7 +100,7 @@
                     </v-col>
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
-                        height="60"
+                        height="30"
                         solo
                         background-color="#356eea24"
                         v-model="new_visit.heure_rdv"
@@ -259,7 +259,7 @@ export default {
   margin: 0;
   margin-bottom: 5px;
   margin-left: 15px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
 }
 .numberWrapper {
@@ -271,7 +271,9 @@ export default {
   height:58vh;
 } */
 .addvisit {
-  height: 465px;
+  height: 55vh;  
+  overflow-y:scroll
+  /* height: 57vh; */
   /* background-color:red; */
 }
 .addvisit::-webkit-scrollbar {
@@ -303,20 +305,20 @@ export default {
     margin-left: 10px;
 } */
 
-@media (min-width: 960px) {
+@media (min-width: 930px) {
   .col-lg-6 {
     height: 85px;
     margin-bottom: -15px;
   }
   .col-md-6 {
-    height: 85px;
+    height: 75px;
     margin-bottom: -15px;
   }
 }
 /*++++++++++++++++
-===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
+===> MEDIUM Large tablet to laptop	930px > < 1264px*<===
 +++++++++++++++++*/
-@media screen and (min-width: 960px) and (max-width: 1264px){
+@media screen and (min-width: 930px) and (max-width: 1264px){
   .addvisit {
     height: 57vh;
     overflow-y: auto;

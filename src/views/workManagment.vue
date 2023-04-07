@@ -27,7 +27,7 @@
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="60"
+                        height="40"
                         solo
                         ref="location"
                         type="text"
@@ -47,7 +47,7 @@
                         :rules="[() => !!new_Work.description]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="9"
+                        rows="7"
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
@@ -56,7 +56,7 @@
                     </div>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
-                        large
+                        medium
                         depressed
                         color="mainBlueColor"
                         style="color: white"
@@ -178,11 +178,11 @@ export default {
   margin: 0;
   margin-left: 15px;
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
 }
 .numberWrapper {
-  height: 100%; /*100% de Thebody qui est dans le CSS global*/
+  height: 55vh; /*100% de Thebody qui est dans le CSS global*/
   border-radius: 10px;
   background: white;
 }

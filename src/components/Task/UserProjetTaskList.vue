@@ -460,7 +460,7 @@ export default {
 }
 
 .InvBox {
-  height: 170px;
+  /* height: 130px; */
   border-radius: 10px;
   background: white;
   line-height: 14px;
@@ -471,7 +471,7 @@ export default {
 }
 
 .price {
-  padding-top: 25px;
+  padding-top: 15px;
   width: 40%;
   height: 50px;
   display: flex;
@@ -484,7 +484,7 @@ export default {
   font-size: 12px;
 }
 .price .v-icon {
-  font-size: 17px;
+  font-size: 15px;
   color: var(--Important-font-color);
 }
 
@@ -499,11 +499,11 @@ export default {
 
 .InvBox div:first-child .v-icon {
   margin-top: 20px;
-  font-size: 35px;
+  font-size: 25px;
   color: var(--font-color);
 }
 .InvBox div:first-child p:nth-child(2) {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   color: var(--Important-font-color);
 }

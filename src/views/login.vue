@@ -13,7 +13,7 @@
               ref="deno"
               v-model="userCredentials.email"
               background-color="white"
-              height="100"
+              height="90"
               type="text"
               :rules="[() => !!userCredentials.email]"
               label="email"
@@ -29,7 +29,7 @@
               ref="anag"
               v-model="userCredentials.password"
               background-color="white"
-              height="100"
+              height="90"
               type="password"
               :rules="[() => !!userCredentials.password]"
               label="mot de passe"
@@ -141,8 +141,8 @@ export default {
   box-shadow: -1px 10px 23px -1px rgba(28, 28, 28, 0.384);
 }
 .signInHeaderBox img {
-  height: 130px;
-  margin-bottom: 50px;
+  height: 110px;
+  margin-bottom: 30px;
 }
 
 .signInBodyBox {
@@ -163,7 +163,7 @@ export default {
 }
 /* .signInBodyBox div:first-child input{
     height: 90px;
-    width: 320px;
+    width: 55vh;
     border: none;
     border-radius: 20px;
     text-align: center;
@@ -202,8 +202,8 @@ export default {
 }
 .submitBouton {
   padding-left: 12px;
-  height: 45px;
-  width: 70px;
+  height: 35px;
+  width: 65px;
   border-radius: 10px;
   background: white;
   box-shadow: 2px 6px 20px -1px rgba(28, 28, 28, 0.384);
@@ -219,7 +219,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   box-shadow: -1px -10px 25px -1px rgba(28, 28, 28, 0.384);
 }
 .signInFooterBox img {

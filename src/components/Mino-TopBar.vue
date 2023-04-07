@@ -42,10 +42,10 @@ export default {
 
 .header2 {
   width: 100%;
-  width: 85vw;
-  margin-left: 230px;
+  width: 81vw;
+  margin-left: 200px;
   position: fixed;
-  top: -270px;
+  top: -290px;
   left: 0;
   /* background: red; */
   display: flex;
@@ -65,7 +65,7 @@ export default {
   box-shadow: -1px 10px 23px -1px rgb(206 204 204 / 50%);
 }
 .Header2logoBox img {
-  height: 90px;
-  margin-bottom: 30px;
+  height: 80px;
+  margin-bottom: 15px;
 }
 </style>

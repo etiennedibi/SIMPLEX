@@ -10,7 +10,7 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.departure_date"
                     :rules="[() => !!newTravel_1.departure_date]"
                     ref="dep_date"
@@ -26,7 +26,7 @@
                     background-color="#356eea24"
                     solo
                     append-icon="mdi-map-marker"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.destination"
                     :rules="[() => !!newTravel_1.destination]"
                     ref="dest_place"
@@ -39,7 +39,7 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.departure_time"
                     :rules="[() => !!newTravel_1.departure_time]"
                     ref="dep_time"
@@ -53,7 +53,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-car-seat"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.total_car_place_number"
                     :rules="[() => !!newTravel_1.total_car_place_number]"
                     ref="pla_number"
@@ -68,7 +68,7 @@
                     background-color="#356eea24"
                     solo
                     append-icon="mdi-clipboard-text"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.car_informations"
                     :rules="[() => !!newTravel_1.car_informations]"
                     ref="car_infos"
@@ -82,7 +82,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-numeric"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.car_matriculation"
                     :rules="[() => !!newTravel_1.car_matriculation]"
                     ref="car_matri"
@@ -97,7 +97,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-cash-multiple"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.place_price"
                     :rules="[() => !!newTravel_1.place_price]"
                     ref="pl_price"
@@ -113,7 +113,7 @@
                     background-color="#356eea24"
                     solo
                     append-icon="mdi-bus-stop"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.Intemediatestation"
                     ref="st_inter"
                     type="text"
@@ -126,7 +126,7 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.travel_duration"
                     :rules="[() => !!newTravel_1.travel_duration]"
                     ref="dur_time"
@@ -141,7 +141,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-car-seat"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.total_car_place_number"
                     :rules="[() => !!newTravel_1.total_car_place_number]"
                     ref="pla_number"
@@ -156,7 +156,7 @@
                     background-color="#356eea24"
                     solo
                     append-icon="mdi-clipboard-text"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.car_informations"
                     :rules="[() => !!newTravel_1.car_informations]"
                     ref="car_infos"
@@ -170,7 +170,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-numeric"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.car_matriculation"
                     :rules="[() => !!newTravel_1.car_matriculation]"
                     ref="car_matri"
@@ -185,7 +185,7 @@
                   <v-text-field
                     solo
                     append-icon="mdi-cash-multiple"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.place_price"
                     :rules="[() => !!newTravel_1.place_price]"
                     ref="pl_price"
@@ -201,7 +201,7 @@
                     background-color="#356eea24"
                     solo
                     append-icon="mdi-bus-stop"
-                    height="70"
+                    height="40"
                     v-model="newTravel_1.Intemediatestation"
                     ref="st_inter"
                     type="text"
@@ -383,7 +383,7 @@ export default {
 .sectionTitle {
   margin: 0;
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   /* text-align: start; */
 }
@@ -401,6 +401,8 @@ export default {
   background: white;
   border-radius: 10px;
   padding: 20px;
+  height: 55vh;
+  overflow-y: auto;
 }
 
 .col-lg-4,

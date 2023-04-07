@@ -121,7 +121,7 @@ export default {
 }
 /* .signInBodyBox div:first-child input{
     height: 90px;
-    width: 320px;
+    width: 55vh;
     border: none;
     border-radius: 20px;
     text-align: center;

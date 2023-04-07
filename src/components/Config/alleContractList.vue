@@ -368,7 +368,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 450px;
+  height: 55vh;
   background: white;
   border-radius: 10px;
   overflow: hidden;

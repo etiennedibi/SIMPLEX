@@ -91,7 +91,7 @@
                 <p>GERER MES TÂCHES</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'TravelBalanceSheet' }">
+            <router-link :to="{ name: 'FileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>GERER LES FICHIERS</p>
@@ -288,10 +288,10 @@ export default {
 
 <style scoped>
 .BigWrapper {
-  width: 75vw;
+  width: 5vw;
   position: fixed;
   top: 84.9vh;
-  margin-left: 300px;
+  margin-left: 690px;
   /* left: 25.5vw; */
   display: flex;
   justify-content: center;
@@ -312,22 +312,23 @@ export default {
 .navBox {
   border-right: solid 1px var(--Important-font-color);
   height: 60%;
-  width: 205px;
+  width: 165px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: 0.1s ease-in;
+  /*background: red;*/
 }
 .navBox > img {
-  height: 35px;
-  width: 35px;
+  height: 27px;
+  width: 27px;
   margin-bottom: 3px;
 }
 .navBox > p {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   color: var(--main-blue-important);
   text-align: center;
@@ -341,7 +342,7 @@ export default {
 }
 .navBox:hover > p {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   color: var(--Important-font-color);
 }
@@ -439,9 +440,9 @@ export default {
 .visitMenu .menuBox,
 .taskNavActive .menuBox {
   position: absolute;
-  top: -190px;
+  top: -145px;
   /* height: 160px; */
-  width: 370px;
+  width: 300px;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -456,13 +457,13 @@ export default {
 .ConfigNavActive .menuTitle,
 .visitMenu .menuTitle,
 .naVBox2Active1 .menuTitle {
-  height: 60px;
+  height: 40px;
   width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   line-height: 100px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   border-bottom: solid 1px var(--font-color);
   transition: 0.1s ease-in;
@@ -497,13 +498,14 @@ export default {
 .naVBox2Active1 .menuBox div:last-child {
   margin-top: 7px;
   margin-bottom: 7px;
-  width: 80%;
+  width: 90%;
 }
 .tab1 {
   display: flex;
   align-items: center;
-  height: 20px;
-  font-size: 13px;
+  height: 15px;
+  font-size: 12px;
+  
   margin: 0px;
   color: var(--main-blue-important);
 }

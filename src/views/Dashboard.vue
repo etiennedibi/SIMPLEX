@@ -7,7 +7,7 @@
           <v-col cols="12" md="6" lg="6">
             <div class="Jumbultron">
               <div>
-                <h2>101ème client</h2>
+                <h3>101ème client</h3>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   <br />
@@ -23,7 +23,7 @@
                 <v-icon color="mainBlueColor">mdi-archive</v-icon>
               </div>
               <h1>10</h1>
-              <h5>Tâches en cours</h5>
+              <h6>Tâches en cours</h6>
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
@@ -32,7 +32,7 @@
                 <v-icon color="mainBlueColor">mdi-truck-delivery</v-icon>
               </div>
               <h1>7</h1>
-              <h5 style="text-align:center">nouveaux Fichiers <br> partagés</h5>
+              <h6 style="text-align:center">nouveaux Fichiers <br> partagés</h6>
             </div>
           </v-col>
         </v-row>
@@ -203,7 +203,7 @@ export default {
 }
 .numberWrapper {
   margin-top: 3%;
-  height: 170px;
+  height: 130px;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -212,8 +212,8 @@ export default {
   align-items: center;
 }
 .N-icon {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,16 +221,16 @@ export default {
   border-radius: 100px;
 }
 .numberWrapper h1 {
-  margin-bottom: -15px;
-  font-size: 45px;
+  margin-bottom: -10px;
+  font-size: 30px;
 }
-.numberWrapper h5 {
+.numberWrapper h6 {
   color: var(--font-color);
 }
 
 .Jumbultron {
   margin-top: 1%;
-  height: 170px;
+  height: 130px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -249,13 +249,13 @@ export default {
 } */
 
 .Jumbultron p {
-  font-size: 13px;
+  font-size: 11px;
 }
 
 
 .statWrapper {
-  margin-top: 3%;
-  height: 230px;
+  margin-top: 1%;
+  height: 175px;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -272,7 +272,7 @@ export default {
   color:var(--font-color)
 }
 .statWrapper1 {
-  height: 270px;
+  height: 190px;
   border-radius: 10px;
   display: flex;
   justify-content:center;

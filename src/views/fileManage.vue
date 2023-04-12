@@ -4,7 +4,7 @@
       <p class="sectionTitle">Gestion des fichiers</p>
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="4" lg="4">
+          <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addcongeAsk">
@@ -61,7 +61,7 @@
               </v-form>
             </div>
           </v-col>
-          <v-col cols="12" md="8" lg="8">
+          <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper ">
               <UserFileList
               ></UserFileList>
@@ -78,7 +78,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Demande effectuée</v-alert
       >

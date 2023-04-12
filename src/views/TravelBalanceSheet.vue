@@ -6,14 +6,14 @@
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
+              <v-icon color="mainBlueColor">mdi-bus-multiple</v-icon>
             </div>
             <h1>{{ Analytics.declaredTravelNumber }}</h1>
             <h5>voyages Déclarés</h5>
           </div>
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
+              <v-icon color="mainBlueColor">mdi-bus-alert</v-icon>
             </div>
             <h1>{{ Analytics.cancellingTravelNumber }}</h1>
             <h5>voyages mannulés</h5>

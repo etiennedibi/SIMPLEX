@@ -10,35 +10,35 @@
               <p>Bilan des voyages-détails</p>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.details.vendus }} TICKETS</h2>
                 <h4>nombre de tickets vendus</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.details.aVendre }} TICKETS</h2>
                 <h4>nombre de tickets à vendre</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.details.restant }} TICKETS</h2>
                 <h4>nombre de tickets restant</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.details.annules }} TICKETS</h2>
                 <h4>nombre de tickets annulés</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.details.gains }} TICKETS</h2>
                 <h4>gains total des ventes de tickets</h4>
@@ -97,7 +97,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -210,7 +210,7 @@
             >Annuler</v-btn
           >
           <v-btn
-            color="mainGreenColor"
+            color="mainBlueColor"
             rounded
             depressed
             @click="save"
@@ -232,20 +232,20 @@
       <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
       <template v-slot:[`item.actions`]="{ item }">
         <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-        <v-btn icon color="mainGreenColor" @click="showItem(item)"
+        <v-btn icon color="mainBlueColor" @click="showItem(item)"
           ><v-icon small> mdi-eye </v-icon></v-btn
         >
-        <v-btn icon color="mainGreenColor" @click="editItem(item)"
+        <v-btn icon color="mainBlueColor" @click="editItem(item)"
           ><v-icon small> mdi-lead-pencil </v-icon></v-btn
         >
-        <v-btn icon color="mainGreenColor" @click="deleteItem(item)"
+        <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
           ><v-icon small> mdi-trash-can </v-icon></v-btn
         >
       </template>
       <template v-slot:[`item.destination`]="{ item }">
         <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-        <v-icon dense color="mainGreenColor"> mdi-map-marker </v-icon>
-        <span style="color: mainGreenColor">{{ item.destination }}</span>
+        <v-icon dense color="mainBlueColor"> mdi-map-marker </v-icon>
+        <span style="color: mainBlueColor">{{ item.destination }}</span>
       </template>
       <template v-slot:[`item.departure_time`]="{ item }">
         <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->

@@ -193,11 +193,11 @@
           >
         </template>
         <!-- <template v-slot:[`item.contact`]="{ item }"> 
-        <v-icon dense color="mainGreenColor"> mdi-phone </v-icon> <span style="color: mainGreenColor;">{{item.contact}}</span>
+        <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
         </template> -->
         <template v-slot:[`item.complet_name`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon color="mainGreenColor" small> mdi-account </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-account </v-icon>
           {{ item.complet_name }}
         </template>
       </v-data-table>
@@ -210,7 +210,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ congeaAddingResponse.message }}</v-alert
       >
     </transition>

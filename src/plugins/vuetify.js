@@ -30,7 +30,7 @@ export default new Vuetify({
         DefaultFontColor: "#939eaf",
 
         /* Other Color */
-        mainGreenColor: "#3e886d",
+        mainBlueColor: "#3e886d",
         mainBlueColor: "#037bb8",
         mainWhiteColor: "#f9f9f9",
         MinoWhite: "#fffff",

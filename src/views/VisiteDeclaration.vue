@@ -156,7 +156,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         RDV enregistré</v-alert
       >

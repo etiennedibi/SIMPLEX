@@ -25,7 +25,7 @@
               >
                 <div class="dest">
                   <div class="N-iconForSumTravel">
-                    <v-icon color="mainGreenColor" style="font-size: 25px"
+                    <v-icon color="mainBlueColor" style="font-size: 25px"
                       >mdi-bus-multiple</v-icon
                     >
                   </div>
@@ -61,14 +61,14 @@
           <v-col cols="12" md="2" lg="3" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
+                <v-icon color="mainBlueColor">mdi-bus-multiple</v-icon>
               </div>
               <h1>{{ TravelAnalytics.travelMadeTotalGain }}</h1>
               <h5>Gain Total</h5>
             </div>
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
+                <v-icon color="mainBlueColor">mdi-bus-alert</v-icon>
               </div>
               <h1>{{ TravelAnalytics.travelMadeNumber }}</h1>
               <h5>voyages éffectués</h5>

@@ -9,14 +9,14 @@
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-archive-alert</v-icon>
+              <v-icon color="mainBlueColor">mdi-archive-alert</v-icon>
             </div>
             <h1>{{ Analytics.lostThingNumber }}</h1>
             <h5>Objets declarés</h5>
           </div>
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-archive</v-icon>
+              <v-icon color="mainBlueColor">mdi-archive</v-icon>
             </div>
             <h1>{{ Analytics.findThingNumber }}</h1>
             <h5>Objets retrouvés</h5>

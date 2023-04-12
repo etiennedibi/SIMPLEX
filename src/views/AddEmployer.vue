@@ -280,7 +280,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Employer enregistré avec succes</v-alert
       >

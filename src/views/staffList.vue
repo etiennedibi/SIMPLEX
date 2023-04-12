@@ -41,11 +41,11 @@
                 <v-col cols="12" md="8" lg="8">
                   <div class="Jumbultron">
                     <div>
-                      <h2>uhohe</h2>
-                      <p class="postP">Responsable RH</p>
+                      <h2>{{ editedItem.nom }} {{ editedItem.prenoms }}</h2>
+                      <p class="postP">{{ editedItem.nom_fonction }}</p>
                       <!-- <p class="postP2">niangopaul blooraid.com</p> -->
                       <p>
-                        qqdhuoe
+                        {{ editedItem.description }}
                       </p>
                     </div>
                   </div>
@@ -53,7 +53,7 @@
                 <v-col cols="12" md="4" lg="4">
                   <div class="numberWrapper">
                     <div class="N-icon">
-                      <!-- <img src="@/assets/img/team2.jpg" alt="" srcset="" /> -->
+                      <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                     </div>
                   </div>
                 </v-col>
@@ -77,12 +77,13 @@
                   <div class="statWrapper0">
                     <div class="depBox">
                       <div>
-                        <p><span>departement</span><br> qduhzo</p>
-                        <p><span>Attribution</span><br>tache & conge</p> <p><span>Attribution</span><br>Standart</p>
-                        <p><span>Habitation</span><br> hzgozr</p>
-                        <p><span>contact</span><br>zghoeu</p>
+                         <p><span>departement</span><br> {{ editedItem.nom_departement }}</p>
+                          <p v-if="editedItem.role_id==1"><span>Attribution</span><br>tache & conge</p>
+                          <p v-if="editedItem.role_id==2"><span>Attribution</span><br>Standart</p>
+                          <p><span>Habitation</span><br> {{ editedItem.lieu_naissance }}</p>
+                          <p><span>contact</span><br>{{ editedItem.contact }}</p>
                       </div>
-                      <div> </div>
+                      <div>CDD </div>
                     </div>
                   </div>
                 </v-col>
@@ -386,7 +387,7 @@
                   width="1200"
                   overlay-color="black"
                   overlay-opacity="0.8"
-                  mainGreenColor
+                  mainBlueColor
                 >
                   <v-card tile>
                     <v-card-text>
@@ -415,7 +416,7 @@
                       @click="openDialog(item)"
                     >
                       <div>
-                        <img src="@/assets/img/team2.jpg" alt="" srcset="">
+                        <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
                         <p>{{ item.nom }}</p>
                         <p>{{ item.nom_fonction }}</p>
                       </div>
@@ -472,7 +473,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ VisiteaAddingResponse.message }}</v-alert
       >
     </transition>

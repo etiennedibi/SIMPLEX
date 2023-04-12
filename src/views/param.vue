@@ -60,7 +60,7 @@
                         >Annuler</v-btn
                     >
                     <v-btn
-                        color="mainGreenColor"
+                        color="mainBlueColor"
                         rounded
                         depressed
                         @click="editItemConfirm"
@@ -78,7 +78,7 @@
                     <div class="numberWrapper">
                       <div class="N-icon">
                         <v-icon  v-if="item.role_id == 1" color="#b98d4c">mdi-bus-multiple</v-icon>
-                        <v-icon  v-if="item.role_id == 2" color="mainGreenColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
                         <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon>
                       </div>
                       <h1 v-if="item.role_id == 1">VOYAGES</h1>
@@ -96,7 +96,7 @@
                     type="success"
                     max-width="300"
                     class="alert"
-                    color="mainGreenColor"
+                    color="mainBlueColor"
                     >{{ staionaAddingResponse.message }}</v-alert
                 >
                 </transition>

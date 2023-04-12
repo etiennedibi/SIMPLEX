@@ -5,7 +5,7 @@
         <img src="@/assets/img/team2.jpg" alt="" srcset="" />
       </div>
       <!-- <p>{{ uUser }}ADMIN</p> -->
-      <p>NIANGO PAUL</p>
+      <p>AGREY PAUL</p>
       <p>{{ uUser }}</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">

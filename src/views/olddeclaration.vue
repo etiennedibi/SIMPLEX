@@ -127,7 +127,7 @@
               <v-btn
                 large
                 depressed
-                color="mainGreenColor"
+                color="mainBlueColor"
                 v-on:click.prevent="submit1"
                 >Enregistrer</v-btn
               >
@@ -143,7 +143,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Voyage ajouté avec succes</v-alert
       >

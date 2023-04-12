@@ -97,12 +97,12 @@
                 <p>GERER LES FICHIERS</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'taskStory' }">
+            <!-- <router-link :to="{ name: 'taskStory' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE</p>
               </div>
-            </router-link>
+            </router-link> -->
           </div>
         </div>
       </div>

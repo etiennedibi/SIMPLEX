@@ -60,7 +60,7 @@
 
     <!-- ALERT -->
     <!-- <transition name="slide">
-      <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">{{this.companyaddingResponse.message}}</v-alert>
+      <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainBlueColor">{{this.companyaddingResponse.message}}</v-alert>
       </transition> -->
     <transition name="slide">
       <v-alert

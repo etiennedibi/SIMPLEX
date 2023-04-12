@@ -19,7 +19,7 @@
                 >cette variante</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 x-large
                 depressed
@@ -59,7 +59,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -339,14 +339,27 @@
             </div>
             <div class="statElment">
               <div>
-                <h5>NOMBRE DE JOURS</h5>
-                <h4>{{ editedItem.nbre_jour }}</h4>
+                <h5>DATE DE DEBUT</h5>
+                <h4>{{ editedItem.date_debut }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>MOTIF</h5>
-                <h4 style="text-align:justify">{{ editedItem.motif_conge }}
+                <h5>DATE DE FIN</h5>
+                <h4>{{ editedItem.date_fin }}</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>MOTIF DE LA DEMANDE</h5>
+                <h4>{{ editedItem.motif_conge }}
+                </h4>
+              </div>
+            </div>
+            <div class="statElment" v-if="editedItem.etat_demande=='CONGE_ANNULÉ'">
+              <div>
+                <h5>MOTIF DU REJET DE LA DEMANDE</h5>
+                <h4>{{ editedItem.motif_traitement }}
                 </h4>
               </div>
             </div>
@@ -385,19 +398,19 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <!-- <v-btn icon color="mainBlueColor" @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          > -->
-          <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
-          > -->
-          <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == '0'"
+          class="statuBtn">
             <div class="status" style="background: #037CB831;">en cours</div>
-          </v-btn> -->
-          <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ACCORDE'"
+          class="statuBtn">
             <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
-          </v-btn> -->
-          <v-btn icon color="mainBlueColor" class="statuBtn">
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ANNULÉ'"
+          class="statuBtn">
             <div class="status" style="background: #FC070794; color:white;">refusé</div>
           </v-btn>
         </template>
@@ -442,7 +455,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ VisiteaAddingResponse.message }}</v-alert
       >
     </transition>

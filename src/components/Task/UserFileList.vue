@@ -19,7 +19,7 @@
                 >cette variante</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 x-large
                 depressed
@@ -59,7 +59,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -442,7 +442,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ VisiteaAddingResponse.message }}</v-alert
       >
     </transition>

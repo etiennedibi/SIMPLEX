@@ -93,7 +93,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Type de congé Enregistré avec succes</v-alert
       >

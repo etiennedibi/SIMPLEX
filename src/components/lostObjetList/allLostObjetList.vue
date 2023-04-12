@@ -10,21 +10,21 @@
               <!-- <p>Bilan des voyages-détails</p> -->
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>INFORMATIONS</h2>
                 <h4>{{ editedItem.description }}</h4>
               </div>
             </div>
             <div class="statElment" v-if="editedItem.departure_place">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>LIEU DE DEPART</h2>
                 <h4>{{ editedItem.departure_place }}</h4>
               </div>
             </div>
             <div class="statElment" v-if="editedItem.car_Information">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>INFORMATION DU CAR</h2>
                 <h4>
@@ -69,7 +69,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="UpdateConfirm"
@@ -109,12 +109,12 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
           <v-btn
             icon
-            color="mainGreenColor"
+            color="mainBlueColor"
             @click="selectedItem(item)"
             v-if="item.declaration_state == 0"
             ><v-icon small> mdi-list-status </v-icon></v-btn
@@ -122,12 +122,12 @@
         </template>
         <template v-slot:[`item.created_at`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon dense color="mainGreenColor"> mdi-calendar-clock </v-icon>
-          <span style="color: mainGreenColor">{{ item.created_at }}</span>
+          <v-icon dense color="mainBlueColor"> mdi-calendar-clock </v-icon>
+          <span style="color: mainBlueColor">{{ item.created_at }}</span>
         </template>
         <template v-slot:[`item.contact`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon dense color="mainGreenColor"> mdi-cellphone-message </v-icon>
+          <v-icon dense color="mainBlueColor"> mdi-cellphone-message </v-icon>
           {{ item.contact }}
         </template>
         <template v-slot:[`item.declaration_state`]="{ item }">
@@ -137,7 +137,7 @@
             >Pas retrouvé</v-chip
           >
           <v-chip dark v-if="item.declaration_state == 1" color="#3e886db0">
-            <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon
+            <v-icon color="mainBlueColor" small>mdi-check-bold</v-icon
             >Retrouvé</v-chip
           >
         </template>
@@ -152,7 +152,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ this.objetUpdateResponse.message }}</v-alert
       >
     </transition>

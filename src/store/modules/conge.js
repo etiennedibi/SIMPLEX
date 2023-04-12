@@ -3,6 +3,7 @@ import axios from "axios";
 const state = {
   conges: [],
   user_conges: [],
+  all_conges: [],
 };
 
 const getters = {
@@ -18,6 +19,12 @@ const getters = {
     return conge;
   },
 
+  All_conges: (state) => {
+    let conge = state.all_conges;
+
+    return conge;
+  },
+
 };
 
 const mutations = {
@@ -26,6 +33,9 @@ const mutations = {
   },
   SET_USER_CONGE(state, data) {
     state.user_conges = data;
+  },
+  SET_ALL_CONGE(state, data) {
+    state.all_conges = data;
   },
 };
 
@@ -52,6 +62,19 @@ const actions = {
       )
       .then((res) => {
         commit("SET_USER_CONGE", res.data.conge);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_all_conge: ({ commit }) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "admin/getAllconge" 
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_ALL_CONGE", res.data.conge);
       })
       .catch((error) => console.log(error));
   },

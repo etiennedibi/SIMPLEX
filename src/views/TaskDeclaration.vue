@@ -2,19 +2,116 @@
   <div class="bodyBox">
     <div class="TheBoxBody">
       <p class="sectionTitle">CREATION DE TÂCHE
+
+        <!-- CREATE PROJET DIALOG -->
+        <v-dialog v-model="dialogCreate" max-width="420">
+          <v-card>
+            <v-card-text>
+              <v-container>
+                <div class="imgAndTitle  editIMGO">
+                  <v-icon color="mainBlueColor" large>
+                    mdi-text-box
+                    </v-icon>
+                </div>
+                <form class="updateForm">
+                  <v-container fluid>
+                    <v-row>
+                      <v-col cols="12" md="11" lg="11">
+                          <v-text-field
+                            height="60"
+                            style="margin-bottom:-5px"
+                            solo
+                            label="Titre"
+                            ref="matri"
+                            v-model="new_project.title"
+                            type="text"
+                            value=""
+                            persistent-hint
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="11" lg="11">
+                          <v-text-field
+                            height="60"
+                            style="margin-bottom:-5px"
+                            solo
+                            label="Denomination"
+                            ref="matri"
+                            v-model="new_project.start_at"
+                            type="date"
+                            value=""
+                            prefix="Debut : "
+                            persistent-hint
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="11" lg="11">
+                          <v-text-field
+                            height="60"
+                            style="margin-bottom:-5px"
+                            solo
+                            label="Denomination"
+                            ref="matri"
+                            v-model="new_project.finish_at"
+                            type="date"
+                            value=""
+                            prefix="Fin : "
+                            persistent-hint
+                            required
+                          ></v-text-field>
+                        </v-col>  
+                        <div style="width:92%; padding: 15px 10px 0px 10px">
+                          <v-textarea
+                            solo
+                            clearable
+                            v-model="new_project.description"
+                            background-color="#356eea24"
+                            clear-icon="mdi-close-circle"
+                            rows="5"
+                            name="input-7-4"
+                            label="Description"
+                            class="the-message-area"
+                          ></v-textarea>
+                        </div>
+                    </v-row>
+                  </v-container>
+                </form>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="Titlecolor"
+                depressed
+                @click="closeCreate"
+                style="color: white"
+                >Annuler</v-btn
+              >
+              <v-btn
+                color="mainBlueColor"
+                depressed
+                @click="submit1"
+                style="color: white"
+                >Enregistrer</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <v-btn
           small
           depressed
           color="mainBlueColor"
           style="color: white"
-          v-on:click.prevent="submit1"
+          v-on:click="dialogCreate=!dialogCreate"
           >Créer un nouveau projet</v-btn
         >
       </p>
       
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="5" lg="5">
+          <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addvisit">
@@ -66,7 +163,7 @@
                         clearable
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="4"
+                        rows="5"
                         name="input-7-4"
                         v-model="new_visit.objet"
                         label="objet"
@@ -88,7 +185,7 @@
               </v-form>
             </div>
           </v-col>
-          <v-col cols="12" md="7" lg="7">
+          <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper ">
               <projectTaskReview></projectTaskReview>
             </div>
@@ -104,7 +201,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         RDV enregistré</v-alert
       >
@@ -137,7 +234,13 @@ export default {
   },
 
   data: () => ({
+
+    // CREATE_PROJECT
+    dialogCreate:false,
+
     // FOR FORM SENDING
+    new_project: {
+    },
     new_visit: {
       nom_visiteur: "",
       prenoms_visiteur: "",
@@ -184,10 +287,11 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.$refs.form1.reset();
     },
 
-    
+    closeCreate(){
+      this.dialogCreate=false
+    }
   },
 
   computed: {
@@ -239,6 +343,64 @@ export default {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 1px solid rgb(255, 255, 255);
+}
+
+/* Edit travel */
+.imgAndTitle {
+  margin: 15px 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  border: solid 3px;
+  border-color: var(--main-blue-important) rgb(176, 176, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-nappy-1058959.jpg);
+  background-position: center;
+  background-size: cover; */
+}
+.imgAndTitle > img{
+  height:50px;
+  width:50px
+}
+.editIMGO {
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
+}
+.updateForm {
+  height: 270px;
+  width: 110%;
+  overflow-y: scroll;
+}
+.updateForm::-webkit-scrollbar {
+  width: 20px;
+}
+.updateForm::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+.updateForm::-webkit-scrollbar-thumb {
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border: 7px solid rgb(255, 255, 255);
+}
+
+.updateForm .col-lg-12,
+.col-md-12 {
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 /* 

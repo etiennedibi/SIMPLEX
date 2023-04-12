@@ -20,7 +20,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
-          <allTravelList :key="forceRerender"></allTravelList>
+          <allCongeStory :key="forceRerender"></allCongeStory>
         </v-col>
        
       </v-row>
@@ -30,12 +30,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allTravelList from "../components/travelListe/allTravelList.vue";
+import allCongeStory from "../components/Conge/allCongeStory.vue";
 
 export default {
   name: "CongeStory",
   components: {
-    allTravelList,
+    allCongeStory,
   },
 
   data() {

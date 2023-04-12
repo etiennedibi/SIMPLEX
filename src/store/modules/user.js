@@ -45,7 +45,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getEmplyerById/2"
+        "admin/getEmplyerById/6"
       )
       .then((res) => {
         console.log(res.data.Employ);

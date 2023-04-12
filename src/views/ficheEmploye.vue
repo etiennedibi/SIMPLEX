@@ -8,7 +8,7 @@
             <div class="Jumbultron">
               <div>
                 <h2>{{ Current_employer.nom }} {{ Current_employer.prenoms }}</h2>
-                <p class="postP">Responsable RH</p>
+                <p class="postP">{{ Current_employer.nom_fonction }}</p>
                 <!-- <p class="postP2">niangopaul blooraid.com</p> -->
                 <p>
                    {{ Current_employer.description }}
@@ -19,7 +19,7 @@
           <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper">
               <div class="N-icon">
-                <!-- <img src="@/assets/img/team2.jpg" alt="" srcset="" /> -->
+                <img src="@/assets/img/team2.jpg" alt="" srcset="" />
               </div>
             </div>
           </v-col>
@@ -49,7 +49,7 @@
                   <p><span>Habitation</span><br> {{ Current_employer.lieu_naissance }}</p>
                   <p><span>contact</span><br>{{ Current_employer.contact }}</p>
                 </div>
-                <div>{{ Current_employer.duree_contrat }}</div>
+                <div>CDI</div>
                </div>
             </div>
           </v-col>

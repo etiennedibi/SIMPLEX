@@ -6,31 +6,24 @@
         <v-card-text>
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
+              <img src="@/assets/icone/tasks.png" alt="" srcset="" />
             </div>
             <div class="statElment">
               <div>
-                <h5>VISITEUR</h5>
-                <h4>llll</h4>
+                <h5>DEBUT</h5>
+                <h4>2023-02-12</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>EMAIL</h5>
-                <h4>lllll</h4>
+                <h5>FIN</h5>
+                <h4>2023-05-12</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>TELEPHONE</h5>
-                <h4>lmmm</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              
-              <div>
-                <h5>MOTIF</h5>
-                <h4 style="text-align:justify">kdkooeei</h4>
+                <h5>DESCRIPTION</h5>
+                <h4 style="text-align:justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis odit ea quo velit voluptatibus? Debitis incidunt, voluptatum est corporis, fugiat sapiente dolorem eaque iure hic aut eligendi facere nesciunt quisquam.</h4>
               </div>
             </div>
             
@@ -73,7 +66,7 @@
                   width="1200"
                   overlay-color="black"
                   overlay-opacity="0.8"
-                  mainGreenColor
+                  mainBlueColor
                 >
                   <v-card tile>
                     <!-- 
@@ -187,7 +180,7 @@ export default {
     keys: ["id", "name", "date", "heure"],
     items: [
       {
-        name: "Frozen Yogurt",
+        name: "CREATION DE LOT DE CONSOLATION ",
         date: "21-01-2021",
         heure: "09:00",
         details: {
@@ -199,7 +192,7 @@ export default {
         },
       },
       {
-        name: "Ice cream sandwich",
+        name: "MINO-Trans",
         date: "01-01-2021",
         heure: "09:00",
         details: {
@@ -211,7 +204,7 @@ export default {
         },
       },
       {
-        name: "Eclair",
+        name: "Strategie de communication",
         date: "25-03-2021",
         heure: "09:00",
         details: {
@@ -223,7 +216,7 @@ export default {
         },
       },
       {
-        name: "Cupcake",
+        name: "Deploiement MINO-Trans",
         date: "25-03-2021",
         heure: "09:00",
         details: {
@@ -235,7 +228,7 @@ export default {
         },
       },
       {
-        name: "Gingerbread",
+        name: "Protocol de sécurité",
         date: "25-04-2021",
         heure: "09:00",
         details: {
@@ -247,7 +240,7 @@ export default {
         },
       },
       {
-        name: "Jelly bean",
+        name: "Site web Blooraid",
         date: "25-03-2021",
         heure: "09:00",
         details: {
@@ -259,7 +252,7 @@ export default {
         },
       },
       {
-        name: "Lollipop",
+        name: "Strategie publicitaire",
         date: "25-03-2021",
         heure: "09:00",
         details: {
@@ -271,7 +264,7 @@ export default {
         },
       },
       {
-        name: "Honeycomb",
+        name: "Politique de recrutement",
         date: "15-02-2021",
         heure: "09:00",
         details: {
@@ -283,7 +276,7 @@ export default {
         },
       },
       {
-        name: "Donut",
+        name: "Structuration des données",
         date: "25-03-2021",
         heure: "09:00",
         details: {
@@ -295,7 +288,7 @@ export default {
         },
       },
       {
-        name: "KitKat",
+        name: "Projet KitKat",
         date: "25-03-2021",
         heure: "09:00",
         details: {

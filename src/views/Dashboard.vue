@@ -37,12 +37,12 @@
           <v-col cols="12" md="9" lg="9">
             <!-- <p class="sectionTitle">Statistique</p> -->
             <div class="statWrapper">
-               <p><span>+</span> <span>17</span> <span>U Simplex</span> </p>
+               <p><span>+</span> <span>17</span> <span>Utilisateurs Simplex</span> </p>
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
             <div class="statWrapper1">
-              <h1>09:05</h1>
+              <h1>11:10</h1>
             </div>
           </v-col>
         </v-row>
@@ -205,7 +205,7 @@ export default {
 }
 .numberWrapper {
   margin-top: 3%;
-  height: 130px;
+  height: 20vh;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -232,7 +232,7 @@ export default {
 
 .Jumbultron {
   margin-top: 1%;
-  height: 130px;
+  height: 20vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -257,7 +257,7 @@ export default {
 
 .statWrapper {
   margin-top: 1%;
-  height: 175px;
+  height: 28vh;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -274,7 +274,7 @@ export default {
   color:var(--font-color)
 }
 .statWrapper1 {
-  height: 190px;
+  height: 29vh;
   border-radius: 10px;
   display: flex;
   justify-content:center;

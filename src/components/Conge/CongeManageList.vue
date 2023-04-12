@@ -7,16 +7,7 @@
         <v-card-text>
           <div class="confirmTitle">supprimer ?</div>
           <v-container>
-            <!-- <div class="CancelVerification">
-              Cette action supprimera le type de colis
-              <b>{{ editedItem.denomination }}</b> et toutes les variantes de
-              prix qui y sont liées.<br />
-              <br />
-              <span style="font-weight: bold"
-                >voulez-vous vraiment supprimer <br />
-                ce type de colis ?</span
-              >
-            </div> -->
+            
             <div class="verificationAction">
               <v-btn
                 color="Titlecolor"
@@ -81,148 +72,114 @@
       </v-card>
     </v-dialog>
 
-    <!-- DELETE WHITHDRAWAL ON OCCURENCE  DIALOG -->
+    <!-- DELETE VISITE ON   DIALOG -->
     <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
       <v-card>
         <v-card-text>
-          <div class="confirmTitle">AVERTISSEMENT !</div>
           <v-container>
-            <div class="CancelVerification">
-              voulez-vous vraiment supprimer <br />
-              cette variante de prix du type de colis <b>{{ editedItem.denomination }} </b> ?
-            </div>
-            <div class="verificationAction">
-              <v-btn
-                color="Titlecolor"
-                rounded
-                depressed
-                @click="closeDeleteOnevariante"
-                style="color: white"
-                >Non</v-btn
-              >
-              <v-btn
-                color="mainBlueColor"
-                rounded
-                depressed
-                @click="deleteItemVarinteConfirm"
-                style="color: white"
-                >Oui</v-btn
-              >
-            </div>
-          </v-container>
+            <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
+            <div class="imgAndTitle  deleteIMG">
+                <v-icon color="red" large>
+                  mdi-close
+                </v-icon>
+              </div>
+            <v-container>
+              <div class="CancelVerification">
+                Cette action supprimera votre demande de congé pour le<br />
+                <b>13-04-2023</b> 
+              </div>
+              <div class="verificationAction">
+                <v-btn
+                  color="grey"
+                  
+                  depressed
+                  @click="closeDeleteOnevariante"
+                  style="color: white"
+                  >Non</v-btn
+                >
+                <v-btn
+                  color="red"
+                  
+                  depressed
+                  @click="deleteItemVarinteConfirm"
+                  style="color: white"
+                  >Confirmer</v-btn
+                >
+              </div>
+            </v-container>
+            </v-container>
+          
         </v-card-text>
       </v-card>
     </v-dialog>
 
-    <!-- EDIT TRAVEL DIALOG -->
+    <!-- ACCEPTE VISITE ON   DIALOG -->
+    <v-dialog v-model="dialogAccept" max-width="420">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
+            <div class="imgAndTitle  deleteIMG">
+                <v-icon color="mainBlueColor" large>
+                  mdi-account-check-outline
+                </v-icon>
+              </div>
+            <v-container>
+              <div class="CancelVerification">
+                Souhaitez-vous accepter la demande de  <br />
+                <b>{{ editedItem.nom }} {{ editedItem.prenoms }} ?</b> 
+              </div>
+              <div class="verificationAction">
+                <v-btn
+                  color="grey"
+                  
+                  depressed
+                  @click="closeAcceptVisite"
+                  style="color: white"
+                  >Non</v-btn
+                >
+                <v-btn
+                  color="mainBlueColor"
+                  
+                  depressed
+                  @click="acceptVisite  "
+                  style="color: white"
+                  >oui</v-btn
+                >
+              </div>
+            </v-container>
+            </v-container>
+          
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+    <!-- EDIT VISITE DIALOG -->
     <v-dialog v-model="dialogEdit" max-width="420">
       <v-card>
         <v-card-text>
           <v-container>
-            <div class="imgAndTitle deleteIMG editIMGO">
-              <p>MODIFICATION DU TYPE DE COLIS</p>
-              <p></p>
+            <div class="imgAndTitle  editIMGO">
+              <v-icon color="mainBlueColor" large>
+                 mdi-calendar
+                </v-icon>
             </div>
             <form class="updateForm">
               <v-container fluid>
                 <v-row>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      label="Nature"
-                      append-icon="mdi-pen"
-                      ref="matri"
-                      v-model="editedItem.denomination"
-                      type="text"
-                      value=""
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      label="Description"
-                      append-icon="mdi-file-document-edit-outline"
-                      ref="desc"
-                      v-model="editedItem.description"
-                      type="text"
-                      value=""
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6" lg="6">
-                    <v-text-field
-                      height="60"
-                      background-color="#3e886d4a"
-                      solo
-                      label="Taille min"
-                      v-model="editedItem.min_size"
-                      append-icon="mdi-arrow-up-down"
-                      ref="total_name"
-                      type="number"
-                      value=""
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6" lg="6">
-                    <v-text-field
-                      height="60"
-                      solo
-                      append-icon="mdi-arrow-up-down"
-                      ref="location"
-                      type="number"
-                      v-model="editedItem.max_size"
-                      value=""
-                      label="Taille max"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6" lg="6">
-                    <v-text-field
-                      height="60"
-                      background-color="#3e886d4a"
-                      solo
-                      append-icon="mdi-weight-kilogram"
-                      v-model="editedItem.min_weight"
-                      ref="transport"
-                      type="number"
-                      label="Poids min"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6" lg="6">
-                    <v-text-field
-                      height="60"
-                      solo
-                      append-icon="mdi-weight-kilogram"
-                      ref="pla_number"
-                      type="number"
-                      v-model="editedItem.max_weight"
-                      label="Poids max"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      append-icon="mdi-cash-multiple"
-                      ref="cash"
-                      type="number"
-                      v-model="editedItem.unit_price"
-                      label="Prix"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
+                    <div style="width:90%; padding: 15px 1px 0px 10px">
+                      <v-textarea
+                        solo
+                        v-model="editedItem.motif_traitement"
+                        clearable
+                        clear-icon="mdi-close-circle"
+                        rows="7"
+                        name="input-7-4"
+                        label="Motif du refus"
+                        class="the-message-area"
+                      ></v-textarea>
+                    </div>
                 </v-row>
               </v-container>
             </form>
@@ -233,7 +190,6 @@
           <v-spacer></v-spacer>
           <v-btn
             color="Titlecolor"
-            rounded
             depressed
             @click="closeEdit"
             style="color: white"
@@ -241,7 +197,6 @@
           >
           <v-btn
             color="mainBlueColor"
-            rounded
             depressed
             @click="editItemConfirm"
             style="color: white"
@@ -251,31 +206,116 @@
       </v-card>
     </v-dialog>
 
-    <!-- SHOW DIALOG -->
-    <v-dialog v-model="dialog" max-width="400">
+    <!-- REPORT VISITE DIALOG -->
+    <v-dialog v-model="dialogReport" max-width="420">
       <v-card>
         <v-card-text>
           <v-container>
-            <div class="">
-              <p>DESCRIPTION</p>
+            <div class="imgAndTitle  editIMGO">
+              <img src="@/assets/icone/visit.png" alt="" srcset="" />
             </div>
-            <div class="statElment">
-              <div>
-                <h3>{{ editedItem.description }}</h3>
-              </div>
-            </div>
+            <form class="updateForm ReportForm">
+              <v-container fluid>
+                <v-row>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        v-model="items.min_size"
+                        type="date"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        background-color="#356eea24"
+                        append-icon="mdi-clock-time-eight"
+                        ref="desc"
+                        v-model="items.description"
+                        type="time"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                </v-row>
+              </v-container>
+            </form>
           </v-container>
         </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="Titlecolor"
+            depressed
+            @click="closeReportVisite"
+            style="color: white"
+            >Annuler</v-btn
+          >
+          <v-btn
+            color="mainBlueColor"
+            depressed
+            @click="reportVisite"
+            style="color: white"
+            >Enregistrer</v-btn
+          >
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
+    <!-- SHOW DIALOG -->
+     <v-dialog v-model="dialog" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <v-icon color="mainBlueColor" large>
+                 mdi-calendar
+                </v-icon>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>DEMANDEUR</h5>
+                <h4>{{ editedItem.nom }} {{ editedItem.nom }}</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>DATE DE DEBUT</h5>
+                <h4>{{ editedItem.date_debut }}</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>DATE DE FIN</h5>
+                <h4>{{ editedItem.date_fin }}</h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>MOTIF DE LA DEMANDE</h5>
+                <h4 style="text-align:justify">{{ editedItem.motif_conge }}
+                </h4>
+              </div>
+            </div>
+            
+          </v-container>
+        </v-card-text>
+        
+      </v-card>
+    </v-dialog>
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="5" lg="5">
         <v-text-field
           v-model="search"
           solo
-          height="50"
+          height="30"
           hide-details
           label="Rechercher"
           class="theSeachBar"
@@ -287,7 +327,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="items"
+        :items="All_conges"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -298,24 +338,34 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande != 'CONGE_ACCORDE'" 
+          @click="acceptItem(item)"
+            ><v-icon small>mdi-checkbox-marked-circle </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-account-cancel </v-icon></v-btn
+          <v-btn icon color="mainBlueColor"
+          v-if="item.etat_demande != 'CONGE_ANNULÉ'"
+           @click="editItem(item)"
+            ><v-icon small> mdi-cancel </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == '0'"
+          class="statuBtn">
+            <div class="status" style="background: #037CB831;">en cours</div>
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ACCORDE'"
+          class="statuBtn">
+            <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ANNULÉ'"
+          class="statuBtn">
+            <div class="status" style="background: #FC070794; color:white;">refusé</div>
+          </v-btn>
         </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
+        <template v-slot:[`item.nbre_jour`]="{ item }">
+          {{ item.nbre_jour }} <span style="color: mainBlueColor">j</span>
         </template>
         <template v-slot:[`item.min_weight`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
@@ -356,7 +406,7 @@
         max-width="300"
         class="alert"
         color="mainBlueColor"
-        >{{ withdrawalaAddingResponse.message }}</v-alert
+        >{{ VisiteaAddingResponse.message }}</v-alert
       >
     </transition>
     <transition name="slide">
@@ -368,7 +418,7 @@
         class="alert"
         color="error"
       >
-        {{ withdrawalaAddingResponse.message }}</v-alert
+        Erreur</v-alert
       >
     </transition>
   </div>
@@ -379,28 +429,28 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "allWithdrawalsList",
+  name: "CongeManageList",
   components: {},
 
   data: () => ({
     // For the table
     search: "",
     headers: [
+      { text: "NOM", value: "nom" },
+      { text: "TYPE", value: "type_conge" },
       {
-        text: "NOM",
+        text: "DUREE",
         align: "start",
-        sortable: false,
-        value: "name",
+        sortable: true,
+        value: "nbre_jour",
       },
-      { text: "DATE", value: "date" },
-      { text: "HEURE", value: "post" },
-      { text: "DETAILS", value: "actions", sortable: false },
+      { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
       {
-        name: "Frozen Yao Partrick ",
-        date: "21-01-2021",
-        post: "10:00",
+        nom_visiteur: "Frozen Yao Partrick ",
+        date_rdv: "21-01-2021",
+        heure_rdv: "10:00",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -410,9 +460,9 @@ export default {
         },
       },
       {
-        name: "Ice cream ",
-        date: "01-01-2021",
-        post: "10:30",
+        nom_visiteur: "Ice cream ",
+        date_rdv: "01-01-2021",
+        heure_rdv: "10:30",
         details: {
           vendus: 45,
           aVendre: 45,
@@ -422,9 +472,9 @@ export default {
         },
       },
       {
-        name: "Eclair",
-        date: "25-03-2021",
-        post: "14:30",
+        nom_visiteur: "Eclair",
+        date_rdv: "25-03-2021",
+        heure_rdv: "14:30",
         details: {
           vendus: 30,
           aVendre: 20,
@@ -434,9 +484,9 @@ export default {
         },
       },
       {
-        name: "Cupcake",
-        date: "25-03-2021",
-        post: "12:39",
+        nom_visiteur: "Cupcake",
+        date_rdv: "25-03-2021",
+        heure_rdv: "12:39",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -447,8 +497,8 @@ export default {
       },
       {
         name: "Gingerbread",
-        date: "25-04-2021",
-        post: "13:40",
+        date_rdv: "25-04-2021",
+        heure_rdv: "13:40",
         details: {
           vendus: 30,
           aVendre: 45,
@@ -524,27 +574,34 @@ export default {
     addingSuccess: false,
     addingfalse: false,
 
-    // For withdrawal detail
+    // For Visite detail
     dialog: false,
     editedItem: {
-      denomination: "",
-      min_weight: "",
-      max_weight: "",
-      min_size: "",
-      max_size: "",
-      unit_price: "",
+      nom_visiteur: "",
+      prenoms_visiteur: "",
+      email_visiteur: "",
+      contact_visiteur: "",
+      date_rdv: "",
+      heure_rdv: "",
+      objet: "",
     },
 
-    // For withdrawal edit
-    withdrawalaAddingResponse: "",
+    // For Visite edit
+    VisiteaAddingResponse: "",
     dialogEdit: false,
     editedIndex: -1,
 
-    // For withdrawal deleted
-    BeforeDialogDelete:false,
-    dialogDelete: false,
+    // For Visite Reporte
+    dialogReport:false,
+
+    // For Visite deleted
+    // BeforeDialogDelete:false,
+    // dialogDelete: false,
     dialogDeleteOneVariante: false,
     itemToDelete: "",
+
+    // For Visite Accept
+    dialogAccept:false,
   }),
 
   methods: {
@@ -560,25 +617,28 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.Withdrawals.indexOf(item);
+      this.editedIndex = this.All_conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-        axios({ url: "withdrawal/update", data: this.editedItem, method: "PUT" })
+        this.editedItem.id_user=1
+        let editthing = {id_user:1, motif_traitement:this.editedItem.motif_traitement}
+        console.log(editthing);
+        axios({ url: "admin/traitement_conge_annule/"+this.editedItem.id, data: editthing, method: "POST" })
         .then((response) => {
-          this.withdrawalaAddingResponse = response.data;
-          if (this.withdrawalaAddingResponse.message == "success") {
+          this.VisiteaAddingResponse = response.data;
+          if (this.VisiteaAddingResponse) {
             // Modification effectuée
-            this.withdrawalaAddingResponse.message = "modification effectuée";
+            this.VisiteaAddingResponse.message = "Rejet effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_all_conge");
             }, 3000);
-          } else if (this.withdrawalaAddingResponse.message != "success") {
+          } else  {
             // Modification effectuée
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -587,7 +647,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.withdrawalaAddingResponse = error.message;
+          this.VisiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -602,9 +662,9 @@ export default {
     // delete a travel
     // --------------------
     deleteItem(item) {
-      this.editedIndex = this.Withdrawals.indexOf(item);
+      this.editedIndex = this.All_conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.withdrawals_id };
+      this.itemToDelete = { id: this.editedItem.All_conges_id };
       // if it is a variante of prise
       this.OneVarianteitemToDelete = { id: this.editedItem.id };
       // this.dialogDelete = true;
@@ -623,20 +683,20 @@ export default {
     deleteItemConfirm() {
       axios
         .delete(
-          "withdrawal/delete/" + this.itemToDelete.id
+          "Visite/delete/" + this.itemToDelete.id
         )
         .then((response) => {
-          this.withdrawalaAddingResponse = response.data;
+          this.VisiteaAddingResponse = response.data;
 
-          if (this.withdrawalaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse.message == "success") {
             // Annulation effectuée
-            this.withdrawalaAddingResponse.message = "Suppression effectuée";
+            this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender2();
             }, 3000);
-          } else if (this.withdrawalaAddingResponse.message != "success") {
+          } else if (this.VisiteaAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -644,7 +704,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.withdrawalaAddingResponse = error.message;
+          this.VisiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -659,20 +719,20 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "withdrawal/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
-          this.withdrawalaAddingResponse = response.data;
+          this.VisiteaAddingResponse = response.data;
 
-          if (this.withdrawalaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse.message == "success") {
             // Annulation effectuée
-            this.withdrawalaAddingResponse.message = "Suppression effectuée";
+            this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender2();
             }, 3000);
-          } else if (this.withdrawalaAddingResponse.message != "success") {
+          } else if (this.VisiteaAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -680,7 +740,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.withdrawalaAddingResponse = error.message;
+          this.VisiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -691,18 +751,98 @@ export default {
       this.dialogDeleteOneVariante = false;
     },
 
-    // For table re-render after delete or update an item
-    forceRerender2() {
-      this.$store.state.withdrawalcomponentKey += 1;
+    // FOR ACCEPT VISITE
+    acceptItem(item) {
+      this.editedIndex = this.All_conges.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.itemToDelete = { id: this.editedItem.All_conges_id };
+      this.dialogAccept = true;
     },
+    acceptVisite() {
+      // axios
+      //   .post(
+      //     "admin/traitement_accepte_conge/" + this.OneVarianteitemToDelete.id
+      //   )
+        axios({ url: "admin/traitement_accepte_conge/"+this.editedItem.id, method: "POST" })
+        .then((response) => {
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Acceptation effectuée
+            this.VisiteaAddingResponse.message = "Demande acceptée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_all_conge");
+            }, 3000);
+          } else if (this.VisiteaAddingResponse.message != "success") {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeAcceptVisite();
+    },
+    closeAcceptVisite() {
+      this.dialogAccept = false;
+    },
+
+
+    // FOR ACCEPT VISITE
+    reportItem(item) {
+      this.editedIndex = this.All_conges.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.itemToDelete = { id: this.editedItem.All_conges_id };
+      this.dialogAccept = true;
+    },
+    reportVisite() {
+      axios
+        .delete(
+          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+        )
+        .then((response) => {
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse.message == "success") {
+            // Annulation effectuée
+            this.VisiteaAddingResponse.message = "Suppression effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.forceRerender2();
+            }, 3000);
+          } else if (this.VisiteaAddingResponse.message != "success") {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeReportVisite();
+    },
+    closeReportVisite() {
+      this.dialogAccept = false;
+    },
+    
   },
 
   computed: {
-    ...mapGetters(["Withdrawals"]),
+    ...mapGetters(["All_conges"]),
   },
 
   created() {
-    this.$store.dispatch("init_withdrawal");
+    this.$store.dispatch("init_all_conge");
   },
 };
 </script>
@@ -746,22 +886,41 @@ export default {
   text-transform: none;
 }
 
+.statuBtn{
+  margin-left: 30px;
+}
+.status{
+  display:inline-block;
+  padding: 5px;
+  border-radius:50px;
+  font-size:8px;
+  font-weight: bold
+}
+
 .theSeachBar {
   /* margin-left: 50px; */
   margin-bottom: 10px;
 }
 
 /* Show details */
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 220px;
-  width: 330px;
-  border-radius: 7px;
+.showDialog{
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  background: linear-gradient(
+  justify-content: center;
+  align-items: center;
+}
+.imgAndTitle {
+  margin: 15px 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  border: solid 3px;
+  border-color: var(--main-blue-important) rgb(176, 176, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(
       180deg,
       rgb(0 0 0 / 0%),
       rgb(0 0 0 / 19%),
@@ -769,32 +928,25 @@ export default {
     ),
     url(../../assets/img/pexels-nappy-1058959.jpg);
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
 }
-.imgAndTitle > p:first-child {
-  font-size: 21px;
-  font-weight: bold;
-  margin: 0px;
-  margin-left: 20px;
-  color: white;
-}
-.imgAndTitle > p:last-child {
-  font-size: 15px;
-  font-weight: bold;
-  margin: 0px 0px 10px 20px;
-  color: white;
+.imgAndTitle > img{
+  height:50px;
+  width:50px
 }
 
+
 .statElment {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   display: flex;
+  text-align: center;
+  /* background-color:red; */
 }
 .statElment > div {
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
-.statElment h2 {
-  font-size: 21px;
-  color: var(--main-green-color);
+.statElment h5 {
+  color: var(--main-blue-important);
 }
 
 .statusChange {
@@ -804,8 +956,12 @@ export default {
 
 /* Edit travel */
 .editIMGO {
-  margin-bottom: 35px;
-  width: 100%;
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
 }
 .updateForm {
   height: 250px;
@@ -831,9 +987,21 @@ export default {
   padding-top: 0px;
 }
 
+.ReportForm{
+  height: 170px;
+  overflow-y: clip;
+}
+
 /* Delete travel */
 .deleteIMG {
-  width: 350px;
+  margin-left: 35%;
+  margin-bottom: 0px;
+  /* background-color:red; */
+  border: 3px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .CancelVerification {
   text-align: center;

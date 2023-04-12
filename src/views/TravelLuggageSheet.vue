@@ -106,7 +106,7 @@
                       <v-btn
                         large
                         depressed
-                        color="mainGreenColor"
+                        color="mainBlueColor"
                         style="color: white"
                         v-on:click.prevent="submit1"
                         >Enregistrer</v-btn
@@ -133,7 +133,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Nouveau type Enregistré avec succes</v-alert
       >

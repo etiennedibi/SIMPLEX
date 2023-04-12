@@ -80,7 +80,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Fonction Enregistré avec succes</v-alert
       >

@@ -7,14 +7,14 @@
           <v-container>
             <div class="imgAndTitle"></div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>DETAILS D'EXPEDITION</h2>
                 <h4>{{ editedItem.luggage_Nature }}</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>INFORMATION</h2>
                 <h4>
@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>SOMME PAYEE</h2>
                 <h4>
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>EXPEDITEUR</h2>
                 <h4>
@@ -45,7 +45,7 @@
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>DESTINATAIRE</h2>
                 <h4>
@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="statElment" v-if="editedItem.deliveryMan">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>LIVREUR</h2>
                 <h4>{{ editedItem.deliveryMan }}</h4>
@@ -88,13 +88,13 @@
                       <strong>{{ item.complet_name }}</strong>
                     </p>
                     <p>
-                      <v-icon color="mainGreenColor" small
+                      <v-icon color="mainBlueColor" small
                         >mdi-car-multiple</v-icon
                       >
                       {{ item.conveyance }}
                     </p>
                     <p>
-                      <v-icon color="mainGreenColor" small
+                      <v-icon color="mainBlueColor" small
                         >mdi-map-marker</v-icon
                       >yopougon niagon
                     </p>
@@ -115,7 +115,7 @@
             >Annuler</v-btn
           >
           <v-btn
-            color="mainGreenColor"
+            color="mainBlueColor"
             rounded
             depressed
             @click="UpdateExpedition"
@@ -153,7 +153,7 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
           <v-btn
@@ -194,7 +194,7 @@
             livré à la gare</v-btn
           >
           <v-btn
-            color="mainGreenColor"
+            color="mainBlueColor"
             style="color: white"
             @click="SimpleUpdateBigining(item)"
             rounded
@@ -205,8 +205,8 @@
         </template>
         <template v-slot:[`item.destination`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon dense color="mainGreenColor"> mdi-map-marker </v-icon>
-          <span style="color: mainGreenColor">{{ item.destination }}</span>
+          <v-icon dense color="mainBlueColor"> mdi-map-marker </v-icon>
+          <span style="color: mainBlueColor">{{ item.destination }}</span>
         </template>
         <template v-slot:[`item.departure_time`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
@@ -214,29 +214,29 @@
         </template>
         <template v-slot:[`item.expedition_state_id`]="{ item }">
           <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae">
-            <v-icon color="mainGreenColor" small
+            <v-icon color="mainBlueColor" small
               >mdi-cursor-default-click</v-icon
             >
             Choix du livreur</v-chip
           >
           <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae">
-            <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon>
+            <v-icon color="mainBlueColor" small>mdi-account-clock</v-icon>
             Attente recuperration par livreur</v-chip
           >
           <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae">
-            <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon>
+            <v-icon color="mainBlueColor" small>mdi-bike-fast</v-icon>
             Acheminement</v-chip
           >
           <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae">
-            <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En
+            <v-icon color="mainBlueColor" small>mdi-truck-delivery</v-icon> En
             cours de livraison</v-chip
           >
           <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae">
-            <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours
+            <v-icon color="mainBlueColor" small>mdi-archive</v-icon> En cours
             de recupération
           </v-chip>
           <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0">
-            <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon
+            <v-icon color="mainBlueColor" small>mdi-check-bold</v-icon
             >Livré</v-chip
           >
         </template>
@@ -251,7 +251,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >Modification éffetuée</v-alert
       >
     </transition>

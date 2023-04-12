@@ -4,7 +4,7 @@
       <p class="sectionTitle">Gestion des Congés</p>
       <v-row>
         <v-col cols="12" md="9" lg="9">
-          <UserCongeList></UserCongeList>
+          <CongeManageList></CongeManageList>
         </v-col>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1 stat2">
@@ -29,12 +29,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import UserCongeList from "../components/Conge/UserCongeList.vue";
+import CongeManageList from "../components/Conge/CongeManageList.vue";
 
 export default {
   name: "Congemanagment",
   components: {
-    UserCongeList,
+    CongeManageList,
   },
 
   data() {

@@ -76,7 +76,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Type de Contrat Enregistré avec succes</v-alert
       >

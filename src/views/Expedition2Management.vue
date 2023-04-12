@@ -6,14 +6,14 @@
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-truck-delivery</v-icon>
+              <v-icon color="mainBlueColor">mdi-truck-delivery</v-icon>
             </div>
             <h1>{{ Analytics.expeditionDo }}</h1>
             <h5>Colis Expédiés</h5>
           </div>
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreenColor">mdi-archive-arrow-down</v-icon>
+              <v-icon color="mainBlueColor">mdi-archive-arrow-down</v-icon>
             </div>
             <h1>{{ Analytics.expeditionNumber }}</h1>
             <h5>Nombre d'expédition</h5>

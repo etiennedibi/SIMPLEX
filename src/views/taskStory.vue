@@ -8,14 +8,14 @@
             <div class="N-icon">
               <v-icon color="mainBlueColor">mdi-account-clock</v-icon>
             </div>
-            <h1>{{ visiteNumber }}</h1>
+            <h1>30</h1>
             <h5>Tâches enregistrés</h5>
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
               <v-icon color="white">mdi-account-cancel</v-icon>
             </div>
-            <h1 style="color: white">25</h1>
+            <h1 style="color: white">15</h1>
             <h5 style="color: white">Tâches éffectuées</h5>
           </div>
         </v-col>

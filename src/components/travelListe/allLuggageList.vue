@@ -27,7 +27,7 @@
                 >cette variante</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 x-large
                 depressed
@@ -67,7 +67,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -100,7 +100,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemVarinteConfirm"
@@ -240,7 +240,7 @@
             >Annuler</v-btn
           >
           <v-btn
-            color="mainGreenColor"
+            color="mainBlueColor"
             rounded
             depressed
             @click="editItemConfirm"
@@ -296,38 +296,38 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="editItem(item)"
+          <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="deleteItem(item)"
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
         </template>
         <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainGreenColor">frcfa</span>
+          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
         </template>
         <template v-slot:[`item.min_weight`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.min_weight }}
-          <v-icon color="mainGreenColor" small> mdi-weight-kilogram </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-weight-kilogram </v-icon>
         </template>
         <template v-slot:[`item.max_weight`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.max_weight }}
-          <v-icon color="mainGreenColor" small> mdi-weight-kilogram </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-weight-kilogram </v-icon>
         </template>
         <template v-slot:[`item.min_size`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.min_size }}
-          <v-icon color="mainGreenColor" small> mdi-arrow-up-down </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-arrow-up-down </v-icon>
         </template>
         <template v-slot:[`item.max_size`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           {{ item.max_size }}
-          <v-icon color="mainGreenColor" small> mdi-arrow-up-down </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-arrow-up-down </v-icon>
         </template>
       </v-data-table>
     </div>
@@ -339,7 +339,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ luggageaAddingResponse.message }}</v-alert
       >
     </transition>

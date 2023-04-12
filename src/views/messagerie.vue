@@ -65,7 +65,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Communiqué éffectué avec succes</v-alert
       >

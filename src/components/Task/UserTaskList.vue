@@ -28,7 +28,7 @@
                 >cette variante</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 x-large
                 depressed
@@ -68,7 +68,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -369,27 +369,20 @@
             </div>
             <div class="statElment">
               <div>
-                <h5>VISITEUR</h5>
-                <h4>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
+                <h5>DEBUT</h5>
+                <h4>2023-02-12</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>EMAIL</h5>
-                <h4>{{ editedItem.email_visiteur }}</h4>
+                <h5>FIN</h5>
+                <h4>2023-05-12</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>TELEPHONE</h5>
-                <h4>{{ editedItem.contact_visiteur }}</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              
-              <div>
-                <h5>MOTIF</h5>
-                <h4 style="text-align:justify">{{ editedItem.objet }}</h4>
+                <h5>INTITULE</h5>
+                <h4>Mettre en place la maquette du projet palomo </h4>
               </div>
             </div>
             
@@ -449,14 +442,14 @@
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          @click="editItem(item)"
-          v-if="!item.status"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
+          
+            ><v-icon small> mdi-check-network </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
           v-if="!item.status"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
+          > @click="editItem(item)"
+          v-if="!item.status"-->
         </template>
         <template v-slot:[`item.status`]="{ item }">
           <div v-if="item.status" class="status" style="background: #0DA36C94;; color:white;">fait</div>
@@ -472,7 +465,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ VisiteaAddingResponse.message }}</v-alert
       >
     </transition>

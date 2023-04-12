@@ -23,7 +23,7 @@
                 >Non</v-btn
               >
               <v-btn
-                color="mainGreenColor"
+                color="mainBlueColor"
                 rounded
                 depressed
                 @click="deleteItemConfirm"
@@ -135,7 +135,7 @@
             >Annuler</v-btn
           >
           <v-btn
-            color="mainGreenColor"
+            color="mainBlueColor"
             rounded
             depressed
             @click="editItemConfirm"
@@ -161,42 +161,42 @@
               <p>Information - Bilan Des Livraisons</p>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.DeliveryNumber }}</h2>
                 <h4>NOMBRE DE LIVRAISON</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.complet_name }}</h2>
                 <h4>NOM COMPLET</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.city }}</h2>
                 <h4>LIEU D'HABITATION</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.matriculation }}</h2>
                 <h4>MATRICULE</h4>
               </div>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.created_at }}</h2>
                 <h4>DATE D'ENREGISTREMENT</h4>
               </div>
             </div>
             <div class="statElment" v-if="editedItem.activation_state == 0">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
+              <v-icon color="mainBlueColor"> mdi-arrow-right </v-icon>
               <div>
                 <h2>{{ editedItem.updated_at }}</h2>
                 <h4>DATE DE DESACTIVATION</h4>
@@ -234,7 +234,7 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small v-if="item.activation_state == 1"> mdi-eye </v-icon>
             <v-icon small v-if="item.activation_state == 0" color="error">
               mdi-account-alert
@@ -242,25 +242,25 @@
           </v-btn>
           <v-btn
             icon
-            color="mainGreenColor"
+            color="mainBlueColor"
             @click="editItem(item)"
             v-if="item.activation_state == 1"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
           <v-btn
             icon
-            color="mainGreenColor"
+            color="mainBlueColor"
             @click="deleteItem(item)"
             v-if="item.activation_state == 1"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
         </template>
         <!-- <template v-slot:[`item.contact`]="{ item }"> 
-        <v-icon dense color="mainGreenColor"> mdi-phone </v-icon> <span style="color: mainGreenColor;">{{item.contact}}</span>
+        <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
         </template> -->
         <template v-slot:[`item.complet_name`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon color="mainGreenColor" small> mdi-account </v-icon>
+          <v-icon color="mainBlueColor" small> mdi-account </v-icon>
           {{ item.complet_name }}
         </template>
       </v-data-table>
@@ -273,7 +273,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
         >{{ senderaAddingResponse.message }}</v-alert
       >
     </transition>

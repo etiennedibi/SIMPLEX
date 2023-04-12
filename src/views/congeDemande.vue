@@ -109,7 +109,7 @@
         type="success"
         max-width="300"
         class="alert"
-        color="mainGreenColor"
+        color="mainBlueColor"
       >
         Demande effectuée</v-alert
       >

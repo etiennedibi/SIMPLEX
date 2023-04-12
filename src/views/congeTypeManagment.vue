@@ -13,7 +13,7 @@
                       <v-text-field
                         height="40"
                         solo
-                        append-icon="mdi-map-marker"
+                        append-icon="mdi-call-missed"
                         ref="location"
                         type="text"
                         v-model="new_Conge.type_conge"
@@ -44,7 +44,7 @@
                          v-model="new_Conge.cota_conge"
                         :rules="[() => !!new_Conge.cota_conge]"
                         solo
-                        append-icon="mdi-phone"
+                        append-icon="mdi-numeric"
                         ref="pla_number"
                         type="number"
                         label="Nombre de jours"

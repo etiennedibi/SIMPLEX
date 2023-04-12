@@ -11,83 +11,181 @@
                   <v-text-field
                     solo
                     height="40"
-                    v-model="newTravel_1.departure_date"
-                    :rules="[() => !!newTravel_1.departure_date]"
+                    v-model="newTravel_1.nom"
+                    :rules="[() => !!newTravel_1.nom]"
                     ref="dep_date"
-                    type="date"
+                    type="text"
                     value=""
-                    label="Date de départ"
+                    label="Nom"
+                    persistent-hint
+                    append-icon="mdi-account"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    append-icon="mdi-account-outline"
+                    height="40"
+                    v-model="newTravel_1.prenoms"
+                    :rules="[() => !!newTravel_1.prenoms]"
+                    ref="dest_place"
+                    type="text"
+                    label="Prenoms"
                     persistent-hint
                     required
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
-                    background-color="#356eea24"
+                    solo
+                    height="40"
+                    v-model="newTravel_1.email"
+                    :rules="[() => !!newTravel_1.email]"
+                    ref="dep_time"
+                    type="text"
+                    label="e-mail"
+                    append-icon="mdi-at"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    append-icon="mdi-phone"
+                    height="40"
+                    v-model="newTravel_1.contact"
+                    :rules="[() => !!newTravel_1.contact]"
+                    ref="pla_number"
+                    type="number"
+                    label="Numero de telephone"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    height="40"
+                    v-model="newTravel_1.date_naissance"
+                    :rules="[() => !!newTravel_1.date_naissance]"
+                    ref="car_infos"
+                    type="date"
+                    prefix="Né le : "
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
                     solo
                     append-icon="mdi-map-marker"
                     height="40"
-                    v-model="newTravel_1.destination"
-                    :rules="[() => !!newTravel_1.destination]"
-                    ref="dest_place"
-                    type="text"
-                    label="Destination"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    height="40"
-                    v-model="newTravel_1.departure_time"
-                    :rules="[() => !!newTravel_1.departure_time]"
-                    ref="dep_time"
-                    type="time"
-                    label="Heure départ"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    append-icon="mdi-car-seat"
-                    height="40"
-                    v-model="newTravel_1.total_car_place_number"
-                    :rules="[() => !!newTravel_1.total_car_place_number]"
-                    ref="pla_number"
-                    type="number"
-                    label="Nombre de place à disponible"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    background-color="#356eea24"
-                    solo
-                    append-icon="mdi-clipboard-text"
-                    height="40"
-                    v-model="newTravel_1.car_informations"
-                    :rules="[() => !!newTravel_1.car_informations]"
-                    ref="car_infos"
-                    type="text"
-                    label="type de car. ex: climatisé, dernière generation ..."
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    append-icon="mdi-numeric"
-                    height="40"
-                    v-model="newTravel_1.car_matriculation"
-                    :rules="[() => !!newTravel_1.car_matriculation]"
+                    v-model="newTravel_1.lieu_naissance"
+                    :rules="[() => !!newTravel_1.lieu_naissance]"
                     ref="car_matri"
-                    type="number"
-                    prefix="DEPART N°"
+                    type="text"
+                    label="Lieux d'habitation"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-file-input
+                        chips
+                        height="40"
+                        solo
+                        label="Pièce d'identité"
+                        prepend-icon="mdi-card-account-details"
+                      ></v-file-input>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-file-input
+                        chips
+                        height="40"
+                        solo
+                        label="Curriculum vitæ"
+                        prepend-icon="mdi-file-account"
+                      ></v-file-input>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-file-input
+                        chips
+                        height="40"
+                        solo
+                        label="Lettre motivation"
+                        prepend-icon="mdi-file-star-four-points"
+                      ></v-file-input>
+                </v-col>
+
+
+
+
+
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="newTravel_1.id_fonction"
+                    :items="Works"
+                    item-text="nom_fonction"
+                    item-value="id"
+                    label="Post occupé"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
+
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="newTravel_1.department_id"
+                    :items="Services"
+                    item-text="nom_departement"
+                    item-value="id"
+                    label="Département d'affectation"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="newTravel_1.role_id"
+                    :items="Roles"
+                    item-text="role"
+                    item-value="id"
+                    label="Niveau d'accès"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="newTravel_1.id_type_contrat"
+                    :items="Contracts"
+                    item-text="type_contrat"
+                    item-value="id"
+                    label="type de contrat"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    background-color="#356eea24"
+                    height="40"
+                    v-model="newTravel_1.date_debut"
+                    :rules="[() => !!newTravel_1.date_debut]"
+                    ref="car_matri"
+                    type="date"
+                    prefix="Début du contrat : "
                     label=""
                     persistent-hint
                     required
@@ -96,13 +194,29 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
-                    append-icon="mdi-cash-multiple"
                     height="40"
-                    v-model="newTravel_1.place_price"
-                    :rules="[() => !!newTravel_1.place_price]"
+                    background-color="#356eea24"
+                    v-model="newTravel_1.date_fin"
+                    :rules="[() => !!newTravel_1.date_fin]"
+                    ref="car_matri"
+                    type="date"
+                    prefix="Fin du contrat : "
+                    label=""
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-text-field
+                    solo
+                    background-color="#356eea24"
+                    append-icon="mdi-timeline-clock"
+                    height="40"
+                    v-model="newTravel_1.duree_contrat"
+                    :rules="[() => !!newTravel_1.duree_contrat]"
                     ref="pl_price"
-                    type="number"
-                    label="Prix du ticket"
+                    type="text"
+                    label="Durée du contrat : "
                     persistent-hint
                     required
                   ></v-text-field>
@@ -112,100 +226,27 @@
                   <v-text-field
                     background-color="#356eea24"
                     solo
-                    append-icon="mdi-bus-stop"
+                    append-icon="mdi-eye"
                     height="40"
-                    v-model="newTravel_1.Intemediatestation"
+                    v-model="newTravel_1.password"
                     ref="st_inter"
                     type="text"
-                    label="station intermediaires"
+                    label="Mot de passe"
                     persistent-hint
                     
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    height="40"
-                    v-model="newTravel_1.travel_duration"
-                    :rules="[() => !!newTravel_1.travel_duration]"
-                    ref="dur_time"
-                    type="time"
-                    label="Durée du voyage"
-                    persistent-hint
-                  ></v-text-field>
-                </v-col>
-                
-
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    append-icon="mdi-car-seat"
-                    height="40"
-                    v-model="newTravel_1.total_car_place_number"
-                    :rules="[() => !!newTravel_1.total_car_place_number]"
-                    ref="pla_number"
-                    type="number"
-                    label="Nombre de place à disponible"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
+                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     background-color="#356eea24"
                     solo
-                    append-icon="mdi-clipboard-text"
+                    append-icon="mdi-eye"
                     height="40"
-                    v-model="newTravel_1.car_informations"
-                    :rules="[() => !!newTravel_1.car_informations]"
-                    ref="car_infos"
-                    type="text"
-                    label="type de car. ex: climatisé, dernière generation ..."
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    append-icon="mdi-numeric"
-                    height="40"
-                    v-model="newTravel_1.car_matriculation"
-                    :rules="[() => !!newTravel_1.car_matriculation]"
-                    ref="car_matri"
-                    type="number"
-                    prefix="DEPART N°"
-                    label=""
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    solo
-                    append-icon="mdi-cash-multiple"
-                    height="40"
-                    v-model="newTravel_1.place_price"
-                    :rules="[() => !!newTravel_1.place_price]"
-                    ref="pl_price"
-                    type="number"
-                    label="Prix du ticket"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="4" lg="4">
-                  <v-text-field
-                    background-color="#356eea24"
-                    solo
-                    append-icon="mdi-bus-stop"
-                    height="40"
-                    v-model="newTravel_1.Intemediatestation"
+                    v-model="newTravel_1.password_confirmation"
                     ref="st_inter"
                     type="text"
-                    label="station intermediaires"
+                    label="Confirmation Mot de passe"
                     persistent-hint
                     
                   ></v-text-field>
@@ -241,7 +282,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Voyage ajouté avec succes</v-alert
+        Employer enregistré avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -253,7 +294,7 @@
         class="alert"
         color="error"
       >
-        {{ traveladdingResponse.message }}</v-alert
+        Erreur lors de l'ajout</v-alert
       >
     </transition>
   </div>
@@ -265,7 +306,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "TravelDeclaration",
+  name: "AddEmployer",
   components: {},
 
   data: () => ({
@@ -304,33 +345,26 @@ export default {
       company_id: "1",
       user_id: "1",
     },
+
+    Roles:[
+      {role:"manager", id:"1"},
+      {role:"standart", id:"2"},
+    ],
+
     traveladdingResponse: "",
     addingSuccess: false,
     addingfalse: false,
+
+
   }),
 
   methods: {
     submit1() {
       // for intermadiate station 
-      if (this.newTravel_1.Intemediatestation) {
-        this.newTravel_1.Intemediatestation = this.newTravel_1.Intemediatestation.split(
-          " "
-        );
-        for (
-          let index = 0;
-          index < this.newTravel_1.Intemediatestation.length;
-          index++
-        ) {
-          this.newTravel_1.Intemediatestation[index] = {
-            station_name: this.newTravel_1.Intemediatestation[index],
-          };
-        }
-      }
-      axios({ url: "travel/add", data: this.newTravel_1, method: "POST" })
+      axios({ url: "admin/add-new-user-emplyer", data: this.newTravel_1, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
-          console.log(response.data);
-          if (this.traveladdingResponse.message == "success") {
+          if (this.traveladdingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
@@ -360,10 +394,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Analytics"]),
+    ...mapGetters(["Works","Contracts","Services"]),
   },
 
   created() {
+    this.$store.dispatch("init_service");
+    this.$store.dispatch("init_contract");
+    this.$store.dispatch("init_work");
+
     this.newTravel_1.company_id = localStorage.getItem("user-station");
     this.newTravel_1.user_id = localStorage.getItem("user-id");
   },

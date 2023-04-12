@@ -15,7 +15,7 @@ import fileManage from "../views/fileManage.vue";
 
 
 
-import TravelDeclaration from "../views/TravelDeclaration.vue";
+import AddEmployer from "../views/AddEmployer.vue";
 import StaffList from "../views/staffList.vue";
 import FicheEmploye from "../views/ficheEmploye.vue";
 
@@ -86,9 +86,9 @@ const routes = [
     component: RdvStory,
   },
   {
-    path: "/TravelDeclaration",
-    name: "TravelDeclaration",
-    component: TravelDeclaration,
+    path: "/AddEmployer",
+    name: "AddEmployer",
+    component: AddEmployer,
   },
   {
     path: "/Contract",

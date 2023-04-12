@@ -186,6 +186,7 @@
                       <v-text-field
                         height="60"
                         style="margin-bottom:10px"
+                        v-model="editedItem.type_conge"
                         background-color="#356eea24"
                         solo
                         label="Date de début"
@@ -199,6 +200,7 @@
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
+                        v-model="editedItem.type_conge"
                         solo
                         style="margin-bottom:10px"
                         label="Date de fin"
@@ -213,6 +215,7 @@
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
+                        v-model="editedItem.type_conge"
                         style="margin-bottom:10px"
                         background-color="#356eea24"
                         solo
@@ -227,6 +230,7 @@
                     <div style="width:100%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
+                        v-model="editedItem.type_conge"
                         clearable
                         clear-icon="mdi-close-circle"
                         rows="3"
@@ -336,17 +340,13 @@
             <div class="statElment">
               <div>
                 <h5>NOMBRE DE JOURS</h5>
-                <h4>{{ editedItem.nom_visiteur }} 5</h4>
+                <h4>{{ editedItem.nbre_jour }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
-                <h5>JUSTIFICATION</h5>
-                <h4 style="text-align:justify">{{ editedItem.email_visiteur }}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                  Deserunt itaque laborum debitis reiciendis ipsum nihil rem tempora 
-                  inventore numquam voluptate corporis assumenda 
-                  doloribus animi, voluptatibus, nostrum quibusdam similique? Temporibus, praesentium.
+                <h5>MOTIF</h5>
+                <h4 style="text-align:justify">{{ editedItem.motif_conge }}
                 </h4>
               </div>
             </div>
@@ -374,7 +374,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="items"
+        :items="User_Conges"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -385,12 +385,12 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="editItem(item)"
+          <!-- <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          > -->
+          <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
+          > -->
           <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
             <div class="status" style="background: #037CB831;">en cours</div>
           </v-btn> -->
@@ -473,14 +473,14 @@ export default {
     // For the table
     search: "",
     headers: [
-      { text: "TYPE", value: "heure_rdv" },
+      { text: "TYPE", value: "type_conge" },
       {
         text: "DATE DEBUT",
         align: "start",
         sortable: true,
-        value: "nom_visiteur",
+        value: "date_debut",
       },
-      { text: "DATE FIN", value: "date_rdv" },
+      { text: "DATE FIN", value: "date_fin" },
       { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
@@ -654,7 +654,7 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+      this.editedIndex = this.User_Conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
@@ -696,9 +696,9 @@ export default {
     // delete a travel
     // --------------------
     deleteItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+      this.editedIndex = this.User_Conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+      this.itemToDelete = { id: this.editedItem.User_Conges_id };
       // if it is a variante of prise
       this.OneVarianteitemToDelete = { id: this.editedItem.id };
       // this.dialogDelete = true;
@@ -787,9 +787,9 @@ export default {
 
     // FOR ACCEPT VISITE
     acceptItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+      this.editedIndex = this.User_Conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+      this.itemToDelete = { id: this.editedItem.User_Conges_id };
       this.dialogAccept = true;
     },
     acceptVisite() {
@@ -829,9 +829,9 @@ export default {
 
     // FOR ACCEPT VISITE
     reportItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+      this.editedIndex = this.User_Conges.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+      this.itemToDelete = { id: this.editedItem.User_Conges_id };
       this.dialogAccept = true;
     },
     reportVisite() {
@@ -871,11 +871,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["UserVisites"]),
+    ...mapGetters(["User_Conges"]),
   },
 
   created() {
-    this.$store.dispatch("init_userVisite");
+    this.$store.dispatch("init_user_conge");
   },
 };
 </script>

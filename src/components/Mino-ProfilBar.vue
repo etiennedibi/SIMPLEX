@@ -4,9 +4,9 @@
       <div class="profilImg">
         <img src="@/assets/img/team2.jpg" alt="" srcset="" />
       </div>
-      <!-- <p>{{ uUser }}</p> -->
+      <!-- <p>{{ uUser }}ADMIN</p> -->
       <p>NIANGO PAUL</p>
-      <p>ADMIN{{ uUser }}</p>
+      <p>{{ uUser }}</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -20,7 +20,7 @@
         <v-icon color="mainBlueColor" x-large class="messgaeicon"
           >mdi-bullhorn-outline</v-icon
         >
-        <p>communiqués</p>
+        <p style="margin-top:25px">communiqués</p>
       </div>
     </router-link>
     <div class="footerBox">

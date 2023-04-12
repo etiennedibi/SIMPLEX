@@ -10,7 +10,7 @@ const getters = {
     let userVisite = state.userVisite;
 
     return userVisite;
-  },
+  },  
 
   AllVisitesStorys: (state) => {
     let allVisitesStorys = state.allVisitesStory;
@@ -39,7 +39,7 @@ const actions = {
       )
       .then((res) => {
         console.log(res.data);
-        commit("SET_USERVISITES", res.data);
+        commit("SET_USERVISITES", res.data.visites);
       })
       .catch((error) => console.log(error));
   },

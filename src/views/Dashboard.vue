@@ -7,12 +7,9 @@
           <v-col cols="12" md="6" lg="6">
             <div class="Jumbultron">
               <div>
-                <h3>101ème client</h3>
+                <h3>{{LastMessages.titre}}</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  <br />
-                  Sunt, repellat odit? Corrupti earum natus ullam iusto
-                  doloribus esse?
+                  {{LastMessages.contenu_comminuque}}
                 </p>
               </div>
             </div>
@@ -189,8 +186,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Analytics", "Ratings"]),
+    ...mapGetters(["LastMessages"]),
   },
+
+  created() {
+    this.$store.dispatch("init_message");
+  },
+
 };
 </script>
 

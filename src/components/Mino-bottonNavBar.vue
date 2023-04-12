@@ -44,7 +44,7 @@
             <v-icon color="red" v-on:click.stop="travelMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="travelMenuClick = false">
-            <router-link :to="{ name: 'TravelDeclaration' }">
+            <router-link :to="{ name: 'AddEmployer' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ENREGISTRER UN EMPLOYER</p>
@@ -126,12 +126,12 @@
                 <p>SOUMETTRE UNE DEMANDE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'BilanConge' }">
+            <!-- <router-link :to="{ name: 'BilanConge' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>BILAN DES DEMANDES</p>
               </div>
-            </router-link>
+            </router-link> -->
             <router-link :to="{ name: 'Congemanagment' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>

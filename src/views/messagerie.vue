@@ -9,24 +9,15 @@
               <v-form ref="form1">
                 <v-container fluid class="addMessage">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
-                      <v-switch
-                        inset
-                        v-model="switch1"
-                        :label="`ENVOYER A : ${dest}`"
-                      ></v-switch>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12" style="margin-top:-25px"> 
+                    <v-col cols="12" md="12" lg="12" style="margin-top:10px"> 
                       <v-text-field height="40" 
                         background-color="#356eea24" 
                         solo
                         label="Titre"
-                        append-icon="mdi-matrix"
+                        append-icon="mdi-text-box-edit"
                         ref="topic"
                         type="text"
-                        :value="MailResponseTopic"
-                        @keyup="manualTopicdata = $event.target.value"
-                        @change="TopicManualDefinition"
+                        v-model="new_message.titre"
                         persistent-hint
                         required
                       ></v-text-field>
@@ -36,11 +27,11 @@
                         solo
                         clearable
                         clear-icon="mdi-close-circle"
-                        rows="4"
+                        rows="6"
                         name="input-7-4"
                         label="Communiqué"
                         class="the-message-area"
-                        v-model="new_message.content"
+                        v-model="new_message.contenu_comminuque"
                       ></v-textarea>
                     </div>
                     <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
@@ -76,7 +67,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Mail Envoyé avec succes</v-alert
+        Communiqué éffectué avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -88,7 +79,7 @@
         class="alert"
         color="error"
       >
-        {{ messageaAddingResponse.message }}</v-alert
+        communiqué pas éffectué</v-alert
       >
     </transition>
   </div>
@@ -122,32 +113,27 @@ export default {
 
     // FOR FORM SENDING
     new_message: {
-      topic: "",
-      content: "",
-      dest: 0,
-      station_creator_id: ""
+      
     },
     manualTopicdata:"",
     messageaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
     
-    messagecomponentKey: 1,
 
   }),
 
   methods: {
     submit1() {
-      this.destDEf()
-      axios({ url: "station/message/add", data: this.new_message, method: "POST" })
+      axios({ url: "admin/store_communique", data: this.new_message, method: "POST" })
       .then((response) => {
         this.messageaAddingResponse = response.data;
         console.log(response.data);
-        if (this.messageaAddingResponse.message == "success") {
+        if (this.messageaAddingResponse) {
           this.addingSuccess = !this.addingSuccess;
           setTimeout(() => {
             this.addingSuccess = !this.addingSuccess;
-            this.forceRerender1();
+            this.$store.dispatch("init_message");
           }, 3000);
         } else {
           this.addingfalse = !this.addingfalse;
@@ -165,45 +151,13 @@ export default {
       this.$refs.form1.reset();
     },
 
-    // For table re-render after delete or update an item
-    forceRerender1() {
-      this.$store.state.MessageListRerender += 1;
-    },
+  
 
-    destDEf() {
-      if (this.switch1) {
-        this.new_message.dest = 0
-      } else {
-        this.new_message.dest = 1
-      }
-      this.new_message.station_creator_id = localStorage.getItem("user-station");
-      this.new_message.topic = this.MailResponseTopic
-      if (this.MailResponseInitMailid != 0) {
-        this.new_message.response_of_id = this.MailResponseInitMailid
-      }
-    },
 
-    TopicManualDefinition() {
-      // this.$store.state.ResponseTopic = this.manualTopicdata
-      this.$store.state.ResponseTopic = this.manualTopicdata
-    //  console.log(this.$store.state.ResponseTopic);
-    },
   },
 
   computed: {
-    dest() {
-      return this.switch1? 'MINO':'Centrale'
-    },
-    MailResponseTopic() {
-      return this.$store.state.ResponseTopic
-    },
-    MailResponseInitMailid() {
-      return this.$store.state.response_of_id
-    },
-
-    forcemessageListeRerender () {
-      return this.$store.state.MessageListRerender
-    },
+    
     
   },
 };

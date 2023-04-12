@@ -418,17 +418,7 @@ export default {
     // ------------------------
     // DATA
     // ------------------------
-    updateChart() {
-      this.series[0] = this.Analytics.GraphData.series[5];
-      this.chartOptions = {
-        ...this.chartOptions,
-        ...{
-          xaxis: {
-            categories: this.Analytics.GraphData.month,
-          },
-        },
-      };
-    },
+    
   },
 };
 </script>

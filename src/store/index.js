@@ -5,7 +5,6 @@ import travel from "./modules/travel";
 import lostObjet from "./modules/lostObjet";
 import expedition from "./modules/expedition";
 import senders from "./modules/senders";
-import analytics from "./modules/analytics";
 import rating from "./modules/ratings";
 import auth from "./modules/auth";
 import gestion from "./modules/gestion";
@@ -17,6 +16,7 @@ import contract from "./modules/contract";
 import service from "./modules/service";
 import work from "./modules/work";
 import conge from "./modules/conge";
+import user from "./modules/user";
 
 
 
@@ -44,7 +44,6 @@ export default new Vuex.Store({
   modules: {
     travel,
     lostObjet,
-    analytics,
     rating,
     expedition,
     senders,
@@ -58,5 +57,6 @@ export default new Vuex.Store({
     service,
     work,
     conge,
+    user,
   },
 });

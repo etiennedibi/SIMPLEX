@@ -2,11 +2,18 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   conges: [],
+  user_conges: [],
 };
 
 const getters = {
   Conges: (state) => {
     let conge = state.conges;
+
+    return conge;
+  },
+
+  User_Conges: (state) => {
+    let conge = state.user_conges;
 
     return conge;
   },
@@ -17,7 +24,9 @@ const mutations = {
   SET_CONGE(state, data) {
     state.conges = data;
   },
-
+  SET_USER_CONGE(state, data) {
+    state.user_conges = data;
+  },
 };
 
 const actions = {
@@ -30,6 +39,19 @@ const actions = {
       )
       .then((res) => {
         commit("SET_CONGE", res.data);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_user_conge: ({ commit }) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "users/get_conge_user/"+2 
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_USER_CONGE", res.data.conge);
       })
       .catch((error) => console.log(error));
   },

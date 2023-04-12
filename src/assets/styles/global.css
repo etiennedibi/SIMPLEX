@@ -199,6 +199,9 @@ transform: translateX(-20px)
     margin-bottom: 8px;
 }
 
+.v-icon.v-icon {
+    font-size: 16px;
+  }
 
 
 /*-- Data Table Customisation --*/

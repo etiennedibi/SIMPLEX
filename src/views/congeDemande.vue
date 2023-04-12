@@ -30,6 +30,7 @@
                         ref="total_name"
                         type="date"
                         value=""
+                        prefix="Debut : "
                         persistent-hint
                         required
                       ></v-text-field>
@@ -43,6 +44,7 @@
                         v-model="new_conge_ask.date_fin"
                         type="date"
                         value=""
+                        prefix="Fin : "
                         persistent-hint
                         required
                       ></v-text-field>
@@ -142,16 +144,7 @@ export default {
 
   data: () => ({
     // FOR FORM SENDING
-    new_conge_ask: {
-      denomination: "",
-      min_weight: "",
-      max_weight: "",
-      min_size: "",
-      max_size: "",
-      unit_price: "",
-      description: "",
-      company_id: "",
-    },
+    new_conge_ask: {},
 
     congeAskaAddingResponse: "",
     addingSuccess: false,
@@ -165,11 +158,14 @@ export default {
 
   methods: {
     submit1() {
-        axios({ url: "congeAsk/add", data: this.new_conge_ask, method: "POST" })
+      this.new_conge_ask.id_user = 2;
+      this.new_conge_ask.id_departement = 2;
+      console.log(this.new_conge_ask);
+        axios({ url: "users/store_conge", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
           console.log(response.data);
-          if (this.congeAskaAddingResponse.message == "success") {
+          if (this.congeAskaAddingResponse.code == 200) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
@@ -186,7 +182,6 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.$refs.form1.reset();
     },
 
   },
@@ -196,6 +191,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("init_conge");
     // this.new_conge_ask.company_id = localStorage.getItem("user-station");
   },
 };

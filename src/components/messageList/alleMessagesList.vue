@@ -1,30 +1,49 @@
 <template>
   <div class="tableWrapperDiv">
     <!-- SHOW DIALOG -->
-    <v-dialog v-model="dialog" max-width="700" @click:outside="close">
+   <v-dialog v-model="dialog" max-width="370">
       <v-card>
         <v-card-text>
-          <v-container>
+          <v-container class="showDialog">
             <div class="imgAndTitle">
-              <p v-if="!editedItem.station_creator_id">Message - lecture</p>
-              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id == null)">Envoyé <br> à <br> MINO</p>
-              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id > 0)">Envoyé <br> à <br> CENTRALE</p>
+              <v-icon color="mainBlueColor" x-large class="messgaeicon"
+                >mdi-bullhorn-outline</v-icon
+              >
             </div>
-            <div class="TheMessage">
-              <p> {{editedItem.content}} </p>
+            <div class="statElment">
+              <div>
+                <h5 style="margin-bottom:10px">COMMUNIQUE</h5>
+                <h4>{{ editedItem.contenu_comminuque }}</h4>
+              </div>
             </div>
+            
           </v-container>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            rounded
-            depressed
-            @click="mailResponse"
-            style="color: white"
-            >Répondre</v-btn>
-        </v-card-actions>
+        <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+
+            <v-card-text>
+            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+            </v-card-text>
+
+            <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+            >
+                Disagree
+            </v-btn>
+
+            <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+            >
+                Agree
+            </v-btn>
+            </v-card-actions> -->
       </v-card>
     </v-dialog>
 
@@ -34,7 +53,7 @@
         <v-text-field
           v-model="search"
           dense
-          outlined
+          solo
           hide-details
           prepend-inner-icon="mdi-search"
           label="Rechercher"
@@ -55,28 +74,9 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)">
+          <v-btn icon color="mainBlueColor" @click="showItem(item)">
               <v-icon small> mdi-eye </v-icon>
           </v-btn>
-          <!-- <v-btn
-            icon
-            color="mainGreenColor"
-            @click="showItem(item)"
-            ><v-icon small> mdi-email-send </v-icon></v-btn
-          > -->
-        </template>
-        <template v-slot:[`item.central_dest_id`]="{ item }"> 
-          <div v-if="item.station_creator_id">
-            <v-icon color="secondary" small> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">VOUS</span>
-          </div>
-          <div v-if="(!item.station_creator_id) && (item.central_creator_id == 0)">
-            <v-icon small color="primary" style="transform: rotateY(192deg)" v-if="item.view"> mdi-send-outline </v-icon> 
-            <v-icon small color="red" style="transform: rotateY(192deg)" v-if="!item.view"> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">MINO</span>
-          </div>
-          <div v-if="(!item.station_creator_id) && (item.central_creator_id > 0)">
-            <v-icon small color="primary" style="transform: rotateY(192deg)" v-if="item.view"> mdi-send-outline </v-icon>
-            <v-icon small color="#b71c1c" style="transform: rotateY(192deg)" v-if="!item.view"> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">CENTRALE</span>
-          </div>
         </template>
       </v-data-table>
     </div>
@@ -148,46 +148,45 @@ export default {
     search: "",
     headers: [
       {
-        text: "DE",
+        text: "ID",
         align: "start",
         sortable: false,
-        value: "central_dest_id",
+        value: "id",
       },
-      { text: "OBJET", value: "topic" },
-      { text: "DATE", value: "created_at" },
+      { text: "TITRE", value: "titre" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     desserts: [
-      // {
-      //   sernder: "MINO",
-      //   objet: "scipit voluptatibus co orum laudantium ...",
-      //   date: "09:00",
+      {
+        sernder: "MINO",
+        objet: "scipit voluptatibus co orum laudantium ...",
+        date: "09:00",
         
-      // },
-      // {
-      //   sernder: "CENTRALE",
-      //   objet: "25-03-2021 scipit voluptatibus co orum lalaborum...",
-      //   date: "09:00",
+      },
+      {
+        sernder: "CENTRALE",
+        objet: "25-03-2021 scipit voluptatibus co orum lalaborum...",
+        date: "09:00",
        
-      // },
-      // {
-      //   sernder: "VOUS",
-      //   objet: " voluptatibus co orum laudantiljeijopj nzpijpum as...",
-      //   date: "09:00",
+      },
+      {
+        sernder: "VOUS",
+        objet: " voluptatibus co orum laudantiljeijopj nzpijpum as...",
+        date: "09:00",
         
-      // },
-      // {
-      //   sernder: "MINO",
-      //   objet: "scipit voluptatibus co orum laudqjk^fq pqp dantium as...",
-      //   date: "09:00",
+      },
+      {
+        sernder: "MINO",
+        objet: "scipit voluptatibus co orum laudqjk^fq pqp dantium as...",
+        date: "09:00",
         
-      // },
-      // {
-      //   sernder: "VOUS",
-      //   objet: "RE:: scipit voluptatibus corrups<opti dum as...",
-      //   date: "09:00",
+      },
+      {
+        sernder: "VOUS",
+        objet: "RE:: scipit voluptatibus corrups<opti dum as...",
+        date: "09:00",
         
-      // },
+      },
     ],
 
     // for alerte
@@ -326,49 +325,56 @@ export default {
 }
 
 /* Show details */
+.showDialog{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .imgAndTitle {
   margin: 15px 0px;
   height: 100px;
-  width: 620px;
-  border-radius: 7px;
+  width: 100px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  border: solid 3px;
+  border-color: var(--main-blue-important) rgb(176, 176, 182);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  background: linear-gradient(
+  /* background: linear-gradient(
       180deg,
       rgb(0 0 0 / 0%),
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+    url(../../assets/img/pexels-nappy-1058959.jpg);
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
 }
-.imgAndTitle > p:first-child {
-  font-size: 21px;
-  font-weight: bold;
-  margin: 0px;
-  margin-left: 20px;
-  text-align: center;
-  color: white;
-}
-.imgAndTitle > p:last-child {
-  font-size: 15px;
-  font-weight: bold;
-  margin: 0px 0px 10px 20px;
-  color: white;
+.imgAndTitle > img{
+  height:50px;
+  width:50px
 }
 
-.TheMessage {
-  margin-bottom: 15px;
-  padding: 0px 40px;
+
+.statElment {
+  margin-bottom: 20px;
   display: flex;
+  text-align: center;
+  /* background-color:red; */
+}
+.statElment > div {
+  /* margin-left: 10px; */
+}
+.statElment h5 {
+  color: var(--main-blue-important);
 }
 
 .statusChange {
   display: flex;
   justify-content: center;
 }
+
 
 </style>

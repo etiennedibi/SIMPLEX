@@ -2,20 +2,25 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   messages: [],
+  lastMesage:[],
 
 };
 
 const getters = {
   Messages: (state) => {
     let message = state.messages;
-
+    return message;
+  },
+  LastMessages: (state) => {
+    let message = state.lastMesage[0];
     return message;
   },
 };
 
 const mutations = {
   SET_MESSAGE(state, data) {
-    state.messages = data;
+    state.messages = data.result;
+    state.lastMesage = data.last_communique;
   },
   UPDATE_VIEW_MESSAGE() {
     
@@ -27,11 +32,11 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "station/message/list/" +
-          localStorage.getItem("user-station")
+        "admin/getAllCommunique" 
       )
       .then((res) => {
-        commit("SET_MESSAGE", res.data.data);
+        commit("SET_MESSAGE", res.data);
+        console.log(res.data);
       })
       .catch((error) => console.log(error));
   },

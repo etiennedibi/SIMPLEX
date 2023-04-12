@@ -259,6 +259,20 @@
                         required
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        background-color="#356eea24"
+                        v-model="editedItem.duree_rdv"
+                        ref="transport"
+                        type="time"
+                        label="heure"
+                        persistent-hint
+                        append-icon="mdi-clock-time-eight"
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <div style="width:90%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
@@ -330,6 +344,20 @@
                         type="time"
                         value=""
                         persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        background-color="#356eea24"
+                        v-model="editedItem.duree_rdv"
+                        ref="transport"
+                        type="time"
+                        label="heure"
+                        persistent-hint
+                        append-icon="mdi-clock-time-eight"
                         required
                       ></v-text-field>
                     </v-col>
@@ -786,22 +814,22 @@ export default {
       this.BeforeDialogDelete = false;
     },
 
-    deleteOneItemVriante() {
+    deleteOneItemVriante(item) {
+      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedItem = Object.assign({}, item);
       this.dialogDeleteOneVariante = true;
-      this.BeforeDialogDelete = false;
+      // this.BeforeDialogDelete = false;
     },
           // confirm deleted of nature
     deleteItemConfirm() {
-      axios
-        .delete(
-          "Visite/delete/" + this.itemToDelete.id
-        )
+       axios
+        ({ url: "rdv/update_date_visite", data: this.editedItem, method: "POST" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
           if (this.VisiteaAddingResponse.message == "success") {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Suppression effectuée";
+            this.VisiteaAddingResponse.message = "Annulation effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;

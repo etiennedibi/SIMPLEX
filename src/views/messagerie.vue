@@ -5,11 +5,11 @@
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper">
+            <div class="numberWrapper formBox">
               <v-form ref="form1">
                 <v-container fluid class="addMessage">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12" style="margin-top:10px"> 
+                    <v-col cols="12" md="12" lg="12"> 
                       <v-text-field height="40" 
                         background-color="#356eea24" 
                         solo
@@ -34,7 +34,7 @@
                         v-model="new_message.contenu_comminuque"
                       ></v-textarea>
                     </div>
-                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:flex-start">
                       <v-btn
                         medium
                         depressed
@@ -193,6 +193,12 @@ export default {
   background: white;
   height: 55vh;
 }
+.formBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 /* .rightBox,
 .middleBox {
   height: 60vh;
@@ -225,7 +231,7 @@ export default {
 
 @media (min-width: 960px) {
   .col-md-12 {
-    height: 90px;
+    height: 75px;
   }
 }
 

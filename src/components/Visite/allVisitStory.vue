@@ -59,7 +59,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="AllVisitesStorys"
+        :items="UserVisites"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -275,11 +275,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllVisitesStorys"]),
+    ...mapGetters(["AllVisitesStorys","UserVisites"]),
   },
 
   created() {
     this.$store.dispatch("init_allVisite");
+    this.$store.dispatch("init_userVisite");
   },
 };
 </script>

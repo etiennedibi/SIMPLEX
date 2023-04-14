@@ -425,9 +425,9 @@
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="12" lg="12">
-        <p style="margin-bottom: 40px;"> 
-          <span style="font-size: 14px; font-weight: bold;">
-            REVU DU PROJET :
+        <p class="TitleForList"> 
+          <span style=" font-weight: bold;">
+            REVU PROJET :
           </span> 
           CREATION DE LOT DE CONSOLATION
         </p>
@@ -850,6 +850,16 @@ export default {
   padding: 25px;
   padding-bottom: 50px;
 }
+.TitleForList{
+  margin-bottom: 40px;
+  font-size: 12px;
+  text-transform: uppercase;
+  /* background-color:red; */
+  border-radius: 2px;
+  padding: 5px;
+  box-shadow: 0px 2px 1px -2px rgba(0, 0, 0, 0.103), 0px 2px 2px 0px rgba(0, 0, 0, 0.103), 0px 1px 5px 0px rgba(0, 0, 0, 0.103);
+}
+
 .dataWrapper {
   height: 100%;
   overflow-y: scroll;

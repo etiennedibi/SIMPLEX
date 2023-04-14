@@ -763,16 +763,17 @@ export default {
     },
 
     editItemConfirm() {
-      this.editedItem.id_visite = this.editedItem.id;
+      // this.editedItem.id_visite = this.editedItem.id;
+      console.log(this.editedItem);
       axios
-        ({ url: "rdv/update_date_visite", data: this.editedItem, method: "POST" })
+        ({ url: "rdv/update_date_visite/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
 
           if (this.VisiteaAddingResponse.error == false) {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "report effectuée";
+            this.VisiteaAddingResponse.message = "modifiactaion effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;

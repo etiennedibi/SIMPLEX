@@ -1,7 +1,8 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">CREATION DE TÂCHE
+      <p class="sectionTitle">
+        CREATION DE TÂCHE
 
         <!-- CREATE PROJET DIALOG -->
         <v-dialog v-model="dialogCreate" max-width="420">
@@ -112,7 +113,7 @@
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="4" lg="4">
-            <div class="numberWrapper">
+            <div class="numberWrapper formBox">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addvisit">
                   <v-row>
@@ -121,7 +122,7 @@
                         height="40"
                         solo
                         label="Projet"
-                        append-icon="mdi-account-arrow-right"
+                        append-icon="mdi-folder"
                         ref="matri"
                         v-model="new_visit.nom_visiteur"
                         type="text"
@@ -148,9 +149,22 @@
                       <v-text-field
                         height="40"
                         solo
-                        label="Telephone"
+                        label="Intitulé"
                         v-model="new_visit.contact_visiteur"
-                        append-icon="mdi-phone"
+                        append-icon="mdi-subtitles"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="40"
+                        solo
+                        label="Delais d'execution"
+                        v-model="new_visit.contact_visiteur"
+                        append-icon="mdi-clipboard-text-clock-outline"
                         type="text"
                         value=""
                         persistent-hint
@@ -163,10 +177,11 @@
                         clearable
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
+                        append-icon="mdi-subtitles-outline"
                         rows="5"
                         name="input-7-4"
                         v-model="new_visit.objet"
-                        label="objet"
+                        label="Details"
                         class="the-message-area"
                       ></v-textarea>
                     </div>
@@ -234,6 +249,8 @@ export default {
   },
 
   data: () => ({
+
+    
 
     // CREATE_PROJECT
     dialogCreate:false,
@@ -319,9 +336,15 @@ export default {
 .sectionTitle .v-btn{
   margin-right: 15px;
 } 
-.numberWrapper {
+.numberWrapper{
   border-radius: 10px;
   background: white;
+}
+.formBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 /* ,
 .middleBox {

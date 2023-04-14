@@ -20,7 +20,6 @@
                                 solo
                                 label="pseudo"
                                 append-icon="mdi-account"
-                                v-model="editedItem.pseudo"
                                 ref="matri"
                                 type="text"
                                 value=""
@@ -34,7 +33,6 @@
                                 background-color="#3e886d4a"
                                 solo
                                 label="password"
-                                v-model="editedItem.password"
                                 append-icon="mdi-lead-pencil"
                                 ref="total_name"
                                 type="text"
@@ -74,17 +72,17 @@
 
                 <!-- FOR THE ELEMENT -->
                  <v-row justify="center">
-                  <v-col cols="12" md="3" lg="3" v-for="item in Adminitrators" :key="item.index" @click="editItem(item)">
+                  <v-col cols="12" md="3" lg="3">
                     <div class="numberWrapper">
                       <div class="N-icon">
-                        <v-icon  v-if="item.role_id == 1" color="#b98d4c">mdi-bus-multiple</v-icon>
-                        <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
-                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon>
+                        <v-icon  color="#b98d4c">mdi-bus-multiple</v-icon>
+                        <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
                       </div>
-                      <h1 v-if="item.role_id == 1">VOYAGES</h1>
-                      <h1 v-if="item.role_id == 2">COLIS</h1>
-                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1>
-                      <h5>{{ item.pseudo }} </h5>
+                      <h1>VOYAGES</h1>
+                      <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
+                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
+                      <h5>POULet </h5>
                     </div>
                   </v-col>
                 </v-row>

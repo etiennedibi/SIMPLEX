@@ -355,7 +355,7 @@
 
       <v-row>
         <v-col cols="12" md="12" lg="12">
-           <div class="stationListboxWrapper">
+           <div v-if="Employers.length!=0" class="stationListboxWrapper">
             <v-data-iterator
               :items="Employers"
               :items-per-page.sync="itemsPerPage"
@@ -459,6 +459,10 @@
                 </v-row>
               </template>
             </v-data-iterator>
+          </div>
+          <div v-else class="stationListboxWrapper2">
+            <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
+            Veuillez enregistrer au moins un employé
           </div>
         </v-col>
         
@@ -667,6 +671,15 @@ export default {
   border-radius: 10px;
   /* height: 53vh; */
   padding: 15px;
+}
+.stationListboxWrapper2{
+  background: white;
+   padding: 15px;
+   margin-top:12vh;
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
 }
 
 .InvBox {

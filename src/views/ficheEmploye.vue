@@ -2,7 +2,7 @@
   <div class="bodyBox">
     <div class="TheBoxBody">
       <!-- <p class="sectionTitle">Chiffres Importants</p> -->
-      <v-container fluid class="pouletBr">
+      <v-container v-if="Current_employer" fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="8" lg="8">
             <div class="Jumbultron">
@@ -64,6 +64,11 @@
             </div>
           </v-col>
         </v-row>
+      </v-container>
+      <v-container v-else fluid class="pouletBr stationListboxWrapper2">
+       <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
+        Veuillez renseigner vos informations dans les paramètres,<br>
+        pour accéder à votre fiche.
       </v-container>
     </div>
   </div>
@@ -220,6 +225,18 @@ export default {
   font-size: 18px;
   font-weight: bold;
 }
+
+.stationListboxWrapper2{
+  background: white;
+   padding: 15px;
+   margin-top:25vh;
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align:center;
+}
+
 .numberWrapper {
   margin-top: 2%;
   height: 21vh;

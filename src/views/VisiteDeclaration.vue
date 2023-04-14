@@ -92,7 +92,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <!-- <v-col cols="12" md="6" lg="6">
                       <div style="display:flex; justify-content:space-around">
                         <p>Durée de la visite</p> 
                         <v-icon>mdi-arrow-right</v-icon>
@@ -111,7 +111,7 @@
                         append-icon="mdi-timer"
                         required
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <div style="width:100%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
@@ -213,6 +213,7 @@ export default {
 
   methods: {
     submit1() {
+      console.log(this.new_visit);
         axios({ url: "rdv/demande_rdv", data: this.new_visit, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
@@ -221,7 +222,6 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              // this.forceRerender1();
               this.$store.dispatch("init_userVisite")
             }, 3000);
           } else {

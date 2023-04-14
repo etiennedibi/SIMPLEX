@@ -100,10 +100,7 @@
                     md="3"
                     lg="3"
                   >
-                    <div
-                      class="InvBox"
-                      @click="openDialog(item)"
-                    >
+                    <div class="InvBox" @click="openDialog(item)">
                       <div>
                         <v-icon color="mainBlueColor">mdi-folder</v-icon>
                         <p>{{ item.name }}</p>
@@ -112,7 +109,7 @@
                       <div class="price">
                         <v-btn icon color="mainBlueColor" @click.stop="showItem(item)"
                           ><v-icon>mdi-dots-horizontal-circle</v-icon></v-btn>
-                        <p>{{ item.city }}</p>
+                        <!-- <p>{{ item.city }}</p> -->
                       </div>
                     </div>
                   </v-col>

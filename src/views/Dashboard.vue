@@ -6,10 +6,18 @@
         <v-row>
           <v-col cols="12" md="6" lg="6">
             <div class="Jumbultron">
-              <div>
+              <div v-if="LastMessages">
                 <h3>{{LastMessages.titre}}</h3>
                 <p>
                   {{LastMessages.contenu_comminuque}}
+                </p>
+              </div>
+               <div v-if="!LastMessages">
+                <h3>Bienvenue sur SIMPLEX</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                  Ex ut fugit quaerat obcaecati delectus fugit dolorum adipisci illo 
+                  blanditiis commodi vitae?
                 </p>
               </div>
             </div>
@@ -240,6 +248,7 @@ export default {
   display: flex;
   align-items: flex-start;
   padding-left: 30px;
+  padding-right: 30px;
   background: white;
   background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
   color: white;

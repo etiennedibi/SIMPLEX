@@ -11,7 +11,7 @@ import TaskDeclaration from "../views/TaskDeclaration.vue";
 import taskStory from "../views/taskStory.vue";
 import UserTaskManage from "../views/UserTaskManage.vue";
 import fileManage from "../views/fileManage.vue";
-
+import UserFileManage from "../views/UserFileManage.vue";
 
 
 
@@ -28,6 +28,7 @@ import ExpeditionSheet from "../views/Expedition2Management.vue";
 
 import CongeDemande from "../views/congeDemande.vue";
 import BilanConge from "../views/bilanConge.vue";
+import BilanAbsence from "../views/bilanAbsence.vue";
 import Congemanagment from "../views/congemanagment.vue";
 import CongeStory from "../views/congeStory.vue";
 
@@ -136,6 +137,11 @@ const routes = [
     component: fileManage,
   },
   {
+    path: "/UserFileManage",
+    name: "UserFileManage",
+    component: UserFileManage,
+  },
+  {
     path: "/lostObjectList",
     name: "lostObjectList",
     component: lostObjectList,
@@ -184,6 +190,11 @@ const routes = [
     path: "/CongeStory",
     name: "CongeStory",
     component: CongeStory,
+  },
+  {
+    path: "/BilanAbsence",
+    name: "BilanAbsence",
+    component: BilanAbsence,
   },
   {
     path: "/login",

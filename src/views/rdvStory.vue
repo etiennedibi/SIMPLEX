@@ -8,7 +8,7 @@
             <div class="N-icon">
               <v-icon color="mainBlueColor">mdi-account-clock</v-icon>
             </div>
-            <h1>{{ visiteNumber }}</h1>
+            <h1>15</h1>
             <h5>RDV Enregistrés</h5>
           </div>
           <div class="stat1 stat2">

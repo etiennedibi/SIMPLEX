@@ -47,7 +47,7 @@
             <router-link :to="{ name: 'AddEmployer' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>ENREGISTRER UN EMPLOYER</p>
+                <p>ENREGISTRER UN EMPLOYE</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'StaffList' }">
@@ -59,7 +59,7 @@
             <router-link :to="{ name: 'FicheEmploye' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>FICHE EMPLOYER</p>
+                <p>FICHE EMPLOYE</p>
               </div>
             </router-link>
           </div>
@@ -94,15 +94,15 @@
             <router-link :to="{ name: 'FileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GERER LES FICHIERS</p>
+                <p>AJOUTER UN FICHIER</p>
               </div>
             </router-link>
-            <!-- <router-link :to="{ name: 'taskStory' }">
+            <router-link :to="{ name: 'UserFileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>HISTORIQUE</p>
+                <p>MES FICHIERS</p>
               </div>
-            </router-link> -->
+            </router-link>
           </div>
         </div>
       </div>
@@ -126,12 +126,6 @@
                 <p>SOUMETTRE UNE DEMANDE</p>
               </div>
             </router-link>
-            <!-- <router-link :to="{ name: 'BilanConge' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>BILAN DES DEMANDES</p>
-              </div>
-            </router-link> -->
             <router-link :to="{ name: 'Congemanagment' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
@@ -142,6 +136,12 @@
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'BilanAbsence' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>BILAN DES PRESENCES</p>
               </div>
             </router-link>
           </div>

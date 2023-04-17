@@ -34,7 +34,9 @@
         </div>
       </div>
       <div class="locationBox">
-        <div><img src="@/assets/icone/questionA.png" alt="" srcset="" /></div>
+        <div>
+          <v-icon style="font-size:12px">mdi-notebook</v-icon>
+        </div>
         <div>
           <P>MANUEL D'UTILISATION</P>
           <P>cliquez ici pour plus de détails</P>
@@ -131,7 +133,7 @@ export default {
 }
 .settingdiv {
   position: absolute;
-  top: 12%;
+  top: 12vh;
   left: 100px;
   height: 25px;
   width: 25px;

@@ -92,7 +92,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="6" lg="6">
                       <div style="display:flex; justify-content:space-around">
                         <p>Durée de la visite</p> 
                         <v-icon>mdi-arrow-right</v-icon>
@@ -103,7 +103,7 @@
                         height="30"
                         solo
                         background-color="#356eea24"
-                        v-model="new_visit.heure_rdv"
+                        v-model="new_visit.duree_visite"
                         ref="transport"
                         type="time"
                         label="heure"
@@ -111,7 +111,7 @@
                         append-icon="mdi-timer"
                         required
                       ></v-text-field>
-                    </v-col> -->
+                    </v-col>
                     <div style="width:100%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo

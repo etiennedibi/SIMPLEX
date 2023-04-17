@@ -1,17 +1,17 @@
 <template>
   <div class="bodyBox">
-    <UserProjetTaskList></UserProjetTaskList>
+    <UserAllFileList></UserAllFileList>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import UserProjetTaskList from "../components/Task/UserProjetTaskList";
+import UserAllFileList from "../components/Task/UserAllFileList";
 
 export default {
   name: "UserFileManage",
   components: {
-    UserProjetTaskList,
+    UserAllFileList,
   },
 
   data() {

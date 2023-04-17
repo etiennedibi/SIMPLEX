@@ -67,14 +67,274 @@
       </v-container>
       <v-container v-else fluid class="pouletBr stationListboxWrapper2">
        <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
-        Veuillez renseigner vos informations dans les paramètres,<br>
-        pour accéder à votre fiche.
+        Veuillez renseigner vos informations personnelles et professionnelles,<br>
+        pour accéder à votre fiche employé.
+
+          <v-btn
+            depressed
+            small
+            color="mainBlueColor"
+            style="color: white;margin-top:20px"
+            v-on:click.prevent="adminInfos=!adminInfos"
+            >Renseigner</v-btn
+          >
+         <!-- EDIT DIALOG -->
+        <v-dialog v-model="adminInfos" max-width="400">
+          <v-card>
+            <v-card-text>
+              <v-container>
+                <div class="imgAndTitle  editIMGO">
+                  <img src="@/assets/icone/staff.png" alt="" srcset="" />
+                </div>
+                <form class="updateForm">
+                  <v-container fluid>
+                    <v-row>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        height="40"
+                        v-model="editedItem.nom"
+                        :rules="[() => !!editedItem.nom]"
+                        ref="dep_date"
+                        type="text"
+                        value=""
+                        label="Nom"
+                        persistent-hint
+                        append-icon="mdi-account"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        append-icon="mdi-account-outline"
+                        height="40"
+                        v-model="editedItem.prenoms"
+                        :rules="[() => !!editedItem.prenoms]"
+                        ref="dest_place"
+                        type="text"
+                        label="Prenoms"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        height="40"
+                        v-model="editedItem.email"
+                        :rules="[() => !!editedItem.email]"
+                        ref="dep_time"
+                        type="text"
+                        label="e-mail"
+                        append-icon="mdi-at"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        append-icon="mdi-phone"
+                        height="40"
+                        v-model="editedItem.contact"
+                        :rules="[() => !!editedItem.contact]"
+                        ref="pla_number"
+                        type="number"
+                        label="Numero de telephone"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        height="40"
+                        v-model="editedItem.date_naissance"
+                        :rules="[() => !!editedItem.date_naissance]"
+                        ref="car_infos"
+                        type="date"
+                        prefix="Né le : "
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        solo
+                        append-icon="mdi-map-marker"
+                        height="40"
+                        v-model="editedItem.lieu_naissance"
+                        :rules="[() => !!editedItem.lieu_naissance]"
+                        ref="car_matri"
+                        type="text"
+                        label="Lieux d'habitation"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-file-input
+                            chips
+                            height="40"
+                            solo
+                            label="Pièce d'identité"
+                            prepend-icon="mdi-card-account-details"
+                          ></v-file-input>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-file-input
+                            chips
+                            height="40"
+                            solo
+                            label="Curriculum vitæ"
+                            prepend-icon="mdi-file-account"
+                          ></v-file-input>
+                    </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-file-input
+                            chips
+                            height="40"
+                            solo
+                            label="Lettre motivation"
+                            prepend-icon="mdi-file-star-four-points"
+                          ></v-file-input>
+                    </v-col>
+
+
+
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                      background-color="#356eea24"
+                      v-model="editedItem.id_fonction"
+                      :items="Works"
+                      item-text="nom_fonction"
+                      item-value="id"
+                      label="Post occupé"
+                      solo
+                      height="40"
+                    >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                      background-color="#356eea24"
+                      v-model="editedItem.department_id"
+                      :items="Services"
+                      item-text="nom_departement"
+                      item-value="id"
+                      label="Département d'affectation"
+                      solo
+                      height="40"
+                    >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                      background-color="#356eea24"
+                      v-model="editedItem.role_id"
+                      :items="Roles"
+                      item-text="role"
+                      item-value="id"
+                      label="Niveau d'accès"
+                      solo
+                      height="40"
+                    >
+                    </v-select>
+                  </v-col>
+
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                      background-color="#356eea24"
+                      v-model="editedItem.id_type_contrat"
+                      :items="Contracts"
+                      item-text="type_contrat"
+                      item-value="id"
+                      label="type de contrat"
+                      solo
+                      height="40"
+                    >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-text-field
+                      solo
+                      background-color="#356eea24"
+                      height="40"
+                      v-model="editedItem.date_debut"
+                      :rules="[() => !!editedItem.date_debut]"
+                      ref="car_matri"
+                      type="date"
+                      prefix="Début du contrat : "
+                      label=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-text-field
+                      solo
+                      height="40"
+                      background-color="#356eea24"
+                      v-model="editedItem.date_fin"
+                      :rules="[() => !!editedItem.date_fin]"
+                      ref="car_matri"
+                      type="date"
+                      prefix="Fin du contrat : "
+                      label=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-text-field
+                      solo
+                      background-color="#356eea24"
+                      append-icon="mdi-timeline-clock"
+                      height="40"
+                      v-model="editedItem.duree_contrat"
+                      :rules="[() => !!editedItem.duree_contrat]"
+                      ref="pl_price"
+                      type="text"
+                      label="Durée du contrat : "
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+
+                </v-row>
+                  </v-container>
+                </form>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="Titlecolor"
+                depressed
+                @click="closeEdit"
+                style="color: white"
+                >Annuler</v-btn
+              >
+              <v-btn
+                color="mainBlueColor"
+                depressed
+                @click="editItemConfirm"
+                style="color: white"
+                >Enregistrer</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
       </v-container>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -84,6 +344,11 @@ export default {
   },
 
   data: () => ({
+
+    // DATA
+    adminInfos:false,
+    editedItem: {},
+
     /* FOR  SERVICE STATS */
     showChart: false,
 
@@ -187,6 +452,43 @@ export default {
   },
 
   methods: {
+
+
+
+    editItemConfirm() {
+      axios
+        ({ url: "admin/update_infos_users/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          // console.log(response.data);
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse.code == 200) {
+            // Annulation effectuée
+            this.VisiteaAddingResponse.message = "Modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+               this.$store.dispatch("init_userVisite");
+            }, 3000);
+          } else if (this.VisiteaAddingResponse.message != "success") {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEdit();
+    },
+
+    closeEdit() {
+      this.dialogEdit = false;
+    },
+
     // ------------------------
     // DATA
     // ------------------------
@@ -397,6 +699,71 @@ export default {
   display:inline-block;
   margin: 5px;
   color:white;
+}
+
+
+
+
+
+
+.imgAndTitle {
+  margin: 15px 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  border: solid 3px;
+  border-color: var(--main-blue-important) rgb(176, 176, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-nappy-1058959.jpg);
+  background-position: center;
+  background-size: cover; */
+}
+.imgAndTitle > img{
+  height:50px;
+  width:50px
+}
+
+
+/* Edit travel */
+.editIMGO {
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
+}
+.updateForm {
+  height: 250px;
+  width: 110%;
+  overflow-y: scroll;
+}
+.updateForm::-webkit-scrollbar {
+  width: 20px;
+}
+.updateForm::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+.updateForm::-webkit-scrollbar-thumb {
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border: 7px solid rgb(255, 255, 255);
+}
+
+.updateForm .col-lg-12,
+.col-md-12 {
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 </style>

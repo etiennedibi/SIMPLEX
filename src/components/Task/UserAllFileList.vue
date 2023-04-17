@@ -36,7 +36,7 @@
         <v-col cols="12" md="12" lg="12" class="box">
           <div class="stationListboxWrapper">
             <v-data-iterator
-              :items="items2"
+              :items="items"
               :items-per-page.sync="itemsPerPage"
               :page="page"
               :search="search"
@@ -63,26 +63,16 @@
                 <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
                 <v-dialog
                   v-model="dialog"
-                  width="1200"
+                  width="800"
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainBlueColor
                 >
                   <v-card tile>
-                    <!-- 
-                      transition="dialog-bottom-transition"
-                  
-                      <v-toolbar flat color="Importantcolor Importantcolor--text" >
-                              <v-btn icon dark @click="dialog = false">
-                                <v-icon class="Titlecolor--text">mdi-close</v-icon>
-                              </v-btn> 
-                              <v-toolbar-title>POUET</v-toolbar-title>
-                            </v-toolbar>             -->
-
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <UserTaskList></UserTaskList>
+                          <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/>
                         </v-row>
                       </v-container>
                     </v-card-text>
@@ -97,19 +87,22 @@
                     v-for="item in props.items"
                     :key="item.name"
                     cols="12"
-                    md="3"
-                    lg="3"
+                    md="2"
+                    lg="2"
                   >
-                    <div class="InvBox" @click="openDialog(item)">
+                    <div class="InvBox" >
                       <div>
-                        <v-icon color="mainBlueColor">mdi-folder</v-icon>
+                        <v-icon color="mainBlueColor">mdi-file-document</v-icon>
                         <p>{{ item.name }}</p>
                         <p>{{ item.date }}</p>
-                      </div>
-                      <div class="price">
-                        <v-btn icon color="mainBlueColor" @click.stop="showItem(item)"
-                          ><v-icon>mdi-dots-horizontal-circle</v-icon></v-btn>
-                        <!-- <p>{{ item.city }}</p> -->
+                        <div class="fileAction" style="padding-bottom:10px">
+                          <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
+                            <v-icon color="mainBlueColor" style="font-size:20px">mdi-file-download</v-icon>
+                          </v-btn>
+                          <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
+                            <v-icon color="mainBlueColor" style="font-size:20px">mdi-file-eye</v-icon>
+                          </v-btn>
+                        </div>
                       </div>
                     </div>
                   </v-col>
@@ -152,20 +145,18 @@
 </template>
 
 <script>
-import UserTaskList from "./UserTaskList.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "UserProjetTaskList",
+  name: "UserAllFileList",
 
   components: {
-    UserTaskList,
   },
 
   data: () => ({
     
     // For the list dialog
-    dialog: false,
+    dialog: true,
     selectedItem: {},
     /* FOR DATA ITERATOR */
     itemsPerPageArray: [4, 8, 12],
@@ -178,7 +169,7 @@ export default {
     keys: ["id", "name", "date", "heure"],
     items: [
       {
-        name: "CREATION DE LOT DE CONSOLATION ",
+        name: "Projcedure de recrutement",
         date: "21-01-2021",
         heure: "09:00",
         details: {
@@ -512,15 +503,16 @@ export default {
   border-radius: 10px;
   background: white;
   line-height: 14px;
-  padding-left: 30px;
-  color: var(--Important-font-color);
+  /* padding-left: 30px; */
+  color: white;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
+/*  */
 
 .price {
   padding-top: 15px;
-  width: 40%;
+  /* width: 40%; */
   height: 50px;
   display: flex;
   flex-direction: column;
@@ -541,19 +533,30 @@ export default {
   display: flex;
   flex-direction: column;
   /* background-color:red; */
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
 }
 
 .InvBox div:first-child .v-icon {
   margin-top: 20px;
-  font-size: 25px;
-  color: var(--font-color);
+  font-size: 50px;
+  color:white;
+}
+.fileAction {
+  margin-top: -20px;
 }
 .InvBox div:first-child p:nth-child(2) {
-  font-size: 13px;
+  font-size: 10px;
+  text-align:center;
   font-weight: bold;
-  color: var(--Important-font-color);
+  color: var(--Important-font-color);;
+  
+}
+.InvBox div:first-child p:nth-child(3) {
+  margin-top: -8px;
+  color: var(--Important-font-color);;
+
 }
 
 .InvBox2 {

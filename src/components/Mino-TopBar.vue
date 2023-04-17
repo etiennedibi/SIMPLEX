@@ -66,6 +66,6 @@ export default {
 }
 .Header2logoBox img {
   height: 80px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 </style>

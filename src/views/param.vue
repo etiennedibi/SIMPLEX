@@ -3,13 +3,13 @@
         <div class="TheBoxBody">
              <div class="tableWrapperDiv">
 
-                <!-- EDIT STATION ADMIN DIALOG -->
-                <v-dialog v-model="dialogEdit" max-width="370">
+                <!-- EDIT USER-ACCES  -->
+                <v-dialog v-model="dialogEditAcces" max-width="370">
                 <v-card>
                     <v-card-text>
                     <v-container>
                         <div class="imgAndTitle deleteIMG editIMGO">
-                        <p style="text-align:center; font-weight:bold">MODIFICATION DES ACCES DE L'ADMINISTRATEUR</p>
+                        <p style="text-align:center; font-weight:bold">MODIFICATION DES ACCES D'AUTHENTIFICATION</p>
                         </div>
                         <form class="updateForm updatestationAdminForm">
                         <v-container fluid>
@@ -18,7 +18,7 @@
                                 <v-text-field
                                 height="45"
                                 solo
-                                label="pseudo"
+                                label="E-mail"
                                 append-icon="mdi-account"
                                 ref="matri"
                                 type="text"
@@ -32,7 +32,7 @@
                                 height="45"
                                 background-color="#3e886d4a"
                                 solo
-                                label="password"
+                                label="mot de passe"
                                 append-icon="mdi-lead-pencil"
                                 ref="total_name"
                                 type="text"
@@ -53,6 +53,57 @@
                         color="Titlecolor"
                         rounded
                         depressed
+                        small
+                        @click="closeEditAcces"
+                        style="color: white"
+                        >Annuler</v-btn
+                    >
+                    <v-btn
+                        color="mainBlueColor"
+                        rounded
+                        small
+                        depressed
+                        @click="editItemConfirmAcces"
+                        style="color: white"
+                        >Enregistrer</v-btn
+                    >
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+                
+                <!-- EDIT USER-IMAGE -->
+                <v-dialog v-model="dialogEditImg" max-width="370">
+                <v-card>
+                    <v-card-text>
+                    <v-container>
+                        <div class="imgAndTitle deleteIMG editIMGO">
+                        <p style="text-align:center; font-weight:bold">MODIFICATION DE LA PHOTO DE PROFIL</p>
+                        </div>
+                        <form class="updateForm updatestationAdminForm">
+                        <v-container fluid>
+                            <v-row>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-file-input
+                                chips
+                                height="45"
+                                solo
+                                label="Photo de profil"
+                                prepend-icon="mdi-camera"
+                              ></v-file-input>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </form>
+                    </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="Titlecolor"
+                        rounded
+                        small
+                        depressed
                         @click="closeEdit"
                         style="color: white"
                         >Annuler</v-btn
@@ -60,6 +111,7 @@
                     <v-btn
                         color="mainBlueColor"
                         rounded
+                        small
                         depressed
                         @click="editItemConfirm"
                         style="color: white"
@@ -69,20 +121,156 @@
                 </v-card>
                 </v-dialog>
 
+                <!-- EDIT USER INFO -->
+                <v-dialog v-model="dialogEdit" max-width="370">
+                <v-card>
+                    <v-card-text>
+                    <v-container>
+                        <div class="imgAndTitle deleteIMG editIMGO">
+                        <p style="text-align:center; font-weight:bold">MODIFICATION DES INFORMATIONS PERSONNELLES</p>
+                        </div>
+                        <form class="updateForm updatestationAdminForm">
+                        <v-container fluid>
+                            <v-row>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="Nom"
+                                append-icon="mdi-account"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                label="Prenoms"
+                                append-icon="mdi-account-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                             <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="E-mail"
+                                append-icon="mdi-at"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                label="Numero de telephone"
+                                append-icon="mdi-phone"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="Lieu d'habitation"
+                                append-icon="mdi-map-marker"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </form>
+                    </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="Titlecolor"
+                        rounded
+                        small
+                        depressed
+                        @click="closeEdit"
+                        style="color: white"
+                        >Annuler</v-btn
+                    >
+                    <v-btn
+                        color="mainBlueColor"
+                        rounded
+                        small
+                        depressed
+                        @click="editItemConfirm"
+                        style="color: white"
+                        >Enregistrer</v-btn
+                    >
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+
+                
+
 
                 <!-- FOR THE ELEMENT -->
                  <v-row justify="center">
                   <v-col cols="12" md="3" lg="3">
-                    <div class="numberWrapper">
+                    <div class="numberWrapper" @click="editItemImg">
                       <div class="N-icon">
-                        <v-icon  color="#b98d4c">mdi-bus-multiple</v-icon>
+                        <v-icon  color="mainBlueColor">mdi-image-edit</v-icon>
                         <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
                         <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
                       </div>
-                      <h1>VOYAGES</h1>
+                      <h1>PHOTO</h1>
                       <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
                       <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
-                      <h5>POULet </h5>
+                      <h5>de profil</h5>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="3" lg="3">
+                    <div class="numberWrapper" @click="editItem">
+                      <div class="N-icon">
+                        <v-icon  color="mainBlueColor">mdi-account-edit</v-icon>
+                        <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
+                      </div>
+                      <h1>INFORMATIONS</h1>
+                      <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
+                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
+                      <h5>personnelles</h5>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="3" lg="3">
+                    <div class="numberWrapper" @click="editItemAccess">
+                      <div class="N-icon">
+                        <v-icon  color="mainBlueColor">mdi-lock-reset</v-icon>
+                        <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
+                      </div>
+                      <h1>ACCES</h1>
+                      <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
+                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
+                      <h5>d'authenfication </h5>
                     </div>
                   </v-col>
                 </v-row>
@@ -191,6 +379,8 @@ export default {
     // For staion edit
     staionaAddingResponse: "",
     dialogEdit: false,
+    dialogEditAcces:false,
+    dialogEditImg:false,
     editedIndex: -1,
 
     // For staion deleted
@@ -251,10 +441,86 @@ export default {
     },
 
 
-    // For table re-render after delete or update an item
-    forceRerender2() {
-      this.$store.state.stationcomponentKey += 1;
+
+    // EDIT-ACCES
+     editItemAccess(item) {
+      this.editedIndex = this.Adminitrators.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //  Open the Edit Dialogue
+      this.dialogEditAcces = true;
     },
+    editItemConfirmAcces() {
+      axios({ url: "user/profilUpdate", data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          this.staionaAddingResponse = response.data;
+          if (this.staionaAddingResponse.message == "success") {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.forceRerender2();
+            }, 3000);
+          } else if (this.staionaAddingResponse.message != "success") {
+            // Modification effectuée
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.staionaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEditAcces();
+    },
+    closeEditAcces() {
+      this.dialogEditAcces = false;
+    },
+
+
+
+    // EDIT-IMG
+     editItemImg(item) {
+      this.editedIndex = this.Adminitrators.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //  Open the Edit Dialogue
+      this.dialogEditImg = true;
+    },
+    editItemConfirmImg() {
+      axios({ url: "user/profilUpdate", data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          this.staionaAddingResponse = response.data;
+          if (this.staionaAddingResponse.message == "success") {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.forceRerender2();
+            }, 3000);
+          } else if (this.staionaAddingResponse.message != "success") {
+            // Modification effectuée
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.staionaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEditImg();
+    },
+    closeEditImg() {
+      this.dialogEditImg = false;
+    },
+
+
   },
 
 
@@ -286,12 +552,12 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
-  /* background: white; */
+  height: 55vh;
+  /* background: red; */
   border-radius: 10px;
   overflow: hidden;
-  padding: 25px;
-  padding-bottom: 50px;
+  /* padding: 25px; */
+  /* padding-bottom: 50px; */
   display: flex;
   align-items: center;
 }

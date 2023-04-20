@@ -72,6 +72,21 @@
           >
           
         </template>
+        <template v-slot:[`item.etat_visite`]="{ item }">
+          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite == 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
+            Annulée </v-chip
+          >
+          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite !== 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
+            Refusée </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'ACCEPTED'" color="#aeaeae">
+            Accepté </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'EN_ATENTE'" color="#aeaeae">
+            En attente</v-chip
+          >
+          
+        </template>
         <template v-slot:[`item.unit_price`]="{ item }">
           {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
         </template>
@@ -128,6 +143,7 @@ export default {
       },
       { text: "DATE", value: "date_rdv" },
       { text: "HEURE", value: "heure_rdv" },
+      { text: "STATUS", value: "etat_visite" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     items: [

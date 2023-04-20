@@ -226,7 +226,6 @@
     </v-dialog>
 
 
-
     <!-- EDIT VISITE DIALOG -->
     <v-dialog v-model="dialogEdit" max-width="420">updateForm1
       <v-card>
@@ -550,29 +549,27 @@
           @click="editItem(item)"
             ><v-icon small> mdi-pencil-outline </v-icon></v-btn
           >
-          <v-btn icon color="red" 
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_ATENTE'))" 
-          @click="RejecttItem(item)"  
-            ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_ATENTE'))"
-          @click="reportItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          >
-          <v-btn icon color="green"  
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED')))"
-           @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          >
-          <!-- <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          > -->
           <v-btn icon color="mainBlueColor" 
           v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
             @click="deleteOneItemVriante(item)"
             ><v-icon small>mdi-cancel </v-icon></v-btn
           >
+          <v-btn icon color="green"  
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') && (item.etat_visite !== 'ACCEPTED') && (item.etat_visite !== 'REFUSED')))"
+           @click="acceptItem(item)"
+            ><v-icon small> mdi-account-check </v-icon></v-btn
+          > 
+          <v-btn icon color="mainBlueColor" 
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'ACCEPTED'))"
+          @click="reportItem(item)"
+            ><v-icon small> mdi-redo-variant </v-icon></v-btn
+          >
+          <v-btn icon color="red" 
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED') && (item.etat_visite !== 'REFUSED')))" 
+          @click="RejecttItem(item)"  
+            ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
+          >        
+          
         </template>
       </v-data-table>
     </div>
@@ -1016,8 +1013,8 @@ export default {
     },
 
 
-
-        // FOR ACCEPT VISITE
+      
+    // FOR REJECT VISITE
     RejecttItem(item) {
       this.editedIndex = this.UserVisites.indexOf(item);
       this.editedItem = Object.assign({}, item);

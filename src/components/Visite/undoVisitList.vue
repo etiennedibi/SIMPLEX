@@ -81,7 +81,7 @@
       </v-card>
     </v-dialog>
 
-    <!-- DELETE VISITE ON   DIALOG -->
+    <!-- DELETE-CANCEL VISITE ON   DIALOG -->
     <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
       <v-card>
         <v-card-text>
@@ -95,7 +95,7 @@
             <v-container>
               <div class="CancelVerification">
                 Cette action annulera votre rendez-vous avec  <br />
-                <b>Konan Bertran</b> 
+                <b>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</b> 
               </div>
               <div class="verificationAction">
                 <v-btn
@@ -110,7 +110,7 @@
                   color="red"
                   
                   depressed
-                  @click="deleteItemVarinteConfirm"
+                  @click="deleteItemConfirm"
                   style="color: white"
                   >Confirmer</v-btn
                 >
@@ -136,8 +136,29 @@
             <v-container>
               <div class="CancelVerification">
                 Souhaitez-vous accepter la visite de  <br />
-                <b>Konan Bertran ?</b> 
+                <b>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }} ?</b> 
               </div>
+
+              <form class="updateForm2">
+                <v-container fluid>
+                  <v-row>
+                      <v-col cols="12" md="11" lg="11">
+                        <v-text-field
+                          height="60"
+                          solo
+                          v-model="editedItem.duree_rdv"
+                          :rules="[() => !!editedItem.duree_rdv]"
+                          prefix="Durée de la visite"
+                          append-icon="mdi-timer"
+                          type="time"
+                          value=""
+                          persistent-hint
+                          required
+                        ></v-text-field>
+                      </v-col>
+                  </v-row>
+                </v-container>
+              </form>
               <div class="verificationAction">
                 <v-btn
                   color="grey"
@@ -164,8 +185,50 @@
     </v-dialog>
 
 
+     <!-- REJECT VISITE DIALOG -->
+    <v-dialog v-model="dialogReject" max-width="420">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  deleteIMG">
+                <v-icon color="red" large>
+                  mdi-close
+                </v-icon>
+              </div>
+            <v-container>
+              <div class="CancelVerification">
+                Souhaitez-vous Refuser la demande de RDV de  <br />
+                <b>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }} ?</b> 
+              </div>
+              <div class="verificationAction">
+                <v-btn
+                  color="grey"
+                  
+                  depressed
+                  @click="closeRejectVisite"
+                  style="color: white"
+                  >Non</v-btn
+                >
+                <v-btn
+                  color="mainBlueColor"
+                  
+                  depressed
+                  @click="RejectVisite  "
+                  style="color: white"
+                  >oui</v-btn
+                >
+              </div>
+            </v-container>
+            </v-container>
+          
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+
     <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="420">updateForm1
       <v-card>
         <v-card-text>
           <v-container>
@@ -241,6 +304,7 @@
                         ref="transport"
                         type="date"
                         label="Date du RDV"
+                        prefix="Date : "
                         persistent-hint
                         required
                       ></v-text-field>
@@ -254,6 +318,7 @@
                         ref="transport"
                         type="time"
                         label="heure"
+                        prefix="heure de visite : "
                         persistent-hint
                         append-icon="mdi-clock-time-eight"
                         required
@@ -268,8 +333,9 @@
                         ref="transport"
                         type="time"
                         label="heure"
+                        prefix="Durée de visite : "
                         persistent-hint
-                        append-icon="mdi-clock-time-eight"
+                        append-icon="mdi-timer"
                         required
                       ></v-text-field>
                     </v-col>
@@ -477,62 +543,36 @@
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
-            ><v-icon small> mdi-eye </v-icon></v-btn
+            ><v-icon small> mdi-eye-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="item.auteur_visite == 'Ajouté depuis administration'" 
+          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
           @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
+            ><v-icon small> mdi-pencil-outline </v-icon></v-btn
+          >
+          <v-btn icon color="red" 
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_ATENTE'))" 
+          @click="RejecttItem(item)"  
+            ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_COURS'))" @click="reportItem(item)"
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_ATENTE'))"
+          @click="reportItem(item)"
             ><v-icon small> mdi-redo-variant </v-icon></v-btn
           >
-          <!-- <v-btn icon color="mainBlueColor" @click="reportItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          > -->
-          <v-btn icon color="mainBlueColor"  
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && (item.etat_visite == 'EN_COURS'))"
+          <v-btn icon color="green"  
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED')))"
            @click="acceptItem(item)"
             ><v-icon small> mdi-account-check </v-icon></v-btn
           >
           <!-- <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
             ><v-icon small> mdi-account-check </v-icon></v-btn
           > -->
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
+          <v-btn icon color="mainBlueColor" 
+          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
+            @click="deleteOneItemVriante(item)"
+            ><v-icon small>mdi-cancel </v-icon></v-btn
           >
-        </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
         </template>
       </v-data-table>
     </div>
@@ -734,13 +774,19 @@ export default {
     dialogReport:false,
 
     // For Visite deleted
-    // BeforeDialogDelete:false,
-    // dialogDelete: false,
+    BeforeDialogDelete:false,
+    dialogDelete: false,
     dialogDeleteOneVariante: false,
     itemToDelete: "",
+  OneVarianteitemToDelete:"",
 
     // For Visite Accept
     dialogAccept:false,
+    visiteToAccpet:{},
+
+  // For Visite Accept
+    dialogReject:false,
+    visiteToRject:{},
   }),
 
   methods: {
@@ -764,14 +810,13 @@ export default {
 
     editItemConfirm() {
       // this.editedItem.id_visite = this.editedItem.id;
-      console.log(this.editedItem);
       axios
-        ({ url: "rdv/update_date_visite/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "rdv/update_visite_planifie/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.error == false) {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "modifiactaion effectuée";
             this.addingSuccess = !this.addingSuccess;
@@ -779,7 +824,8 @@ export default {
               this.addingSuccess = !this.addingSuccess;
                this.$store.dispatch("init_userVisite");
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -821,22 +867,22 @@ export default {
       this.dialogDeleteOneVariante = true;
       // this.BeforeDialogDelete = false;
     },
-          // confirm deleted of nature
+    // confirm deleted of nature
     deleteItemConfirm() {
        axios
-        ({ url: "rdv/update_date_visite", data: this.editedItem, method: "POST" })
+        ({ url: "rdv/cancel_visite_planifie/"+this.editedItem.id,  method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "Annulation effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+               this.$store.dispatch("init_userVisite");
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -848,13 +894,14 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.closeDelete();
+      this.closeDeleteOnevariante();
     },
 
-    closeDelete() {
-      this.dialogDelete = false;
+    closeDeleteOnevariante() {
+      this.dialogDeleteOneVariante = false;
     },
 
+   
           // confirm deleted of one variante
     deleteItemVarinteConfirm() {
       axios
@@ -886,54 +933,48 @@ export default {
 
       this.closeDeleteOnevariante();
     },
-
-    closeDeleteOnevariante() {
-      this.dialogDeleteOneVariante = false;
-    },
-
     // FOR ACCEPT VISITE
     acceptItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+      this.editedIndex = this.UserVisites.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+      this.visiteToAccpet = { id_visite: this.editedItem.id, dure_permis: this.editedItem.duree_rdv};
       this.dialogAccept = true;
     },
     acceptVisite() {
       axios
-        .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
-        )
-        .then((response) => {
-          this.VisiteaAddingResponse = response.data;
+        ({ url: "rdv/employer_accepted_rdv", data: this.visiteToAccpet, method: "POST" })
+      .then((response) => {
+        // console.log(response.data);
+        this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
-            // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Suppression effectuée";
+        if (this.VisiteaAddingResponse) {
+          // Annulation effectuée
+          this.VisiteaAddingResponse.message = "RDV accepté";
+          this.addingSuccess = !this.addingSuccess;
+          setTimeout(() => {
             this.addingSuccess = !this.addingSuccess;
-            setTimeout(() => {
-              this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
-            }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+              this.$store.dispatch("init_userVisite");
+          }, 3000);
+        } else if (!this.VisiteaAddingResponse) {
+          this.VisiteaAddingResponse.message = "echec de l'operation";
+          this.addingfalse = !this.addingfalse;
+          setTimeout(() => {
             this.addingfalse = !this.addingfalse;
-            setTimeout(() => {
-              this.addingfalse = !this.addingfalse;
-            }, 3000);
-          }
-        })
-        .catch((error) => {
-          this.VisiteaAddingResponse = error.message;
-          console.error("There was an error!", error);
-        });
+          }, 3000);
+        }
+      })
+      .catch((error) => {
+        this.VisiteaAddingResponse = error.message;
+        console.error("There was an error!", error);
+      });
 
-      this.closeDeleteOnevariante();
+      this.closeAcceptVisite();
     },
     closeAcceptVisite() {
       this.dialogAccept = false;
     },
 
-
-    // FOR ACCEPT VISITE
+    // FOR REPORT VISITE
     reportItem(item) {
       this.editedIndex = this.UserVisites.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -972,6 +1013,53 @@ export default {
     },
     closeReportVisite() {
       this.dialogReport = false;
+    },
+
+
+
+        // FOR ACCEPT VISITE
+    RejecttItem(item) {
+      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.visiteToRject = { 
+        id_visite: this.editedItem.id, 
+        };
+      this.dialogReject = true;
+    },
+    RejectVisite() {
+      console.log(this.editedItem.id);
+      axios
+        ({ url: "rdv/employer_refused_rdv", data: {id_visite: this.editedItem.id, }, method: "POST" })
+      .then((response) => {
+        // console.log(response.data);
+        this.VisiteaAddingResponse = response.data;
+
+        if (this.VisiteaAddingResponse) {
+          // Annulation effectuée
+          this.VisiteaAddingResponse.message = "RDV Rejeté";
+          this.addingSuccess = !this.addingSuccess;
+          setTimeout(() => {
+            this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_userVisite");
+              console.log("populase");
+          }, 3000);
+        } else if (!this.VisiteaAddingResponse) {
+          this.VisiteaAddingResponse.message = "echec de l'operation";
+          this.addingfalse = !this.addingfalse;
+          setTimeout(() => {
+            this.addingfalse = !this.addingfalse;
+          }, 3000);
+        }
+      })
+      .catch((error) => {
+        this.VisiteaAddingResponse = error.message;
+        console.error("There was an error!", error);
+      });
+
+      this.closeRejectVisite();
+    },
+    closeRejectVisite() {
+      this.dialogReject = false;
     },
     
   },
@@ -1027,7 +1115,7 @@ export default {
 
 .theSeachBar {
   /* margin-left: 50px; */
-  margin-bottom: 10px;
+  margin-bottom: 5vh!important;
 }
 
 /* Show details */
@@ -1091,25 +1179,30 @@ export default {
   align-items: center;
   /* background-color:#b71c1c; */
 }
-.updateForm {
+.updateForm2 {
+  /* background:red; */
+  height: 100px!important;
+  width: 110%;
+}
+.updateForm2 {
   height: 250px;
   width: 110%;
   overflow-y: scroll;
 }
-.updateForm::-webkit-scrollbar {
+.updateForm2::-webkit-scrollbar {
   width: 20px;
 }
-.updateForm::-webkit-scrollbar-track {
+.updateForm2::-webkit-scrollbar-track {
   background: rgb(255, 255, 255);
 }
 
-.updateForm::-webkit-scrollbar-thumb {
+.updateForm2::-webkit-scrollbar-thumb {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 7px solid rgb(255, 255, 255);
 }
 
-.updateForm .col-lg-12,
+.updateForm2 .col-lg-12,
 .col-md-12 {
   padding-bottom: 0px;
   padding-top: 0px;

@@ -17,6 +17,7 @@
                         append-icon="mdi-account-arrow-right"
                         ref="matri"
                         v-model="new_visit.nom_visiteur"
+                        :rules="[() => !!new_visit.nom_visiteur]"
                         type="text"
                         value=""
                         persistent-hint
@@ -31,6 +32,7 @@
                         append-icon="mdi-account-arrow-right"
                         ref="matri"
                         v-model="new_visit.prenoms_visiteur"
+                        :rules="[() => !!new_visit.prenoms_visiteur]"
                         type="text"
                         value=""
                         persistent-hint
@@ -43,8 +45,10 @@
                         solo
                         label="Telephone"
                         v-model="new_visit.contact_visiteur"
+                        :rules="[() => !!new_visit.contact_visiteur,(v) => /[0-9]+/i.test(v)]"
                         append-icon="mdi-phone"
                         type="text"
+                        maxlength="10"
                         value=""
                         persistent-hint
                         required
@@ -58,6 +62,7 @@
                         append-icon="mdi-at"
                         ref="desc"
                         v-model="new_visit.email_visiteur"
+                        :rules="[() => !!new_visit.email_visiteur,(v) => /.+@.+/.test(v)]"
                         type="text"
                         value=""
                         persistent-hint
@@ -71,6 +76,7 @@
                         background-color="#356eea24"
                         solo
                         v-model="new_visit.date_rdv"
+                        :rules="[() => !!new_visit.date_rdv]"
                         ref="transport"
                         type="date"
                         label="Date du RDV"
@@ -84,6 +90,7 @@
                         solo
                         background-color="#356eea24"
                         v-model="new_visit.heure_rdv"
+                        :rules="[() => !!new_visit.heure_rdv]"
                         ref="transport"
                         type="time"
                         label="heure"
@@ -104,6 +111,7 @@
                         solo
                         background-color="#356eea24"
                         v-model="new_visit.duree_visite"
+                        :rules="[() => !!new_visit.duree_visite]"
                         ref="transport"
                         type="time"
                         label="heure"
@@ -121,6 +129,8 @@
                         rows="3"
                         name="input-7-4"
                         v-model="new_visit.objet"
+                        :rules="[() => !!new_visit.objet]"
+                        required
                         label="objet"
                         class="the-message-area"
                       ></v-textarea>
@@ -197,11 +207,11 @@ export default {
       contact_visiteur: "",
       date_rdv: "",
       heure_rdv: "",
-      objet: "",
-      id_user_employer: 0,
+      compagnie_id: 1,
+      id_user_employer: 1,
     },
 
-    visitaAddingResponse: "",
+    VisiteaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
@@ -213,12 +223,13 @@ export default {
 
   methods: {
     submit1() {
-      console.log(this.new_visit);
+
+      if (this.$refs.form1.validate()) {
         axios({ url: "rdv/demande_rdv", data: this.new_visit, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);
-          if (this.visitaAddingResponse) {
+          if (this.visitaAddingResponse.error==false) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
@@ -237,6 +248,8 @@ export default {
         });
 
       this.$refs.form1.reset();
+      }
+         
     },
 
     

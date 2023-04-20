@@ -2,7 +2,7 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   userVisite: [],
-  allVisitesStory: [],
+  allVisitesStory: {},
 };
 
 const getters = {
@@ -38,7 +38,7 @@ const actions = {
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         commit("SET_USERVISITES", res.data.visites);
       })
       .catch((error) => console.log(error));
@@ -58,10 +58,10 @@ const actions = {
   // },
   axios
       .get(
-        "rdv/AllVisiteurs"
+        "rdv/AllVisiteurs/" + 1
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.visites);
         commit("SET_ALLVISITES", res.data);
       })
       .catch((error) => console.log(error));

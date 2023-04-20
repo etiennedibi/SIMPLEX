@@ -13,11 +13,12 @@
                       <v-text-field height="40" 
                         background-color="#356eea24" 
                         solo
-                        label="Titre"
+                        label="Objet"
                         append-icon="mdi-text-box-edit"
                         ref="topic"
                         type="text"
                         v-model="new_message.titre"
+                        :rules="[() => !!new_message.titre]"
                         persistent-hint
                         required
                       ></v-text-field>
@@ -32,6 +33,8 @@
                         label="Communiqué"
                         class="the-message-area"
                         v-model="new_message.contenu_comminuque"
+                        :rules="[() => !!new_message.contenu_comminuque]"
+                        required
                       ></v-textarea>
                     </div>
                     <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:flex-start">
@@ -51,7 +54,7 @@
           </v-col>
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper">
-              <allMessageList :key="forcemessageListeRerender"></allMessageList>
+              <allMessageList></allMessageList>
             </div>
           </v-col>
         </v-row>
@@ -113,7 +116,7 @@ export default {
 
     // FOR FORM SENDING
     new_message: {
-      
+      compagnie_id:1
     },
     manualTopicdata:"",
     messageaAddingResponse: "",
@@ -125,30 +128,31 @@ export default {
 
   methods: {
     submit1() {
-      axios({ url: "admin/store_communique", data: this.new_message, method: "POST" })
-      .then((response) => {
-        this.messageaAddingResponse = response.data;
-        console.log(response.data);
-        if (this.messageaAddingResponse) {
-          this.addingSuccess = !this.addingSuccess;
-          setTimeout(() => {
+      if (this.$refs.form1.validate()) {
+        axios({ url: "admin/store_communique", data: this.new_message, method: "POST" })
+        .then((response) => {
+          this.messageaAddingResponse = response.data;
+          console.log(response.data);
+          if (this.messageaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
-            this.$store.dispatch("init_message");
-          }, 3000);
-        } else {
-          this.addingfalse = !this.addingfalse;
-          setTimeout(() => {
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_message");
+            }, 3000);
+          } else {
             this.addingfalse = !this.addingfalse;
-          }, 3000);
-        }
-      })
-      .catch((error) => {
-        this.messageaAddingResponse = error.message;
-        console.error("There was an error!", error);
-      });
-
-      this.$store.state.response_of_id = 0
-      this.$refs.form1.reset();
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.messageaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+        this.$refs.form1.reset();
+      }
+      
     },
 
   

@@ -59,7 +59,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="UserVisites"
+        :items="AllVisitesStorys.visites"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -275,12 +275,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllVisitesStorys","UserVisites"]),
+    ...mapGetters(["AllVisitesStorys"]),
   },
 
   created() {
     this.$store.dispatch("init_allVisite");
-    this.$store.dispatch("init_userVisite");
   },
 };
 </script>
@@ -326,7 +325,7 @@ export default {
 
 .theSeachBar {
   /* margin-left: 50px; */
-  margin-bottom: 10px;
+  margin-bottom: 5vh!important;
 }
 
 /* Show details */

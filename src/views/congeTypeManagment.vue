@@ -174,7 +174,6 @@ export default {
     
 
     congeNumber() {
- 
       return this.$store.getters.Conges.length;
     },
   },

@@ -32,7 +32,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getAllCommunique" 
+        "admin/getAllCommunique/1" 
       )
       .then((res) => {
         commit("SET_MESSAGE", res.data);

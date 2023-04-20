@@ -8,14 +8,16 @@
             <div class="N-icon">
               <v-icon color="mainBlueColor">mdi-account-clock</v-icon>
             </div>
-            <h1>15</h1>
+            <h1 v-if="visiteNumber"> {{ visiteNumber }}</h1>
+            <h1 v-else>0</h1>
             <h5>RDV Enregistrés</h5>
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
               <v-icon color="white">mdi-account-cancel</v-icon>
             </div>
-            <h1 style="color: white">25</h1>
+            <h1 v-if="canceRDVNumber" style="color: white"> {{ canceRDVNumber }}</h1>
+            <h1 v-else style="color: white">0</h1>
             <h5 style="color: white">RDV annulés</h5>
           </div>
         </v-col>
@@ -57,8 +59,14 @@ export default {
     ...mapGetters(["Analytics"]),
     
     visiteNumber() {
-      return this.$store.getters.AllVisitesStorys.length;
+      return this.$store.getters.AllVisitesStorys.visites.length;
     },
+    canceRDVNumber() {
+      return this.$store.getters.AllVisitesStorys.visites_annulle.length;
+    }
+  },
+  created() {
+    this.$store.dispatch("init_allVisite");
   },
 };
 </script>

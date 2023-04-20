@@ -25,7 +25,7 @@
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
               <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-archive</v-icon>
+                <v-icon color="mainBlueColor">mdi-clipboard-list</v-icon>
               </div>
               <h1>10</h1>
               <h6>Tâches en cours</h6>
@@ -34,7 +34,7 @@
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
               <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-truck-delivery</v-icon>
+                <v-icon color="mainBlueColor">mdi-file-plus</v-icon>
               </div>
               <h1>7</h1>
               <h6 style="text-align:center">nouveaux Fichiers <br> partagés</h6>
@@ -50,7 +50,7 @@
           </v-col>
           <v-col cols="12" md="3" lg="3">
             <div class="statWrapper1">
-              <h1>11:10</h1>
+              <h1>{{ timestamp }}</h1>
             </div>
           </v-col>
         </v-row>
@@ -69,6 +69,8 @@ export default {
   },
 
   data: () => ({
+    // FOR TIMER
+    timestamp: "",
     /* FOR  SERVICE STATS */
     showChart: false,
 
@@ -191,6 +193,12 @@ export default {
         labels: this.Ratings.station,
       };
     },
+
+    getNow() {
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes();
+        this.timestamp = time;
+    }
   },
 
   computed: {
@@ -199,6 +207,7 @@ export default {
 
   created() {
     this.$store.dispatch("init_message");
+    setInterval(this.getNow, 1000);
   },
 
 };

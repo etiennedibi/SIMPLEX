@@ -47,6 +47,112 @@
       </v-card>
     </v-dialog>
 
+    <!-- EDIT TRAVEL DIALOG -->
+    <v-dialog v-model="dialogEdit" max-width="420">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  editIMGO">
+               <v-icon color="mainBlueColor" large>
+                 mdi-bullhorn-outline
+                </v-icon>
+            </div>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        label="Objet"
+                        ref="matri"
+                        v-model="editedItem.titre"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>  
+                    <div style="width:92%; padding: 15px 10px 0px 10px">
+                      <v-textarea
+                        solo
+                        clearable
+                        v-model="editedItem.contenu_comminuque"
+                        background-color="#356eea24"
+                        clear-icon="mdi-close-circle"
+                        rows="5"
+                        name="input-7-4"
+                        label="Communiqué"
+                        class="the-message-area"
+                      ></v-textarea>
+                    </div>
+                </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <div style="width:26%"></div>
+          <v-btn
+            color="Titlecolor"
+            depressed
+            @click="closeEdit"
+            style="color: white"
+            >Annuler</v-btn
+          >
+          <v-btn
+            color="mainBlueColor"
+            depressed
+            @click="editItemConfirm"
+            style="color: white"
+            >Enregistrer</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+     <!-- DELETE TRAVEL DIALOG -->
+   <v-dialog v-model="dialogDelete" max-width="420">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
+            <div class="imgAndTitle  deleteIMG">
+                <v-icon color="red" large>
+                  mdi-close
+                </v-icon>
+              </div>
+            <v-container>
+              <div class="CancelVerification">
+                Cette action supprimera ce communiqué<br />
+              </div>
+              <div class="verificationAction">
+                <v-btn
+                  color="grey"
+                  
+                  depressed
+                  @click="closeDelete"
+                  style="color: white"
+                  >Non</v-btn
+                >
+                <v-btn
+                  color="red"
+                  
+                  depressed
+                  @click="deleteItemConfirm"
+                  style="color: white"
+                  >Confirmer</v-btn
+                >
+              </div>
+            </v-container>
+            </v-container>
+          
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="5" lg="5">
@@ -77,6 +183,18 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)">
               <v-icon small> mdi-eye </v-icon>
           </v-btn>
+          <v-btn
+            icon
+            color="mainBlueColor"
+            @click="editItem(item)"
+            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
+          >
+          <v-btn
+            icon
+            color="mainBlueColor"
+            @click="deleteItem(item)"
+            ><v-icon small> mdi-trash-can </v-icon></v-btn
+          >
         </template>
       </v-data-table>
     </div>
@@ -137,6 +255,7 @@
 
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -148,12 +267,12 @@ export default {
     search: "",
     headers: [
       {
-        text: "ID",
+        text: "PUBLICATION",
         align: "start",
         sortable: false,
         value: "id",
       },
-      { text: "TITRE", value: "titre" },
+      { text: "OBJET", value: "titre" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     desserts: [
@@ -236,14 +355,104 @@ export default {
       }
       this.dialog = false;
     },
-
-
     // For table re-render after delete or update an item
     mailResponse() {
       this.close()
       this.$store.state.ResponseTopic = "RE::" + this.editedItem.topic;
       this.$store.state.response_of_id = this.editedItem.id;
     },
+
+
+     // ------------------------
+    // For Communiqué Edited
+    // ------------------------
+    editItem(item) {
+      this.editedIndex = this.Messages.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //  Open the Edit Dialogue
+      this.dialogEdit = true;
+    },
+
+    editItemConfirm() {
+        axios({ url: "admin/update_communique/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          this.senderaAddingResponse = response.data;
+          if (this.senderaAddingResponse) {
+            // Modification effectuée
+            this.senderaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_message");
+            }, 3000);
+          } else if (this.senderaAddingResponse) {
+            console.log(
+              "des reservations ont datio jà achetés"
+            );
+            // Modification effectuée
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.senderaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEdit();
+    },
+
+    closeEdit() {
+      this.dialogEdit = false;
+    },
+
+
+    // --------------------
+    // delete a travel
+    // --------------------
+    deleteItem(item) {
+      this.editedIndex = this.Messages.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.itemToDelete = { id: this.editedItem.id };
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+        axios({ url: "admin/destroy_communique/" + this.editedItem.id, method: "DELETE" })
+        .then((response) => {
+          this.senderaAddingResponse = response.data;
+
+          if (this.senderaAddingResponse) {
+            // Annulation effectuée
+            this.senderaAddingResponse.message = "Suppression effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_message");
+            }, 3000);
+          } else if (!this.senderaAddingResponse) {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.senderaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeDelete();
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+
+
+
   },
 
   computed: {
@@ -321,7 +530,7 @@ export default {
 
 .theSeachBar {
   /* margin-left: 50px; */
-  margin-bottom: 10px;
+  margin-bottom: 5vh!important;
 }
 
 /* Show details */
@@ -376,5 +585,66 @@ export default {
   justify-content: center;
 }
 
+
+
+/* Edit travel */
+.editIMGO {
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
+}
+.updateForm {
+  height: 270px;
+  width: 110%;
+  overflow-y: scroll;
+}
+.updateForm::-webkit-scrollbar {
+  width: 20px;
+}
+.updateForm::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+.updateForm::-webkit-scrollbar-thumb {
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border: 7px solid rgb(255, 255, 255);
+}
+
+.updateForm .col-lg-12,
+.col-md-12 {
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+
+/* Delete travel */
+.deleteIMG {
+  margin-left: 35%;
+  margin-bottom: 0px;
+  /* background-color:red; */
+  border: 3px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.CancelVerification {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+.verificationAction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.verificationAction > button {
+  width: 150px;
+}
 
 </style>

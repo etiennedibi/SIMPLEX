@@ -176,10 +176,14 @@
         <!-- <template v-slot:[`item.contact`]="{ item }"> 
         <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
         </template> -->
-        <template v-slot:[`item.complet_name`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon color="mainBlueColor" small> mdi-account </v-icon>
-          {{ item.complet_name }}
+        <template v-slot:[`item.recevoir_visite`]="{ item }">
+          <v-chip small dark v-if="item.recevoir_visite == false" color="#356EEA7A">
+            <v-icon color="mainBlueColor" small>mdi-check</v-icon> OUI
+          </v-chip>
+          <v-chip small dark v-if="item.recevoir_visite == true" color="#aeaeae">
+            <v-icon color="red" small>mdi-close</v-icon
+            >NON</v-chip
+          >
         </template>
       </v-data-table>
     </div>
@@ -221,14 +225,14 @@ export default {
   data: () => ({
     // For the table
     search: "",
-    headers: [
-      { text: "CODE", value: "id" }, 
+    headers: [ 
       {
         text: "DENOMINATION",
         align: "start",
         sortable: false,
         value: "nom_departement",
       },
+      { text: "VISITE", value: "recevoir_visite" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     items: [

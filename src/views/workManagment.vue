@@ -14,13 +14,13 @@
             </div>
           </v-col>
           
-          <v-col cols="12" md="8" lg="8">
+          <v-col cols="12" md="7" lg="7">
             <div class="numberWrapper">
               <allWorkList></allWorkList>
             </div>
           </v-col>
 
-          <v-col cols="12" md="3" lg="3">
+          <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper formBox">
               <v-form ref="form1">
                 <v-container fluid class="addwork">
@@ -33,6 +33,7 @@
                         type="text"
                         v-model="new_Work.nom_fonction"
                         :rules="[() => !!new_Work.nom_fonction]"
+                        append-icon="mdi-call-missed"
                         value=""
                         label="Denomination"
                         persistent-hint
@@ -114,7 +115,7 @@ export default {
     // FOR FORM SENDING
     new_Work: {
       nom_fonction: "",
-      // description: "",
+      compagnie_id: 1,
     },
 
     workaAddingResponse: "",
@@ -128,7 +129,8 @@ export default {
 
   methods: {
     submit1() {
-      axios({ url: "admin/store_fonction", data: this.new_Work, method: "POST" })
+      if (this.$refs.form1.validate()) {
+         axios({ url: "admin/store_fonction", data: this.new_Work, method: "POST" })
         .then((response) => {
           this.workaAddingResponse = response.data;
           console.log(response.data);
@@ -151,6 +153,8 @@ export default {
         });
 
       this.$refs.form1.reset();
+      }
+     
     },
 
  

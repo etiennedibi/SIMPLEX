@@ -68,6 +68,22 @@
                         required
                       ></v-text-field>
                     </v-col>  
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        label="Anagramme"
+                        maxlength="5"
+                        ref="matri"
+                        v-model="editedItem.anagramme"
+                        append-icon="mdi-alphabetical-variant"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>  
                     <div style="width:92%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
@@ -166,6 +182,7 @@
             </v-icon> -->
           </v-btn>
           <v-btn
+            :disabled="getCDI(item.type_contrat)"
             icon
             color="mainBlueColor"
             @click="editItem(item)"
@@ -227,7 +244,7 @@ export default {
     // For the table
     search: "",
     headers: [
-      { text: "CODE", value: "id" }, 
+      { text: "ANAGRAMME", value: "anagramme" }, 
       {
         text: "TYPE DE CONTRAT",
         align: "start",
@@ -259,6 +276,12 @@ export default {
   }),
 
   methods: {
+
+    // FoR-THE-LIST
+    getCDI (item) {
+        if (item == "CDI") return true
+        else return false
+      },
     // ------------------------
     // Show Profil infomation
     // ------------------------

@@ -2,6 +2,7 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   contracts: [],
+  rights: [],
 };
 
 const getters = {
@@ -10,12 +11,20 @@ const getters = {
 
     return contract;
   },
+  Rights: (state) => {
+    let right = state.rights;
+
+    return right;
+  },
 
 };
 
 const mutations = {
   SET_CONTRACT(state, data) {
     state.contracts = data;
+  },
+  SET_RIGHT(state, data) {
+    state.rights = data;
   },
 
 };
@@ -25,12 +34,24 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/get_type_contrat" 
+        "admin/get_type_contrat/"+1
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        console.log(res.data);
         commit("SET_CONTRACT", res.data);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_right: ({ commit }) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "admin/get_user_role"
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_RIGHT", res.data);
       })
       .catch((error) => console.log(error));
   },

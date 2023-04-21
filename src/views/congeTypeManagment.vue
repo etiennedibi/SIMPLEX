@@ -42,12 +42,13 @@
                       <v-text-field
                         height="40"
                          v-model="new_Conge.cota_conge"
-                        :rules="[() => !!new_Conge.cota_conge]"
+                        :rules="[() => !!new_Conge.cota_conge,(v) => /[0-9]+/i.test(v)]"
                         solo
                         append-icon="mdi-numeric"
                         ref="pla_number"
-                        type="number"
                         label="Nombre de jours"
+                        type="text"
+                        maxlength="3"
                         persistent-hint
                         required
                       ></v-text-field>
@@ -128,7 +129,7 @@ export default {
     new_Conge: {
       type_conge: "",
       cota_conge: "",
-      // city: "",
+      compagnie_id:1,
     },
 
     congeaAddingResponse: "",
@@ -143,7 +144,8 @@ export default {
 
   methods: {
     submit1() {
-      axios({ url: "admin/store_type_conges", data: this.new_Conge, method: "POST" })
+      if (this.$refs.form1.validate()) {
+        axios({ url: "admin/store_type_conges", data: this.new_Conge, method: "POST" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
           console.log(response.data);
@@ -165,6 +167,9 @@ export default {
           console.error("There was an error!", error);
         });
 
+      this.$refs.form1.reset();
+      }
+      
     },
 
     

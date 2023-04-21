@@ -247,7 +247,7 @@ export default {
         sortable: false,
         value: "type_conge",
       },
-      { text: "COTA INITIAL", value: "cota_conge" }, 
+      { text: "QUOTA INITIAL", value: "cota_conge" }, 
       { text: "PLUS", value: "actions", sortable: false },
     ],
      

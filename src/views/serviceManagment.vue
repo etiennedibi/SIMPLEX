@@ -42,6 +42,7 @@
                         solo
                         clearable
                         v-model="new_service.description_departement"
+                        :rules="[() => !!new_service.description_departement]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
                         rows="4"
@@ -136,6 +137,7 @@ export default {
     new_service: {
       nom_departement: "",
       description_departement: "",
+      compagnie_id: 1,
     },
 
     serviceaAddingResponse: "",
@@ -150,7 +152,8 @@ export default {
 
   methods: {
     submit1() {
-      axios({ url: "admin/add_new_departments", data: this.new_service, method: "POST" })
+      if (this.$refs.form1.validate()) {
+        axios({ url: "admin/add_new_departments", data: this.new_service, method: "POST" })
         .then((response) => {
           this.serviceaAddingResponse = response.data;
           console.log(response.data);
@@ -173,6 +176,8 @@ export default {
         });
 
       this.$refs.form1.reset();
+      }
+      
     },
 
    

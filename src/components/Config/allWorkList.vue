@@ -223,7 +223,7 @@ export default {
     // For the table
     search: "",
     headers: [
-      { text: "CODE", value: "id" }, 
+      // { text: "CODE", value: "id" }, 
       {
         text: "TYPE DE CONTRAT",
         align: "start",

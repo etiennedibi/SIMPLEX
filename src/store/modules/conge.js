@@ -44,7 +44,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/get_type_conges" 
+        "admin/get_type_conges/"+1 
           // localStorage.getItem("user-station")
       )
       .then((res) => {

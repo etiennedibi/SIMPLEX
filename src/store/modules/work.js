@@ -25,7 +25,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/get_all_fonction" 
+        "admin/get_all_fonction/"+1
           // localStorage.getItem("user-station")
       )
       .then((res) => {

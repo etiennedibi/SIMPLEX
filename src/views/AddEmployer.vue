@@ -4,7 +4,7 @@
       <p class="sectionTitle">Enregistrement d'employer</p>
       <v-row>
         <v-col cols="12" md="12" lg="12">
-          <v-form>
+          <v-form ref="form1" >
             <v-container fluid class="lolplp">
               <v-row>
                 <v-col cols="12" md="4" lg="4">
@@ -41,7 +41,7 @@
                     solo
                     height="40"
                     v-model="newTravel_1.email"
-                    :rules="[() => !!newTravel_1.email]"
+                    :rules="[() => !!newTravel_1.email,(v) => /.+@.+/.test(v)]"
                     ref="dep_time"
                     type="text"
                     label="e-mail"
@@ -56,9 +56,10 @@
                     append-icon="mdi-phone"
                     height="40"
                     v-model="newTravel_1.contact"
-                    :rules="[() => !!newTravel_1.contact]"
+                    :rules="[() => !!newTravel_1.contact,(v) => /[0-9]+/i.test(v)]"
                     ref="pla_number"
-                    type="number"
+                    type="text"
+                    maxlength="10"
                     label="Numero de telephone"
                     persistent-hint
                     required
@@ -127,6 +128,7 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="newTravel_1.id_fonction"
+                    :rules="[() => !!newTravel_1.id_fonction]"
                     :items="Works"
                     item-text="nom_fonction"
                     item-value="id"
@@ -141,6 +143,7 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="newTravel_1.department_id"
+                    :rules="[() => !!newTravel_1.department_id]"
                     :items="Services"
                     item-text="nom_departement"
                     item-value="id"
@@ -154,8 +157,9 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="newTravel_1.role_id"
-                    :items="Roles"
-                    item-text="role"
+                    :rules="[() => !!newTravel_1.role_id]"
+                    :items="Rights"
+                    item-text="name"
                     item-value="id"
                     label="Niveau d'accès"
                     solo
@@ -167,6 +171,7 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="newTravel_1.id_type_contrat"
+                    :rules="[() => !!newTravel_1.id_type_contrat]"
                     :items="Contracts"
                     item-text="type_contrat"
                     item-value="id"
@@ -179,10 +184,10 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-text-field
                     solo
+                    :disabled="disableFieldInCaseOfCDI"
                     background-color="#356eea24"
                     height="40"
                     v-model="newTravel_1.date_debut"
-                    :rules="[() => !!newTravel_1.date_debut]"
                     ref="car_matri"
                     type="date"
                     prefix="Début du contrat : "
@@ -197,7 +202,7 @@
                     height="40"
                     background-color="#356eea24"
                     v-model="newTravel_1.date_fin"
-                    :rules="[() => !!newTravel_1.date_fin]"
+                    :disabled="disableFieldInCaseOfCDI"
                     ref="car_matri"
                     type="date"
                     prefix="Fin du contrat : "
@@ -213,7 +218,7 @@
                     append-icon="mdi-timeline-clock"
                     height="40"
                     v-model="newTravel_1.duree_contrat"
-                    :rules="[() => !!newTravel_1.duree_contrat]"
+                    :disabled="disableFieldInCaseOfCDI"
                     ref="pl_price"
                     type="text"
                     label="Durée du contrat : "
@@ -229,6 +234,7 @@
                     append-icon="mdi-eye"
                     height="40"
                     v-model="newTravel_1.password"
+                    :rules="[() => !!newTravel_1.password]"
                     ref="st_inter"
                     type="text"
                     label="Mot de passe"
@@ -244,6 +250,7 @@
                     append-icon="mdi-eye"
                     height="40"
                     v-model="newTravel_1.password_confirmation"
+                    :rules="[() => !!newTravel_1.password_confirmation]"
                     ref="st_inter"
                     type="text"
                     label="Confirmation Mot de passe"
@@ -310,6 +317,10 @@ export default {
   components: {},
 
   data: () => ({
+
+    //FOR-CDI-CHECK
+    CDI_check:false, 
+
     row: "check",
     DayType: true,
 
@@ -329,6 +340,7 @@ export default {
       travel_duration: "",
       company_id: "1",
       user_id: "1",
+      id_type_contrat:"",
     },
     newTravel_2: {
       car_informations: "",
@@ -360,8 +372,11 @@ export default {
 
   methods: {
     submit1() {
+      console.log("VALIDE");
       // for intermadiate station 
-      axios({ url: "admin/add-new-user-emplyer", data: this.newTravel_1, method: "POST" })
+      if (this.$refs.form1.validate()) {
+        
+        axios({ url: "admin/add-new-user-emplyer", data: this.newTravel_1, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
           if (this.traveladdingResponse) {
@@ -381,7 +396,9 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.newTravel_1.Intemediatestation = "";
+        this.$refs.form1.reset();
+      }
+      
     },
 
     // dateGeneration(){
@@ -394,17 +411,26 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Works","Contracts","Services"]),
+    ...mapGetters(["Works","Contracts","Services","Rights"]),
+
+    // newTravel_1.id_type_contrat
+    disableFieldInCaseOfCDI() {
+      if(this.newTravel_1.id_type_contrat==1) return true
+      else return false
+    }
   },
 
   created() {
     this.$store.dispatch("init_service");
     this.$store.dispatch("init_contract");
     this.$store.dispatch("init_work");
+    this.$store.dispatch("init_right");
+    
 
     this.newTravel_1.company_id = localStorage.getItem("user-station");
     this.newTravel_1.user_id = localStorage.getItem("user-id");
   },
+
 };
 </script>
 

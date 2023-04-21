@@ -9,12 +9,13 @@
               <v-form ref="form1">
                 <v-container fluid class="addContract">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12">
+                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-12px;">
                       <v-text-field
                         height="40"
                         solo
                         ref="location"
                         type="text"
+                        append-icon="mdi-call-missed"
                         v-model="new_Contract.type_contrat"
                         :rules="[() => !!new_Contract.type_contrat]"
                         value=""
@@ -23,14 +24,31 @@
                         required
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-10px;">
+                      <v-text-field
+                        height="40"
+                        solo
+                        ref="location"
+                        type="text"
+                        append-icon="mdi-alphabetical-variant"
+                        maxlength="5"
+                        v-model="new_Contract.anagramme"
+                        :rules="[() => !!new_Contract.anagramme]"
+                        value=""
+                        label="Anagramme"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <div style="width:100%; padding: 0px 10px; margin-top:5px;">
                       <v-textarea
                         solo
                         v-model="new_Contract.description"
+                        :rules="[() => !!new_Contract.description]"
                         clearable
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="6"
+                        rows="4"
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
@@ -111,7 +129,7 @@ export default {
     new_Contract: {
       type_contrat: "",
       description: "",
-      // user:
+      compagnie_id:1
     },
 
     ContractaAddingResponse: "",
@@ -126,7 +144,8 @@ export default {
 
   methods: {
     submit1() {
-      axios({ url: "admin/store_type_contrat", data: this.new_Contract, method: "POST" })
+      if (this.$refs.form1.validate()) {
+        axios({ url: "admin/store_type_contrat", data: this.new_Contract, method: "POST" })
         .then((response) => {
           this.ContractaAddingResponse = response.data;
           console.log(response.data);
@@ -149,6 +168,8 @@ export default {
         });
 
       this.$refs.form1.reset();
+      }
+      
     },
 
 

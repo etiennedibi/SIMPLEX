@@ -98,6 +98,7 @@
                         height="40"
                         solo
                         label="Pièce d'identité"
+                        v-model="newTravel_1.piece_identite"
                         prepend-icon="mdi-card-account-details"
                       ></v-file-input>
                 </v-col>
@@ -107,6 +108,7 @@
                         height="40"
                         solo
                         label="Curriculum vitæ"
+                        v-model="newTravel_1.CV"
                         prepend-icon="mdi-file-account"
                       ></v-file-input>
                 </v-col>
@@ -116,7 +118,19 @@
                         height="40"
                         solo
                         label="Lettre motivation"
+                        v-model="newTravel_1.LM"
                         prepend-icon="mdi-file-star-four-points"
+                      ></v-file-input>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-file-input
+                    background-color="#356eea24"
+                        chips
+                        height="40"
+                        solo
+                        v-model="newTravel_1.contrat"
+                        label="Contrat"
+                        prepend-icon="mdi-file-sign"
                       ></v-file-input>
                 </v-col>
 
@@ -384,6 +398,7 @@ export default {
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
             }, 3000);
+            this.$refs.form1.reset();
           } else {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -393,10 +408,13 @@ export default {
         })
         .catch((error) => {
           this.traveladdingResponse = error.message;
+          setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
           console.error("There was an error!", error);
         });
 
-        this.$refs.form1.reset();
+        
       }
       
     },

@@ -30,13 +30,6 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
-                      <v-switch
-                        inset
-                        v-model="switch1"
-                        :label="`Visites ${dest}`"
-                      ></v-switch>
-                    </v-col>
                     <div style="width:100%; padding: 0px 10px; margin-top:5px;">
                       <v-textarea 
                         solo
@@ -51,6 +44,13 @@
                         class="the-message-area"
                       ></v-textarea>
                     </div>
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center;margin-top:-5px">
+                      <v-switch
+                        inset
+                        v-model="switch1"
+                        :label="`Visites ${dest}`"
+                      ></v-switch>
+                    </v-col>
                     <!-- <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
@@ -152,6 +152,7 @@ export default {
 
   methods: {
     submit1() {
+      this.new_service.recevoir_visite=this.switch1
       if (this.$refs.form1.validate()) {
         axios({ url: "admin/add_new_departments", data: this.new_service, method: "POST" })
         .then((response) => {

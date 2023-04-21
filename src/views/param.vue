@@ -17,22 +17,10 @@
                             <v-col cols="12" md="12" lg="12">
                                 <v-text-field
                                 height="45"
-                                solo
-                                label="E-mail"
-                                append-icon="mdi-account"
-                                ref="matri"
-                                type="text"
-                                value=""
-                                persistent-hint
-                                required
-                                ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="12" lg="12">
-                                <v-text-field
-                                height="45"
                                 background-color="#3e886d4a"
                                 solo
                                 label="mot de passe"
+                                v-model="password"
                                 append-icon="mdi-lead-pencil"
                                 ref="total_name"
                                 type="text"
@@ -87,6 +75,7 @@
                                 chips
                                 height="45"
                                 solo
+                                v-model="avatar"
                                 label="Photo de profil"
                                 prepend-icon="mdi-camera"
                               ></v-file-input>
@@ -104,7 +93,7 @@
                         rounded
                         small
                         depressed
-                        @click="closeEdit"
+                        @click="closeEditImg"
                         style="color: white"
                         >Annuler</v-btn
                     >
@@ -113,7 +102,7 @@
                         rounded
                         small
                         depressed
-                        @click="editItemConfirm"
+                        @click="editItemConfirmImg"
                         style="color: white"
                         >Enregistrer</v-btn
                     >
@@ -141,6 +130,7 @@
                                 ref="matri"
                                 type="text"
                                 value=""
+                                v-model="UserInfo.nom"
                                 persistent-hint
                                 required
                                 ></v-text-field>
@@ -150,6 +140,7 @@
                                 height="45"
                                 background-color="#3e886d4a"
                                 solo
+                                v-model="UserInfo.prenoms"
                                 label="Prenoms"
                                 append-icon="mdi-account-outline"
                                 ref="total_name"
@@ -169,6 +160,7 @@
                                 type="text"
                                 value=""
                                 persistent-hint
+                                v-model="UserInfo.email"
                                 required
                                 ></v-text-field>
                             </v-col>
@@ -176,6 +168,7 @@
                                 <v-text-field
                                 height="45"
                                 background-color="#3e886d4a"
+                                v-model="UserInfo.LM"
                                 solo
                                 label="Numero de telephone"
                                 append-icon="mdi-phone"
@@ -190,6 +183,7 @@
                                 <v-text-field
                                 height="45"
                                 solo
+                                v-model="UserInfo.LM"
                                 label="Lieu d'habitation"
                                 append-icon="mdi-map-marker"
                                 ref="total_name"
@@ -362,18 +356,13 @@ export default {
     addingfalse: false,
 
     // For staion detail
+    
     dialog: false,
-    editedItem: {
-      matriculation: "",
-      description: "",
-      country: "",
-      contact: "",
-      city: "",
-      neighborhood: "",
-      other_denomination: "",
-      mino_code: "",
-      package_service_use: false,
-      user_id: "1",
+    avatar: "",
+    user_id: 1,
+    password: "",
+    UserInfo: {
+      
     },
 
     // For staion edit
@@ -401,18 +390,15 @@ export default {
     // ------------------------
     // For STATION Edited
     // ------------------------
-    editItem(item) {
-      this.editedIndex = this.Adminitrators.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      //  Open the Edit Dialogue
+    editItem() {
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-      axios({ url: "user/profilUpdate", data: this.editedItem, method: "PUT" })
+      axios({ url: "user/update_infos_users/"+1, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
-          if (this.staionaAddingResponse.message == "success") {
+          if (this.staionaAddingResponse) {
             // Modification effectuée
             this.staionaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
@@ -420,8 +406,9 @@ export default {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender2();
             }, 3000);
-          } else if (this.staionaAddingResponse.message != "success") {
+          } else if (!this.staionaAddingResponse.message) {
             // Modification effectuée
+            this.staionaAddingResponse.message = "echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -443,26 +430,23 @@ export default {
 
 
     // EDIT-ACCES
-     editItemAccess(item) {
-      this.editedIndex = this.Adminitrators.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      //  Open the Edit Dialogue
+     editItemAccess() {
       this.dialogEditAcces = true;
     },
     editItemConfirmAcces() {
-      axios({ url: "user/profilUpdate", data: this.editedItem, method: "PUT" })
+      axios({ url: "admin/update_password/"+1, data: {password:this.password}, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
-          if (this.staionaAddingResponse.message == "success") {
+          if (this.staionaAddingResponse) {
             // Modification effectuée
             this.staionaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
             }, 3000);
-          } else if (this.staionaAddingResponse.message != "success") {
+          } else if (!this.staionaAddingResponse) {
             // Modification effectuée
+            this.staionaAddingResponse.message = "échec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -483,17 +467,14 @@ export default {
 
 
     // EDIT-IMG
-     editItemImg(item) {
-      this.editedIndex = this.Adminitrators.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      //  Open the Edit Dialogue
+     editItemImg() {
       this.dialogEditImg = true;
     },
     editItemConfirmImg() {
-      axios({ url: "user/profilUpdate", data: this.editedItem, method: "PUT" })
+      axios({ url: "admin/update_photo_profil/"+1, data:{avatar:this.avatar}, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
-          if (this.staionaAddingResponse.message == "success") {
+          if (this.staionaAddingResponse) {
             // Modification effectuée
             this.staionaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
@@ -501,8 +482,9 @@ export default {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender2();
             }, 3000);
-          } else if (this.staionaAddingResponse.message != "success") {
+          } else if (!this.staionaAddingResponse) {
             // Modification effectuée
+            this.staionaAddingResponse.message = "echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;

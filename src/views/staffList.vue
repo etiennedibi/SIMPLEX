@@ -78,23 +78,29 @@
                     <div class="depBox">
                       <div>
                          <p><span>departement</span><br> {{ editedItem.nom_departement }}</p>
-                          <p v-if="editedItem.role_id==1"><span>Attribution</span><br>tache & conge</p>
-                          <p v-if="editedItem.role_id==2"><span>Attribution</span><br>Standart</p>
+                          <p v-if="editedItem.role_id==1"><span>Attribution</span><br>ADMINISTEUR</p>
+                          <p v-if="editedItem.role_id==2"><span>Attribution</span><br>MANAGEUR</p>
+                          <p v-if="editedItem.role_id==3"><span>Attribution</span><br>TEAM LEAD</p>
+                          <p v-if="editedItem.role_id==4"><span>Attribution</span><br>STANDARD</p>
                           <p><span>Habitation</span><br> {{ editedItem.lieu_naissance }}</p>
                           <p><span>contact</span><br>{{ editedItem.contact }}</p>
+                          <p><span>E-mail</span><br>{{ editedItem.email }}</p>
+                          <p><span>Date de naissance</span><br>{{ editedItem.lieu_naissance }}</p>
+                          <p><span>Lieu d'habitation</span><br>{{ editedItem.date_naissance }}</p>
                       </div>
-                      <div>CDD </div>
+                      <div>{{ editedItem.anagramme }} </div>
                     </div>
                   </div>
                 </v-col>
                 <v-col cols="12" md="4" lg="4">
                   <div class="statWrapper2">
-                    <span>Prise de parole en public </span>
-                    <span>Anglais </span>
-                    <span>JavaScript </span>
-                    <span>Gestion de projet </span>
-                    <span>anglais </span>
-                    <span>Analyse de donnée </span>
+                    <span>Debut contrat:</span>
+                    <span>{{ editedItem.date_debut }}</span>
+                    <span>Fin contrat:</span>
+                    <span>{{ editedItem.date_fin }} </span>
+                    <span>Durée contrat:</span>
+                    <span>{{ editedItem.duree_contrat }} </span>
+                    <span>{{ editedItem.type_contrat }}</span>
                   </div>
                 </v-col>
               </v-row>
@@ -118,55 +124,12 @@
                     <v-text-field
                       solo
                       height="40"
-                      v-model="editedItem.nom"
-                      :rules="[() => !!editedItem.nom]"
-                      ref="dep_date"
-                      type="text"
-                      value=""
-                      label="Nom"
-                      persistent-hint
-                      append-icon="mdi-account"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="11" lg="11">
-                    <v-text-field
-                      solo
-                      append-icon="mdi-account-outline"
-                      height="40"
-                      v-model="editedItem.prenoms"
-                      :rules="[() => !!editedItem.prenoms]"
-                      ref="dest_place"
-                      type="text"
-                      label="Prenoms"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="11" lg="11">
-                    <v-text-field
-                      solo
-                      height="40"
                       v-model="editedItem.email"
                       :rules="[() => !!editedItem.email]"
                       ref="dep_time"
                       type="text"
                       label="e-mail"
                       append-icon="mdi-at"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="11" lg="11">
-                    <v-text-field
-                      solo
-                      append-icon="mdi-phone"
-                      height="40"
-                      v-model="editedItem.contact"
-                      :rules="[() => !!editedItem.contact]"
-                      ref="pla_number"
-                      type="number"
-                      label="Numero de telephone"
                       persistent-hint
                       required
                     ></v-text-field>
@@ -203,6 +166,7 @@
                           chips
                           height="40"
                           solo
+                          v-model="editedItem.piece_identite"
                           label="Pièce d'identité"
                           prepend-icon="mdi-card-account-details"
                         ></v-file-input>
@@ -212,6 +176,7 @@
                           chips
                           height="40"
                           solo
+                          v-model="editedItem.CV"
                           label="Curriculum vitæ"
                           prepend-icon="mdi-file-account"
                         ></v-file-input>
@@ -221,8 +186,19 @@
                           chips
                           height="40"
                           solo
+                          v-model="editedItem.LM"
                           label="Lettre motivation"
                           prepend-icon="mdi-file-star-four-points"
+                        ></v-file-input>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-file-input
+                          chips
+                          height="40"
+                          solo
+                        v-model="editedItem.contrat"
+                        label="Contrat"
+                        prepend-icon="mdi-file-sign"
                         ></v-file-input>
                   </v-col>
 
@@ -571,7 +547,7 @@ export default {
 
     editItemConfirm() {
       axios
-        ({ url: "admin/update_infos_users/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "users/update_employe", data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -582,7 +558,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_employers");
             }, 3000);
           } else if (this.VisiteaAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;

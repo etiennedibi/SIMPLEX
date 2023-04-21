@@ -67,7 +67,7 @@
                         persistent-hint
                         required
                       ></v-text-field>
-                    </v-col>  
+                    </v-col> 
                     <div style="width:92%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
@@ -81,6 +81,13 @@
                         class="the-message-area"
                       ></v-textarea>
                     </div>
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
+                      <v-switch
+                        inset
+                        v-model="switch1"
+                        :label="`Visites ${dest}`"
+                      ></v-switch>
+                    </v-col> 
                 </v-row>
               </v-container>
             </form>
@@ -177,10 +184,10 @@
         <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
         </template> -->
         <template v-slot:[`item.recevoir_visite`]="{ item }">
-          <v-chip small dark v-if="item.recevoir_visite == false" color="#356EEA7A">
+          <v-chip small dark v-if="item.recevoir_visite == true" color="#356EEA7A">
             <v-icon color="mainBlueColor" small>mdi-check</v-icon> OUI
           </v-chip>
-          <v-chip small dark v-if="item.recevoir_visite == true" color="#aeaeae">
+          <v-chip small dark v-if="item.recevoir_visite == false" color="#aeaeae">
             <v-icon color="red" small>mdi-close</v-icon
             >NON</v-chip
           >
@@ -383,6 +390,8 @@ export default {
     // For Sender deleted
     dialogDelete: false,
     itemToDelete: "",
+
+    switch1: false,
   }),
 
   methods: {
@@ -405,6 +414,7 @@ export default {
     },
 
     editItemConfirm() {
+      this.editedItem.recevoir_visite=this.switch1
         axios({ url: "admin/update_departments/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
@@ -487,6 +497,10 @@ export default {
 
   computed: {
     ...mapGetters(["Services"]),
+
+    dest() {
+      return this.switch1? 'autorisées':'interdites'
+    },
   },
 
   created() {

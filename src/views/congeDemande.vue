@@ -12,6 +12,7 @@
                     <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center; margin-bottom:-25px">
                       <v-select
                         v-model="new_conge_ask.id_type_conge"
+                        :rules="[() => !!new_conge_ask.id_type_conge]"
                         :items="Conges"
                         item-text="type_conge"
                         item-value="id"
@@ -27,6 +28,7 @@
                         solo
                         label="Date de début"
                         v-model="new_conge_ask.date_debut"
+                        :rules="[() => !!new_conge_ask.date_debut]"
                         ref="total_name"
                         type="date"
                         value=""
@@ -42,6 +44,7 @@
                         label="Date de fin"
                         ref="desc"
                         v-model="new_conge_ask.date_fin"
+                        :rules="[() => !!new_conge_ask.date_fin]"
                         type="date"
                         value=""
                         prefix="Fin : "
@@ -57,8 +60,10 @@
                         solo
                         append-icon="mdi-numeric"
                         v-model="new_conge_ask.nbre_jour"
+                        :rules="[() => !!new_conge_ask.nbre_jour]"
                         ref="transport"
                         type="number"
+                        maxlength="2"
                         label="Nombre de jours"
                         persistent-hint
                         required
@@ -144,7 +149,11 @@ export default {
 
   data: () => ({
     // FOR FORM SENDING
-    new_conge_ask: {compagnie_id:1,},
+    new_conge_ask: {
+      compagnie_id:"",
+      id_user:"",
+      id_departement:"",
+      },
 
     congeAskaAddingResponse: "",
     addingSuccess: false,
@@ -158,9 +167,7 @@ export default {
 
   methods: {
     submit1() {
-      this.new_conge_ask.id_user = 1;
-      this.new_conge_ask.id_departement = 1;
-      // console.log(this.new_conge_ask);
+      console.log(this.new_conge_ask);
         axios({ url: "users/store_conge", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
@@ -192,8 +199,11 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("init_user_conge");
     this.$store.dispatch("init_conge");
-    // this.new_conge_ask.company_id = localStorage.getItem("user-station");
+    this.new_conge_ask.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_conge_ask.id_user = localStorage.getItem("user-id");
+    this.new_conge_ask.id_departement = localStorage.getItem("user-department");
   },
 };
 </script>

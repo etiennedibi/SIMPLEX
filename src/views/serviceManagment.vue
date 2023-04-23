@@ -137,7 +137,7 @@ export default {
     new_service: {
       nom_departement: "",
       description_departement: "",
-      compagnie_id: 1,
+      compagnie_id: "",
     },
 
     serviceaAddingResponse: "",
@@ -199,8 +199,8 @@ export default {
   },
 
   created() {
-    // this.new_service.company_id = localStorage.getItem("user-station");
-    // this.new_service.company_id = localStorage.getItem("user-station");
+    this.new_service.compagnie_id = localStorage.getItem("user-compagnie");
+
   },
 };
 </script>

@@ -110,8 +110,8 @@
                         height="30"
                         solo
                         background-color="#356eea24"
-                        v-model="new_visit.duree_visite"
-                        :rules="[() => !!new_visit.duree_visite]"
+                        v-model="new_visit.duree_rdv"
+                        :rules="[() => !!new_visit.duree_rdv]"
                         ref="transport"
                         type="time"
                         label="heure"
@@ -207,8 +207,8 @@ export default {
       contact_visiteur: "",
       date_rdv: "",
       heure_rdv: "",
-      compagnie_id: 1,
-      id_user_employer: 1,
+      compagnie_id: "",
+      id_user_employer: "",
     },
 
     VisiteaAddingResponse: "",
@@ -260,7 +260,7 @@ export default {
   },
 
   created() {
-    this.new_visit.company_id = localStorage.getItem("user-station");
+    this.new_visit.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_visit.id_user_employer = localStorage.getItem("user-id");
 
   },

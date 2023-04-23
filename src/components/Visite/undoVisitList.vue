@@ -329,7 +329,7 @@
                         solo
                         background-color="#356eea24"
                         v-model="editedItem.duree_rdv"
-                        ref="transport"
+                        ref="jjj"
                         type="time"
                         label="heure"
                         prefix="Durée de visite : "
@@ -479,7 +479,14 @@
               </div>
             </div>
             <div class="statElment">
-              
+              <div class="statElment">
+                <div>
+                  <h5>DUREE DU RDV</h5>
+                  <h4>{{ editedItem.duree_rdv }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="statElment">
               <div>
                 <h5>MOTIF</h5>
                 <h4 style="text-align:justify">{{ editedItem.objet }}</h4>

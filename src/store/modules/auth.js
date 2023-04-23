@@ -44,7 +44,6 @@ const actions = {
       commit("AUTH_REQUEST");
       axios({ url: "login", data: user, method: "POST" })
         .then((resp) => {
-          console.log('resp.data');
           if (resp.data.status == "error") {
             // in case of falling authentification {c'est Le moniteur qui a fait le son}
             const authError = resp.data;
@@ -55,6 +54,7 @@ const actions = {
           localStorage.setItem("user-profil", theuser.avatar); // store UserName in localstorage
           localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
           localStorage.setItem("user-compagnie", theuser.compagnie_id);  //store UserStation in localstorage
+          localStorage.setItem("user-department", theuser.department_id);  //store UserStation in localstorage
           localStorage.setItem("user-id", theuser.id); // store UserID in localstorage
 
           const token = resp.data.token.token; //The token

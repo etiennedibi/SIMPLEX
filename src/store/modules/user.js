@@ -32,7 +32,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getAllEmploys"
+        "admin/getAllEmploys/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         console.log(res.data.Employ);

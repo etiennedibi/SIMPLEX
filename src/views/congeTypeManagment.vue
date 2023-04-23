@@ -129,7 +129,7 @@ export default {
     new_Conge: {
       type_conge: "",
       cota_conge: "",
-      compagnie_id:1,
+      compagnie_id:"",
     },
 
     congeaAddingResponse: "",
@@ -184,7 +184,7 @@ export default {
   },
 
   created() {
-    // this.new_Conge.company_id = localStorage.getItem("user-station");
+    this.new_Conge.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

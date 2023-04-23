@@ -115,7 +115,7 @@ export default {
     // FOR FORM SENDING
     new_Work: {
       nom_fonction: "",
-      compagnie_id: 1,
+      compagnie_id: "",
     },
 
     workaAddingResponse: "",
@@ -169,7 +169,8 @@ export default {
   },
 
   created() {
-    // this.new_Work.company_id = localStorage.getItem("user-station");
+    this.new_Work.compagnie_id = localStorage.getItem("user-compagnie");
+
   },
 };
 

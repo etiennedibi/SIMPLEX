@@ -327,7 +327,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="All_conges"
+        :items="All_conges_departement"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -816,11 +816,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["All_conges"]),
+    ...mapGetters(["All_conges_departement"]),
   },
 
   created() {
-    this.$store.dispatch("init_all_conge");
+    this.$store.dispatch("init_all_conge_dprt");
   },
 };
 </script>

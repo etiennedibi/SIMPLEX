@@ -302,7 +302,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        Employer enregistré avec succes</v-alert
+        Employé enregistré avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -351,8 +351,8 @@ export default {
       place_price: "",
       Intemediatestation: "",
       travel_duration: "",
-      company_id: "1",
-      user_id: "1",
+      compagnie_id: "",
+      user_id: "",
       id_type_contrat:"",
     },
     newTravel_2: {
@@ -367,8 +367,8 @@ export default {
       total_car_place_number: "",
       place_price: "",
 
-      company_id: "1",
-      user_id: "1",
+      company_id: "",
+      user_id: "",
     },
 
     Roles:[
@@ -385,7 +385,6 @@ export default {
 
   methods: {
     submit1() {
-      console.log("VALIDE");
       // for intermadiate station 
       if (this.$refs.form1.validate()) {
         
@@ -407,6 +406,7 @@ export default {
         })
         .catch((error) => {
           this.traveladdingResponse = error.message;
+          this.addingfalse = !this.addingfalse;
           setTimeout(() => {
               this.addingfalse = !this.addingfalse;
             }, 3000);
@@ -444,8 +444,8 @@ export default {
     this.$store.dispatch("init_right");
     
 
-    this.newTravel_1.company_id = localStorage.getItem("user-station");
-    this.newTravel_1.user_id = localStorage.getItem("user-id");
+    this.newTravel_1.id_user = localStorage.getItem("user-id");
+    this.newTravel_1.compagnie_id = localStorage.getItem("user-compagnie");
   },
 
 };

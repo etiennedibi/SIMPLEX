@@ -129,7 +129,7 @@ export default {
     new_Contract: {
       type_contrat: "",
       description: "",
-      compagnie_id:1
+      compagnie_id:""
     },
 
     ContractaAddingResponse: "",
@@ -191,7 +191,7 @@ export default {
   },
 
   created() {
-    this.new_Contract.company_id = localStorage.getItem("user-station");
+    this.new_Contract.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

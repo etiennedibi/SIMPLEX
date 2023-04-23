@@ -329,6 +329,48 @@
         </v-card>
       </v-dialog>
 
+      <!-- ARCHIV DIALOG -->
+       <v-dialog v-model="dialogAchiv" max-width="420">
+        <v-card>
+          <v-card-text>
+            <v-container>
+              <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
+              <div class="imgAndTitle  deleteIMG">
+                  <v-icon color="red" large>
+                    mdi-close
+                  </v-icon>
+                </div>
+              <v-container>
+                <div class="CancelVerification">
+                  Cette action supprimera le compte <br />
+                  <b>{{ editedItem.nom }} {{ editedItem.prenoms }}</b> <br>
+                  la liste des employés.
+                </div>
+                <div class="verificationAction">
+                  <v-btn
+                    color="grey"
+                    
+                    depressed
+                    @click="closeArchiv"
+                    style="color: white"
+                    >Annuler</v-btn
+                  >
+                  <v-btn
+                    color="red"
+                    
+                    depressed
+                    @click="ArchivItemConfirm"
+                    style="color: white"
+                    >Confirmer</v-btn
+                  >
+                </div>
+              </v-container>
+              </v-container>
+            
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
       <v-row>
         <v-col cols="12" md="12" lg="12">
            <div v-if="Employers.length!=0" class="stationListboxWrapper">
@@ -389,7 +431,7 @@
                   >
                     <div
                       class="InvBox"
-                      @click="openDialog(item)"
+                      @click="showItem(item)"
                     >
                       <div>
                         <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
@@ -397,8 +439,8 @@
                         <p>{{ item.nom_fonction }}</p>
                       </div>
                       <div class="price">
-                        <v-icon @click.stop="showItem(item)">mdi-folder-eye</v-icon>
                         <v-icon @click.stop="editItem(item)">mdi-folder-edit</v-icon>
+                        <v-icon @click.stop="ArchivItem(item)">mdi-folder-remove</v-icon>
                         <!-- <v-icon @click.stop="showItem(item)">mdi-redo</v-icon>
                         <v-icon @click.stop="showItem(item)">mdi-archive-arrow-down</v-icon> -->
                       </div>
@@ -504,11 +546,13 @@ export default {
     dialog: false,
     editedItem: {},
     
-    // For Visite edit
+    // For USER edit
     VisiteaAddingResponse: "",
     dialogEdit: false,
     editedIndex: -1,
 
+    // For USER Archiv
+    dialogAchiv: false,
 
     // for alerte
     addingSuccess: false,
@@ -580,11 +624,61 @@ export default {
     },
 
 
+    // ------------------------
+    // For User Archive
+    // 
+    ArchivItem(item) {
+      this.editedIndex = this.Employers.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogAchiv = true;
+      // this.BeforeDialogDelete = false;
+    },
+    // confirm deleted of nature
+    ArchivItemConfirm() {
+       axios
+        ({ url: "admin/archive_user/"+this.editedItem.the_employe_id,  method: "PUT" })
+        .then((response) => {
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Annulation effectuée
+            this.VisiteaAddingResponse.message = "Archivage effectué";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+               this.$store.dispatch("init_employers");
+            }, 3000);
+          } else if (!this.VisiteaAddingResponse) {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeArchiv();
+    },
+
+    closeArchiv() {
+      this.dialogAchiv = false;
+    },
+
+
+
+
    
   },
 
   computed: {
     ...mapGetters(["Employers","Works","Contracts","Services"]),
+
+    numberOfPages () {
+        return Math.ceil(this.Employers.length / this.itemsPerPage)
+      },
   },
 
   created() {
@@ -684,8 +778,8 @@ export default {
   font-size: 12px;
 }
 .price .v-icon {
-  margin-bottom: 5px;
-  font-size: 12px;
+  margin-bottom:10px;
+  font-size: 14px;
   color: var(--main-blue-important);
 }
 
@@ -1016,6 +1110,33 @@ export default {
 .ReportForm{
   height: 170px;
   overflow-y: clip;
+}
+
+
+/* Delete travel */
+.deleteIMG {
+  margin-left: 35%;
+  margin-bottom: 0px;
+  /* background-color:red; */
+  border: 3px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.CancelVerification {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+.verificationAction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.verificationAction > button {
+  width: 150px;
 }
 
 

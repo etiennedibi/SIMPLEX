@@ -11,14 +11,14 @@
             <div class="N-icon icon2">
               <v-icon color="white">mdi-calendar-check</v-icon>
             </div>
-            <h1 style="color: white">{{All_congesAcceptNumber}}</h1>
+            <h1 style="color: white">{{All_conges_departementAcceptNumber}}</h1>
             <h5 style="color: white">Demandes acceptées</h5>
           </div>
           <div class="stat1">
             <div class="N-icon">
               <v-icon color="mainBlueColor">mdi-calendar-remove</v-icon>
             </div>
-            <h1>{{All_congesRefuseNumber}}</h1>
+            <h1>{{All_conges_departementRefuseNumber}}</h1>
             <h5>Demandes réfusées</h5>
           </div>
         </v-col>
@@ -54,11 +54,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["All_congesRefuseNumber","All_congesAcceptNumber"]),
+    ...mapGetters(["All_conges_departementRefuseNumber","All_conges_departementAcceptNumber"]),
     forceRerender() {
       return this.$store.state.travelcomponentKey;
       // console.log(this.componentKey);
     },
+  },
+
+  created() {
+    this.$store.dispatch("init_all_conge_dprt");
   },
 };
 </script>

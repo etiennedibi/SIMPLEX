@@ -34,7 +34,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/get_type_contrat/"+1
+        "admin/get_type_contrat/"+localStorage.getItem("user-compagnie")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

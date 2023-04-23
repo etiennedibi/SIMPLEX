@@ -4,23 +4,23 @@
       <p class="sectionTitle">Historique</p>
       <v-row>
          <v-col cols="12" md="3" lg="3" class="leftNumber">
-          <div class="stat1 stat2">
+           <div class="stat1 stat2">
             <div class="N-icon icon2">
-              <v-icon color="white">mdi-calendar-remove</v-icon>
+              <v-icon color="white">mdi-calendar-check</v-icon>
             </div>
-            <h1 style="color: white">5</h1>
-            <h5 style="color: white">Demandes refusées</h5>
+            <h1 style="color: white">{{All_congesAcceptNumber}}</h1>
+            <h5 style="color: white">Demandes acceptées</h5>
           </div>
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainBlueColor">mdi-calendar-check</v-icon>
+              <v-icon color="mainBlueColor">mdi-calendar-remove</v-icon>
             </div>
-            <h1>10</h1>
-            <h5>Jours épuisés</h5>
+            <h1>{{All_congesRefuseNumber}}</h1>
+            <h5>Demandes réfusées</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
-          <allCongeStory :key="forceRerender"></allCongeStory>
+          <allCongeStory></allCongeStory>
         </v-col>
        
       </v-row>
@@ -55,11 +55,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Analytics"]),
+    ...mapGetters(["All_congesRefuseNumber","All_congesAcceptNumber"]),
     forceRerender() {
       return this.$store.state.travelcomponentKey;
       // console.log(this.componentKey);
     },
+  },
+
+  created() {
+    this.$store.dispatch("init_all_conge");
   },
 };
 </script>

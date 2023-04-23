@@ -116,7 +116,7 @@ export default {
 
     // FOR FORM SENDING
     new_message: {
-      compagnie_id:1
+      compagnie_id:"",
     },
     manualTopicdata:"",
     messageaAddingResponse: "",
@@ -163,6 +163,10 @@ export default {
   computed: {
     
     
+  },
+
+  created() {
+    this.new_message.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

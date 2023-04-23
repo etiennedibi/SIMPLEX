@@ -351,6 +351,13 @@
             </div>
             <div class="statElment">
               <div>
+                <h5>NOMBRE DE JOURS</h5>
+                <h4>{{ editedItem.nbre_jour }}
+                </h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
                 <h5>MOTIF DE LA DEMANDE</h5>
                 <h4>{{ editedItem.motif_conge }}
                 </h4>

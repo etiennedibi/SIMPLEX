@@ -34,8 +34,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "rdv/AllVisiteByUser/" + 1
-          // localStorage.getItem("user-station")
+        "rdv/AllVisiteByUser/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -58,7 +57,7 @@ const actions = {
   // },
   axios
       .get(
-        "rdv/AllVisiteurs/" + 1
+        "rdv/AllVisiteurs/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         console.log(res.data.visites);

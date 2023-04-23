@@ -333,21 +333,7 @@
         hide-default-footer
       >
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
-        <template v-slot:[`item.actions`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainBlueColor" @click="showItem(item)"
-            ><v-icon small> mdi-eye </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" 
-          v-if="item.etat_demande != 'CONGE_ACCORDE'" 
-          @click="acceptItem(item)"
-            ><v-icon small>mdi-checkbox-marked-circle </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor"
-          v-if="item.etat_demande != 'CONGE_ANNULÉ'"
-           @click="editItem(item)"
-            ><v-icon small> mdi-cancel </v-icon></v-btn
-          >
+        <template v-slot:[`item.etat_demande`]="{ item }">
           <v-btn icon color="mainBlueColor" 
           v-if="item.etat_demande == '0'"
           class="statuBtn">
@@ -363,37 +349,27 @@
           class="statuBtn">
             <div class="status" style="background: #FC070794; color:white;">refusé</div>
           </v-btn>
+
+        </template>
+
+        <template v-slot:[`item.actions`]="{ item }">  
+          
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
+            ><v-icon small> mdi-eye </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande != 'CONGE_ACCORDE'" 
+          @click="acceptItem(item)"
+            ><v-icon small>mdi-checkbox-marked-circle </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor"
+          v-if="item.etat_demande != 'CONGE_ANNULÉ'"
+           @click="editItem(item)"
+            ><v-icon small> mdi-cancel </v-icon></v-btn
+          >
         </template>
         <template v-slot:[`item.nbre_jour`]="{ item }">
           {{ item.nbre_jour }} <span style="color: mainBlueColor">j</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
         </template>
       </v-data-table>
     </div>
@@ -444,6 +420,7 @@ export default {
         sortable: true,
         value: "nbre_jour",
       },
+      { text: "STATUS", value: "etat_demande" },
       { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
@@ -584,6 +561,7 @@ export default {
       date_rdv: "",
       heure_rdv: "",
       objet: "",
+      id_user:1,
     },
 
     // For Visite edit
@@ -624,10 +602,10 @@ export default {
     },
 
     editItemConfirm() {
-        this.editedItem.id_user=1
+        // this.editedItem.id_user=1
         let editthing = {id_user:1, motif_traitement:this.editedItem.motif_traitement}
         console.log(editthing);
-        axios({ url: "admin/traitement_conge_annule/"+this.editedItem.id, data: editthing, method: "POST" })
+        axios({ url: "admin/traitement_conge_annule/"+this.editedItem.ID_CONGE, data: editthing, method: "POST" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
@@ -763,7 +741,7 @@ export default {
       //   .post(
       //     "admin/traitement_accepte_conge/" + this.OneVarianteitemToDelete.id
       //   )
-        axios({ url: "admin/traitement_accepte_conge/"+this.editedItem.id, method: "POST" })
+        axios({ url: "admin/traitement_accepte_conge/"+this.editedItem.ID_CONGE, method: "POST" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 

@@ -44,10 +44,15 @@
                <div class="depBox">
                 <div>
                   <p><span>departement</span><br> {{ Current_employer.nom_departement }}</p>
-                  <p v-if="Current_employer.role_id==1"><span>Attribution</span><br>tache & conge</p>
-                  <p v-if="Current_employer.role_id==2"><span>Attribution</span><br>Standart</p>
+                  <p v-if="Current_employer.role_id==1"><span>Attribution</span><br>ADMINISTEUR</p>
+                  <p v-if="Current_employer.role_id==2"><span>Attribution</span><br>MANAGEUR</p>
+                  <p v-if="Current_employer.role_id==3"><span>Attribution</span><br>TEAM LEAD</p>
+                  <p v-if="Current_employer.role_id==4"><span>Attribution</span><br>STANDARD</p>
                   <p><span>Habitation</span><br> {{ Current_employer.lieu_naissance }}</p>
                   <p><span>contact</span><br>{{ Current_employer.contact }}</p>
+                  <p><span>E-mail</span><br>{{ Current_employer.email }}</p>
+                  <p><span>Date de naissance</span><br>{{ Current_employer.lieu_naissance }}</p>
+                  <p><span>Lieu d'habitation</span><br>{{ Current_employer.date_naissance }}</p>
                 </div>
                 <div>CDI</div>
                </div>
@@ -55,12 +60,13 @@
           </v-col>
           <v-col cols="12" md="4" lg="4">
             <div class="statWrapper2">
-              <span>Prise de parole en public </span>
-              <span>Anglais </span>
-              <span>JavaScript </span>
-              <span>Gestion de projet </span>
-              <span>anglais </span>
-              <span>Analyse de donnée </span>
+              <span>Debut contrat:</span>
+              <span>{{ Current_employer.date_debut }}</span>
+              <span>Fin contrat:</span>
+              <span>{{ Current_employer.date_fin }} </span>
+              <span>Durée contrat:</span>
+              <span>{{ Current_employer.duree_contrat }} </span>
+              <span>{{ Current_employer.type_contrat }}</span>
             </div>
           </v-col>
         </v-row>
@@ -123,7 +129,7 @@
                         solo
                         height="40"
                         v-model="editedItem.email"
-                        :rules="[() => !!editedItem.email]"
+                        :rules="[() => !!editedItem.email,(v) => /.+@.+/.test(v)]"
                         ref="dep_time"
                         type="text"
                         label="e-mail"
@@ -138,9 +144,10 @@
                         append-icon="mdi-phone"
                         height="40"
                         v-model="editedItem.contact"
-                        :rules="[() => !!editedItem.contact]"
+                        :rules="[() => !!editedItem.contact,(v) => /[0-9]+/i.test(v)]"
                         ref="pla_number"
-                        type="number"
+                        type="text"
+                        maxlength="10"
                         label="Numero de telephone"
                         persistent-hint
                         required
@@ -179,6 +186,7 @@
                             height="40"
                             solo
                             label="Pièce d'identité"
+                            v-model="editedItem.piece_identite"
                             prepend-icon="mdi-card-account-details"
                           ></v-file-input>
                     </v-col>
@@ -188,6 +196,7 @@
                             height="40"
                             solo
                             label="Curriculum vitæ"
+                            v-model="editedItem.CV"
                             prepend-icon="mdi-file-account"
                           ></v-file-input>
                     </v-col>
@@ -197,11 +206,21 @@
                             height="40"
                             solo
                             label="Lettre motivation"
+                            v-model="editedItem.LM"
                             prepend-icon="mdi-file-star-four-points"
                           ></v-file-input>
                     </v-col>
-
-
+                    <v-col cols="12" md="11" lg="11">
+                      <v-file-input
+                        background-color="#356eea24"
+                        chips
+                        height="40"
+                        solo
+                        v-model="editedItem.contrat"
+                        label="Contrat"
+                        prepend-icon="mdi-file-sign"
+                      > </v-file-input>
+                    </v-col>
 
                   <v-col cols="12" md="11" lg="11">
                     <v-select
@@ -231,10 +250,11 @@
                   </v-col>
                   <v-col cols="12" md="11" lg="11">
                     <v-select
+                    disabled
                       background-color="#356eea24"
                       v-model="editedItem.role_id"
-                      :items="Roles"
-                      item-text="role"
+                      :items="Rights"
+                      item-text="name"
                       item-value="id"
                       label="Niveau d'accès"
                       solo
@@ -274,6 +294,7 @@
                   <v-col cols="12" md="11" lg="11">
                     <v-text-field
                       solo
+                    :disabled="disableFieldInCaseOfCDI"
                       height="40"
                       background-color="#356eea24"
                       v-model="editedItem.date_fin"
@@ -289,6 +310,7 @@
                   <v-col cols="12" md="11" lg="11">
                     <v-text-field
                       solo
+                    :disabled="disableFieldInCaseOfCDI"
                       background-color="#356eea24"
                       append-icon="mdi-timeline-clock"
                       height="40"
@@ -330,6 +352,31 @@
 
       </v-container>
     </div>
+
+    <transition name="slide">
+      <v-alert
+        v-if="addingSuccess"
+        elevation="13"
+        type="success"
+        max-width="300"
+        class="alert"
+        color="mainBlueColor"
+      >
+        Employer enregistré avec succes</v-alert
+      >
+    </transition>
+    <transition name="slide">
+      <v-alert
+        v-if="addingfalse"
+        elevation="13"
+        type="error"
+        max-width="300"
+        class="alert"
+        color="error"
+      >
+        Erreur lors de l'ajout</v-alert
+      >
+    </transition>
   </div>
 </template>
 
@@ -442,6 +489,12 @@ export default {
       colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
       labels: ["SBTA", "ABOUSSOUAN", "VOUS 4eme"],
     },
+
+
+
+
+    addingSuccess: false,
+    addingfalse: false,
   }),
 
   mounted() {
@@ -457,20 +510,20 @@ export default {
 
     editItemConfirm() {
       axios
-        ({ url: "admin/update_infos_users/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "users/update_first_admin", data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.code == 200) {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Modification effectuée";
+            this.VisiteaAddingResponse;
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_current_employer_infos");
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -486,7 +539,7 @@ export default {
     },
 
     closeEdit() {
-      this.dialogEdit = false;
+      this.adminInfos = false;
     },
 
     // ------------------------
@@ -511,11 +564,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Current_employer"]),
+    ...mapGetters(["Current_employer","Works","Contracts","Services","Rights"]),
+
+    // newTravel_1.id_type_contrat
+    disableFieldInCaseOfCDI() {
+      if(this.editedItem.id_type_contrat==1) return true
+      else return false
+    }
   },
 
    created() {
     this.$store.dispatch("init_current_employer_infos")
+
+    this.$store.dispatch("init_service");
+    this.$store.dispatch("init_contract");
+    this.$store.dispatch("init_work");
+    this.$store.dispatch("init_right");
+
+    this.editedItem.user_id = localStorage.getItem("user-id");
   },
 };
 </script>
@@ -620,10 +686,15 @@ export default {
   /* align-items: center; */
   font-size:13px;
   overflow: hidden;
+  overflow-y: auto;
   /* background-color: red; */
   padding-left: 10px;
   text-transform: uppercase;
   font-weight: bold;
+  /* background:red; */
+}
+.depBox div:nth-child(1){
+  height:33vh;
   /* background:red; */
 }
 .depBox div:nth-child(1) span{

@@ -294,9 +294,9 @@ export default {
     ...mapGetters(["AllVisitesStorys"]),
   },
 
-  created() {
-    this.$store.dispatch("init_allVisite");
-  },
+  // created() {
+  //   this.$store.dispatch("init_allVisite");
+  // },
 };
 </script>
 

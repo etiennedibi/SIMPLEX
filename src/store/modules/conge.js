@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
   conges: [],
   user_conges: [],
-  all_conges: [],
+  all_conges: {},
 };
 
 const getters = {
@@ -20,8 +20,15 @@ const getters = {
   },
 
   All_conges: (state) => {
-    let conge = state.all_conges;
-
+    let conge = state.all_conges.conge;
+    return conge;
+  },
+  All_congesRefuseNumber: (state) => {
+    let conge = state.all_conges.conge_annules.length;
+    return conge;
+  },
+  All_congesAcceptNumber: (state) => {
+    let conge = state.all_conges.conge_accordes.length;
     return conge;
   },
 
@@ -57,7 +64,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "users/get_conge_user/"+2 
+        "users/get_conge_user/"+1 
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -74,7 +81,7 @@ const actions = {
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        commit("SET_ALL_CONGE", res.data.conge);
+        commit("SET_ALL_CONGE", res.data);
       })
       .catch((error) => console.log(error));
   },

@@ -51,9 +51,10 @@ const actions = {
             resolve(authError);
           }
           const theuser = resp.data.userInfos; //The UserData
-          localStorage.setItem("user-info", theuser.username); // store UserName in localstorage
-          //localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
-          //localStorage.setItem("user-station", theuser.company_id);  store UserStation in localstorage
+          localStorage.setItem("user-name", theuser.nom); // store UserName in localstorage
+          localStorage.setItem("user-profil", theuser.avatar); // store UserName in localstorage
+          localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
+          localStorage.setItem("user-compagnie", theuser.compagnie_id);  //store UserStation in localstorage
           localStorage.setItem("user-id", theuser.id); // store UserID in localstorage
 
           const token = resp.data.token.token; //The token
@@ -80,8 +81,10 @@ const actions = {
       commit("AUTH_LOGOUT");
       localStorage.removeItem("user-token");
       localStorage.removeItem("user-role");
-      localStorage.removeItem("user-station");
-      localStorage.removeItem("user-info");
+      localStorage.removeItem("user-compagnie");
+      localStorage.removeItem("user-name");
+      localStorage.removeItem("user-profil");
+      localStorage.removeItem("user-id");
       // remove the axios default header
       // delete axios.defaults.headers.common['Authorization']
       resolve();

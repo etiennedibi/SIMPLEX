@@ -4,9 +4,11 @@
       <div class="profilImg">
         <img src="@/assets/img/team2.jpg" alt="" srcset="" />
       </div>
-      <!-- <p>{{ uUser }}ADMIN</p> -->
-      <p>AGREY PAUL</p>
       <p>{{ uUser }}</p>
+      <!-- <p>GOUROu</p> -->
+      <p v-if="this.role==1">ADMINISTRATEUR</p>
+      <p v-if="this.role==2">MANAGEUR</p>
+      <p v-if="this.role==3">CHEF D'EQUIPE</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -29,8 +31,8 @@
           <img src="@/assets/icone/localisationA.png" alt="" srcset="" />
         </div>
         <div>
-          <P>LOCALISATION</P>
-          <P>Abidjan, Adjamé</P>
+          <P>POLITIQUE DE SECURITE</P>
+          <P>cliquez ici pour plus de détails</P>
         </div>
       </div>
       <div class="locationBox">
@@ -54,6 +56,7 @@ export default {
   data: () => ({
     uUser: "",
     role: "",
+    profilIMG:""
   }),
 
   methods: {
@@ -65,8 +68,9 @@ export default {
   },
 
   created() {
-    this.uUser = localStorage.getItem("user-info");
-    // this.role = localStorage.getItem("user-role");
+    this.uUser = localStorage.getItem("user-name");
+    this.profilIMG = localStorage.getItem("user-profil");
+    this.role = localStorage.getItem("user-role");
   },
 };
 </script>

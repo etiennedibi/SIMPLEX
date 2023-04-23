@@ -144,7 +144,7 @@ export default {
 
   data: () => ({
     // FOR FORM SENDING
-    new_conge_ask: {},
+    new_conge_ask: {compagnie_id:1,},
 
     congeAskaAddingResponse: "",
     addingSuccess: false,
@@ -158,9 +158,9 @@ export default {
 
   methods: {
     submit1() {
-      this.new_conge_ask.id_user = 2;
-      this.new_conge_ask.id_departement = 2;
-      console.log(this.new_conge_ask);
+      this.new_conge_ask.id_user = 1;
+      this.new_conge_ask.id_departement = 1;
+      // console.log(this.new_conge_ask);
         axios({ url: "users/store_conge", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
@@ -169,6 +169,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_user_conge");
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -181,7 +182,7 @@ export default {
           this.congeAskaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
-
+      this.$refs.form1.reset();
     },
 
   },

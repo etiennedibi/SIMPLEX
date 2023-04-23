@@ -20,7 +20,7 @@
                                 background-color="#3e886d4a"
                                 solo
                                 label="mot de passe"
-                                v-model="password"
+                                v-model="UserInfo.password"
                                 append-icon="mdi-lead-pencil"
                                 ref="total_name"
                                 type="text"
@@ -75,7 +75,7 @@
                                 chips
                                 height="45"
                                 solo
-                                v-model="avatar"
+                                v-model="UserInfo.avatar"
                                 label="Photo de profil"
                                 prepend-icon="mdi-camera"
                               ></v-file-input>
@@ -358,9 +358,9 @@ export default {
     // For staion detail
     
     dialog: false,
-    avatar: "",
-    user_id: 1,
-    password: "",
+    // avatar: "",
+    user_id: "",
+    // password: "",
     UserInfo: {
       
     },
@@ -395,7 +395,7 @@ export default {
     },
 
     editItemConfirm() {
-      axios({ url: "user/update_infos_users/"+1, data: this.UserInfo, method: "PUT" })
+      axios({ url: "admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -404,7 +404,6 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
             }, 3000);
           } else if (!this.staionaAddingResponse.message) {
             // Modification effectuée
@@ -434,7 +433,7 @@ export default {
       this.dialogEditAcces = true;
     },
     editItemConfirmAcces() {
-      axios({ url: "admin/update_password/"+1, data: {password:this.password}, method: "PUT" })
+      axios({ url: "admin/update_password/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -471,9 +470,10 @@ export default {
       this.dialogEditImg = true;
     },
     editItemConfirmImg() {
-      axios({ url: "admin/update_photo_profil/"+1, data:{avatar:this.avatar}, method: "PUT" })
+      console.log(this.UserInfo);
+      axios({ url: "admin/update_photo_profil/"+this.user_id, data:this.UserInfo, method: "PUT" })
         .then((response) => {
-          this.staionaAddingResponse = response.data;
+          this.staionaAddingResponse = response.data.message;
           if (this.staionaAddingResponse) {
             // Modification effectuée
             this.staionaAddingResponse.message = "modification effectuée";
@@ -511,6 +511,7 @@ export default {
 
   computed: {
     ...mapGetters(["Adminitrators"]),
+    
   },
 
 
@@ -518,6 +519,7 @@ export default {
 
   created() {
     this.$store.dispatch("init_adminitrator");
+    this.user_id = localStorage.getItem("user-id");
   },
 };
 </script>

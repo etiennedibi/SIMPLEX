@@ -34,7 +34,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "rdv/AllVisiteByUser/"+localStorage.getItem("user-id")
+        "/api/v1/rdv/AllVisiteByUser/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -57,10 +57,10 @@ const actions = {
   // },
   axios
       .get(
-        "rdv/AllVisiteurs/"+localStorage.getItem("user-compagnie")
+        "/api/v1/rdv/AllVisiteurs/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
-        console.log(res.data.visites);
+        // console.log(res.data.visites);
         commit("SET_ALLVISITES", res.data);
       })
       .catch((error) => console.log(error));

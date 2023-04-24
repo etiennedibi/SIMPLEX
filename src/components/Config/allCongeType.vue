@@ -298,7 +298,8 @@ export default {
 
     editItemConfirm() {
       console.log(this.editedItem.id);
-        axios({ url: "admin/update_type_conges/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+      
+        axios({ url: "/api/v1/admin/update_type_conges/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
           if (this.congeaAddingResponse) {
@@ -343,7 +344,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      axios({ url: "admin/destroy_type_conges/" + this.editedItem.id, method: "DELETE" })
+      axios({ url: "/api/v1/admin/destroy_type_conges/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
 

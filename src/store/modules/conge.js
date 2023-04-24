@@ -72,7 +72,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/get_type_conges/"+localStorage.getItem("user-compagnie")
+        "/api/v1/admin/get_type_conges/"+localStorage.getItem("user-compagnie")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -85,7 +85,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "users/get_conge_user/"+localStorage.getItem("user-id")
+        "/api/v1/users/get_conge_user/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -98,7 +98,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/conge_par_departement/"+localStorage.getItem("user-department")
+        "/api/v1/admin/conge_par_departement/"+localStorage.getItem("user-department")
       )
       .then((res) => {
         commit("SET_ALL_CONGE_DPRT", res.data);
@@ -110,7 +110,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getAllconge" 
+        "/api/v1/admin/getAllconge" 
           // localStorage.getItem("user-station")
       )
       .then((res) => {

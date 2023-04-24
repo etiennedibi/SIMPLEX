@@ -145,7 +145,7 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-        axios({ url: "admin/store_type_contrat", data: this.new_Contract, method: "POST" })
+        axios({ url: "/api/v1/admin/store_type_contrat", data: this.new_Contract, method: "POST" })
         .then((response) => {
           this.ContractaAddingResponse = response.data;
           console.log(response.data);

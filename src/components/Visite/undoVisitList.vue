@@ -815,7 +815,7 @@ export default {
     editItemConfirm() {
       // this.editedItem.id_visite = this.editedItem.id;
       axios
-        ({ url: "rdv/update_visite_planifie/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "/api/v1/rdv/update_visite_planifie/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -874,7 +874,7 @@ export default {
     // confirm deleted of nature
     deleteItemConfirm() {
        axios
-        ({ url: "rdv/cancel_visite_planifie/"+this.editedItem.id,  method: "PUT" })
+        ({ url: "/api/v1/rdv/cancel_visite_planifie/"+this.editedItem.id,  method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
@@ -910,7 +910,7 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -946,7 +946,7 @@ export default {
     },
     acceptVisite() {
       axios
-        ({ url: "rdv/employer_accepted_rdv", data: this.visiteToAccpet, method: "POST" })
+        ({ url: "/api/v1/rdv/employer_accepted_rdv", data: this.visiteToAccpet, method: "POST" })
       .then((response) => {
         // console.log(response.data);
         this.VisiteaAddingResponse = response.data;
@@ -988,7 +988,7 @@ export default {
     reportVisite() {
       this.editedItem.id_visite = this.editedItem.id;
       axios
-        ({ url: "rdv/update_date_visite", data: this.editedItem, method: "POST" })
+        ({ url: "/api/v1/rdv/update_date_visite", data: this.editedItem, method: "POST" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -1033,7 +1033,7 @@ export default {
     RejectVisite() {
       console.log(this.editedItem.id);
       axios
-        ({ url: "rdv/employer_refused_rdv", data: {id_visite: this.editedItem.id, }, method: "POST" })
+        ({ url: "/api/v1/rdv/employer_refused_rdv", data: {id_visite: this.editedItem.id, }, method: "POST" })
       .then((response) => {
         // console.log(response.data);
         this.VisiteaAddingResponse = response.data;

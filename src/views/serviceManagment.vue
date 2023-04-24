@@ -154,7 +154,7 @@ export default {
     submit1() {
       this.new_service.recevoir_visite=this.switch1
       if (this.$refs.form1.validate()) {
-        axios({ url: "admin/add_new_departments", data: this.new_service, method: "POST" })
+        axios({ url: "/api/v1/admin/add_new_departments", data: this.new_service, method: "POST" })
         .then((response) => {
           this.serviceaAddingResponse = response.data;
           console.log(response.data);

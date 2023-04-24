@@ -661,7 +661,7 @@ export default {
     },
 
     editItemConfirm() {
-        axios({ url: "Visite/update", data: this.editedItem, method: "PUT" })
+        axios({ url: "/api/v1/Visite/update", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse.message == "success") {
@@ -717,7 +717,7 @@ export default {
     deleteItemConfirm() {
       axios
         .delete(
-          "Visite/delete/" + this.itemToDelete.id
+          "/api/v1/Visite/delete/" + this.itemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -753,7 +753,7 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -795,7 +795,7 @@ export default {
     acceptVisite() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;

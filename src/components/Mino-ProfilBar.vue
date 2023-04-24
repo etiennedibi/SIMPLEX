@@ -2,7 +2,8 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <img src="@/assets/img/team2.jpg" alt="" srcset="" />
+        <img v-if="profilIMG" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+        <img v-if="!profilIMG" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
       </div>
       <p>{{ uUser }}</p>
       <!-- <p>GOUROu</p> -->
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+// import axios from "axios";
 export default {
   name: "MinoProfilBar",
   components: {},
@@ -71,6 +73,7 @@ export default {
     this.uUser = localStorage.getItem("user-name");
     this.profilIMG = localStorage.getItem("user-profil");
     this.role = localStorage.getItem("user-role");
+    console.log(this.profilIMG);
   },
 };
 </script>

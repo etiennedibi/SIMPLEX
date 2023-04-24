@@ -53,7 +53,8 @@
                 <v-col cols="12" md="4" lg="4">
                   <div class="numberWrapper">
                     <div class="N-icon">
-                      <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                      <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${editedItem.avatar}`"/>
+                      <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                     </div>
                   </div>
                 </v-col>
@@ -207,7 +208,7 @@
                 <v-col cols="12" md="11" lg="11">
                   <v-select
                     background-color="#356eea24"
-                    v-model="editedItem.id_fonction"
+                    v-model="editedItem.the_fonction_id"
                     :items="Works"
                     item-text="nom_fonction"
                     item-value="id"
@@ -220,7 +221,7 @@
                 <v-col cols="12" md="11" lg="11">
                   <v-select
                     background-color="#356eea24"
-                    v-model="editedItem.department_id"
+                    v-model="editedItem.the_department_id"
                     :items="Services"
                     item-text="nom_departement"
                     item-value="id"
@@ -234,8 +235,8 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="editedItem.role_id"
-                    :items="Roles"
-                    item-text="role"
+                    :items="Rights"
+                    item-text="name"
                     item-value="id"
                     label="Niveau d'accès"
                     solo
@@ -247,7 +248,7 @@
                 <v-col cols="12" md="11" lg="11">
                   <v-select
                     background-color="#356eea24"
-                    v-model="editedItem.id_type_contrat"
+                    v-model="editedItem.the_contrat_id"
                     :items="Contracts"
                     item-text="type_contrat"
                     item-value="id"
@@ -434,7 +435,9 @@
                       @click="showItem(item)"
                     >
                       <div>
-                        <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
+                        
+                        <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                        <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                         <p>{{ item.nom }}</p>
                         <p>{{ item.nom_fonction }}</p>
                       </div>
@@ -590,8 +593,27 @@ export default {
     },
 
     editItemConfirm() {
+      const formData = new FormData();
+      formData.append('email', this.editedItem.email);
+      formData.append('date_naissance', this.editedItem.date_naissance);
+      formData.append('lieu_naissance', this.editedItem.lieu_naissance);
+      formData.append('piece_identite', this.editedItem.piece_identite);
+      formData.append('CV', this.editedItem.CV);
+      formData.append('LM', this.editedItem.LM);
+      formData.append('contrat', this.editedItem.contrat);
+      formData.append('id_fonction', this.editedItem.the_fonction_id);
+      formData.append('department_id', this.editedItem.the_department_id);
+      formData.append('role_id', this.editedItem.role_id);  
+      formData.append('id_type_contrat', this.editedItem.the_contrat_id);
+      formData.append('date_debut', this.editedItem.date_debut);
+      formData.append('date_fin', this.editedItem.date_fin);
+      formData.append('duree_contrat', this.editedItem.duree_contrat);
+      formData.append('the_user_id', this.editedItem.the_user_id);
+      formData.append('the_employe_id', this.editedItem.the_employe_id);
+      formData.append('the_contrat_id', this.editedItem.the_contrat_id);
+
       axios
-        ({ url: "users/update_employe", data: this.editedItem, method: "PUT" })
+        ({ url: "/api/v1/users/update_employe", data: formData, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -636,7 +658,7 @@ export default {
     // confirm deleted of nature
     ArchivItemConfirm() {
        axios
-        ({ url: "admin/archive_user/"+this.editedItem.the_employe_id,  method: "PUT" })
+        ({ url: "/api/v1/admin/archive_user/"+this.editedItem.the_employe_id,  method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
@@ -674,7 +696,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Employers","Works","Contracts","Services"]),
+    ...mapGetters(["Employers","Works","Contracts","Services","Rights"]),
 
     numberOfPages () {
         return Math.ceil(this.Employers.length / this.itemsPerPage)
@@ -687,6 +709,7 @@ export default {
     this.$store.dispatch("init_service");
     this.$store.dispatch("init_contract");
     this.$store.dispatch("init_work");
+    this.$store.dispatch("init_right");
     // this.editedItem.company_id = localStorage.getItem("user-station");
     // this.editedItem.user_id = localStorage.getItem("user-id");
   },

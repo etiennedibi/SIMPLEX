@@ -168,7 +168,7 @@ export default {
   methods: {
     submit1() {
       console.log(this.new_conge_ask);
-        axios({ url: "users/store_conge", data: this.new_conge_ask, method: "POST" })
+        axios({ url: "/api/v1/users/store_conge", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
           console.log(response.data);

@@ -225,7 +225,7 @@ export default {
     submit1() {
 
       if (this.$refs.form1.validate()) {
-        axios({ url: "rdv/demande_rdv", data: this.new_visit, method: "POST" })
+        axios({ url: "/api/v1/rdv/demande_rdv", data: this.new_visit, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);

@@ -605,7 +605,7 @@ export default {
         // this.editedItem.id_user=1
         let editthing = {id_user:1, motif_traitement:this.editedItem.motif_traitement}
         console.log(editthing);
-        axios({ url: "admin/traitement_conge_annule/"+this.editedItem.ID_CONGE, data: editthing, method: "POST" })
+        axios({ url: "/api/v1/admin/traitement_conge_annule/"+this.editedItem.ID_CONGE, data: editthing, method: "POST" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
@@ -661,7 +661,7 @@ export default {
     deleteItemConfirm() {
       axios
         .delete(
-          "Visite/delete/" + this.itemToDelete.id
+          "/api/v1/Visite/delete/" + this.itemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -697,7 +697,7 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -741,7 +741,7 @@ export default {
       //   .post(
       //     "admin/traitement_accepte_conge/" + this.OneVarianteitemToDelete.id
       //   )
-        axios({ url: "admin/traitement_accepte_conge/"+this.editedItem.ID_CONGE, method: "POST" })
+        axios({ url: "/api/v1/admin/traitement_accepte_conge/"+this.editedItem.ID_CONGE, method: "POST" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
@@ -782,7 +782,7 @@ export default {
     reportVisite() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;

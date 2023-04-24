@@ -34,7 +34,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "expedition/expeditionList/" +
+        "/api/v1/expedition/expeditionList/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -47,7 +47,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "withdrawal/List/" +
+        "/api/v1/withdrawal/List/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

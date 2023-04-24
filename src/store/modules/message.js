@@ -32,7 +32,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getAllCommunique/"+localStorage.getItem("user-compagnie") 
+        "/api/v1/admin/getAllCommunique/"+localStorage.getItem("user-compagnie") 
       )
       .then((res) => {
         commit("SET_MESSAGE", res.data);
@@ -40,12 +40,13 @@ const actions = {
       })
       .catch((error) => console.log(error));
   },
+  
   message_view: ({ commit }, message_id) => {
     console.log('lo', message_id);
     // Vue.prototype.$http
     axios
       .put(
-        "message/view/update/" +
+        "/api/v1/message/view/update/" +
         message_id
       )
       .then((res) => {

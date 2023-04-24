@@ -145,7 +145,7 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-        axios({ url: "admin/store_type_conges", data: this.new_Conge, method: "POST" })
+        axios({ url: "/api/v1/admin/store_type_conges", data: this.new_Conge, method: "POST" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
           console.log(response.data);

@@ -19,7 +19,9 @@
           <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper">
               <div class="N-icon">
-                <img src="@/assets/img/team2.jpg" alt="" srcset="" />
+                <!-- <img src="@/assets/img/team2.jpg" alt="" srcset="" /> -->
+                <img v-if="profilIMG" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+                <img v-if="!profilIMG" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
               </div>
             </div>
           </v-col>
@@ -395,7 +397,7 @@ export default {
     // DATA
     adminInfos:false,
     editedItem: {},
-
+    profilIMG:"",
     /* FOR  SERVICE STATS */
     showChart: false,
 
@@ -510,7 +512,7 @@ export default {
 
     editItemConfirm() {
       axios
-        ({ url: "users/update_first_admin", data: this.editedItem, method: "PUT" })
+        ({ url: "/api/v1/users/update_first_admin", data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -582,6 +584,7 @@ export default {
     this.$store.dispatch("init_right");
 
     this.editedItem.user_id = localStorage.getItem("user-id");
+    this.profilIMG = localStorage.getItem("user-profil");
   },
 };
 </script>

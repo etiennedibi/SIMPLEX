@@ -23,7 +23,7 @@
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper">
+            <div class="numberWrapper top1">
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-clipboard-list</v-icon>
               </div>
@@ -32,7 +32,7 @@
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper">
+            <div class="numberWrapper top2">
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-file-plus</v-icon>
               </div>
@@ -45,7 +45,10 @@
           <v-col cols="12" md="9" lg="9">
             <!-- <p class="sectionTitle">Statistique</p> -->
             <div class="statWrapper">
-               <p><span>+</span> <span>17</span> <span>Utilisateurs Simplex</span> </p>
+               <p>
+                <span>+</span> <span>17</span> <span>Utilisateurs</span>
+                <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
+               </p>
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
@@ -196,9 +199,14 @@ export default {
 
     getNow() {
         const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes();
+        const time = this.padzero(today.getHours()) + ":" + this.padzero(today.getMinutes());
         this.timestamp = time;
-    }
+    },
+
+    padzero(num) {
+        return num<10? "0"+ num:num
+    },
+    
   },
 
   computed: {
@@ -222,13 +230,15 @@ export default {
 }
 .numberWrapper {
   margin-top: 3%;
-  height: 20vh;
+  height: 26.2vh;
   border-radius: 10px;
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.top1{
 }
 .N-icon {
   height: 30px;
@@ -249,7 +259,7 @@ export default {
 
 .Jumbultron {
   margin-top: 1%;
-  height: 20vh;
+  height: 26.2vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -259,7 +269,7 @@ export default {
   padding-left: 30px;
   padding-right: 30px;
   background: white;
-  background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
+  background: linear-gradient(to left top,  #356eea, #037bb8, #9238ce);
   color: white;
 }
 
@@ -275,7 +285,7 @@ export default {
 
 .statWrapper {
   margin-top: 1%;
-  height: 28vh;
+  height: 26.2vh;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -284,23 +294,46 @@ export default {
 }
 
 .statWrapper span:nth-child(2){
-  font-size: 60px;
+  font-size: 30px;
   font-weight: bold;
+  display: inline-block;
+  padding: 30px;
+  background: #356eea24;
+  margin:0 10px;
+  border-radius: 100px;
+  color:var(--main-blue-important);
 }
 .statWrapper span:nth-child(3){
   font-weight: bold;
-  color:var(--font-color)
+  color:var(--font-color);
 }
+/* .statWrapper span:nth-child(4){
+  font-weight: bold;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #356eea24;
+  border-radius: 100px;
+  color:var(--main-blue-important);
+} */
+
 .statWrapper1 {
   height: 29vh;
   border-radius: 10px;
   display: flex;
   justify-content:center;
   align-items: center;
-  background: white;
+  background:linear-gradient(to right bottom,  #356eea, #037bb8, #9238ce);;
+  color: white;
 }
 .statWrapper1 p {
   margin-left: 10px;
+}
+.statWrapper1 h1 {
+  display: inline-block;
+  padding: 5px 25px;
+  border: solid 1px white;
 }
 .noteWrapper {
   margin-top: 5%;

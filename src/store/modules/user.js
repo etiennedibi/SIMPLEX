@@ -32,10 +32,10 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getAllEmploys/"+localStorage.getItem("user-compagnie")
+        "/api/v1/admin/getAllEmploys/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
-        console.log(res.data.Employ);
+        // console.log(res.data.Employ);
         commit("SET_EMPLOYERS", res.data.Employ);
       })
       .catch((error) => console.log(error));
@@ -45,10 +45,10 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "admin/getEmplyerById/"+localStorage.getItem("user-id")
+        "/api/v1/admin/getEmplyerById/"+localStorage.getItem("user-id")
       )
       .then((res) => {
-        console.log(res.data.Employ);
+        // console.log(res.data.Employ);
         commit("SET_ONE_EMPLOYER", res.data.Employ);
       })
       .catch((error) => console.log(error));

@@ -25,7 +25,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "station/user/list/" +
+        "/api/v1/station/user/list/" +
           localStorage.getItem("user-station")
       )
       .then((res) => {

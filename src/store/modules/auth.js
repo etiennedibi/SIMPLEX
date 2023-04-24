@@ -42,7 +42,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       // The Promise used for router redirect in login
       commit("AUTH_REQUEST");
-      axios({ url: "login", data: user, method: "POST" })
+      axios({ url: "/api/v1/login", data: user, method: "POST" })
         .then((resp) => {
           if (resp.data.status == "error") {
             // in case of falling authentification {c'est Le moniteur qui a fait le son}

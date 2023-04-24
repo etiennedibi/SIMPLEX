@@ -118,7 +118,7 @@
                         <div class="imgAndTitle deleteIMG editIMGO">
                         <p style="text-align:center; font-weight:bold">MODIFICATION DES INFORMATIONS PERSONNELLES</p>
                         </div>
-                        <form class="updateForm updatestationAdminForm">
+                        <form ref="form2"  class="updateForm updatestationAdminForm">
                         <v-container fluid>
                             <v-row>
                             <v-col cols="12" md="12" lg="12">
@@ -161,6 +161,7 @@
                                 value=""
                                 persistent-hint
                                 v-model="UserInfo.email"
+                                :rules="[(v) => /.+@.+/.test(v)]"
                                 required
                                 ></v-text-field>
                             </v-col>
@@ -168,9 +169,11 @@
                                 <v-text-field
                                 height="45"
                                 background-color="#3e886d4a"
-                                v-model="UserInfo.LM"
+                                v-model="UserInfo.contact"
+                                :rules="[(v) => /[0-9]+/i.test(v)]"
                                 solo
                                 label="Numero de telephone"
+                                maxlength="10"
                                 append-icon="mdi-phone"
                                 ref="total_name"
                                 type="text"
@@ -183,7 +186,7 @@
                                 <v-text-field
                                 height="45"
                                 solo
-                                v-model="UserInfo.LM"
+                                v-model="UserInfo.lieu_naissance"
                                 label="Lieu d'habitation"
                                 append-icon="mdi-map-marker"
                                 ref="total_name"
@@ -388,14 +391,16 @@ export default {
     },
 
     // ------------------------
-    // For STATION Edited
+    // For USER Edited
     // ------------------------
     editItem() {
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-      axios({ url: "admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
+      if (this.$refs.form2.validate()) {
+        
+        axios({ url: "/api/v1/admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -420,6 +425,8 @@ export default {
         });
 
       this.closeEdit();
+
+      }
     },
 
     closeEdit() {
@@ -433,7 +440,7 @@ export default {
       this.dialogEditAcces = true;
     },
     editItemConfirmAcces() {
-      axios({ url: "admin/update_password/"+this.user_id, data: this.UserInfo, method: "PUT" })
+      axios({ url: "/api/v1/admin/update_password/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -470,10 +477,13 @@ export default {
       this.dialogEditImg = true;
     },
     editItemConfirmImg() {
-      console.log(this.UserInfo);
-      axios({ url: "admin/update_photo_profil/"+this.user_id, data:this.UserInfo, method: "PUT" })
+      // console.log("OKKK:::::",this.UserInfo);
+       const formData = new FormData();
+       formData.append('avatar', this.UserInfo.avatar);
+      //  console.log(formData);
+      axios({ url: "/api/v1/admin/update_photo_profil/"+this.user_id, data:formData, method: "PUT" })
         .then((response) => {
-          this.staionaAddingResponse = response.data.message;
+          this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
             // Modification effectuée
             this.staionaAddingResponse.message = "modification effectuée";

@@ -387,8 +387,30 @@ export default {
     submit1() {
       // for intermadiate station 
       if (this.$refs.form1.validate()) {
-        
-        axios({ url: "admin/add-new-user-emplyer", data: this.newTravel_1, method: "POST" })
+         const formData = new FormData();
+          formData.append('nom', this.newTravel_1.nom);
+          formData.append('prenoms', this.newTravel_1.prenoms);
+          formData.append('email', this.newTravel_1.email);
+          formData.append('contact', this.newTravel_1.contact);
+          formData.append('date_naissance', this.newTravel_1.date_naissance);
+          formData.append('lieu_naissance', this.newTravel_1.lieu_naissance);
+          formData.append('piece_identite', this.newTravel_1.piece_identite);
+          formData.append('CV', this.newTravel_1.CV);
+          formData.append('LM', this.newTravel_1.LM);
+          formData.append('contrat', this.newTravel_1.contrat);
+          formData.append('id_fonction', this.newTravel_1.id_fonction);
+          formData.append('department_id', this.newTravel_1.department_id);
+          formData.append('role_id', this.newTravel_1.role_id);
+          formData.append('id_type_contrat', this.newTravel_1.id_type_contrat);
+          formData.append('date_debut', this.newTravel_1.date_debut);
+          formData.append('date_fin', this.newTravel_1.date_fin);
+          formData.append('duree_contrat', this.newTravel_1.duree_contrat);
+          formData.append('password', this.newTravel_1.password);
+          formData.append('password_confirmation', this.newTravel_1.password_confirmation);
+          formData.append('compagnie_id', this.newTravel_1.compagnie_id);
+ 
+        // console.log(formData);
+        axios({ url: "/api/v1/admin/add-new-user-emplyer", data: formData, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
           if (this.traveladdingResponse) {
@@ -418,13 +440,7 @@ export default {
       
     },
 
-    // dateGeneration(){
-    //   const CurrentDate =  new Date()
-    //   var day= CurrentDate.getDate()+1
-    //   var year = CurrentDate.getFullYear();
-    //   var month = CurrentDate.getMonth()+1;
-    //   this.newTravel_1.departure_date= year+"-"+month+"-"+day;
-    // }
+   
   },
 
   computed: {

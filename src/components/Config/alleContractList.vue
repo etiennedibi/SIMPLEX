@@ -301,7 +301,7 @@ export default {
     },
 
     editItemConfirm() {
-        axios({ url: "admin/update_type_contrat/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        axios({ url: "/api/v1/admin/update_type_contrat/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse) {
@@ -346,7 +346,7 @@ export default {
     },
 
     deleteItemConfirm() {
-        axios({ url: "admin/destroy_type_contrat/" + this.editedItem.id, method: "DELETE" })
+        axios({ url: "/api/v1/admin/destroy_type_contrat/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 

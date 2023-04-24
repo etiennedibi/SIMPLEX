@@ -130,7 +130,7 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-         axios({ url: "admin/store_fonction", data: this.new_Work, method: "POST" })
+         axios({ url: "/api/v1/admin/store_fonction", data: this.new_Work, method: "POST" })
         .then((response) => {
           this.workaAddingResponse = response.data;
           console.log(response.data);

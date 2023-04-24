@@ -362,7 +362,7 @@ export default {
     },
 
     editItemConfirm() {
-        axios({ url: "expedition/senderUpdate", data: this.editedItem, method: "PUT" })
+        axios({ url: "/api/v1/expedition/senderUpdate", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse.message == "success") {
@@ -407,7 +407,7 @@ export default {
     },
 
     deleteItemConfirm() {
-        axios({ url: "expedition/senderCancel", data: this.itemToDelete, method: "PUT" })
+        axios({ url: "/api/v1/expedition/senderCancel", data: this.itemToDelete, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 

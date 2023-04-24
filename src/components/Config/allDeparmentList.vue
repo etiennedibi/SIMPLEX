@@ -415,7 +415,7 @@ export default {
 
     editItemConfirm() {
       this.editedItem.recevoir_visite=this.switch1
-        axios({ url: "admin/update_departments/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        axios({ url: "/api/v1/admin/update_departments/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse) {
@@ -460,7 +460,7 @@ export default {
     },
 
     deleteItemConfirm() {
-        axios({ url: "admin/destroy_departments/" + this.editedItem.id, method: "DELETE" })
+        axios({ url: "/api/v1/admin/destroy_departments/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 

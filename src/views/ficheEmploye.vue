@@ -223,6 +223,18 @@
                         prepend-icon="mdi-file-sign"
                       > </v-file-input>
                     </v-col>
+                    <v-col cols="12" md="11" lg="11">
+                      <v-file-input
+                        background-color="#356eea24"
+                        chips
+                        height="40"
+                        solo
+                        v-model="editedItem.fiche_poste"
+                        label="Fiche de poste"
+                        prepend-icon="mdi-file-sign"
+                      > </v-file-input>
+                    </v-col>
+
 
                   <v-col cols="12" md="11" lg="11">
                     <v-select
@@ -511,8 +523,29 @@ export default {
 
 
     editItemConfirm() {
+
+      const formData = new FormData();
+          formData.append('nom', this.editedItem.nom);
+          formData.append('prenoms', this.editedItem.prenoms);
+          formData.append('email', this.editedItem.email);
+          formData.append('contact', this.editedItem.contact);
+          formData.append('date_naissance', this.editedItem.date_naissance);
+          formData.append('lieu_naissance', this.editedItem.lieu_naissance);
+          formData.append('piece_identite', this.editedItem.piece_identite);
+          formData.append('CV', this.editedItem.CV);
+          formData.append('LM', this.editedItem.LM);
+          formData.append('contrat', this.editedItem.contrat);
+          formData.append('fiche_poste', this.editedItem.fiche_poste);
+          formData.append('id_fonction', this.editedItem.id_fonction);
+          formData.append('department_id', this.editedItem.department_id);
+          formData.append('role_id', this.editedItem.role_id);
+          formData.append('id_type_contrat', this.editedItem.id_type_contrat);
+          formData.append('date_debut', this.editedItem.date_debut);
+          formData.append('date_fin', this.editedItem.date_fin);
+          formData.append('duree_contrat', this.editedItem.duree_contrat);
+
       axios
-        ({ url: "/api/v1/users/update_first_admin", data: this.editedItem, method: "PUT" })
+        ({ url: "/api/v1/users/update_first_admin", data: formData, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;

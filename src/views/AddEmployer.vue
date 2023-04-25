@@ -133,6 +133,17 @@
                         prepend-icon="mdi-file-sign"
                       ></v-file-input>
                 </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-file-input
+                    background-color="#356eea24"
+                        chips
+                        height="40"
+                        solo
+                        v-model="newTravel_1.fiche_poste"
+                        label="Fiche de poste"
+                        prepend-icon="mdi-file-sign"
+                      ></v-file-input>
+                </v-col>
 
 
 
@@ -398,6 +409,7 @@ export default {
           formData.append('CV', this.newTravel_1.CV);
           formData.append('LM', this.newTravel_1.LM);
           formData.append('contrat', this.newTravel_1.contrat);
+          formData.append('fiche_poste', this.newTravel_1.fiche_poste);
           formData.append('id_fonction', this.newTravel_1.id_fonction);
           formData.append('department_id', this.newTravel_1.department_id);
           formData.append('role_id', this.newTravel_1.role_id);

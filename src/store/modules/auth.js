@@ -56,7 +56,6 @@ const actions = {
           localStorage.setItem("user-compagnie", theuser.compagnie_id);  //store UserStation in localstorage
           localStorage.setItem("user-department", theuser.department_id);  //store UserStation in localstorage
           localStorage.setItem("user-id", theuser.id); // store UserID in localstorage
-
           const token = resp.data.token.token; //The token
           localStorage.setItem("user-token", token); // store the token in localstorage
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // the following line To set the  authorization header {Le moniteur}

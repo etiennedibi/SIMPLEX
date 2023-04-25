@@ -601,6 +601,7 @@ export default {
       formData.append('CV', this.editedItem.CV);
       formData.append('LM', this.editedItem.LM);
       formData.append('contrat', this.editedItem.contrat);
+      formData.append('fiche_poste', this.editedItem.fiche_poste);
       formData.append('id_fonction', this.editedItem.the_fonction_id);
       formData.append('department_id', this.editedItem.the_department_id);
       formData.append('role_id', this.editedItem.role_id);  

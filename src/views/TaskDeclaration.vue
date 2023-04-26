@@ -2,9 +2,9 @@
   <div class="bodyBox">
     <div class="TheBoxBody">
       <p class="sectionTitle">
-        CREATION DE TÂCHE
+        ATTRIBUTION DE TÂCHES
 
-        <!-- CREATE PROJET DIALOG -->
+        
         <v-dialog v-model="dialogCreate" max-width="420">
           <v-card>
             <v-card-text>
@@ -200,10 +200,61 @@
               </v-form>
             </div>
           </v-col>
+          
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper ">
-              <projectTaskReview></projectTaskReview>
+               <v-container v-if=true>
+                <v-row>
+                <v-col cols="12" md="12" lg="12">
+                  <div class="TaskResume">
+                    <p>projet xiemie</p>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus voluptatibus, ut, 
+                      natus sint vero porro nemo ad quos dolores, adipisci labore 
+                    </p>
+                    <p>27-04-2023</p>
+                  </div>
+                </v-col>
+              </v-row>
+              </v-container>
+              <v-container v-else>
+                <v-row>
+                <v-col cols="12" md="12" lg="12">
+                  <div class="TaskResume1">
+                      <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+              </v-container>            
             </div>
+
+            <div class="statWrapper">
+              <v-container>
+                <v-row style="justify-content:center">
+                  <v-col cols="12" md="5" lg="5" class="leftNumber">
+                    <div class="stat1 stat2">
+                      <div class="N-icon icon2">
+                        <v-icon color="white">mdi-ballot</v-icon>
+                      </div>
+                      <h1 v-if="canceRDVNumber" style="color: white"> 13</h1>
+                      <h1 v-else style="color: white">0</h1>
+                      <h5 style="color: white">Taches crées</h5>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="5" lg="5" class="leftNumber">
+                    <div class="stat1">
+                      <div class="N-icon">
+                        <v-icon color="mainBlueColor">mdi-folder</v-icon>
+                      </div>
+                      <h1 v-if="visiteNumber">10</h1>
+                      <h1 v-else>0</h1>
+                      <h5>Projets Enregistrés</h5>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
+            
           </v-col>
         </v-row>
       </v-container>
@@ -240,12 +291,12 @@
 
 // import Vue from "vue";
 import axios from "axios";
-import projectTaskReview from "../components/Task/projectTaskReview.vue";
+// import projectTaskReview from "../components/Task/projectTaskReview.vue";
 
 export default {
   name: "TaskDeclaration",
   components: {
-    projectTaskReview,
+    // projectTaskReview,
   },
 
   data: () => ({
@@ -332,6 +383,7 @@ export default {
   font-weight: bold;
   display: flex;
   justify-content: space-between;
+  align-items: center;  
 }
 .sectionTitle .v-btn{
   margin-right: 15px;
@@ -339,6 +391,9 @@ export default {
 .numberWrapper{
   border-radius: 10px;
   background: white;
+}
+.statWrapper{
+  border-radius: 10px;
 }
 .formBox{
   display: flex;
@@ -366,6 +421,75 @@ export default {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 1px solid rgb(255, 255, 255);
+}
+
+
+.TaskResume{
+  background:white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 26vh;
+  padding: 0px 20px;
+}
+.TaskResume p:nth-child(1){
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+.TaskResume p:nth-child(2){
+  text-align:justify; 
+  max-height: 50%;
+  overflow-y: auto;
+  color: var(--font-color)
+}
+.TaskResume p:nth-child(3){
+  font-weight: bold;
+  font-size: 11px;
+}
+.TaskResume1{
+  background:white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 26vh;
+}
+
+.stat1 {
+  background: white;
+  height: 26.2vh;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stat2{
+    background: linear-gradient(to right top,  #356eea, #037bb8);
+
+}
+.N-icon {
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #356eea24;
+  border-radius: 100px;
+}
+.icon2{
+  background: #1A223124;
+}
+.stat1 h1 {
+  margin-bottom: -10px;
+  font-size: 35px;
+}
+.stat1 h5 {
+  color: var(--font-color);
 }
 
 /* Edit travel */

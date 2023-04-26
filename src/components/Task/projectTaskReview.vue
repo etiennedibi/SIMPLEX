@@ -2,7 +2,7 @@
   <div class="tableWrapperDiv">
 
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
-    <v-dialog v-model="BeforeDialogDelete" max-width="420">
+    <v-dialog v-model="BeforeDialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">supprimer ?</div>
@@ -43,7 +43,7 @@
     </v-dialog>
 
     <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">AVERTISSEMENT !</div>
@@ -82,7 +82,7 @@
     </v-dialog>
 
     <!-- DELETE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -123,7 +123,7 @@
     </v-dialog>
 
     <!-- ACCEPTE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogAccept" max-width="420">
+    <v-dialog v-model="dialogAccept" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -165,7 +165,7 @@
 
 
     <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -297,140 +297,66 @@
       </v-card>
     </v-dialog>
 
-    <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="420">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle  editIMGO">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
-            </div>
-            <form class="updateForm ReportForm">
-              <v-container fluid>
-                <v-row>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="editedItem.status"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        append-icon="mdi-clock-time-eight"
-                        ref="desc"
-                        v-model="editedItem.heure_rdv"
-                        type="time"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                </v-row>
-              </v-container>
-            </form>
-          </v-container>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
-            @click="closeReportVisite"
-            style="color: white"
-            >Annuler</v-btn
-          >
-          <v-btn
-            color="mainBlueColor"
-            depressed
-            @click="reportVisite"
-            style="color: white"
-            >Enregistrer</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <!-- SHOW DIALOG -->
-     <v-dialog v-model="dialog" max-width="370">
+    <v-dialog v-model="dialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
+              <img src="@/assets/icone/tasks.png" alt="" srcset="" />
             </div>
-            <div class="statElment">
+            <div class="statElment Elment1">
               <div>
-                <h5>VISITEUR</h5>
-                <h4>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
+                <h4>Mettre en place la maquette du projet palomo </h4>
               </div>
             </div>
-            <div class="statElment">
+            <div class="statElment Elment2">
               <div>
-                <h5>EMAIL</h5>
-                <h4>{{ editedItem.email_visiteur }}</h4>
+                <h5>DETAILS</h5>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto nihil 
+                  reiciendis accusamus quaerat repellat provident quam quae dolor rem. 
+                  Perferendis cumque velit porro quidem corrupti modi molestias praesentium atque?
+                </p>
               </div>
             </div>
-            <div class="statElment">
+            <div class="statElment Elment3">
               <div>
-                <h5>TELEPHONE</h5>
-                <h4>{{ editedItem.contact_visiteur }}</h4>
+                <h5>DEAD-LINE</h5>
+                <h4>2023-02-12</h4>
               </div>
-            </div>
-            <div class="statElment">
-              
               <div>
-                <h5>MOTIF</h5>
-                <h4 style="text-align:justify">{{ editedItem.objet }}</h4>
+                <h5>EXECUTANTS</h5>
+                <div style="text-align:center">
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                </div>
+              </div>
+              <div>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
               </div>
             </div>
             
           </v-container>
         </v-card-text>
-        <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-            <v-card-text>
-            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-            </v-card-text>
-
-            <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Disagree
-            </v-btn>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Agree
-            </v-btn>
-            </v-card-actions> -->
+        
       </v-card>
     </v-dialog>
     <!-- THE SEACH BAR -->
+   <!-- THE SEACH BAR -->
     <v-row>
-      <v-col cols="12" md="12" lg="12">
-        <p class="TitleForList"> 
-          <span style=" font-weight: bold;">
-            REVU PROJET :
-          </span> 
-          CREATION DE LOT DE CONSOLATION
-        </p>
+      <v-col cols="12" md="5" lg="5">
+        <v-text-field
+          v-model="search"
+          solo
+          height="50"
+          hide-details
+          prepend-inner-icon="mdi-search"
+          label="Rechercher"
+          class="theSeachBar"
+        ></v-text-field>
       </v-col>
     </v-row>
     <!-- START DATA TABLE -->
@@ -900,14 +826,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  background: #ffffff;
 }
 .imgAndTitle {
   margin: 15px 0px;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
+  font-size: 11px;
   border-radius: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: solid 3px;
   border-color: var(--main-blue-important) rgb(176, 176, 182);
   display: flex;
@@ -924,19 +852,29 @@ export default {
   background-size: cover; */
 }
 .imgAndTitle > img{
-  height:50px;
-  width:50px
+  height:35px;
+  width:35px
 }
-
-
 .statElment {
   margin-bottom: 20px;
   display: flex;
-  text-align: center;
+  text-align: start;
   /* background-color:red; */
 }
-.statElment > div {
-  /* margin-left: 10px; */
+.Elment1{
+  text-transform: uppercase;
+  font-size:12px;
+}
+.Elment2{
+  /* text-transform: uppercase; */
+  font-size:11px;
+}
+.Elment3{
+  /* text-transform: uppercase; */
+  width:100%;
+  font-size:11px;
+  display: flex;
+  justify-content: space-between;
 }
 .statElment h5 {
   color: var(--main-blue-important);
@@ -949,12 +887,11 @@ export default {
 
 .status{
   display:inline-block;
-  padding: 5px;
+  padding: 7px;
   border-radius:50px;
-  font-size:10px;
+  font-size:11px;
   font-weight: bold
 }
-
 /* Edit travel */
 .editIMGO {
   margin-left: 35%;
@@ -1030,7 +967,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="tableWrapperDiv">
 
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
-    <v-dialog v-model="BeforeDialogDelete" max-width="420">
+    <v-dialog v-model="BeforeDialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">supprimer ?</div>
@@ -43,7 +43,7 @@
     </v-dialog>
 
     <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">AVERTISSEMENT !</div>
@@ -82,7 +82,7 @@
     </v-dialog>
 
     <!-- DELETE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -94,8 +94,7 @@
               </div>
             <v-container>
               <div class="CancelVerification">
-                Cette action annulera votre rendez-vous avec  <br />
-                <b>Konan Bertran</b> 
+                Cette action supprimera definitivement cette tâche
               </div>
               <div class="verificationAction">
                 <v-btn
@@ -104,7 +103,7 @@
                   depressed
                   @click="closeDeleteOnevariante"
                   style="color: white"
-                  >Non</v-btn
+                  >Annuler</v-btn
                 >
                 <v-btn
                   color="red"
@@ -123,25 +122,25 @@
     </v-dialog>
 
     <!-- ACCEPTE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogAccept" max-width="420">
+    <v-dialog v-model="dialogAccept" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
             <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
             <div class="imgAndTitle  deleteIMG">
                 <v-icon color="mainBlueColor" large>
-                  mdi-account-check-outline
+                  mdi-check
                 </v-icon>
               </div>
             <v-container>
               <div class="CancelVerification">
-                Souhaitez-vous accepter la visite de  <br />
-                <b>Konan Bertran ?</b> 
+                Souhaitez-vous marquer cette tâche
+                comme faite ?
               </div>
               <div class="verificationAction">
                 <v-btn
                   color="grey"
-                  
+                  small
                   depressed
                   @click="closeAcceptVisite"
                   style="color: white"
@@ -149,7 +148,7 @@
                 >
                 <v-btn
                   color="mainBlueColor"
-                  
+                  small
                   depressed
                   @click="acceptVisite  "
                   style="color: white"
@@ -165,7 +164,7 @@
 
 
     <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -179,7 +178,7 @@
                       <v-text-field
                         height="60"
                         solo
-                        label="Nom"
+                        label="Intituté"
                         append-icon="mdi-account-arrow-right"
                         ref="matri"
                         v-model="editedItem.nom_visiteur"
@@ -189,88 +188,31 @@
                         required
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        label="Prenoms"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="editedItem.prenoms_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        label="Telephone"
-                        v-model="editedItem.contact_visiteur"
-                        append-icon="mdi-phone"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        label="email"
-                        append-icon="mdi-at"
-                        ref="desc"
-                        v-model="editedItem.email_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                   
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="editedItem.status"
-                        ref="transport"
-                        type="date"
-                        label="Date du RDV"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        v-model="editedItem.heure_rdv"
-                        ref="transport"
-                        type="time"
-                        label="heure"
-                        persistent-hint
-                        append-icon="mdi-clock-time-eight"
-                        required
-                      ></v-text-field>
-                    </v-col>
                     <div style="width:90%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
+                        background-color="#356eea24"
                         clearable
                         clear-icon="mdi-close-circle"
                         rows="5"
                         name="input-7-4"
                         v-model="editedItem.objet"
-                        label="Description"
+                        label="Details"
                         class="the-message-area"
                       ></v-textarea>
-                    </div>
+                    </div><v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        v-model="editedItem.status"
+                        ref="transport"
+                        prefix="Dead-line : "
+                        type="date"
+                        label="Dead-line"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                 </v-row>
               </v-container>
             </form>
@@ -298,7 +240,7 @@
     </v-dialog>
 
     <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="420">
+    <v-dialog v-model="dialogReport" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -360,61 +302,139 @@
     </v-dialog>
 
     <!-- SHOW DIALOG -->
-     <v-dialog v-model="dialog" max-width="370">
+     <!-- <v-dialog v-model="dialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
+              <img src="@/assets/icone/tasks.png" alt="" srcset="" />
             </div>
-            <div class="statElment">
+            <div class="statElment Elment1">
               <div>
-                <h5>DEBUT</h5>
+                <h4>Mettre en place la maquette du projet palomo </h4>
+              </div>
+            </div>
+            <div class="statElment Elment2">
+              <div>
+                <h5>DETAILS</h5>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto nihil 
+                  reiciendis accusamus quaerat repellat provident quam quae dolor rem. 
+                  Perferendis cumque velit porro quidem corrupti modi molestias praesentium atque?
+                </p>
+              </div>
+            </div>
+            <div class="statElment Elment3">
+              <div>
+                <h5>DEAD-LINE</h5>
                 <h4>2023-02-12</h4>
               </div>
-            </div>
-            <div class="statElment">
               <div>
-                <h5>FIN</h5>
-                <h4>2023-05-12</h4>
+                <h5>EXECUTANTS</h5>
+                <div style="text-align:center">
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                </div>
               </div>
-            </div>
-            <div class="statElment">
               <div>
-                <h5>INTITULE</h5>
-                <h4>Mettre en place la maquette du projet palomo </h4>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
               </div>
             </div>
             
           </v-container>
         </v-card-text>
-        <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-            <v-card-text>
-            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-            </v-card-text>
-
-            <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Disagree
-            </v-btn>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Agree
-            </v-btn>
-            </v-card-actions> -->
+        
+      </v-card>
+    </v-dialog> -->
+    <v-dialog v-model="dialog" max-width="770">
+      <v-card>
+        <v-card-text style="display:flex;">
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <img src="@/assets/icone/tasks.png" alt="" srcset="" />
+            </div>
+            <div class="statElment Elment1">
+              <div>
+                <h4>Mettre en place la maquette du projet palomo </h4>
+              </div>
+            </div>
+            <div class="statElment Elment2">
+              <div>
+                <h5>DETAILS</h5>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto nihil 
+                  reiciendis accusamus quaerat repellat provident quam quae dolor rem. 
+                  Perferendis cumque velit porro quidem corrupti modi molestias praesentium atque?
+                </p>
+              </div>
+            </div>
+            <div class="statElment Elment3">
+              <div>
+                <h5>DEAD-LINE</h5>
+                <h4>2023-02-12</h4>
+              </div>
+              <div>
+                <h5>EXECUTANTS</h5>
+                <div style="text-align:center">
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                </div>
+              </div>
+              <div>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
+              </div>
+            </div>
+            
+          </v-container>
+           <v-container class="showDialog2">
+            <div class="comentsWrapper">
+              <div class="commentBox">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
+                </p>
+                <div><img src="@/assets/img/team2.jpg" alt="" srcset=""></div>
+              </div>
+              <div class="commentBox">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
+                </p>
+                <div><img src="@/assets/img/team2.jpg" alt="" srcset=""></div>
+              </div>
+              <div class="commentBox">
+                <div><img src="@/assets/img/profile-pic(1).png" alt="" srcset=""></div>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
+                </p>
+              </div>
+            </div>
+            <div class="makeComent">
+              <v-form style="width:100%;">
+                <div style="width:100%;margin-bottom:0px">
+                  <v-textarea
+                    solo
+                    clearable
+                    background-color="#356eea24"
+                    clear-icon="mdi-close-circle"
+                    rows="3 "
+                    name="input-7-4"
+                    label="Commenter"
+                    class="the-message-area"
+                  ></v-textarea>
+                </div>
+              </v-form>
+              <v-btn icon color="mainBlueColor"
+              ><v-icon>mdi-send</v-icon></v-btn>
+            </div>
+          </v-container>
+        </v-card-text>
+        
       </v-card>
     </v-dialog>
+
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="12" lg="12">
@@ -441,9 +461,14 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" 
-          
-            ><v-icon small> mdi-check-network </v-icon></v-btn
+          <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
+           ><v-icon small> mdi-check-network </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="editItem(item)"
+           ><v-icon small> mdi-pen </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor"  @click="deleteItem(item)"
+           ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
           <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
           v-if="!item.status"
@@ -648,14 +673,14 @@ export default {
     // --------------------
     // delete a travel
     // --------------------
-    deleteItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+    deleteItem() {
+      // this.editedIndex = this.Visites.indexOf(item);
+      // this.editedItem = Object.assign({}, item);
+      // this.itemToDelete = { id: this.editedItem.Visites_id };
       // if it is a variante of prise
-      this.OneVarianteitemToDelete = { id: this.editedItem.id };
+      // this.OneVarianteitemToDelete = { id: this.editedItem.id };
       // this.dialogDelete = true;
-      this.BeforeDialogDelete = true;
+      this.dialogDeleteOneVariante = true;
     },
     deleteItemNature() {
       this.dialogDelete = true;
@@ -664,7 +689,7 @@ export default {
 
     deleteOneItemVriante() {
       this.dialogDeleteOneVariante = true;
-      this.BeforeDialogDelete = false;
+      // this.BeforeDialogDelete = false;
     },
           // confirm deleted of nature
     deleteItemConfirm() {
@@ -739,10 +764,10 @@ export default {
     },
 
     // FOR ACCEPT VISITE
-    acceptItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
+    acceptItem() {
+      // this.editedIndex = this.Visites.indexOf(item);
+      // this.editedItem = Object.assign({}, item);
+      // this.itemToDelete = { id: this.editedItem.Visites_id };
       this.dialogAccept = true;
     },
     acceptVisite() {
@@ -883,14 +908,71 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  background: #ffffff;
 }
+.showDialog2{
+  background:white;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.comentsWrapper{
+  max-height: 430px;
+  overflow-y: auto;
+  /* background:blue; */
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.commentBox{
+  /* background: #b71c1c; */
+  display: flex;
+  align-items: flex-end;
+  justify-content:center;
+}
+.commentBox>p{
+  background: #037cb82c;
+  max-width:80%;
+  font-size: 11px;
+  line-height: 15px;
+  padding:15px 10px;
+  border-radius: 5px;
+}
+.commentBox>div{
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #037cb82c;
+  border-radius: 100px;
+  margin: 3px;
+}
+.commentBox>div img{
+  height: 25px;
+  width: 25px;
+  border-radius: 100px;
+}
+.makeComent{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+}
+
 .imgAndTitle {
   margin: 15px 0px;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
+  font-size: 11px;
   border-radius: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: solid 3px;
   border-color: var(--main-blue-important) rgb(176, 176, 182);
   display: flex;
@@ -907,19 +989,29 @@ export default {
   background-size: cover; */
 }
 .imgAndTitle > img{
-  height:50px;
-  width:50px
+  height:35px;
+  width:35px
 }
-
-
 .statElment {
   margin-bottom: 20px;
   display: flex;
-  text-align: center;
+  text-align: start;
   /* background-color:red; */
 }
-.statElment > div {
-  /* margin-left: 10px; */
+.Elment1{
+  text-transform: uppercase;
+  font-size:12px;
+}
+.Elment2{
+  /* text-transform: uppercase; */
+  font-size:11px;
+}
+.Elment3{
+  /* text-transform: uppercase; */
+  width:100%;
+  font-size:11px;
+  display: flex;
+  justify-content: space-between;
 }
 .statElment h5 {
   color: var(--main-blue-important);
@@ -981,6 +1073,7 @@ export default {
   margin-left: 35%;
   margin-bottom: 0px;
   /* background-color:red; */
+
   border: 3px solid grey;
   display: flex;
   flex-direction: column;
@@ -989,7 +1082,7 @@ export default {
 }
 .CancelVerification {
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   margin-top: 5px;
   margin-bottom: 30px;
 }
@@ -999,7 +1092,7 @@ export default {
   justify-content: space-around;
 }
 .verificationAction > button {
-  width: 150px;
+  width: 100px;
 }
 
 /* Confirme Delete travel */
@@ -1013,7 +1106,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 </style>

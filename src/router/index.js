@@ -8,6 +8,7 @@ import RdvStory from "../views/rdvStory.vue";
 import VisiteDeclaration from "../views/VisiteDeclaration.vue";
 
 import TaskDeclaration from "../views/TaskDeclaration.vue";
+import OwnTaskDeclaration from "../views/OwnTaskDeclaration.vue";
 import taskStory from "../views/taskStory.vue";
 import UserTaskManage from "../views/UserTaskManage.vue";
 import fileManage from "../views/fileManage.vue";
@@ -120,6 +121,11 @@ const routes = [
     path: "/TaskDeclaration",
     name: "TaskDeclaration",
     component: TaskDeclaration,
+  },
+  {
+    path: "/OwnTaskDeclaration",
+    name: "OwnTaskDeclaration",
+    component: OwnTaskDeclaration,
   },
   {
     path: "/taskStory",

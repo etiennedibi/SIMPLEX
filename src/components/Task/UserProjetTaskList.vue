@@ -63,7 +63,7 @@
                 <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
                 <v-dialog
                   v-model="dialog"
-                  width="1200"
+                  width="900"
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainBlueColor
@@ -105,7 +105,7 @@
                       @click="openDialog(item)"
                     >
                       <div>
-                        <v-icon color="mainBlueColor">mdi-folder</v-icon>
+                        <v-icon color="mainBlueColor">mdi-ballot</v-icon>
                         <p>{{ item.name }}</p>
                         <p>{{ item.date }}</p>
                       </div>

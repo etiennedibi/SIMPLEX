@@ -82,25 +82,31 @@
             <router-link :to="{ name: 'TaskDeclaration' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>CREER UNE TÂCHE</p>
+                <p>ATTRIBUER UNE TÂCHE</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'UserTaskManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GERER MES TÂCHES</p>
+                <p>SUIVRE LES TÂCHES</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'FileManage' }">
+            <router-link :to="{ name: 'OwnTaskDeclaration' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>AJOUTER UN FICHIER</p>
+                <p>MES TÂCHES</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'UserFileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>MES FICHIERS</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'FileManage' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>FICHIERS PARTAGES</p>
               </div>
             </router-link>
           </div>
@@ -352,7 +358,7 @@ export default {
   width: 20px;
   background: white;
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: -10px;
   transform: rotate(45deg);
   transition: 0.1s ease-in;
@@ -423,7 +429,7 @@ export default {
   width: 20px;
   background: white;
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: -10px;
   transform: rotate(45deg);
   /* box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 90%); */

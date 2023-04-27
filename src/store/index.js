@@ -12,6 +12,8 @@ import message from "./modules/message";
 import checkabonnement from "./modules/checkabonnement";
 
 import visites from "./modules/visites";
+import project from "./modules/project";
+import task from "./modules/task";
 import contract from "./modules/contract";
 import service from "./modules/service";
 import work from "./modules/work";
@@ -53,6 +55,8 @@ export default new Vuex.Store({
     checkabonnement,
 
     visites,
+    project,
+    task,
     contract,
     service,
     work,

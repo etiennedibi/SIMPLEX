@@ -5,16 +5,16 @@
         ATTRIBUTION DE TÂCHES
 
         
-        <v-dialog v-model="dialogCreate" max-width="420">
+        <v-dialog v-model="dialogCreate" max-width="370">
           <v-card>
             <v-card-text>
               <v-container>
                 <div class="imgAndTitle  editIMGO">
                   <v-icon color="mainBlueColor" large>
-                    mdi-text-box
+                    mdi-folder
                     </v-icon>
                 </div>
-                <form class="updateForm">
+                <form ref="form1" class="updateForm">
                   <v-container fluid>
                     <v-row>
                       <v-col cols="12" md="11" lg="11">
@@ -22,58 +22,61 @@
                             height="60"
                             style="margin-bottom:-5px"
                             solo
-                            label="Titre"
+                            label="Inititulé"
                             ref="matri"
                             v-model="new_project.title"
+                            :rules="[() => !!new_project.title]"
                             type="text"
                             value=""
                             persistent-hint
                             required
                           ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="11" lg="11">
-                          <v-text-field
-                            height="60"
-                            style="margin-bottom:-5px"
-                            solo
-                            label="Denomination"
-                            ref="matri"
-                            v-model="new_project.start_at"
-                            type="date"
-                            value=""
-                            prefix="Debut : "
-                            persistent-hint
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="11" lg="11">
-                          <v-text-field
-                            height="60"
-                            style="margin-bottom:-5px"
-                            solo
-                            label="Denomination"
-                            ref="matri"
-                            v-model="new_project.finish_at"
-                            type="date"
-                            value=""
-                            prefix="Fin : "
-                            persistent-hint
-                            required
-                          ></v-text-field>
-                        </v-col>  
-                        <div style="width:92%; padding: 15px 10px 0px 10px">
-                          <v-textarea
-                            solo
-                            clearable
-                            v-model="new_project.description"
-                            background-color="#356eea24"
-                            clear-icon="mdi-close-circle"
-                            rows="5"
-                            name="input-7-4"
-                            label="Description"
-                            class="the-message-area"
-                          ></v-textarea>
-                        </div>
+                      </v-col>
+                      <v-col cols="12" md="11" lg="11">
+                        <v-text-field
+                          height="60"
+                          style="margin-bottom:-5px"
+                          solo
+                          label="Debut"
+                          ref="matri"
+                          v-model="new_project.start_at"
+                          :rules="[() => !!new_project.start_at]"
+                          type="date"
+                          value=""
+                          prefix="Debut : "
+                          persistent-hint
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="11" lg="11">
+                        <v-text-field
+                          height="60"
+                          style="margin-bottom:-5px"
+                          solo
+                          label="Fin"
+                          ref="matri"
+                          v-model="new_project.finish_at"
+                          :rules="[() => !!new_project.finish_at]"
+                          type="date"
+                          value=""
+                          prefix="Fin : "
+                          persistent-hint
+                          required
+                        ></v-text-field>
+                      </v-col>  
+                      <div style="width:92%; padding: 15px 10px 0px 10px">
+                        <v-textarea
+                          solo
+                          clearable
+                          v-model="new_project.description"
+                          background-color="#356eea24"
+                          clear-icon="mdi-close-circle"
+                          rows="5"
+                          name="input-7-4"
+                          label="Description"
+                          class="the-message-area"
+                        ></v-textarea>
+                      </div>
                     </v-row>
                   </v-container>
                 </form>
@@ -114,43 +117,56 @@
         <v-row>
           <v-col cols="12" md="4" lg="4">
             <div class="numberWrapper formBox">
-              <v-form ref="form1" class="forme1">
+              <v-form ref="form2" class="forme1">
                 <v-container fluid class="addvisit">
                   <v-row>
-                    <v-col cols="12" md="6" lg="6">
-                      <v-text-field
-                        height="40"
-                        solo
+                    <v-col cols="12" md="12" lg="12" style="margin-top: 10px;">
+                      <v-select
+                        background-color="#356eea24"
+                        v-model="new_task.id_project"
+                        :rules="[() => !!new_task.id_project]"
+                        :items="Projects"
+                        item-text="title"
+                        item-value="id"
                         label="Projet"
-                        append-icon="mdi-folder"
-                        ref="matri"
-                        v-model="new_visit.nom_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="6" lg="6">
-                      <v-text-field
-                        height="40"
                         solo
-                        label="Exécutant"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="new_visit.prenoms_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
+                        height="40"
+                      >
+                       </v-select>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-select
+                        background-color="#356eea24"
+                        v-model="new_task.executants"
+                        :rules="[() => !!new_task.executants]"
+                        :items="EmployersByTheDepartments"
+                        item-text="nom"
+                        item-value="id"
+                        multiple
+                        label="Executants"
+                        solo
+                        height="40"
+                      >
+                      <template v-slot:selection="{ item, index }">
+                          <v-chip v-if="index === 0">
+                            <span>{{ item.nom }}</span>
+                          </v-chip>
+                          <span
+                            v-if="index === 1"
+                            class="grey--text text-caption"
+                          >
+                            (+{{ new_task.executants.length - 1}} autres)
+                          </span>
+                        </template>
+                       </v-select>
                     </v-col>
                      <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="40"
                         solo
                         label="Intitulé"
-                        v-model="new_visit.contact_visiteur"
+                        v-model="new_task.intitule_tache"
+                        :rules="[() => !!new_task.intitule_tache]"
                         append-icon="mdi-subtitles"
                         type="text"
                         value=""
@@ -162,10 +178,10 @@
                       <v-text-field
                         height="40"
                         solo
-                        label="Delais d'execution"
-                        v-model="new_visit.contact_visiteur"
-                        append-icon="mdi-clipboard-text-clock-outline"
-                        type="text"
+                        prefix="Delais d'execution:"
+                        v-model="new_task.delais_execution"
+                        :rules="[() => !!new_task.delais_execution]"
+                        type="date"
                         value=""
                         persistent-hint
                         required
@@ -180,7 +196,8 @@
                         append-icon="mdi-subtitles-outline"
                         rows="5"
                         name="input-7-4"
-                        v-model="new_visit.objet"
+                        v-model="new_task.details_taches"
+                        :rules="[() => !!new_task.details_taches]"
                         label="Details"
                         class="the-message-area"
                       ></v-textarea>
@@ -191,7 +208,7 @@
                         depressed
                         color="mainBlueColor"
                         style="color: white"
-                        v-on:click.prevent="submit1"
+                        v-on:click.prevent="submit2"
                         >Enregistrer</v-btn
                       >
                     </v-col>
@@ -203,16 +220,15 @@
           
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper ">
-               <v-container v-if=true>
+               <v-container v-if="taskAddingResponse.taches">
                 <v-row>
                 <v-col cols="12" md="12" lg="12">
                   <div class="TaskResume">
-                    <p>projet xiemie</p>
+                    <p>{{taskAddingResponse.taches.intitule_tache}}</p>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus voluptatibus, ut, 
-                      natus sint vero porro nemo ad quos dolores, adipisci labore 
+                      {{taskAddingResponse.taches.details_taches}}
                     </p>
-                    <p>27-04-2023</p>
+                    <p>{{taskAddingResponse.taches.delais_execution}}</p>
                   </div>
                 </v-col>
               </v-row>
@@ -221,7 +237,7 @@
                 <v-row>
                 <v-col cols="12" md="12" lg="12">
                   <div class="TaskResume1">
-                      <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
+                      <v-icon x-large color="mainBlueColor"> mdi-ballot </v-icon>
                   </div>
                 </v-col>
               </v-row>
@@ -246,7 +262,7 @@
                       <div class="N-icon">
                         <v-icon color="mainBlueColor">mdi-folder</v-icon>
                       </div>
-                      <h1 v-if="visiteNumber">10</h1>
+                      <h1 v-if="ProjetNumber">{{ProjetNumber}}</h1>
                       <h1 v-else>0</h1>
                       <h5>Projets Enregistrés</h5>
                     </div>
@@ -269,7 +285,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        RDV enregistré</v-alert
+        Enregistrement effectué</v-alert
       >
     </transition>
     <transition name="slide">
@@ -281,15 +297,14 @@
         class="alert"
         color="error"
       >
-        Une information est male renseignée</v-alert
+        echec de l'opération</v-alert
       >
     </transition>
   </div>
 </template>
 
 <script>
-
-// import Vue from "vue";
+import { mapGetters } from "vuex";
 import axios from "axios";
 // import projectTaskReview from "../components/Task/projectTaskReview.vue";
 
@@ -309,18 +324,14 @@ export default {
     // FOR FORM SENDING
     new_project: {
     },
-    new_visit: {
-      nom_visiteur: "",
-      prenoms_visiteur: "",
-      email_visiteur: "",
-      contact_visiteur: "",
-      date_rdv: "",
-      heure_rdv: "",
-      objet: "",
-      id_user_employer: 0,
+    new_task: {
+      createur: "",
+      executants: [],
+      compagnie_id: "",
     },
 
     visitaAddingResponse: "",
+    taskAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
@@ -332,16 +343,18 @@ export default {
 
   methods: {
     submit1() {
-        axios({ url: "rdv/demande_rdv", data: this.new_visit, method: "POST" })
+
+         axios({ url: "/api/v1/admin/store_projects", data: this.new_project, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);
           if (this.visitaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
+             this.closeCreate()
+             this.$refs.form1.reset();
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              // this.forceRerender1();
-              this.$store.dispatch("init_userVisite")
+              this.$store.dispatch("init_project")
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -354,21 +367,63 @@ export default {
           this.visitaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
-
     },
-
     closeCreate(){
       this.dialogCreate=false
-    }
+    },
+
+    submit2() {
+
+        if (this.$refs.form2.validate()) {
+           axios({ url: "/api/v1/admin/store_taches", data: this.new_task, method: "POST" })
+          .then((response) => {
+            this.taskAddingResponse = response.data;
+            console.log(this.taskAddingResponse);
+            if (this.taskAddingResponse) {
+              this.addingSuccess = !this.addingSuccess;
+              this.closeCreate()
+              this.$refs.form2.reset();
+              setTimeout(() => {
+                this.addingSuccess = !this.addingSuccess;
+                this.$store.dispatch("init_project")
+              }, 3000);
+            } else {
+              this.addingfalse = !this.addingfalse;
+              setTimeout(() => {
+                this.addingfalse = !this.addingfalse;
+              }, 3000);
+            }
+          })
+          .catch((error) => {
+            this.visitaAddingResponse = error.message;
+            console.error("There was an error!", error);
+          });
+        }else{
+          console.log("PEEGYIGU:::")
+        }
+        
+    },
   },
 
   computed: {
-    
+     ...mapGetters(["Projects","EmployersByTheDepartments"]),
+
+     ProjetNumber() {
+      return this.$store.getters.Projects.length;
+    },
   },
 
   created() {
-    this.new_visit.company_id = localStorage.getItem("user-station");
-    this.new_visit.id_user_employer = localStorage.getItem("user-id");
+    this.$store.dispatch("init_project");
+    this.$store.dispatch("init__employer_by_dprt");
+
+    this.new_project.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_project.id_user  = localStorage.getItem("user-id");
+    this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_task.createur  = localStorage.getItem("user-id");
+    // this.new_task.id_departement  = localStorage.getItem("user-department");
+    this.new_task.id_departement  = 1;
+
 
   },
 };
@@ -495,10 +550,11 @@ export default {
 /* Edit travel */
 .imgAndTitle {
   margin: 15px 0px;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
+  font-size: 11px;
   border-radius: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: solid 3px;
   border-color: var(--main-blue-important) rgb(176, 176, 182);
   display: flex;
@@ -515,8 +571,8 @@ export default {
   background-size: cover; */
 }
 .imgAndTitle > img{
-  height:50px;
-  width:50px
+  height:35px;
+  width:35px
 }
 .editIMGO {
   margin-left: 35%;

@@ -357,76 +357,77 @@
             </div>
             <div class="statElment Elment1">
               <div>
-                <h4>Mettre en place la maquette du projet palomo </h4>
+                <h4> {{ editedItem.intitule_tache }} </h4>
               </div>
             </div>
             <div class="statElment Elment2">
               <div>
                 <h5>DETAILS</h5>
                 <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto nihil 
-                  reiciendis accusamus quaerat repellat provident quam quae dolor rem. 
-                  Perferendis cumque velit porro quidem corrupti modi molestias praesentium atque?
+                  {{ editedItem.details_taches }}
                 </p>
               </div>
             </div>
             <div class="statElment Elment3">
               <div>
                 <h5>DEAD-LINE</h5>
-                <h4>2023-02-12</h4>
+                <h4>{{ editedItem.delais_execution }}</h4>
               </div>
               <div>
                 <h5>EXECUTANTS</h5>
                 <div style="text-align:center">
-                  <h4>Kone </h4>
-                  <h4>Kone </h4>
-                  <h4>Kone </h4>
+                  <h4 v-for="(item) in editedItem.executants" :key="item.index">
+                    {{ item.nom}} {{ item.prenoms}}  
+                  </h4>
                 </div>
               </div>
-              <div>
+              <!-- <div>
                 <h5>Auteur</h5>
                 <h4>2023-02-12</h4>
-              </div>
+              </div> -->
             </div>
             
           </v-container>
            <v-container class="showDialog2">
             <div class="comentsWrapper">
-              <div class="commentBox">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
-                </p>
-                <div><img src="@/assets/img/team2.jpg" alt="" srcset=""></div>
-              </div>
-              <div class="commentBox">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
-                </p>
-                <div><img src="@/assets/img/team2.jpg" alt="" srcset=""></div>
-              </div>
-              <div class="commentBox">
-                <div><img src="@/assets/img/profile-pic(1).png" alt="" srcset=""></div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A minus obcaecati?
-                </p>
+              <div class="commentBox"  v-for="(item) in editedItem.coments" :key="item.index">
+                <div v-if="item.id == new_Coment.id_user">
+                  <p>
+                  {{ item.commentaire }}
+                  </p>
+                  <div class="avartCommt" v-if="item.avatar">
+                    <img :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  </div>
+                  <p style="padding:0px;background:white;" v-else>{{ item.nom }}</p>
+                </div>
+                <div v-else>
+                  <div class="avartCommt" v-if="item.avatar">
+                    <img :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  </div>
+                  <p style="padding:0px;background:white;" v-else>{{ item.nom }}</p>
+                  <p>
+                  {{ item.commentaire }}
+                  </p>
+                </div>
               </div>
             </div>
             <div class="makeComent">
-              <v-form style="width:100%;">
+              <v-form ref="form00" style="width:100%;">
                 <div style="width:100%;margin-bottom:0px">
                   <v-textarea
                     solo
                     clearable
                     background-color="#356eea24"
                     clear-icon="mdi-close-circle"
+                    v-model="new_Coment.commentaire"
                     rows="3 "
                     name="input-7-4"
-                    label="Commenter"
+                    label="Faire un commentaire"
                     class="the-message-area"
                   ></v-textarea>
                 </div>
               </v-form>
-              <v-btn icon color="mainBlueColor"
+              <v-btn icon color="mainBlueColor" @click="makeComent"
               ><v-icon>mdi-send</v-icon></v-btn>
             </div>
           </v-container>
@@ -439,8 +440,8 @@
     <v-row>
       <v-col cols="12" md="12" lg="12">
         <p style="margin-bottom: 40px; text-align:center;"> 
-          <span style="font-size: 17px; font-weight: bold;">
-            CREATION DE LOT DE CONSOLATION
+          <span style="font-size: 17px; font-weight: bold;text-transform: uppercase">
+           {{ project_name }}
           </span> 
         </p>
       </v-col>
@@ -450,7 +451,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="items"
+        :items="OneProjectTasks"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -516,6 +517,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserTaskList",
   components: {},
+  props:['project_id','project_name'],
 
   data: () => ({
     // For the table
@@ -525,7 +527,7 @@ export default {
         text: "INTITULE",
         align: "start",
         sortable: true,
-        value: "nom_visiteur",
+        value: "intitule_tache",
       },
       { text: "STATUS", value: "status", sortable: false },
       { text: "DETAILS", value: "actions", sortable: false },
@@ -588,6 +590,7 @@ export default {
 
     // For Visite detail
     dialog: false,
+    new_Coment: {},
     editedItem: {
       nom_visiteur: "",
       prenoms_visiteur: "",
@@ -622,7 +625,32 @@ export default {
     // ------------------------
     showItem(item) {
       this.editedItem = Object.assign({}, item);
+      this.new_Coment.id_user = localStorage.getItem("user-id");
       this.dialog = true;
+    },
+    // ------------------------
+    // Make Coments
+    // ------------------------
+    makeComent() {
+      this.new_Coment.id_tache = this.editedItem.id;
+      axios
+        ({ url: "/api/v1/users/Commentaire_tache", data: this.new_Coment, method: "POST" })
+        .then((response) => {
+          // console.log(response.data);
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Annulation effectuée
+            this.$store.dispatch("init_userVisite");
+            this.$refs.form00.reset();
+          } else if (!this.VisiteaAddingResponse) {
+            console.log("messagePasEnvoyé");
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
     },
 
     // ------------------------
@@ -849,11 +877,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["UserVisites"]),
+    ...mapGetters(["OneProjectTasks"]),
   },
 
   created() {
-    this.$store.dispatch("init_userVisite");
+    this.$store.dispatch("init_one_project_task",this.project_id);
+    // console.log("::::::",this.project_id);
+    // console.log("::::::",this.project_name);
   },
 };
 </script>
@@ -920,7 +950,7 @@ export default {
   align-items: flex-start;
 }
 .comentsWrapper{
-  max-height: 430px;
+  max-height: 350px;
   overflow-y: auto;
   /* background:blue; */
   display:flex;
@@ -935,7 +965,7 @@ export default {
   align-items: flex-end;
   justify-content:center;
 }
-.commentBox>p{
+.commentBox p{
   background: #037cb82c;
   max-width:80%;
   font-size: 11px;
@@ -943,7 +973,7 @@ export default {
   padding:15px 10px;
   border-radius: 5px;
 }
-.commentBox>div{
+.avartCommt{
   height: 35px;
   width: 35px;
   display: flex;
@@ -953,7 +983,7 @@ export default {
   border-radius: 100px;
   margin: 3px;
 }
-.commentBox>div img{
+.avartCommt img{
   height: 25px;
   width: 25px;
   border-radius: 100px;
@@ -1070,7 +1100,7 @@ export default {
 
 /* Delete travel */
 .deleteIMG {
-  margin-left: 35%;
+  margin-left: 37%;
   margin-bottom: 0px;
   /* background-color:red; */
 

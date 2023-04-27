@@ -3,6 +3,7 @@ import axios from "axios";
 const state = {
   employers: [],
   current_employers: [],
+  employersByTheDepartments:[],
 };
 
 const getters = {
@@ -16,6 +17,11 @@ const getters = {
 
     return employer;
   },
+  EmployersByTheDepartments: (state) => {
+    let employer = state.employersByTheDepartments;
+
+    return employer;
+  },
 };
 
 const mutations = {
@@ -24,6 +30,9 @@ const mutations = {
   },
   SET_ONE_EMPLOYER(state, data) {
     state.current_employers = data;
+  },
+  SET_EMPLOYER_BY_DPRT(state, data) {
+    state.employersByTheDepartments = data;
   },
 };
 
@@ -50,6 +59,19 @@ const actions = {
       .then((res) => {
         // console.log(res.data.Employ);
         commit("SET_ONE_EMPLOYER", res.data.Employ);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init__employer_by_dprt: ({ commit }) => {
+    // Vue.prototype.$http localStorage.getItem("user-id")
+    axios
+      .get(
+        "/api/v1/admin/getAllDprtEmploys/"+1
+      )
+      .then((res) => {
+        console.log(res.data.Employes);
+        commit("SET_EMPLOYER_BY_DPRT", res.data.Employes);
       })
       .catch((error) => console.log(error));
   },

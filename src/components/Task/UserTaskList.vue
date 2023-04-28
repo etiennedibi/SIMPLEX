@@ -175,44 +175,45 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        label="Intituté"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="editedItem.nom_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <div style="width:90%; padding: 15px 10px 0px 10px">
-                      <v-textarea
-                        solo
-                        background-color="#356eea24"
-                        clearable
-                        clear-icon="mdi-close-circle"
-                        rows="5"
-                        name="input-7-4"
-                        v-model="editedItem.objet"
-                        label="Details"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div><v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="editedItem.status"
-                        ref="transport"
-                        prefix="Dead-line : "
-                        type="date"
-                        label="Dead-line"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
+                    <v-text-field
+                      height="60"
+                      solo
+                      label="Intituté"
+                      append-icon="mdi-account-arrow-right"
+                      ref="matri"
+                      v-model="editedItem.intitule_tache"
+                      type="text"
+                      value=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <div style="width:90%; padding: 15px 10px 0px 10px">
+                    <v-textarea
+                      solo
+                      background-color="#356eea24"
+                      clearable
+                      clear-icon="mdi-close-circle"
+                      rows="5"
+                      name="input-7-4"
+                      v-model="editedItem.details_taches"
+                      label="Details"
+                      class="the-message-area"
+                    ></v-textarea>
+                  </div>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-text-field
+                      height="60"
+                      solo
+                      v-model="editedItem.delais_execution"
+                      ref="transport"
+                      prefix="Dead-line : "
+                      type="date"
+                      label="Dead-line"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
                 </v-row>
               </v-container>
             </form>
@@ -239,67 +240,6 @@
       </v-card>
     </v-dialog>
 
-    <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle  editIMGO">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
-            </div>
-            <form class="updateForm ReportForm">
-              <v-container fluid>
-                <v-row>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="editedItem.status"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        append-icon="mdi-clock-time-eight"
-                        ref="desc"
-                        v-model="editedItem.heure_rdv"
-                        type="time"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                </v-row>
-              </v-container>
-            </form>
-          </v-container>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
-            @click="closeReportVisite"
-            style="color: white"
-            >Annuler</v-btn
-          >
-          <v-btn
-            color="mainBlueColor"
-            depressed
-            @click="reportVisite"
-            style="color: white"
-            >Enregistrer</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <!-- SHOW DIALOG -->
      <!-- <v-dialog v-model="dialog" max-width="370">
@@ -462,14 +402,14 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="acceptItem(item)"
-           ><v-icon small> mdi-check-network </v-icon></v-btn
-          >
           <v-btn icon color="mainBlueColor" @click="editItem(item)"
            ><v-icon small> mdi-pen </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor"  @click="deleteItem(item)"
            ><v-icon small> mdi-trash-can </v-icon></v-btn
+          >
+          <v-btn icon color="#FC070794" v-if="item.status_tache!=0" @click="acceptItem(item)"
+           ><v-icon small> mdi-check-network </v-icon></v-btn
           >
           <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
           v-if="!item.status"
@@ -477,9 +417,9 @@
           > @click="editItem(item)"
           v-if="!item.status"-->
         </template>
-        <template v-slot:[`item.status`]="{ item }">
-          <div v-if="item.status" class="status" style="background: #0DA36C94;; color:white;">fait</div>
-          <div v-if="!item.status" class="status" style="background: #FC070794; color:white;">pas fait</div>
+        <template v-slot:[`item.status_tache`]="{ item }">
+          <div v-if="item.status_tache!=0" class="status" style="background: #0DA36C94;; color:white;">fait</div>
+          <div v-if="item.status_tache==0" class="status" style="background: #FC070794; color:white;">pas fait</div>
         </template>
       </v-data-table>
     </div>
@@ -529,7 +469,7 @@ export default {
         sortable: true,
         value: "intitule_tache",
       },
-      { text: "STATUS", value: "status", sortable: false },
+      { text: "STATUS", value: "status_tache", sortable: false },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     items: [
@@ -657,30 +597,29 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-      this.editedItem.id_visite = this.editedItem.id;
       axios
-        ({ url: "rdv/update_date_visite", data: this.editedItem, method: "POST" })
+        ({ url: "/api/v1/admin/update_taches/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.error == false) {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "report effectuée";
+            this.VisiteaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_one_project_task",this.project_id);
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
+            this.VisiteaAddingResponse.message = "echec de l'opération";
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
             }, 3000);
@@ -701,18 +640,14 @@ export default {
     // --------------------
     // delete a travel
     // --------------------
-    deleteItem() {
+    deleteItem(item) {
       // this.editedIndex = this.Visites.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
+      this.editedItem = Object.assign({}, item);
       // this.itemToDelete = { id: this.editedItem.Visites_id };
       // if it is a variante of prise
-      // this.OneVarianteitemToDelete = { id: this.editedItem.id };
+      this.OneVarianteitemToDelete = { id: this.editedItem.id };
       // this.dialogDelete = true;
       this.dialogDeleteOneVariante = true;
-    },
-    deleteItemNature() {
-      this.dialogDelete = true;
-      this.BeforeDialogDelete = false;
     },
 
     deleteOneItemVriante() {
@@ -759,20 +694,20 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/admin/destroy_taches/" + this.editedItem.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+               this.$store.dispatch("init_one_project_task",this.project_id);
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -792,29 +727,28 @@ export default {
     },
 
     // FOR ACCEPT VISITE
-    acceptItem() {
+    acceptItem(item) {
       // this.editedIndex = this.Visites.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
+      this.editedItem = Object.assign({}, item);
       // this.itemToDelete = { id: this.editedItem.Visites_id };
       this.dialogAccept = true;
     },
     acceptVisite() {
       axios
-        .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
-        )
+        ({ url: "/api/v1/admin/marquer_tache_pas_faite/"+this.editedItem.id, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Suppression effectuée";
+            this.VisiteaAddingResponse.message = "Etat de la tâche modifié";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+               this.$store.dispatch("init_one_project_task",this.project_id);
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -826,7 +760,7 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.closeDeleteOnevariante();
+      this.closeAcceptVisite();
     },
     closeAcceptVisite() {
       this.dialogAccept = false;

@@ -2,6 +2,8 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   oneProjectTasks: [],
+  oneProjectTasksEmploy: [],
+  autoexecuteTask: [],
 };
 
 const getters = {
@@ -23,11 +25,29 @@ const getters = {
     // return project;
 
   },
+  OneProjectTasksEmploye: (state) => {
+    let project = state.oneProjectTasksEmploy;
+
+    return project;
+
+  },
+  AutoexecuteTasks: (state) => {
+    let project = state.autoexecuteTask;
+
+    return project;
+
+  },
 };
 
 const mutations = {
   SET_ONE_PROJECT_TASK(state, data) {
     state.oneProjectTasks = data;
+  },
+  SET_ONE_PROJECT_TASK_EMPLOYE(state, data) {
+    state.oneProjectTasksEmploy = data;
+  },
+  SET_AUTO_EXECUTE(state, data) {
+    state.autoexecuteTask = data;
   },
 
 };
@@ -42,6 +62,33 @@ const actions = {
       )
       .then((res) => {
         commit("SET_ONE_PROJECT_TASK", res.data.taches);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_one_project_task_employe: ({ commit }, project_id) => {
+    // Vue.prototype.$http
+    console.log("ppppppp::::",project_id);
+    axios
+      .get(
+        "/api/v1/admin/index_taches_employe/"+project_id+"/"+localStorage.getItem("user-id")
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_ONE_PROJECT_TASK_EMPLOYE", res.data.taches);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_auto_execute: ({ commit },) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "/api/v1/admin/index_taches_auto_execute/"+localStorage.getItem("user-id")
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_AUTO_EXECUTE", res.data.taches);
       })
       .catch((error) => console.log(error));
   },

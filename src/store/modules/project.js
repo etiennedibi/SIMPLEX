@@ -2,7 +2,7 @@ import axios from "axios";
 // import Vue from "vue";
 const state = {
   projects: [],
-  project_admins: [],
+  project_employe: [],
 };
 
 const getters = {
@@ -24,21 +24,24 @@ const getters = {
     return project;
 
   },
-  ProjectAdmins: (state) => {
-    let project = state.project_admins.map((projet) => {
-      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      var dateDebut = new Date(projet.start_at);
-      var dateFin = new Date(projet.finish_at);
+  
+  ProjectsEmploye: (state) => {
+    // let project = state.projects;
+
+    // return project;
+    let project = state.project_employe.map((projet) => {
+      var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       var dateCreated_at = new Date(projet.created_at);
+      projet.created_at_view = dateCreated_at.toLocaleDateString("fr", options)
 
-      projet.start_at = dateDebut.toLocaleDateString("fr", options)
-      projet.finish_at = dateFin.toLocaleDateString("fr", options)
-      projet.created_at = dateCreated_at.toLocaleDateString("fr", options)
-
+      const dateDebut = projet.start_at.split('T')
+      const dateFin = projet.finish_at.split('T')
+      projet.start_at = dateDebut[0]
+      projet.finish_at = dateFin[0]
       return projet
     });
-    console.log();
     return project;
+
   },
 
 };
@@ -47,8 +50,8 @@ const mutations = {
   SET_PROJECT(state, data) {
     state.projects = data;
   },
-  SET_PROJECT_ADMIN(state, data) {
-    state.project_admins = data;
+  SET_PROJECT_EMPLOYE(state, data) {
+    state.project_employe = data;
   },
 
 };
@@ -67,15 +70,15 @@ const actions = {
       .catch((error) => console.log(error));
   },
 
-  init_project_admin: ({ commit }) => {
+  init_project_employe: ({ commit }) => {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getprojects"+localStorage.getItem("user-id")
+        "/api/v1/admin/getprojects_employe/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        commit("SET_PROJECT_ADMIN", res.data);
+        commit("SET_PROJECT_EMPLOYE", res.data);
       })
       .catch((error) => console.log(error));
   },

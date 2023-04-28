@@ -180,7 +180,123 @@
 
     <v-container fluid>
       <v-row>
-        <v-col cols="12" md="12" lg="12" class="box">
+        <v-col v-if="!switch1" cols="12" md="11" lg="11" class="box">
+          <div class="stationListboxWrapper">
+            <v-data-iterator
+              :items="ProjectsEmploye"
+              :items-per-page.sync="itemsPerPage"
+              :page="page"
+              :search="search"
+              :sort-by="sortBy.toLowerCase()"
+              :sort-desc="sortDesc"
+              hide-default-footer
+            >
+              <template v-slot:header>
+                <v-row>
+                  <v-col cols="12" md="4" lg="4">
+                    <v-text-field
+                      v-model="search"
+                      dense
+                      solo
+                      height="50"
+                      hide-details
+                      prepend-inner-icon="mdi-search"
+                      label="Rechercher"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="2" lg="2"></v-col>
+                </v-row>
+
+                <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
+                <v-dialog
+                  v-model="dialog"
+                  width="900"
+                  overlay-color="black"
+                  overlay-opacity="0.8"
+                  mainBlueColor
+                >
+                  <v-card tile>
+                    <!-- 
+                      transition="dialog-bottom-transition"
+                  
+                      <v-toolbar flat color="Importantcolor Importantcolor--text" >
+                              <v-btn icon dark @click="dialog = false">
+                                <v-icon class="Titlecolor--text">mdi-close</v-icon>
+                              </v-btn> 
+                              <v-toolbar-title>POUET</v-toolbar-title>
+                            </v-toolbar>             -->
+
+                    <v-card-text>
+                      <v-container>
+                        <v-row class="detailsTemplate">
+                          <EmployeTaskList :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+                <!-- END PRDUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
+              </template>
+
+              <template v-slot:default="props">
+                <v-row>
+                  <v-col
+                    v-for="item in props.items"
+                    :key="item.name"
+                    cols="12"
+                    md="3"
+                    lg="3"
+                  >
+                    <div
+                      class="InvBox"
+                      @click="openDialog(item)"
+                    >
+                      <div>
+                        <v-icon color="mainBlueColor">mdi-ballot</v-icon>
+                        <p>{{ item.title }}</p>
+                        <p>{{ item.created_at_view }}</p>
+                      </div>
+                      <div class="price">
+                        <v-btn icon style="margin-bottom:-15px" color="mainBlueColor" @click.stop="showItem(item)"
+                          ><v-icon>mdi-dots-horizontal-circle</v-icon></v-btn>
+                        <p>{{ item.city }}</p>
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </template>
+
+              <template v-slot:footer>
+                <v-row class="mt-2" align="center" justify="center">
+                  <v-spacer></v-spacer>
+
+                  <span class="mr-4 grey--text">
+                    Page {{ page }} sur {{ numberOfPages2 }}
+                  </span>
+                  <v-btn
+                    fab
+                    dark
+                    color="mainBlueColor "
+                    class="mr-1"
+                    @click="formerPage"
+                  >
+                    <v-icon>mdi-chevron-left</v-icon>
+                  </v-btn>
+                  <v-btn
+                    fab
+                    dark
+                    color="mainBlueColor "
+                    class="ml-1"
+                    @click="nextPage"
+                  >
+                    <v-icon>mdi-chevron-right</v-icon>
+                  </v-btn>
+                </v-row>
+              </template>
+            </v-data-iterator>
+          </div>
+        </v-col>
+        <v-col v-if="switch1" cols="12" md="11" lg="11" class="box">
           <div class="stationListboxWrapper">
             <v-data-iterator
               :items="Projects"
@@ -300,6 +416,18 @@
             </v-data-iterator>
           </div>
         </v-col>
+        <v-col cols="12" md="1" lg="1" class="leftNumber">
+          <div class="stat1">
+            <div class="N-icon">
+              <v-switch
+                inset
+                v-model="switch1"
+              ></v-switch>
+            </div>
+            <h5>tâches</h5>
+            <h5 style="text-align: center">assignées</h5>
+          </div>
+        </v-col>
       </v-row>
     </v-container>
 
@@ -333,6 +461,7 @@
 
 <script>
 import UserTaskList from "./UserTaskList.vue";
+import EmployeTaskList from "./EmployeTaskList.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
 
@@ -341,6 +470,7 @@ export default {
 
   components: {
     UserTaskList,
+    EmployeTaskList,
   },
 
   data: () => ({
@@ -556,7 +686,10 @@ export default {
     editedIndex:'',
 
     // POUR DELETE
-    dialogDeleteOneVariante:false
+    dialogDeleteOneVariante:false,
+
+    // FOR SWICHING ADMIN TASKS
+    switch1: false,
 
   
   }),
@@ -569,10 +702,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Projects", "items"]),
+    ...mapGetters(["Projects","ProjectsEmploye", "items"]),
 
     numberOfPages() {
       return Math.ceil(this.Projects.length / this.itemsPerPage);
+    },
+
+    numberOfPages2() {
+      return Math.ceil(this.ProjectsEmploye.length / this.itemsPerPage);
     },
   },
 
@@ -705,7 +842,8 @@ export default {
 
    created() {
     this.$store.dispatch("init_project");
-
+    this.$store.dispatch("init_project_employe");
+    
     this.new_project.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_project.id_user  = localStorage.getItem("user-id");
     this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
@@ -824,6 +962,32 @@ export default {
 }
 .InvBox2 div:first-child p:nth-child(3) {
   line-height: 15px;
+}
+
+
+
+
+.stat1 {
+  background: white;
+  height: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.N-icon {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center!important;
+  align-items: center!important;
+  padding-left:10px;
+  /* background: #356eea24;
+  border-radius: 100px; */
 }
 
 /* FOR THE TRAVEL LISTE DIALOG */

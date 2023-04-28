@@ -82,7 +82,7 @@
     </v-dialog>
 
     <!-- DELETE VISITE ON   DIALOG -->
-     <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -122,7 +122,7 @@
     </v-dialog>
 
     <!-- ACCEPTE VISITE ON   DIALOG -->
-     <v-dialog v-model="dialogAccept" max-width="370">
+    <v-dialog v-model="dialogAccept" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -240,8 +240,9 @@
       </v-card>
     </v-dialog>
 
+
     <!-- SHOW DIALOG -->
-    <v-dialog v-model="dialog" max-width="370">
+     <!-- <v-dialog v-model="dialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container class="showDialog">
@@ -250,7 +251,53 @@
             </div>
             <div class="statElment Elment1">
               <div>
-                <h4>{{ editedItem.intitule_tache }}</h4>
+                <h4>Mettre en place la maquette du projet palomo </h4>
+              </div>
+            </div>
+            <div class="statElment Elment2">
+              <div>
+                <h5>DETAILS</h5>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto nihil 
+                  reiciendis accusamus quaerat repellat provident quam quae dolor rem. 
+                  Perferendis cumque velit porro quidem corrupti modi molestias praesentium atque?
+                </p>
+              </div>
+            </div>
+            <div class="statElment Elment3">
+              <div>
+                <h5>DEAD-LINE</h5>
+                <h4>2023-02-12</h4>
+              </div>
+              <div>
+                <h5>EXECUTANTS</h5>
+                <div style="text-align:center">
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                  <h4>Kone </h4>
+                </div>
+              </div>
+              <div>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
+              </div>
+            </div>
+            
+          </v-container>
+        </v-card-text>
+        
+      </v-card>
+    </v-dialog> -->
+    <v-dialog v-model="dialog" max-width="770">
+      <v-card>
+        <v-card-text style="display:flex;">
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <img src="@/assets/icone/tasks.png" alt="" srcset="" />
+            </div>
+            <div class="statElment Elment1">
+              <div>
+                <h4> {{ editedItem.intitule_tache }} </h4>
               </div>
             </div>
             <div class="statElment Elment2">
@@ -266,26 +313,77 @@
                 <h5>DEAD-LINE</h5>
                 <h4>{{ editedItem.delais_execution }}</h4>
               </div>
+              <div>
+                <h5>EXECUTANTS</h5>
+                <div style="text-align:center">
+                  <h4 v-for="(item) in editedItem.executants" :key="item.index">
+                    {{ item.nom}} {{ item.prenoms}}  
+                  </h4>
+                </div>
+              </div>
+              <!-- <div>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
+              </div> -->
             </div>
             
+          </v-container>
+           <v-container class="showDialog2">
+            <div class="comentsWrapper">
+              <div class="commentBox"  v-for="(item) in editedItem.coments" :key="item.index">
+                <div v-if="item.id == new_Coment.id_user">
+                  <p>
+                  {{ item.commentaire }}
+                  </p>
+                  <div class="avartCommt" v-if="item.avatar">
+                    <img :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  </div>
+                  <p style="padding:0px;background:white;" v-else>{{ item.nom }}</p>
+                </div>
+                <div v-else>
+                  <div class="avartCommt" v-if="item.avatar">
+                    <img :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  </div>
+                  <p style="padding:0px;background:white;" v-else>{{ item.nom }}</p>
+                  <p>
+                  {{ item.commentaire }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="makeComent">
+              <v-form ref="form00" style="width:100%;">
+                <div style="width:100%;margin-bottom:0px">
+                  <v-textarea
+                    solo
+                    clearable
+                    background-color="#356eea24"
+                    clear-icon="mdi-close-circle"
+                    v-model="new_Coment.commentaire"
+                    rows="3 "
+                    name="input-7-4"
+                    label="Faire un commentaire"
+                    class="the-message-area"
+                  ></v-textarea>
+                </div>
+              </v-form>
+              <v-btn icon color="mainBlueColor" @click="makeComent"
+              ><v-icon>mdi-send</v-icon></v-btn>
+            </div>
           </v-container>
         </v-card-text>
         
       </v-card>
     </v-dialog>
+
     <!-- THE SEACH BAR -->
-   <!-- THE SEACH BAR -->
     <v-row>
-      <v-col cols="12" md="5" lg="5">
-        <v-text-field
-          v-model="search"
-          solo
-          height="50"
-          hide-details
-          prepend-inner-icon="mdi-search"
-          label="Rechercher"
-          class="theSeachBar"
-        ></v-text-field>
+      <v-col cols="12" md="12" lg="12">
+        <p style="margin-bottom: 40px; text-align:center;"> 
+          <span style="font-size: 17px; font-weight: bold;text-transform: uppercase">
+           {{ project_name }}
+          </span> 
+        </p>
       </v-col>
     </v-row>
     <!-- START DATA TABLE -->
@@ -293,7 +391,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="AutoexecuteTasks"
+        :items="OneProjectTasksEmploye"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -304,17 +402,14 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" 
-          @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-          v-if="!item.status"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
           <v-btn icon color="mainBlueColor" v-if="item.status_tache==0" @click="acceptItem(item)"
            ><v-icon small> mdi-check-network </v-icon></v-btn
           >
+          <!-- <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          v-if="!item.status"
+            ><v-icon small> mdi-trash-can </v-icon></v-btn
+          > @click="editItem(item)"
+          v-if="!item.status"-->
         </template>
         <template v-slot:[`item.status_tache`]="{ item }">
           <div v-if="item.status_tache!=0" class="status" style="background: #0DA36C94;; color:white;">fait</div>
@@ -354,8 +449,9 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "projectTaskReview",
+  name: "EmployeTaskList",
   components: {},
+  props:['project_id','project_name'],
 
   data: () => ({
     // For the table
@@ -428,6 +524,7 @@ export default {
 
     // For Visite detail
     dialog: false,
+    new_Coment: {},
     editedItem: {
       nom_visiteur: "",
       prenoms_visiteur: "",
@@ -462,19 +559,44 @@ export default {
     // ------------------------
     showItem(item) {
       this.editedItem = Object.assign({}, item);
+      this.new_Coment.id_user = localStorage.getItem("user-id");
       this.dialog = true;
+    },
+    // ------------------------
+    // Make Coments
+    // ------------------------
+    makeComent() {
+      this.new_Coment.id_tache = this.editedItem.id;
+      axios
+        ({ url: "/api/v1/users/Commentaire_tache", data: this.new_Coment, method: "POST" })
+        .then((response) => {
+          // console.log(response.data);
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Annulation effectuée
+            this.$store.dispatch("init_userVisite");
+            this.$refs.form00.reset();
+          } else if (!this.VisiteaAddingResponse) {
+            console.log("messagePasEnvoyé");
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
     },
 
     // ------------------------
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      // this.editedIndex = this.UserVisites.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
-   editItemConfirm() {
+
+    editItemConfirm() {
       axios
         ({ url: "/api/v1/admin/update_taches/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
@@ -487,7 +609,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_auto_execute");
+               this.$store.dispatch("init_one_project_task");
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
@@ -504,6 +626,7 @@ export default {
 
       this.closeEdit();
     },
+
     closeEdit() {
       this.dialogEdit = false;
     },
@@ -520,14 +643,10 @@ export default {
       // this.dialogDelete = true;
       this.dialogDeleteOneVariante = true;
     },
-    deleteItemNature() {
-      this.dialogDelete = true;
-      this.BeforeDialogDelete = false;
-    },
 
     deleteOneItemVriante() {
       this.dialogDeleteOneVariante = true;
-      this.BeforeDialogDelete = false;
+      // this.BeforeDialogDelete = false;
     },
           // confirm deleted of nature
     deleteItemConfirm() {
@@ -566,7 +685,7 @@ export default {
     },
 
           // confirm deleted of one variante
-   deleteItemVarinteConfirm() {
+    deleteItemVarinteConfirm() {
       axios
         .delete(
           "/api/v1/admin/destroy_taches/" + this.editedItem.id
@@ -580,7 +699,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_auto_execute");
+               this.$store.dispatch("init_one_project_task");
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
@@ -603,10 +722,12 @@ export default {
 
     // FOR ACCEPT VISITE
     acceptItem(item) {
+      // this.editedIndex = this.Visites.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      // this.itemToDelete = { id: this.editedItem.Visites_id };
       this.dialogAccept = true;
     },
-     acceptVisite() {
+    acceptVisite() {
       axios
         ({ url: "/api/v1/admin/marquer_tache_faite/"+this.editedItem.id, method: "PUT" })
         .then((response) => {
@@ -618,7 +739,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_auto_execute");
+               this.$store.dispatch("init_one_project_task_employe",this.project_id);
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.VisiteaAddingResponse.message = "echec de l'operation";
@@ -684,34 +805,27 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AutoexecuteTasks"]),
+    ...mapGetters(["OneProjectTasksEmploye"]),
   },
 
   created() {
-    this.$store.dispatch("init_auto_execute");
+    this.$store.dispatch("init_one_project_task_employe",this.project_id);
+    // console.log("::::::",this.project_id);
+    // console.log("::::::",this.project_name);
   },
 };
 </script>
 
 <style scoped>
 .tableWrapperDiv {
-  height: 55vh;
+  height: 100%;
+  width:100%;
   background: white;
   border-radius: 10px;
   overflow: hidden;
   padding: 25px;
   padding-bottom: 50px;
 }
-.TitleForList{
-  margin-bottom: 40px;
-  font-size: 12px;
-  text-transform: uppercase;
-  /* background-color:red; */
-  border-radius: 2px;
-  padding: 5px;
-  box-shadow: 0px 2px 1px -2px rgba(0, 0, 0, 0.103), 0px 2px 2px 0px rgba(0, 0, 0, 0.103), 0px 1px 5px 0px rgba(0, 0, 0, 0.103);
-}
-
 .dataWrapper {
   height: 100%;
   overflow-y: scroll;
@@ -755,6 +869,61 @@ export default {
   align-items: flex-start;
   background: #ffffff;
 }
+.showDialog2{
+  background:white;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.comentsWrapper{
+  max-height: 350px;
+  overflow-y: auto;
+  /* background:blue; */
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.commentBox{
+  /* background: #b71c1c; */
+  display: flex;
+  align-items: flex-end;
+  justify-content:center;
+}
+.commentBox p{
+  background: #037cb82c;
+  max-width:80%;
+  font-size: 11px;
+  line-height: 15px;
+  padding:15px 10px;
+  border-radius: 5px;
+}
+.avartCommt{
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #037cb82c;
+  border-radius: 100px;
+  margin: 3px;
+}
+.avartCommt img{
+  height: 25px;
+  width: 25px;
+  border-radius: 100px;
+}
+.makeComent{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+}
+
 .imgAndTitle {
   margin: 15px 0px;
   height: 70px;
@@ -818,6 +987,7 @@ export default {
   font-size:11px;
   font-weight: bold
 }
+
 /* Edit travel */
 .editIMGO {
   margin-left: 35%;
@@ -882,7 +1052,6 @@ export default {
 .verificationAction > button {
   width: 100px;
 }
-
 
 /* Confirme Delete travel */
 .confirmTitle {

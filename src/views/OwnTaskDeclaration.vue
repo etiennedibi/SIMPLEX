@@ -17,7 +17,8 @@
                         height="40"
                         solo
                         label="Intitulé"
-                        v-model="new_visit.contact_visiteur"
+                        v-model="new_visit.intitule_tache"
+                        :rules="[() => !!new_visit.intitule_tache]"
                         append-icon="mdi-subtitles"
                         type="text"
                         value=""
@@ -29,10 +30,10 @@
                       <v-text-field
                         height="40"
                         solo
-                        label="Delais d'execution"
-                        v-model="new_visit.contact_visiteur"
-                        append-icon="mdi-clipboard-text-clock-outline"
-                        type="text"
+                        prefix="Delais d'execution:"
+                        v-model="new_visit.delais_execution"
+                        :rules="[() => !!new_visit.delais_execution]"
+                        type="date"
                         value=""
                         persistent-hint
                         required
@@ -47,7 +48,8 @@
                         append-icon="mdi-subtitles-outline"
                         rows="5"
                         name="input-7-4"
-                        v-model="new_visit.objet"
+                        v-model="new_visit.details_taches"
+                        :rules="[() => !!new_visit.details_taches]"
                         label="Details"
                         class="the-message-area"
                       ></v-textarea>
@@ -85,7 +87,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        RDV enregistré</v-alert
+        Enregistrement effectué</v-alert
       >
     </transition>
     <transition name="slide">
@@ -97,7 +99,7 @@
         class="alert"
         color="error"
       >
-        Une information est male renseignée</v-alert
+        Echec de l'operation</v-alert
       >
     </transition>
   </div>
@@ -126,14 +128,7 @@ export default {
     new_project: {
     },
     new_visit: {
-      nom_visiteur: "",
-      prenoms_visiteur: "",
-      email_visiteur: "",
-      contact_visiteur: "",
-      date_rdv: "",
-      heure_rdv: "",
-      objet: "",
-      id_user_employer: 0,
+     
     },
 
     visitaAddingResponse: "",
@@ -148,7 +143,9 @@ export default {
 
   methods: {
     submit1() {
-        axios({ url: "rdv/demande_rdv", data: this.new_visit, method: "POST" })
+
+      if (this.$refs.form1.validate()) {
+        axios({ url: "/api/v1/admin/store_taches_auto_execute", data: this.new_visit, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);
@@ -157,8 +154,9 @@ export default {
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               // this.forceRerender1();
-              this.$store.dispatch("init_userVisite")
+              this.$store.dispatch("init_auto_execute");
             }, 3000);
+              this.$refs.form1.reset();
           } else {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -170,6 +168,8 @@ export default {
           this.visitaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
+      }
+        
 
     },
 
@@ -183,8 +183,10 @@ export default {
   },
 
   created() {
-    this.new_visit.company_id = localStorage.getItem("user-station");
-    this.new_visit.id_user_employer = localStorage.getItem("user-id");
+    this.new_visit.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_visit.createur  = localStorage.getItem("user-id");
+    // this.new_visit.id_departement  = localStorage.getItem("user-department");
+    this.new_visit.id_departement  = 1;
 
   },
 };

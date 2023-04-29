@@ -12,26 +12,26 @@
             <div class="statElment">
               <div>
                 <h5>VISITEUR</h5>
-                <h4>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>EMAIL</h5>
-                <h4>{{ editedItem.email_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.email_visiteur }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>TELEPHONE</h5>
-                <h4>{{ editedItem.contact_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
               </div>
             </div>
             <div class="statElment">
               
               <div>
                 <h5>MOTIF</h5>
-                <h4 style="text-align:justify">{{ editedItem.objet }}</h4>
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.objet }}</h4>
               </div>
             </div>
             
@@ -344,57 +344,7 @@ export default {
   margin-bottom: 5vh!important;
 }
 
-/* Show details */
-.showDialog{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
-}
-.imgAndTitle > img{
-  height:50px;
-  width:50px
-}
 
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
-  text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
-}
-
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
 
 
 

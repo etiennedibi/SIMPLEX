@@ -118,21 +118,18 @@
           </v-container>
         </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+              style="background:grey"
             @click="closeEdit"
-            style="color: white"
-            >Annuler</v-btn
+            >Annuler</p
           >
-          <v-btn
-            color="mainBlueColor"
-            depressed
+          <p
+            class="simplex-btn"
             @click="editItemConfirm"
-            style="color: white"
-            >Enregistrer</v-btn
+            >Enregistrer</p
           >
         </v-card-actions>
       </v-card>

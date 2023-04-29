@@ -37,15 +37,8 @@
                         required
                       ></v-textarea>
                     </div>
-                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:flex-start">
-                      <v-btn
-                        medium
-                        depressed
-                        color="mainBlueColor"
-                        style="color: white"
-                        v-on:click.prevent="submit1"
-                        >Enregistrer</v-btn
-                      >
+                    <v-col cols="12" md="12" lg="12">
+                      <p class="simplex-btn simplex-submit-btn" v-on:click.prevent="submit1">Enregistrer</p>
                     </v-col>
                   </v-row>
                 </v-container>

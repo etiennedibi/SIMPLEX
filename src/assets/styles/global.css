@@ -133,7 +133,27 @@ transform: translateX(-20px)
 /*++++++++++++++++
 ===> BUTTONS <===
 +++++++++++++++++ */
+.simplex-btn {
+    font-size: 11px;
+    display: inline-block;
+    padding: 0;
+    padding: 10px 15px;
+    /* padding-bottom: 20px; */
+    border-radius: 5px;
+    color: white;
+    background: var(--main-blue-important);
+    cursor: pointer;
+    transition:  0.3s ease-in;
+    text-transform: uppercase;
+  }
+.simplex-btn:hover {
+    background: #037bb8d4;;
+  }
 
+  .simplex-submit-btn {
+    padding: 10px 17px;
+    font-size: 12px;
+  }
 
 /*-------END------------*/
 
@@ -149,6 +169,116 @@ transform: translateX(-20px)
 
 
 /*-------END------------*/
+
+
+/*----------------------
+    ---- POP UP---- 
+------------------------*/
+/* Show details */
+.showDialog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+  }
+  .imgAndTitle {
+    margin: 15px 0px;
+    /* margin-left: 110px; */
+    height: 70px;
+    width: 70px;
+    font-size: 11px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    border: solid 3px;
+    border-color: var(--main-blue-important) rgb(176, 176, 182);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(
+        180deg,
+        rgb(0 0 0 / 0%),
+        rgb(0 0 0 / 19%),
+        rgb(0 0 0)
+      ),
+      url(../../assets/img/pexels-nappy-1058959.jpg);
+    background-position: center;
+    background-size: cover; */
+  }
+  .imgAndTitle > img{
+    height:35px;
+    width:35px
+  }
+  .statElment {
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+    /* background-color:red;*/
+  }
+  .Elment1{
+    text-transform: uppercase;
+    font-size:12px;
+  }
+  .Elment2{
+    /* text-transform: uppercase; */
+    font-size:11px;
+  }
+  .Elment3{
+    /* text-transform: uppercase; */
+    width:100%;
+    font-size:11px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .statElment h5 {
+    color: var(--main-blue-important);
+  }
+  
+  .statusChange {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .status{
+    display:inline-block;
+    padding: 7px;
+    border-radius:50px;
+    font-size:11px;
+    font-weight: bold
+  }
+  
+
+
+
+  /* Delete travel */
+.deleteIMG {
+    margin-left: 37%;
+    margin-bottom: 0px;
+    /* background-color:red; */
+  
+    border: 3px solid grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .CancelVerification {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+  }
+  .verificationAction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .verificationAction > button {
+    width: 100px;
+  }
+  
+/*-------END------------*/
+
 
 
 

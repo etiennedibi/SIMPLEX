@@ -75,7 +75,7 @@
     </v-dialog>
 
     <!-- CONFIRM DELETED  TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDeleteConfirm" max-width="420">
+    <v-dialog v-model="dialogDeleteConfirm" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">AVERTISSEMENT !</div>
@@ -114,7 +114,7 @@
     </v-dialog>
 
     <!-- DELETE TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -150,7 +150,7 @@
     </v-dialog>
 
     <!-- EDIT TRAVEL DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -747,7 +747,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 

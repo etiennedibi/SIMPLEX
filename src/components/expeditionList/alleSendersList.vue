@@ -1,7 +1,7 @@
 <template>
   <div class="tableWrapperDiv">
     <!-- DELETE TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -37,7 +37,7 @@
     </v-dialog>
 
     <!-- EDIT TRAVEL DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>

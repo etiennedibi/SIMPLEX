@@ -98,7 +98,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/conge_par_departement/"+localStorage.getItem("user-department")
+        "/api/v1/admin/conge_par_departement/"+1
       )
       .then((res) => {
         commit("SET_ALL_CONGE_DPRT", res.data);

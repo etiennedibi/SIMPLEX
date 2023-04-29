@@ -1,7 +1,7 @@
 <template>
   <div class="tableWrapperDiv">
     <!-- DELETE TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -42,7 +42,7 @@
     </v-dialog>
 
     <!-- EDIT TRAVEL DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -101,21 +101,18 @@
           </v-container>
         </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+            style="background:grey"
             @click="closeEdit"
-            style="color: white"
-            >Annuler</v-btn
+            >Annuler</p
           >
-          <v-btn
-            color="mainBlueColor"
-            depressed
+          <p
+            class="simplex-btn"
             @click="editItemConfirm"
-            style="color: white"
-            >Enregistrer</v-btn
+            >Enregistrer</p
           >
         </v-card-actions>
       </v-card>
@@ -134,11 +131,11 @@
             <div class="statElment">
               <div>
                 <h5>COTA INITIAL</h5>
-                <h4 style="margin-bottom:20px">
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">
                   {{editedItem.cota}} Jrs
                 </h4>
                 <h5>DESCRIPTION</h5>
-                <h4 style="text-align:justify">{{ editedItem.description }} 
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.description }} 
                 </h4>
               </div>
             </div>
@@ -432,57 +429,6 @@ export default {
   margin-bottom: 10px;
 }
 
-/* Show details */
-.showDialog{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
-}
-.imgAndTitle > img{
-  height:50px;
-  width:50px
-}
-
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
-  text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
-}
-
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
 
 /* Edit travel */
 .editIMGO {
@@ -517,31 +463,6 @@ export default {
   padding-top: 0px;
 }
 
-/* Delete travel */
-.deleteIMG {
-  margin-left: 35%;
-  margin-bottom: 0px;
-  /* background-color:red; */
-  border: 3px solid grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.CancelVerification {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 5px;
-  margin-bottom: 30px;
-}
-.verificationAction {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.verificationAction > button {
-  width: 150px;
-}
 
 
 </style>

@@ -136,13 +136,10 @@
                       ></v-textarea>
                     </div>
                     <v-col cols="12" md="8" lg="8">
-                      <v-btn
-                        large
-                        depressed
-                        color="mainBlueColor"
-                        style="color: white"
+                      <p
+                        class="simplex-btn simplex-submit-btn"
                         v-on:click.prevent="submit1"
-                        >Enregistrer</v-btn
+                        >Enregistrer</p
                       >
                     </v-col>
                   </v-row>
@@ -229,7 +226,7 @@ export default {
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);
-          if (this.visitaAddingResponse.error==false) {
+          if (this.visitaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;

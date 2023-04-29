@@ -43,7 +43,7 @@
     </v-dialog>
 
     <!-- CHANGE STATE DIALOG -->
-    <v-dialog v-model="dialogChangeState" max-width="420">
+    <v-dialog v-model="dialogChangeState" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">OBJET TROUVE</div>
@@ -380,7 +380,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 .CancelVerification {

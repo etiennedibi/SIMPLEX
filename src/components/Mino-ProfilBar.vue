@@ -11,7 +11,7 @@
       <p v-if="this.role==1">ADMINISTRATEUR</p>
       <p v-if="this.role==2">MANAGEUR</p>
       <p v-if="this.role==3">CHEF D'EQUIPE</p>
-      <p v-on:click.prevent="logOut">Deconnexion</p>
+      <p class="simplex-btn" v-on:click.prevent="logOut">DECONNEXION</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
         <v-icon>mdi-cog</v-icon>
@@ -131,14 +131,9 @@ export default {
   color: var(--font-color);
 }
 .profilBox p:nth-child(4) {
-  font-size: 13px;
   margin-top: -5px;
-  padding: 8px;
-  border-radius: 5px;
-  color: white;
-  background: var(--main-blue-important);
-  cursor: pointer;
 }
+
 .settingdiv {
   position: absolute;
   top: 12vh;

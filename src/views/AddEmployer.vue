@@ -289,12 +289,11 @@
 
 
                 <v-col cols="12" md="4" lg="4">
-                  <v-btn
-                    large
-                    depressed
-                    color="mainBlueColor"
+                  <p
+                    class="simplex-btn simplex-submit-btn"
+                    style="padding:14px 19px;margin-top:0px"
                     v-on:click.prevent="submit1"
-                    >Enregistrer</v-btn
+                    >Enregistrer</p
                   >
                 </v-col>
               </v-row>

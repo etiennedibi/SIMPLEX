@@ -2,7 +2,7 @@
   <div class="tableWrapperDiv">
 
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
-    <v-dialog v-model="BeforeDialogDelete" max-width="420">
+    <v-dialog v-model="BeforeDialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">supprimer ?</div>
@@ -43,7 +43,7 @@
     </v-dialog>
 
     <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">AVERTISSEMENT !</div>
@@ -82,7 +82,7 @@
     </v-dialog>
 
     <!-- DELETE-CANCEL VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -123,7 +123,7 @@
     </v-dialog>
 
     <!-- ACCEPTE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogAccept" max-width="420">
+    <v-dialog v-model="dialogAccept" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -186,7 +186,7 @@
 
 
      <!-- REJECT VISITE DIALOG -->
-    <v-dialog v-model="dialogReject" max-width="420">
+    <v-dialog v-model="dialogReject" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -227,7 +227,7 @@
 
 
     <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">updateForm1
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -237,7 +237,7 @@
             <form class="updateForm">
               <v-container fluid>
                 <v-row>
-                  <v-col cols="12" md="11" lg="11">
+                  <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -251,7 +251,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" md="11" lg="11">
+                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -266,7 +266,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" md="11" lg="11">
+                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -279,7 +279,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -295,7 +295,7 @@
                       ></v-text-field>
                     </v-col>
                    
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -308,7 +308,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" md="11" lg="11">
+                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -323,7 +323,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
@@ -338,7 +338,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <div style="width:90%; padding: 15px 10px 0px 10px">
+                    <div style="width:100%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo
                         clearable
@@ -356,28 +356,24 @@
           </v-container>
         </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+            style="background:grey"
             @click="closeEdit"
-            style="color: white"
-            >Annuler</v-btn
-          >
-          <v-btn
-            color="mainBlueColor"
-            depressed
+            >Annuler</p>
+          <p
+            class="simplex-btn"
             @click="editItemConfirm"
-            style="color: white"
-            >Enregistrer</v-btn
+            >Enregistrer</p
           >
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="420">
+    <v-dialog v-model="dialogReport" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -387,7 +383,7 @@
             <form class="updateForm ReportForm">
               <v-container fluid>
                 <v-row>
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12" class="margin-top:50px;">
                       <v-text-field
                         height="60"
                         solo
@@ -398,26 +394,28 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
                         background-color="#356eea24"
-                        append-icon="mdi-clock-time-eight"
+                        append-icon="mdi-timer"
                         ref="desc"
                         v-model="editedItem.heure_rdv"
                         type="time"
                         value=""
                         persistent-hint
+                        prefix="heure"
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="11" lg="11">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
                         background-color="#356eea24"
                         v-model="editedItem.duree_rdv"
+                        prefix="Durée de la visite"
                         ref="transport"
                         type="time"
                         label="heure"
@@ -432,21 +430,18 @@
           </v-container>
         </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+           class="simplex-btn"
+            style="background:grey"
             @click="closeReportVisite"
-            style="color: white"
-            >Annuler</v-btn
+            >Annuler</p
           >
-          <v-btn
-            color="mainBlueColor"
-            depressed
+          <p
+            class="simplex-btn"
             @click="reportVisite"
-            style="color: white"
-            >Enregistrer</v-btn
+            >Enregistrer</p
           >
         </v-card-actions>
       </v-card>
@@ -463,33 +458,31 @@
             <div class="statElment">
               <div>
                 <h5>VISITEUR</h5>
-                <h4>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>EMAIL</h5>
-                <h4>{{ editedItem.email_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.email_visiteur }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>TELEPHONE</h5>
-                <h4>{{ editedItem.contact_visiteur }}</h4>
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
               </div>
             </div>
-            <div class="statElment">
               <div class="statElment">
                 <div>
                   <h5>DUREE DU RDV</h5>
-                  <h4>{{ editedItem.duree_rdv }}</h4>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.duree_rdv }}</h4>
                 </div>
               </div>
-            </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF</h5>
-                <h4 style="text-align:justify">{{ editedItem.objet }}</h4>
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.objet }}</h4>
               </div>
             </div>
             
@@ -788,7 +781,7 @@ export default {
     dialogAccept:false,
     visiteToAccpet:{},
 
-  // For Visite Accept
+  // For Visite Reject
     dialogReject:false,
     visiteToRject:{},
   }),
@@ -1122,57 +1115,6 @@ export default {
   margin-bottom: 5vh!important;
 }
 
-/* Show details */
-.showDialog{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
-}
-.imgAndTitle > img{
-  height:50px;
-  width:50px
-}
-
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
-  text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
-}
-
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
 
 /* Edit travel */
 .editIMGO {
@@ -1187,6 +1129,10 @@ export default {
   /* background:red; */
   height: 100px!important;
   width: 110%;
+}
+.updateForm {
+  height: 350px;
+  overflow-y: scroll;
 }
 .updateForm2 {
   height: 250px;
@@ -1213,34 +1159,8 @@ export default {
 }
 
 .ReportForm{
-  height: 170px;
-  overflow-y: clip;
-}
-
-/* Delete travel */
-.deleteIMG {
-  margin-left: 35%;
-  margin-bottom: 0px;
-  /* background-color:red; */
-  border: 3px solid grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.CancelVerification {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 5px;
-  margin-bottom: 30px;
-}
-.verificationAction {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.verificationAction > button {
-  width: 150px;
+  height: 200px;
+  /* overflow-y: clip; */
 }
 
 /* Confirme Delete travel */
@@ -1254,7 +1174,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 </style>

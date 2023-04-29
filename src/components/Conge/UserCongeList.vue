@@ -2,7 +2,7 @@
   <div class="tableWrapperDiv">
 
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
-    <v-dialog v-model="BeforeDialogDelete" max-width="420">
+    <v-dialog v-model="BeforeDialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">supprimer ?</div>
@@ -34,7 +34,7 @@
     </v-dialog>
 
     <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <v-dialog v-model="dialogDelete" max-width="370">
       <v-card>
         <v-card-text>
           <div class="confirmTitle">AVERTISSEMENT !</div>
@@ -73,7 +73,7 @@
     </v-dialog>
 
     <!-- DELETE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogDeleteOneVariante" max-width="420">
+    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -114,7 +114,7 @@
     </v-dialog>
 
     <!-- ACCEPTE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogAccept" max-width="420">
+    <v-dialog v-model="dialogAccept" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -156,7 +156,7 @@
 
 
     <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -266,7 +266,7 @@
     </v-dialog>
 
     <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="420">
+    <v-dialog v-model="dialogReport" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -340,33 +340,33 @@
             <div class="statElment">
               <div>
                 <h5>DATE DE DEBUT</h5>
-                <h4>{{ editedItem.date_debut }}</h4>
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.date_debut }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>DATE DE FIN</h5>
-                <h4>{{ editedItem.date_fin }}</h4>
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.date_fin }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>NOMBRE DE JOURS</h5>
-                <h4>{{ editedItem.nbre_jour }}
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.nbre_jour }}
                 </h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF DE LA DEMANDE</h5>
-                <h4>{{ editedItem.motif_conge }}
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.motif_conge }}
                 </h4>
               </div>
             </div>
             <div class="statElment" v-if="editedItem.etat_demande=='CONGE_ANNULÉ'">
               <div>
                 <h5>MOTIF DU REJET DE LA DEMANDE</h5>
-                <h4>{{ editedItem.motif_traitement }}
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.motif_traitement }}
                 </h4>
               </div>
             </div>
@@ -955,57 +955,6 @@ export default {
   margin-bottom: 10px;
 }
 
-/* Show details */
-.showDialog{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
-}
-.imgAndTitle > img{
-  height:50px;
-  width:50px
-}
-
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
-  text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
-}
-
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
 
 /* Edit travel */
 .editIMGO {
@@ -1082,7 +1031,7 @@ export default {
   line-height: 30px;
   border-radius: 0px 0px 10px 10px;
   /* margin-bottom: -30px; */
-  /* width: 420px; */
+  /* width: 370px; */
   text-align: center;
 }
 </style>

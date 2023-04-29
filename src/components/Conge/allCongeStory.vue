@@ -12,25 +12,25 @@
             <div class="statElment">
               <div>
                 <h5>DEMANDEUR</h5>
-                <h4>{{ editedItem.nom }} {{ editedItem.prenoms }}</h4>
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.nom }} {{ editedItem.prenoms }}</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>DUREE</h5>
-                <h4>{{ editedItem.nbre_jour }} jour(s)</h4>
+                <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">{{ editedItem.nbre_jour }} jour(s)</h4>
               </div>
             </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF DE DEMANE</h5>
-                <h4 style="text-align:justify">{{ editedItem.motif_conge }}</h4>
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.motif_conge }}</h4>
               </div>
             </div>
             <div class="statElment" v-if="editedItem.etat_demande=='CONGE_ANNULÉ'">
               <div>
                 <h5>MOTIF DU REJET DE LA DEMANDE</h5>
-                <h4>{{ editedItem.motif_traitement }}
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.motif_traitement }}
                 </h4>
               </div>
             </div>
@@ -328,57 +328,7 @@ export default {
   margin-bottom: 10px;
 }
 
-/* Show details */
-.showDialog{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
-}
-.imgAndTitle > img{
-  height:50px;
-  width:50px
-}
 
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
-  text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
-}
-
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
 
 
 

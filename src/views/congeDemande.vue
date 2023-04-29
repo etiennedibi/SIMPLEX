@@ -171,8 +171,8 @@ export default {
         axios({ url: "/api/v1/users/store_conge", data: this.new_conge_ask, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
-          console.log(response.data);
-          if (this.congeAskaAddingResponse.code == 200) {
+          // console.log(response.data);
+          if (this.congeAskaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;

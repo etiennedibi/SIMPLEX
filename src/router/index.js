@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import store from "../store";
+import store from "../store";
 
 import Dashboard from "../views/Dashboard.vue";
 
@@ -48,104 +48,118 @@ import abonnement from "../views/abonnementChekpage.vue";
 
 Vue.use(VueRouter);
 
-// const ifNotAuthenticated = (to, from, next) => {
-//   if (!store.getters.isAuthenticated) {
-//     next();
-//     return;
-//   }
-//   next("/");
-// };
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next("/");
+};
 
-// const ifAuthenticated = (to, from, next) => {
-//   if (store.getters.isAuthenticated) {
-//     next();
-//     return;
-//   }
-//   next("/login");
-// };
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next("/login");
+};
 
 const routes = [
   {
     path: "/",
     name: "Dashboard",
     component: Dashboard,
-    // beforeEnter: ifAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/Messagerie",
     name: "Messagerie",
     component: Messagerie,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/param",
     name: "param",
     component: param,
-    // beforeEnter: ifAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/RdvStory",
     name: "RdvStory",
     component: RdvStory,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/AddEmployer",
     name: "AddEmployer",
     component: AddEmployer,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/Contract",
     name: "Contract",
     component: Contract,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/congeType",
     name: "congeType",
     component: conge,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/WorkManagment",
     name: "WorkManagment",
     component: WorkManagment,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/ServiceManagment",
     name: "ServiceManagment",
     component: ServiceManagment,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/VisiteDeclaration",
     name: "VisiteDeclaration",
     component: VisiteDeclaration,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/TaskDeclaration",
     name: "TaskDeclaration",
     component: TaskDeclaration,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/OwnTaskDeclaration",
     name: "OwnTaskDeclaration",
     component: OwnTaskDeclaration,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/taskStory",
     name: "taskStory",
     component: taskStory,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/UserTaskManage",
     name: "UserTaskManage",
     component: UserTaskManage,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/FileManage",
     name: "FileManage",
     component: fileManage,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/UserFileManage",
     name: "UserFileManage",
     component: UserFileManage,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/lostObjectList",
@@ -171,42 +185,49 @@ const routes = [
     path: "/StaffList",
     name: "StaffList",
     component: StaffList,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/FicheEmploye",
     name: "FicheEmploye",
     component: FicheEmploye,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/CongeDemande",
     name: "CongeDemande",
     component: CongeDemande,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/BilanConge",
     name: "BilanConge",
     component: BilanConge,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/Congemanagment",
     name: "Congemanagment",
     component: Congemanagment,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/CongeStory",
     name: "CongeStory",
     component: CongeStory,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/BilanAbsence",
     name: "BilanAbsence",
     component: BilanAbsence,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/login",
     name: "login",
     component: login,
-    // beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,
     },
@@ -215,7 +236,7 @@ const routes = [
     path: "/abonnement",
     name: "abonnement",
     component: abonnement,
-    // beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,
     },

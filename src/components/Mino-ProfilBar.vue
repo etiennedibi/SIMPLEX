@@ -11,6 +11,7 @@
       <p v-if="this.role==1">ADMINISTRATEUR</p>
       <p v-if="this.role==2">MANAGEUR</p>
       <p v-if="this.role==3">CHEF D'EQUIPE</p>
+      <p v-if="this.role==4">EMPLOYE</p>
       <p class="simplex-btn" v-on:click.prevent="logOut">DECONNEXION</p>
       <router-link :to="{name: 'param'}">
       <div class="settingdiv">
@@ -19,7 +20,7 @@
       </router-link>
     </div>
     <router-link :to="{ name: 'Messagerie' }">
-      <div class="timeBox">
+      <div class="timeBox" v-if="this.role==1">
         <!-- <div>35</div> -->
         <v-icon color="mainBlueColor" x-large class="messgaeicon"
           >mdi-bullhorn-outline</v-icon

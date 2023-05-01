@@ -7,7 +7,9 @@
       <MinoProfilBar></MinoProfilBar>
       <MinoTopBar></MinoTopBar>
       <v-main>
+        <!-- <transition name="slide" duration="1000"> -->
         <router-view></router-view>
+        <!-- </transition> -->
       </v-main>
       <MinoBottonNavBar></MinoBottonNavBar>
     </div>

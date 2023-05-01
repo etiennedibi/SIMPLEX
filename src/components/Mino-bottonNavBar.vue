@@ -21,7 +21,7 @@
                 <p>GESTION DES RDV</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'RdvStory' }">
+            <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE</p>
@@ -44,13 +44,13 @@
             <v-icon color="red" v-on:click.stop="travelMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="travelMenuClick = false">
-            <router-link :to="{ name: 'AddEmployer' }">
+            <router-link :to="{ name: 'AddEmployer' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ENREGISTRER UN EMPLOYE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'StaffList' }">
+            <router-link :to="{ name: 'StaffList' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>LISTE DES EMPLOYES</p>
@@ -79,7 +79,7 @@
             <v-icon color="red" v-on:click.stop="tastMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="tastMenuClick = false">
-            <router-link :to="{ name: 'TaskDeclaration' }">
+            <router-link :to="{ name: 'TaskDeclaration' }" v-if="this.role==1 || this.role==2 || this.role==3">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ATTRIBUER UNE TÂCHE</p>
@@ -132,19 +132,19 @@
                 <p>SOUMETTRE UNE DEMANDE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'Congemanagment' }">
+            <router-link :to="{ name: 'Congemanagment' }" v-if="this.role==1 || this.role==2">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>GESTION DES DEMANDES</p>
               </div>
             </router-link>
-             <router-link :to="{ name: 'CongeStory' }">
+             <router-link :to="{ name: 'CongeStory' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'BilanAbsence' }">
+            <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>BILAN DES PRESENCES</p>
@@ -155,7 +155,7 @@
       </div>
 
       <div class="navBox navEnd" v-on:click="activeMenu4"
-        :class="{ ConfigNavActive: isActive4 }">
+        :class="{ ConfigNavActive: isActive4 }" v-if="this.role==1">
         <img src="@/assets/icone/configs.png" alt="" srcset="" />
         <p>Configuration</p>
         <div class="menuBox" v-if="configMenuClick">
@@ -223,7 +223,7 @@ export default {
     expeditionMenuClick: true,
 
     // For User
-    role: 0,
+    role: "",
   }),
 
   methods: {

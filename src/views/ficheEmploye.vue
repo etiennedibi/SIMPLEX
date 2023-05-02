@@ -1,7 +1,25 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <!-- <p class="sectionTitle">Chiffres Importants</p> -->
+      <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
+        <v-dialog
+          v-model="showFile"
+          width="800"
+          overlay-color="black"
+          overlay-opacity="0.8"
+          mainBlueColor
+        >
+          <v-card tile>
+            <v-card-text>
+              <v-container>
+                <v-row class="detailsTemplate">
+                  <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      <!-- END PRDUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
       <v-container v-if="Current_employer" fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="8" lg="8">
@@ -73,7 +91,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-container v-else fluid class="pouletBr stationListboxWrapper2">
+      <v-container v-if="!Current_employer" fluid class="pouletBr stationListboxWrapper2">
        <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
         Veuillez renseigner vos informations personnelles et professionnelles,<br>
         pour accéder à votre fiche employé.
@@ -410,102 +428,10 @@ export default {
     adminInfos:false,
     editedItem: {},
     profilIMG:"",
-    /* FOR  SERVICE STATS */
-    showChart: false,
 
-    series: [
-      //     {
-      // name: 'series7',
-      // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
-      // },
-      // {
-      // name: 'series2',
-      // data: [11, 32, 22, 12, 30, 52,0, 32, 45, 33, 14, 22]
-      // },
-      // {
-      // name: 'series3',
-      // data: [20, 50, 10, 83, 56, 22,20, 50, 20, 19, 30, 120]
-      // }
-    ],
-
-    chartOptions: {
-      chart: {
-        id: "FirstChart",
-        type: "area",
-        sparkline: {
-          enabled: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Aug",
-          "Sep",
-          "Oct",
-        ],
-      },
-    },
-
-    /* FOR SERVICE MARCK */
-    series2: [45, 55, 30],
-
-    chartOptions2: {
-      chart: {
-        // width: 380,
-        type: 'polarArea'
-      },
-      fill: {
-        opacity: 1
-      },
-      stroke: {
-        width: 1,
-        colors: undefined
-      },
-      yaxis: {
-          show: false
-        },
-      legend: {
-          position: 'bottom'
-        },
-      plotOptions: {
-          polarArea: {
-            rings: {
-              strokeWidth: 0
-            },
-            spokes: {
-              strokeWidth: 0
-            },
-          }
-        },
-      // theme: {
-      //   monochrome: {
-      //     enabled: true,
-      //     shadeTo: 'light',
-      //     shadeIntensity: 0.6
-      //   }
-      // },
-
-      colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
-      labels: ["SBTA", "ABOUSSOUAN", "VOUS 4eme"],
-    },
-
-
-
+    showFile:true,
+    showFileIndex:0,
+    fileToShow:"",
 
     addingSuccess: false,
     addingfalse: false,
@@ -576,6 +502,14 @@ export default {
     closeEdit() {
       this.adminInfos = false;
     },
+
+    showfileDialog() {
+
+
+      this.showFile = true;
+    },
+
+    
 
     // ------------------------
     // DATA

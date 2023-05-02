@@ -2,8 +2,8 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <img v-if="profilIMG" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
-        <img v-else src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+        <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+        <img v-if="profilIMG=='null'" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
       
       </div>
       <p>{{ uUser }}</p>
@@ -60,7 +60,7 @@ export default {
   data: () => ({
     uUser: "",
     role: "",
-    profilIMG:""
+    profilIMG:"",
   }),
 
   methods: {
@@ -75,7 +75,8 @@ export default {
     this.uUser = localStorage.getItem("user-name");
     this.profilIMG = localStorage.getItem("user-profil");
     this.role = localStorage.getItem("user-role");
-    console.log("nziojzo",this.profilIMG);
+    
+    
   },
 };
 </script>

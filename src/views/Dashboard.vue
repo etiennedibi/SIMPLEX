@@ -27,7 +27,7 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-clipboard-list</v-icon>
               </div>
-              <h1>10</h1>
+              <h1>{{ UndoTaskNumber }}</h1>
               <h6>Tâches en cours</h6>
             </div>
           </v-col>
@@ -36,7 +36,7 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-file-plus</v-icon>
               </div>
-              <h1>7</h1>
+              <h1>-</h1>
               <h6 style="text-align:center">nouveaux Fichiers <br> partagés</h6>
             </div>
           </v-col>
@@ -45,8 +45,12 @@
           <v-col cols="12" md="9" lg="9">
             <!-- <p class="sectionTitle">Statistique</p> -->
             <div class="statWrapper">
-               <p>
-                <span>+</span> <span>17</span> <span>Utilisateurs</span>
+               <p v-if="EmployersNumber>1">
+                <span>+</span> <span>0{{ EmployersNumber - 1}}</span> <span>Utilisateurs</span>
+                <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
+               </p>
+               <p v-if="EmployersNumber<1">
+                <span></span> <span>01</span> <span>Utilisateurs</span>
                 <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
                </p>
             </div>
@@ -210,11 +214,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["LastMessages"]),
+    ...mapGetters(["LastMessages","EmployersNumber","UndoTaskNumber"]),
   },
 
   created() {
     this.$store.dispatch("init_message");
+    this.$store.dispatch("init__employer_number");
+    this.$store.dispatch("init_task_undo_number");
     setInterval(this.getNow, 1000);
   },
 

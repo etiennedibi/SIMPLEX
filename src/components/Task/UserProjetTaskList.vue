@@ -177,7 +177,7 @@
 
     <v-container fluid>
       <v-row v-if="this.role==4">
-        <v-col v-if="!switch1" cols="12" md="12" lg="12" class="box">
+        <v-col cols="12" md="12" lg="12" class="box">
           <div class="stationListboxWrapper">
             <v-data-iterator
               :items="ProjectsEmploye"
@@ -819,7 +819,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Projects","ProjectsEmploye", "items"]),
+    ...mapGetters(["Projects","ProjectsEmploye"]),
 
     numberOfPages() {
       return Math.ceil(this.Projects.length / this.itemsPerPage);
@@ -961,13 +961,14 @@ export default {
     this.$store.dispatch("init_project");
     this.$store.dispatch("init_project_employe");
     
-    this.new_project.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_project.id_user  = localStorage.getItem("user-id");
-    this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_task.createur  = localStorage.getItem("user-id");
+    // this.new_project.compagnie_id = localStorage.getItem("user-compagnie");
+    // this.new_project.id_user  = localStorage.getItem("user-id");
+    // this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
+    // this.new_task.createur  = localStorage.getItem("user-id");
     this.role = localStorage.getItem("user-role");
     // this.new_task.id_departement  = localStorage.getItem("user-department");
     this.new_task.id_departement  = 1;
+    console.log("bbbbbbbbb:::::::::", this.role);
 
 
   },

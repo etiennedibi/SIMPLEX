@@ -4,6 +4,7 @@ const state = {
   oneProjectTasks: [],
   oneProjectTasksEmploy: [],
   autoexecuteTask: [],
+  undoTaskNumber: '',
 };
 
 const getters = {
@@ -37,6 +38,12 @@ const getters = {
     return project;
 
   },
+  UndoTaskNumber: (state) => {
+    let project = state.undoTaskNumber;
+
+    return project;
+
+  },
 };
 
 const mutations = {
@@ -49,7 +56,10 @@ const mutations = {
   SET_AUTO_EXECUTE(state, data) {
     state.autoexecuteTask = data;
   },
-
+  SET_UNDO_TASK_NUMBER(state, data) {
+    state.undoTaskNumber = data;
+  },
+  
 };
 
 const actions = {
@@ -89,6 +99,19 @@ const actions = {
       )
       .then((res) => {
         commit("SET_AUTO_EXECUTE", res.data.taches);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_task_undo_number: ({ commit },) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "/api/v1/admin/Task_number/"+localStorage.getItem("user-id")
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_UNDO_TASK_NUMBER", res.data.TaskNumber);
       })
       .catch((error) => console.log(error));
   },

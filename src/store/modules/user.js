@@ -4,6 +4,7 @@ const state = {
   employers: [],
   current_employers: [],
   employersByTheDepartments:[],
+  employersNumber:'',
 };
 
 const getters = {
@@ -22,6 +23,11 @@ const getters = {
 
     return employer;
   },
+  EmployersNumber: (state) => {
+    let employer = state.employersNumber;
+
+    return employer;
+  },
 };
 
 const mutations = {
@@ -33,6 +39,9 @@ const mutations = {
   },
   SET_EMPLOYER_BY_DPRT(state, data) {
     state.employersByTheDepartments = data;
+  },
+  SET_EMPLOYER_NUMBER(state, data) {
+    state.employersNumber = data;
   },
 };
 
@@ -72,6 +81,19 @@ const actions = {
       .then((res) => {
         console.log(res.data.Employes);
         commit("SET_EMPLOYER_BY_DPRT", res.data.Employes);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init__employer_number: ({ commit }) => {
+    // Vue.prototype.$http localStorage.getItem("user-id")
+    axios
+      .get(
+        "/api/v1/admin/getAllEmployNumber/"+localStorage.getItem("user-compagnie")
+      )
+      .then((res) => {
+        console.log(res.data.UserActif);
+        commit("SET_EMPLOYER_NUMBER", res.data.UserActif);
       })
       .catch((error) => console.log(error));
   },

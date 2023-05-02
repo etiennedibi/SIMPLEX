@@ -8,7 +8,7 @@
                 <v-card>
                     <v-card-text>
                     <v-container>
-                        <div class="imgAndTitle deleteIMG editIMGO">
+                        <div class="  editIMGO">
                         <p style="text-align:center; font-weight:bold">MODIFICATION DES ACCES D'AUTHENTIFICATION</p>
                         </div>
                         <form class="updateForm updatestationAdminForm">
@@ -64,7 +64,7 @@
                 <v-card>
                     <v-card-text>
                     <v-container>
-                        <div class="imgAndTitle deleteIMG editIMGO">
+                        <div class="  editIMGO">
                         <p style="text-align:center; font-weight:bold">MODIFICATION DE LA PHOTO DE PROFIL</p>
                         </div>
                         <form class="updateForm updatestationAdminForm">
@@ -115,7 +115,7 @@
                 <v-card>
                     <v-card-text>
                     <v-container>
-                        <div class="imgAndTitle deleteIMG editIMGO">
+                        <div class="  editIMGO">
                         <p style="text-align:center; font-weight:bold">MODIFICATION DES INFORMATIONS PERSONNELLES</p>
                         </div>
                         <form ref="form2"  class="updateForm updatestationAdminForm">

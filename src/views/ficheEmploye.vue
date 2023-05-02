@@ -38,8 +38,8 @@
             <div class="numberWrapper">
               <div class="N-icon">
                 <!-- <img src="@/assets/img/team2.jpg" alt="" srcset="" /> -->
-                <img v-if="profilIMG" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
-                <img v-if="!profilIMG" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+                <img v-if="profilIMG=='null'" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
               </div>
             </div>
           </v-col>
@@ -429,7 +429,7 @@ export default {
     editedItem: {},
     profilIMG:"",
 
-    showFile:true,
+    showFile:false,
     showFileIndex:0,
     fileToShow:"",
 
@@ -464,12 +464,13 @@ export default {
           formData.append('fiche_poste', this.editedItem.fiche_poste);
           formData.append('id_fonction', this.editedItem.id_fonction);
           formData.append('department_id', this.editedItem.department_id);
-          formData.append('role_id', this.editedItem.role_id);
+          formData.append('role_id', 1);
           formData.append('id_type_contrat', this.editedItem.id_type_contrat);
           formData.append('date_debut', this.editedItem.date_debut);
           formData.append('date_fin', this.editedItem.date_fin);
           formData.append('duree_contrat', this.editedItem.duree_contrat);
-
+          formData.append('user_id', this.editedItem.user_id);
+      console.log(formData);
       axios
         ({ url: "/api/v1/users/update_first_admin", data: formData, method: "PUT" })
         .then((response) => {
@@ -551,6 +552,7 @@ export default {
     this.$store.dispatch("init_right");
 
     this.editedItem.user_id = localStorage.getItem("user-id");
+    // console.log(this.editedItem.user_id);
     this.profilIMG = localStorage.getItem("user-profil");
   },
 };

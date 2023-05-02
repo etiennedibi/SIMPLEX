@@ -250,7 +250,7 @@
                         <v-icon color="white">mdi-ballot</v-icon>
                       </div>
                       <h1 v-if="canceRDVNumber" style="color: white"> 13</h1>
-                      <h1 v-else style="color: white">0</h1>
+                      <h1 v-else style="color: white">-</h1>
                       <h5 style="color: white">Taches crées</h5>
                     </div>
                   </v-col>

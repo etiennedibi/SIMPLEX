@@ -44,7 +44,7 @@ import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
 
 import login from "../views/login.vue";
-import abonnement from "../views/abonnementChekpage.vue";
+// import abonnement from "../views/abonnementChekpage.vue";
 
 Vue.use(VueRouter);
 
@@ -232,15 +232,15 @@ const routes = [
       plainLayout: true,
     },
   },
-  {
-    path: "/abonnement",
-    name: "abonnement",
-    component: abonnement,
-    beforeEnter: ifNotAuthenticated,
-    meta: {
-      plainLayout: true,
-    },
-  },
+  // {
+  //   path: "/abonnement",
+  //   name: "abonnement",
+  //   component: abonnement,
+  //   beforeEnter: ifNotAuthenticated,
+  //   meta: {
+  //     plainLayout: true,
+  //   },
+  // },
 ];
 
 const router = new VueRouter({

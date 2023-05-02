@@ -27,7 +27,8 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-clipboard-list</v-icon>
               </div>
-              <h1>{{ UndoTaskNumber }}</h1>
+              <h1 v-if="UndoTaskNumber>0">{{ UndoTaskNumber }}</h1>
+              <h1 v-if="UndoTaskNumber<=0">0</h1>
               <h6>Tâches en cours</h6>
             </div>
           </v-col>

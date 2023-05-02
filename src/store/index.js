@@ -9,7 +9,7 @@ import rating from "./modules/ratings";
 import auth from "./modules/auth";
 import gestion from "./modules/gestion";
 import message from "./modules/message";
-import checkabonnement from "./modules/checkabonnement";
+// import checkabonnement from "./modules/checkabonnement";
 
 import visites from "./modules/visites";
 import project from "./modules/project";
@@ -52,7 +52,7 @@ export default new Vuex.Store({
     auth,
     gestion,
     message,
-    checkabonnement,
+    // checkabonnement,
 
     visites,
     project,

@@ -86,7 +86,7 @@
               <span>{{ Current_employer.date_fin }} </span>
               <span>Durée contrat:</span>
               <span>{{ Current_employer.duree_contrat }} </span>
-              <span>{{ Current_employer.type_contrat }}</span>
+              <!-- <span>{{ Current_employer.type_contrat }}</span> -->
             </div>
           </v-col>
         </v-row>

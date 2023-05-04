@@ -13,9 +13,9 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
 
-axios.defaults.baseURL = "https://mino-api.blooraid-consortium.com";
+axios.defaults.baseURL = "http://127.0.0.1:3333";
 // pour garder l'autorisation dans le header, lorsqu'il y a rechargement de page. parcequ'au recharegment
-// le header est suprimé, mais pas le localeStorage  "https://mino-api.blooraid-consortium.com/"
+// le header est suprimé, mais pas le localeStorage  "https://mino-api.blooraid-consortium.com"
 const token = localStorage.getItem("user-token");
 if (token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

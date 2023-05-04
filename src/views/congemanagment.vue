@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import CongeManageList from "../components/Conge/CongeManageList.vue";
 
 export default {
@@ -40,6 +40,8 @@ export default {
   data() {
     return {
       // componentKey: 0,
+      All_conges_departementRefuseNumber:"",
+      All_conges_departementAcceptNumber:"",
     };
   },
 
@@ -54,7 +56,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["All_conges_departementRefuseNumber","All_conges_departementAcceptNumber"]),
+    // ...mapGetters(["All_conges_departementRefuseNumber","All_conges_departementAcceptNumber"]),
     forceRerender() {
       return this.$store.state.travelcomponentKey;
       // console.log(this.componentKey);
@@ -63,6 +65,9 @@ export default {
 
   created() {
     this.$store.dispatch("init_all_conge_dprt");
+
+    this.All_conges_departementRefuseNumber = this.$store.getters.All_conges_departementRefuseNumber;
+    this.All_conges_departementAcceptNumber = this.$store.getters.All_conges_departementAcceptNumber;
   },
 };
 </script>

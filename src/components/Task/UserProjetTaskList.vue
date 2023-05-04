@@ -211,6 +211,7 @@
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainBlueColor
+                  @click:outside="dialogCloseEmploy"
                 >
                   <v-card tile>
                     <!-- 
@@ -226,7 +227,7 @@
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <EmployeTaskList :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
+                          <EmployeTaskList v-if="dialogIsActiveEmploy" :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
                         </v-row>
                       </v-container>
                     </v-card-text>
@@ -329,6 +330,7 @@
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainBlueColor
+                  @click:outside="dialogCloseEmploy"
                 >
                   <v-card tile>
                     <!-- 
@@ -344,7 +346,7 @@
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <EmployeTaskList :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
+                          <EmployeTaskList v-if="dialogIsActiveEmploy" :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
                         </v-row>
                       </v-container>
                     </v-card-text>
@@ -445,6 +447,7 @@
                   overlay-color="black"
                   overlay-opacity="0.8"
                   mainBlueColor
+                  @click:outside="dialogClose"
                 >
                   <v-card tile>
                     <!-- 
@@ -460,7 +463,7 @@
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <UserTaskList :project_id = "selectedItem.id" :project_name = "selectedItem.title"></UserTaskList>
+                          <UserTaskList v-if="dialogIsActive" :project_id = "selectedItem.id" :project_name = "selectedItem.title"></UserTaskList>
                         </v-row>
                       </v-container>
                     </v-card-text>
@@ -592,6 +595,8 @@ export default {
     
     // For the list dialog
     dialog: false,
+    dialogIsActive:false,
+    dialogIsActiveEmploy:false,
     selectedItem: {},
     /* FOR DATA ITERATOR */
     itemsPerPageArray: [4, 8, 12],
@@ -847,9 +852,19 @@ export default {
     /* FOR ITEM DIALOG OPEN */
     openDialog(item) {
       this.selectedItem = Object.assign({}, item);
-      this.$store.state.OneSTation = this.selectedItem.id;
+      // this.$store.state.OneSTation = this.selectedItem.id;
       // this.editedIndex = this.selectedItem.id;
       this.dialog = !this.dialog;
+      this.dialogIsActive = true;
+      this.dialogIsActiveEmploy = true;
+    },
+    dialogClose() {
+      // console.log("pouletttttt du marché");
+      this.dialogIsActive = false;
+    },
+    dialogCloseEmploy() {
+      // console.log("pouletttttt du marché");
+      this.dialogIsActiveEmploy = false;
     },
 
      showItem(item) {
@@ -1015,6 +1030,7 @@ export default {
   color: var(--Important-font-color);
   display: flex;
   justify-content: space-around;
+  cursor: pointer;
 }
 
 .price {

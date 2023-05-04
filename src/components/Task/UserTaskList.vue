@@ -135,7 +135,7 @@
             <v-container>
               <div class="CancelVerification">
                 Souhaitez-vous marquer cette tâche
-                comme faite ?
+                comme pas faite ?
               </div>
               <div class="verificationAction">
                 <v-btn
@@ -816,6 +816,9 @@ export default {
 
   created() {
     this.$store.dispatch("init_one_project_task",this.project_id);
+    console.log("jean joel");
+    // this.OneProjectTasks = this.$store.getters.OneProjectTasks;
+    // console.log("kfljfif", this.OneProjectTasks);
     // console.log("::::::",this.project_id);
     // console.log("::::::",this.project_name);
   },

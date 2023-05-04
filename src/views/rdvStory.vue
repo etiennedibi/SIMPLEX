@@ -42,6 +42,8 @@ export default {
   data() {
     return {
       // componentKey: 0,
+      visiteNumber:"",
+      canceRDVNumber:"",
     };
   },
 
@@ -58,15 +60,12 @@ export default {
   computed: {
     ...mapGetters(["Analytics"]),
     
-    visiteNumber() {
-      return this.$store.getters.AllVisitesStorys.visites.length;
-    },
-    canceRDVNumber() {
-      return this.$store.getters.AllVisitesStorys.visites_annulle.length;
-    }
+    
   },
   created() {
     this.$store.dispatch("init_allVisite");
+    this.visiteNumber = this.$store.getters.AllVisitesStorys.visites.length;
+    this.canceRDVNumber = this.$store.getters.AllVisitesStorys.visites_annulle.length;
   },
 };
 </script>

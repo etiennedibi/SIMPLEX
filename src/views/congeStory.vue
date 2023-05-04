@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import allCongeStory from "../components/Conge/allCongeStory.vue";
 
 export default {
@@ -41,6 +41,8 @@ export default {
   data() {
     return {
       // componentKey: 0,
+      All_congesRefuseNumber:"",
+      All_congesAcceptNumber:"",
     };
   },
 
@@ -55,7 +57,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["All_congesRefuseNumber","All_congesAcceptNumber"]),
+    // ...mapGetters(["All_congesRefuseNumber","All_congesAcceptNumber"]),
     forceRerender() {
       return this.$store.state.travelcomponentKey;
       // console.log(this.componentKey);
@@ -64,6 +66,9 @@ export default {
 
   created() {
     this.$store.dispatch("init_all_conge");
+
+    this.All_congesRefuseNumber = this.$store.getters.All_congesRefuseNumber;
+    this.All_congesAcceptNumber = this.$store.getters.All_congesAcceptNumber;
   },
 };
 </script>

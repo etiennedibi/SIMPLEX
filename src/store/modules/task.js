@@ -78,7 +78,7 @@ const actions = {
 
   init_one_project_task_employe: ({ commit }, project_id) => {
     // Vue.prototype.$http
-    console.log("ppppppp::::",project_id);
+    //console.log("ppppppp::::",project_id);
     axios
       .get(
         "/api/v1/admin/index_taches_employe/"+project_id+"/"+localStorage.getItem("user-id")
@@ -111,6 +111,7 @@ const actions = {
           // localStorage.getItem("user-station")
       )
       .then((res) => {
+        console.log("kaka",res.data.TaskNumber);
         commit("SET_UNDO_TASK_NUMBER", res.data.TaskNumber);
       })
       .catch((error) => console.log(error));

@@ -185,8 +185,8 @@ export default {
   created() {
     this.new_visit.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_visit.createur  = localStorage.getItem("user-id");
-    // this.new_visit.id_departement  = localStorage.getItem("user-department");
-    this.new_visit.id_departement  = 1;
+     this.new_visit.id_departement  = localStorage.getItem("user-department");
+    //this.new_visit.id_departement  = 1;
 
   },
 };

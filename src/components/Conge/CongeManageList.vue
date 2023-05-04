@@ -555,7 +555,7 @@ export default {
       date_rdv: "",
       heure_rdv: "",
       objet: "",
-      id_user:1,
+      id_user:"",
     },
 
     // For Visite edit
@@ -608,7 +608,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_conge");
+              this.$store.dispatch("init_all_conge_dprt");
             }, 3000);
           } else  {
             // Modification effectuée
@@ -745,9 +745,10 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_conge");
+              this.$store.dispatch("init_all_conge_dprt");
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "echec de l'opérartion";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -815,6 +816,8 @@ export default {
 
   created() {
     this.$store.dispatch("init_all_conge_dprt");
+
+    this.editedItem.id_user = localStorage.getItem("user-id");
   },
 };
 </script>

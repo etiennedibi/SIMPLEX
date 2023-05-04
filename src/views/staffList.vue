@@ -774,7 +774,7 @@ export default {
 }
 
 .InvBox {
-  height: 130px;
+  /*height: 130px;*/
   border-radius: 10px;
   background: white;
   line-height: 14px;

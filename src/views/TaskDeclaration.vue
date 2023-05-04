@@ -418,8 +418,8 @@ export default {
     this.new_project.id_user  = localStorage.getItem("user-id");
     this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_task.createur  = localStorage.getItem("user-id");
-    // this.new_task.id_departement  = localStorage.getItem("user-department");
-    this.new_task.id_departement  = 1;
+     this.new_task.id_departement  = localStorage.getItem("user-department");
+    //this.new_task.id_departement  = 1;
 
 
   },

@@ -71,7 +71,7 @@
            :class="{ taskNavActive: isActive3 }">
         <img src="@/assets/icone/tasks.png" alt="" srcset="" />
         <p>
-          Tâches
+          Tâches & Fichiers
         </p>
         <div class="menuBox" v-if="tastMenuClick">
           <div class="menuTitle">
@@ -97,16 +97,22 @@
                 <p>MES TÂCHES</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'UserFileManage' }">
+            <router-link :to="{ name: 'FileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>MES FICHIERS</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'FileManage' }">
+            <router-link :to="{ name: 'UserFileManage' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>FICHIERS PARTAGES</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'UserFileManage' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>HISTORIQUE DES FICHIERS</p>
               </div>
             </router-link>
           </div>

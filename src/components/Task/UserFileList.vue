@@ -1,6 +1,56 @@
 <template>
   <div class="tableWrapperDiv">
 
+    <!-- SHOW FILE DIALOG -->
+    <v-dialog
+      v-model="fileShowDialog"
+      width="800"
+      overlay-color="black"
+      overlay-opacity="0.8"
+      mainBlueColor
+    >
+      <v-card tile>
+        <v-card-text>
+          <v-container>
+            <v-row class="detailsTemplate">
+              <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
+              <embed :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <!-- SHOW USER AUTORISE -->
+    <v-dialog v-model="autoriseUserDialog" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <v-icon large color="mainBlueColor"> mdi-account-group </v-icon>
+            </div>
+            <div class="userliste">
+              <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
+                <div class="userinfo">
+                  <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                  <p>{{item.nom}} {{item.prenoms}}</p>
+                </div>
+                <div class="actionBox">
+                  <p><span>1</span> vue(s)</p>
+                   <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
+                      <v-icon color="red">mdi-close</v-icon>
+                    </v-btn>
+                </div>    
+              </div>
+              
+            </div>
+            
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
     <v-dialog v-model="BeforeDialogDelete" max-width="370">
       <v-card>
@@ -374,7 +424,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="items"
+        :items="AllUserfiles"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -385,52 +435,18 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
-            ><v-icon small> mdi-account-group </v-icon></v-btn
-          >
           <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
-          <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
-            <div class="status" style="background: #037CB831;">en cours</div>
-          </v-btn> -->
-          <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
-            <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
-          </v-btn> -->
-        </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
+          <v-btn icon color="mainBlueColor" @click="showAutoriseItem(item.users_autorises)"
+            ><v-icon small> mdi-account-group </v-icon></v-btn
+          >
+          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+            ><v-icon small> mdi-account-multiple-plus </v-icon></v-btn
+          >
         </template>
       </v-data-table>
     </div>
@@ -477,9 +493,9 @@ export default {
         text: "INTITULE",
         align: "start",
         sortable: true,
-        value: "nom_visiteur",
+        value: "intule",
       },
-      { text: "DATE", value: "date_rdv" },
+      { text: "MODIFIE", value: "updated_at" },
       { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
@@ -526,17 +542,13 @@ export default {
     addingSuccess: false,
     addingfalse: false,
 
-    // For Visite detail
-    dialog: false,
-    editedItem: {
-      nom_visiteur: "",
-      prenoms_visiteur: "",
-      email_visiteur: "",
-      contact_visiteur: "",
-      date_rdv: "",
-      heure_rdv: "",
-      objet: "",
-    },
+    // For show file
+    fileShowDialog: false,
+    autoriseUserDialog: false,
+    editedItem: {},
+    relatiionItem: {},
+
+
 
     // For Visite edit
     VisiteaAddingResponse: "",
@@ -558,11 +570,18 @@ export default {
 
   methods: {
     // ------------------------
-    // Show Profil infomation
+    // Show File
     // ------------------------
     showItem(item) {
       this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      this.fileShowDialog = true;
+    },
+    // ------------------------
+    // Show User autorise
+    // ------------------------
+    showAutoriseItem(relationitem) {
+      this.relatiionItem = Object.assign({}, relationitem);
+      this.autoriseUserDialog = true;
     },
 
     // ------------------------
@@ -786,11 +805,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["UserVisites"]),
+    ...mapGetters(["AllUserfiles"]),
   },
 
   created() {
-    this.$store.dispatch("init_userVisite");
+    this.$store.dispatch("init_all_user_file");
   },
 };
 </script>
@@ -850,56 +869,62 @@ export default {
 }
 
 /* Show details */
-.showDialog{
+.userliste{
+  max-height: 67vh;
+  overflow: auto;
+  width: 100%;
+  margin-top:1vh;
+  /* background: red; */
+}
+.oneUserbox{
+  height: 70px;
+  margin-bottom: 10px;
+  /* background: blue; */
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content:space-between;
   align-items: center;
 }
-.imgAndTitle {
-  margin: 15px 0px;
-  height: 100px;
-  width: 100px;
+.userinfo{
+  width: 60%;
+  font-size:11px;
+  line-height: 13px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background:pink; */
+}
+.userinfo img {
+  height: 40px;
+  width:40px;
+  margin-right:7px;
   border-radius: 100px;
-  margin-bottom: 20px;
-  border: solid 3px;
-  border-color: var(--main-blue-important) rgb(176, 176, 182);
+  border: solid 2px;
+  border-color: var(--main-blue-important) var(--main-white-color);
+}
+.actionBox{
+  width: 35%;
+  font-size:10px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  /* background: linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0%),
-      rgb(0 0 0 / 19%),
-      rgb(0 0 0)
-    ),
-    url(../../assets/img/pexels-nappy-1058959.jpg);
-  background-position: center;
-  background-size: cover; */
+  justify-content: space-around;
+  /* background:rgb(97, 8, 23); */
 }
-.imgAndTitle > img{
-  height:50px;
-  width:50px
+.actionBox > p{
+  display: inline-block;
+  /* background:rgb(75, 54, 54); */
 }
-
-
-.statElment {
-  margin-bottom: 20px;
-  display: flex;
+.actionBox > p > span{
+  display: inline-block;
+  font-weight: bold;
+  background:#037CB831;
+  padding: 3px 10px;
+  border-radius:100%;
+  margin-right: 2px;
   text-align: center;
-  /* background-color:red; */
-}
-.statElment > div {
-  /* margin-left: 10px; */
-}
-.statElment h5 {
-  color: var(--main-blue-important);
 }
 
-.statusChange {
-  display: flex;
-  justify-content: center;
-}
+
 
 /* Edit travel */
 .editIMGO {

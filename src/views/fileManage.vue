@@ -4,48 +4,64 @@
       <p class="sectionTitle">Gestion des fichiers</p>
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper">
+          <v-col cols="12" md="4" lg="4">
+            <div class="numberWrapper formBox">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addcongeAsk">
                   <v-row>
-                     <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px" >
+                    <v-col cols="12" md="12" lg="12" >
                        <v-file-input
                         chips
-                        height="80"
+                        height="60"
+                         v-model="new_file.fichier"
+                        :rules="[() => !!new_file.fichier]"
                         solo
                         label="choisir un fichier"
-                        prepend-icon=""
+                        prepend-icon="mdi-file"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px">
-                      <v-select
-                        v-model="new_conge_ask.id_type_conge"
-                        :items="Conges"
-                        item-text="type_conge"
-                        item-value="id"
-                        multiple
-                        label="Ajouter des collaborateurs"
-                        solo
-                        height="80"
-                      >
-                      </v-select>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12" style=" margin-bottom:10px">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
                         solo
-                        label="Nouvelle itutilé du fichier"
+                        label="Itutilé du fichier"
+                        background-color="#356eea24"
                         ref="desc"
-                        v-model="new_conge_ask.date_fin"
+                        v-model="new_file.intule"
+                        :rules="[() => !!new_file.intule]"
+                        append-icon="mdi-call-missed"
                         type="text"
                         value=""
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                   
                     <v-col cols="12" md="12" lg="12">
+                      <v-select
+                        v-model="new_file.autorisation"
+                        :items="Employers"
+                        item-text="nom"
+                        item-value="the_user_id"
+                        multiple
+                        label="collaborateurs autorisés"
+                        solo
+                        height="80"
+                      >
+                      <template v-slot:selection="{ item, index }">
+                          <v-chip v-if="index < 2">
+                            <span>{{ item.nom }}</span>
+                          </v-chip>
+                          <span
+                            v-if="index === 2"
+                            class="grey--text text-caption"
+                          >
+                            (+{{ new_file.autorisation.length - 2}} autres)
+                          </span>
+                        </template>
+                      </v-select>
+                    </v-col>
+    
+                    <v-col cols="12" md="12" lg="12" style="margin-top:20px">
                       <v-btn
                         large
                         depressed
@@ -61,7 +77,7 @@
               </v-form>
             </div>
           </v-col>
-          <v-col cols="12" md="9" lg="9">
+          <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper ">
               <UserFileList
               ></UserFileList>
@@ -80,7 +96,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        Demande effectuée</v-alert
+        Fichier enregistré</v-alert
       >
     </transition>
     <transition name="slide">
@@ -92,7 +108,7 @@
         class="alert"
         color="error"
       >
-        Echec de la demande</v-alert
+        Echec de l'opération</v-alert
       >
     </transition>
   </div>
@@ -113,38 +129,59 @@ export default {
 
   data: () => ({
     // FOR FORM SENDING
-    new_conge_ask: {
-      denomination: "",
-      min_weight: "",
-      max_weight: "",
-      min_size: "",
-      max_size: "",
-      unit_price: "",
-      description: "",
-      company_id: "",
+    new_file: {
+      auteur: "",
+      autorisation: [],
+      compagnie_id: "",
     },
 
-    congeAskaAddingResponse: "",
+    // test:[
+    //   {nom:'ali', the_user_id:2},
+    //   {nom:'ali', the_user_id:3},
+    //   {nom:'ali', the_user_id:4},
+    //   {nom:'ali', the_user_id:5},
+    //   {nom:'ali', the_user_id:6},
+    //   {nom:'ali', the_user_id:7},
+    //   {nom:'ali', the_user_id:8},
+    //   {nom:'ali', the_user_id:9},
+    //   {nom:'ali', the_user_id:10},
+    //   {nom:'ali', the_user_id:11},
+    //   {nom:'ali', the_user_id:12},
+      
+    // ],
+
+    fileAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
     congeAskcomponentKey1: 0,
 
-    // FOR ANALYTICS
-    // theNumbercongeAsk = 0,
+    // SHOW FILE
+    dialog: true,
+    
   }),
 
   methods: {
     submit1() {
-        axios({ url: "congeAsk/add", data: this.new_conge_ask, method: "POST" })
+      if (this.$refs.form1.validate()) {
+        const formData = new FormData();
+          formData.append('fichier', this.new_file.fichier);
+          formData.append('intule', this.new_file.intule);
+          formData.append('autorisation', this.new_file.autorisation);
+          formData.append('auteur', this.new_file.auteur);
+          formData.append('compagnie_id', this.new_file.compagnie_id);
+
+        axios({ url: "/api/v1/users/store_file", data: formData, method: "POST" })
         .then((response) => {
-          this.congeAskaAddingResponse = response.data;
+          this.fileAddingResponse = response.data;
           console.log(response.data);
-          if (this.congeAskaAddingResponse.message == "success") {
+          if (this.fileAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
+            this.$refs.form1.reset();
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
             }, 3000);
+            this.$store.dispatch("init_all_user_file")
           } else {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -153,21 +190,24 @@ export default {
           }
         })
         .catch((error) => {
-          this.congeAskaAddingResponse = error.message;
+          this.fileAddingResponse = error.message;
           console.error("There was an error!", error);
         });
-
-      this.$refs.form1.reset();
+      }
+     
     },
 
   },
 
   computed: {
-    ...mapGetters(["Conges"]),
+    ...mapGetters(["Employers"]),
   },
 
   created() {
-    // this.new_conge_ask.company_id = localStorage.getItem("user-station");
+    this.$store.dispatch("init_employers")
+
+    this.new_file.auteur = localStorage.getItem("user-id");
+    this.new_file.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>
@@ -181,17 +221,24 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
+  height:55vh;
   border-radius: 10px;
   background: white;
+}
+.formBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 /* ,
 .middleBox {
   height:58vh;
 } */
-.addcongeAsk {
+/* .addcongeAsk {
   height: 55vh;
-  /* background-color:red; */
-}
+  background-color:red;
+} */
 .addcongeAsk::-webkit-scrollbar {
   width: 7px;
 }

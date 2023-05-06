@@ -14,6 +14,7 @@ import message from "./modules/message";
 import visites from "./modules/visites";
 import project from "./modules/project";
 import task from "./modules/task";
+import flies from "./modules/flies";
 import contract from "./modules/contract";
 import service from "./modules/service";
 import work from "./modules/work";
@@ -57,6 +58,7 @@ export default new Vuex.Store({
     visites,
     project,
     task,
+    flies,
     contract,
     service,
     work,

@@ -138,7 +138,7 @@
                   <p>{{item.nom}} {{item.prenoms}}</p>
                 </div>
                 <div class="actionBox">
-                  <p><span>{{item.nombre_acces}}</span> vue(s)</p>
+                  <p><span>{{item.nombre_acces}}</span> accès</p>
                    <v-btn icon color="mainBlueColor" @click.stop="deleteItemAutorisation(item)">
                       <v-icon color="red">mdi-close</v-icon>
                     </v-btn>
@@ -390,7 +390,9 @@ export default {
     // For show file
     // ---Show-----------
     fileShowDialog: false,
-    editedItem: {},
+    editedItem: {
+      autorisation:[],
+    },
     // ---Edit-----------
     dialogEdit: false,
     editedIndex: -1,
@@ -453,20 +455,26 @@ export default {
       this.dialogEdit = true;
     },
     editItemConfirm() {
-        axios({ url: "Visite/update", data: this.editedItem, method: "PUT" })
+        const formData = new FormData();
+          formData.append('intule', this.editedItem.intule);
+          formData.append('fichier', this.editedItem.fichier);
+          formData.append('id', this.editedItem.the_fichiers_id);
+
+        axios({ url: "/api/v1/users/update_file", data: formData, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Modification effectuée
             this.VisiteaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_all_user_file")
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             // Modification effectuée
             this.addingfalse = !this.addingfalse;
+            this.VisiteaAddingResponse.message = "échec de l'operation";
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
             }, 3000);
@@ -492,19 +500,21 @@ export default {
       this.addUserDialog = true;
     },
     editItemConfirmAutorise() {
-        axios({ url: "Visite/update", data: this.editedItem, method: "PUT" })
+       this.editedItem.id_fichier = this.editedItem.the_fichiers_id
+        axios({ url: "/api/v1/users/add_new_autorisation", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Modification effectuée
             this.VisiteaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_all_user_file")
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
             // Modification effectuée
+            this.VisiteaAddingResponse.message = "Echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -530,20 +540,21 @@ export default {
     deleteFileConfirm() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/users/delete_file/" + this.editedItem.the_fichiers_id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_all_user_file")
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "Echec de l'operation";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -569,20 +580,21 @@ export default {
     deleteUserAutorisation() {
       axios
         .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/api/v1/users/cancel_autorisation/" + this.oneAutorisation.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 
-          if (this.VisiteaAddingResponse.message == "success") {
+          if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
+              this.$store.dispatch("init_all_user_file")
             }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "Suppression effectuée";
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -595,6 +607,7 @@ export default {
         });
 
       this.closeDeleteUserAutorisation();
+      this.autoriseUserDialog = false;
     },
     closeDeleteUserAutorisation() {
       this.deleteUserDialog = false;
@@ -606,11 +619,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllUserfiles"]),
+    ...mapGetters(["AllUserfiles","Employers"]),
   },
 
   created() {
     this.$store.dispatch("init_all_user_file");
+    this.$store.dispatch("init_employers")
   },
 };
 </script>

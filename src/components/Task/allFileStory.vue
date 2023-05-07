@@ -39,7 +39,7 @@
                   <p>{{item.nom}} {{item.prenoms}}</p>
                 </div>
                 <div class="actionBox">
-                  <p><span>{{item.nombre_acces}}</span> vue(s)</p>
+                  <p><span>{{item.nombre_acces}}</span> accès</p>
                 </div>    
               </div>
             </div>

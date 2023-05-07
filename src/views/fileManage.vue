@@ -180,8 +180,8 @@ export default {
             this.$refs.form1.reset();
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-            }, 3000);
             this.$store.dispatch("init_all_user_file")
+            }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {

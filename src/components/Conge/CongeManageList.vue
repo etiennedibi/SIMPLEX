@@ -187,7 +187,6 @@
         </v-card-text>
 
         <v-card-actions style="display:flex;justify-content:space-around">
-          <!-- <v-spacer></v-spacer> -->
           <p
             class="simplex-btn"
             style="background:grey"

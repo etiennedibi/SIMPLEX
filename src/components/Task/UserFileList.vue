@@ -20,110 +20,67 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <!-- SHOW USER AUTORISE -->
-    <v-dialog v-model="autoriseUserDialog" max-width="370">
+    <!-- EDIT FILE DIALOG -->
+    <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
-          <v-container class="showDialog">
-            <div class="imgAndTitle">
-              <v-icon large color="mainBlueColor"> mdi-account-group </v-icon>
-            </div>
-            <div class="userliste">
-              <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
-                <div class="userinfo">
-                  <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
-                  <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
-                  <p>{{item.nom}} {{item.prenoms}}</p>
-                </div>
-                <div class="actionBox">
-                  <p><span>1</span> vue(s)</p>
-                   <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
-                      <v-icon color="red">mdi-close</v-icon>
-                    </v-btn>
-                </div>    
-              </div>
-              
-            </div>
-            
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
-    <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
-    <v-dialog v-model="BeforeDialogDelete" max-width="370">
-      <v-card>
-        <v-card-text>
-          <div class="confirmTitle">supprimer ?</div>
           <v-container>
-            
-            <div class="verificationAction">
-              <v-btn
-                color="Titlecolor"
-                rounded
-                x-large
-                depressed
-                @click="deleteOneItemVriante"
-                style="color: white"
-                >cette variante</v-btn
-              >
-              <v-btn
-                color="mainBlueColor"
-                rounded
-                x-large
-                depressed
-                @click="deleteItemNature"
-                style="color: white"
-                >Cette nature</v-btn
-              >
+            <div class="imgAndTitle  editIMGO">
+              <v-icon color="mainBlueColor" large>
+                 mdi-file
+                </v-icon>
             </div>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="11" md="11" lg="11" >
+                       <v-file-input
+                        chips
+                        height="60"
+                         v-model="editedItem.fichier"
+                        solo
+                        label="choisir un fichier"
+                        prepend-icon="mdi-file"
+                      ></v-file-input>
+                    </v-col>
+                    <v-col cols="11" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        label="Itutilé du fichier"
+                        background-color="#356eea24"
+                        ref="desc"
+                        v-model="editedItem.intule"
+                        append-icon="mdi-call-missed"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>            
+                </v-row>
+              </v-container>
+            </form>
           </v-container>
         </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <p
+            class="simplex-btn"
+            style="background:grey"
+            @click="closeEdit"
+            >Annuler</p
+          >
+          <p
+            class="simplex-btn"
+            @click="editItemConfirm"
+            >Enregistrer</p
+          >
+        </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="370">
-      <v-card>
-        <v-card-text>
-          <div class="confirmTitle">AVERTISSEMENT !</div>
-          <v-container>
-            <div class="CancelVerification">
-              Cette action supprimera le type de colis
-              <b>{{ editedItem.denomination }}</b> et toutes les variantes de
-              prix qui y sont liées.<br />
-              <br />
-              <span style="font-weight: bold"
-                >voulez-vous vraiment supprimer <br />
-                ce type de colis ?</span
-              >
-            </div>
-            <div class="verificationAction">
-              <v-btn
-                color="Titlecolor"
-                rounded
-                depressed
-                @click="closeDelete"
-                style="color: white"
-                >Non</v-btn
-              >
-              <v-btn
-                color="mainBlueColor"
-                rounded
-                depressed
-                @click="deleteItemConfirm"
-                style="color: white"
-                >Oui</v-btn
-              >
-            </div>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
-    <!-- DELETE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
+     <!-- DELETE FILE DIALOG -->
+    <v-dialog v-model="deleteFileDialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
@@ -135,15 +92,15 @@
               </div>
             <v-container>
               <div class="CancelVerification">
-                Cette action supprimera votre demande de congé pour le<br />
-                <b>13-04-2023</b> 
+                Cette action supprimera le fichier<br />
+                <b>{{editedItem.intule}}</b> 
               </div>
               <div class="verificationAction">
                 <v-btn
                   color="grey"
                   
                   depressed
-                  @click="closeDeleteOnevariante"
+                  @click="closeDeleteFile"
                   style="color: white"
                   >Non</v-btn
                 >
@@ -151,7 +108,7 @@
                   color="red"
                   
                   depressed
-                  @click="deleteItemVarinteConfirm"
+                  @click="deleteFileConfirm"
                   style="color: white"
                   >Confirmer</v-btn
                 >
@@ -162,39 +119,68 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <!-- ACCEPTE VISITE ON   DIALOG -->
-    <v-dialog v-model="dialogAccept" max-width="370">
+    <!-- SHOW USER AUTORISE -->
+    <v-dialog v-model="autoriseUserDialog" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <v-icon large color="mainBlueColor"> mdi-account-group </v-icon>
+            </div>
+            <div class="userliste">
+              <div v-if="IsExistUserList" class="notUser">
+                Aucun collaborateur n'est autorisé à consulter ce fichier
+              </div>
+              <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
+                <div class="userinfo">
+                  <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                  <p>{{item.nom}} {{item.prenoms}}</p>
+                </div>
+                <div class="actionBox">
+                  <p><span>{{item.nombre_acces}}</span> vue(s)</p>
+                   <v-btn icon color="mainBlueColor" @click.stop="deleteItemAutorisation(item)">
+                      <v-icon color="red">mdi-close</v-icon>
+                    </v-btn>
+                </div>    
+              </div>
+            </div>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <!-- DELETE USER AUTORISE DIALOG -->
+    <v-dialog v-model="deleteUserDialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
             <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
             <div class="imgAndTitle  deleteIMG">
-                <v-icon color="mainBlueColor" large>
-                  mdi-account-check-outline
+                <v-icon color="red" large>
+                  mdi-close
                 </v-icon>
               </div>
             <v-container>
               <div class="CancelVerification">
-                Souhaitez-vous accepter la visite de  <br />
-                <b>Konan Bertran ?</b> 
+                Cette action supprimera l'autorisation d'accès à ce fichier pour <br />
+                <b>{{oneAutorisation.nom}} {{oneAutorisation.prenoms}}</b> 
               </div>
               <div class="verificationAction">
                 <v-btn
                   color="grey"
                   
                   depressed
-                  @click="closeAcceptVisite"
+                  @click="closeDeleteUserAutorisation"
                   style="color: white"
                   >Non</v-btn
                 >
                 <v-btn
-                  color="mainBlueColor"
+                  color="red"
                   
                   depressed
-                  @click="acceptVisite  "
+                  @click="deleteUserAutorisation"
                   style="color: white"
-                  >oui</v-btn
+                  >Confirmer</v-btn
                 >
               </div>
             </v-container>
@@ -203,209 +189,68 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-
-    <!-- EDIT VISITE DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="370">
+    <!-- UPDATE USER AUTORISATION BY ADDING NEW -->
+    <v-dialog v-model="addUserDialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  editIMGO">
               <v-icon color="mainBlueColor" large>
-                 mdi-calendar
+                 mdi-file
                 </v-icon>
             </div>
-            <form class="updateForm">
+            <form class="updateForm1">
               <v-container fluid>
                 <v-row>
-                  <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
+                  <v-col cols="11" md="11" lg="11">
+                      <v-select
+                        v-model="editedItem.autorisation"
+                        :items="Employers"
+                        item-text="nom"
+                        item-value="the_user_id"
+                        multiple
+                        label="collaborateurs autorisés"
                         solo
-                        style="margin-bottom:10px"
-                        label="type de congé"
-                        append-icon="mdi-view-day"
-                        ref="matri"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        style="margin-bottom:10px"
-                        background-color="#356eea24"
-                        solo
-                        label="Date de début"
-                        ref="total_name"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        style="margin-bottom:10px"
-                        label="Date de fin"
-                        ref="desc"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                   
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        style="margin-bottom:10px"
-                        background-color="#356eea24"
-                        solo
-                        append-icon="mdi-numeric"
-                        ref="transport"
-                        type="number"
-                        label="Nombre de jours"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <div style="width:100%; padding: 15px 10px 0px 10px">
-                      <v-textarea
-                        solo
-                        clearable
-                        clear-icon="mdi-close-circle"
-                        rows="3"
-                        name="input-7-4"
-                        label="Justification"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div>
+                        height="80"
+                      >
+                      <template v-slot:selection="{ item, index }">
+                          <v-chip v-if="index < 2">
+                            <span>{{ item.nom }}</span>
+                          </v-chip>
+                          <span
+                            v-if="index === 2"
+                            class="grey--text text-caption"
+                          >
+                            (+{{ new_file.autorisation.length - 2}} autres)
+                          </span>
+                        </template>
+                      </v-select>
+                    </v-col>        
                 </v-row>
               </v-container>
             </form>
           </v-container>
         </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
-            @click="closeEdit"
-            style="color: white"
-            >Annuler</v-btn
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <p
+            class="simplex-btn"
+            style="background:grey"
+            @click="closeEditAutorise"
+            >Annuler</p
           >
-          <v-btn
-            color="mainBlueColor"
-            depressed
-            @click="editItemConfirm"
-            style="color: white"
-            >Enregistrer</v-btn
+          <p
+            class="simplex-btn"
+            @click="editItemConfirmAutorise"
+            >Enregistrer</p
           >
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <!-- REPORT VISITE DIALOG -->
-    <v-dialog v-model="dialogReport" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle  editIMGO">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
-            </div>
-            <form class="updateForm ReportForm">
-              <v-container fluid>
-                <v-row>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="items.min_size"
-                        type="date"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="11" lg="11">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        append-icon="mdi-clock-time-eight"
-                        ref="desc"
-                        v-model="items.description"
-                        type="time"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                </v-row>
-              </v-container>
-            </form>
-          </v-container>
-        </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="Titlecolor"
-            depressed
-            @click="closeReportVisite"
-            style="color: white"
-            >Annuler</v-btn
-          >
-          <v-btn
-            color="mainBlueColor"
-            depressed
-            @click="reportVisite"
-            style="color: white"
-            >Enregistrer</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
-    <!-- SHOW DIALOG -->
-     <v-dialog v-model="dialog" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container class="showDialog">
-            <div class="imgAndTitle">
-              <v-icon color="mainBlueColor" large>
-                 mdi-calendar
-                </v-icon>
-            </div>
-            <div class="statElment">
-              <div>
-                <h5>NOMBRE DE JOURS</h5>
-                <h4>{{ editedItem.nom_visiteur }} 5</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <div>
-                <h5>JUSTIFICATION</h5>
-                <h4 style="text-align:justify">{{ editedItem.email_visiteur }}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                  Deserunt itaque laborum debitis reiciendis ipsum nihil rem tempora 
-                  inventore numquam voluptate corporis assumenda 
-                  doloribus animi, voluptatibus, nostrum quibusdam similique? Temporibus, praesentium.
-                </h4>
-              </div>
-            </div>
-            
-          </v-container>
-        </v-card-text>
-        
-      </v-card>
-    </v-dialog>
+    
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="5" lg="5">
@@ -438,13 +283,13 @@
           <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          <v-btn icon color="mainBlueColor" @click="deleteFile(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" @click="showAutoriseItem(item.users_autorises)"
             ><v-icon small> mdi-account-group </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="deleteItem(item)"
+          <v-btn icon color="mainBlueColor" @click="editItemAutorise(item)"
             ><v-icon small> mdi-account-multiple-plus </v-icon></v-btn
           >
         </template>
@@ -543,17 +388,29 @@ export default {
     addingfalse: false,
 
     // For show file
+    // ---Show-----------
     fileShowDialog: false,
-    autoriseUserDialog: false,
     editedItem: {},
+    // ---Edit-----------
+    dialogEdit: false,
+    editedIndex: -1,
+    // ---Delete-----------
+    deleteFileDialog: false,
+
+    // For autorise user
+    // ---Show-----------
+    autoriseUserDialog: false,
+    IsExistUserList:false,
     relatiionItem: {},
-
-
+    // ---Delete-----------
+    deleteUserDialog: false,
+    oneAutorisation: {},
+    // ---Update liste-----------
+    addUserDialog: false,
 
     // For Visite edit
     VisiteaAddingResponse: "",
-    dialogEdit: false,
-    editedIndex: -1,
+
 
     // For Visite Reporte
     dialogReport:false,
@@ -581,19 +438,20 @@ export default {
     // ------------------------
     showAutoriseItem(relationitem) {
       this.relatiionItem = Object.assign({}, relationitem);
+      if (relationitem.length==0) {
+        this.IsExistUserList = true
+      }else {this.IsExistUserList = false}
       this.autoriseUserDialog = true;
     },
 
     // ------------------------
-    // For Profil Edited
+    // EDIT FILE
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
-
     editItemConfirm() {
         axios({ url: "Visite/update", data: this.editedItem, method: "PUT" })
         .then((response) => {
@@ -621,50 +479,32 @@ export default {
 
       this.closeEdit();
     },
-
     closeEdit() {
       this.dialogEdit = false;
     },
 
-    // --------------------
-    // delete a travel
-    // --------------------
-    deleteItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
+    // ------------------------
+    // EDIT USER AUTORISE
+    // ------------------------
+    editItemAutorise(item) {
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
-      // if it is a variante of prise
-      this.OneVarianteitemToDelete = { id: this.editedItem.id };
-      // this.dialogDelete = true;
-      this.BeforeDialogDelete = true;
+      //  Open the Edit Dialogue
+      this.addUserDialog = true;
     },
-    deleteItemNature() {
-      this.dialogDelete = true;
-      this.BeforeDialogDelete = false;
-    },
-
-    deleteOneItemVriante() {
-      this.dialogDeleteOneVariante = true;
-      this.BeforeDialogDelete = false;
-    },
-          // confirm deleted of nature
-    deleteItemConfirm() {
-      axios
-        .delete(
-          "Visite/delete/" + this.itemToDelete.id
-        )
+    editItemConfirmAutorise() {
+        axios({ url: "Visite/update", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
-
           if (this.VisiteaAddingResponse.message == "success") {
-            // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Suppression effectuée";
+            // Modification effectuée
+            this.VisiteaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.forceRerender2();
             }, 3000);
           } else if (this.VisiteaAddingResponse.message != "success") {
+            // Modification effectuée
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -676,15 +516,18 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.closeDelete();
+      this.closeEditAutorise();
+    },
+    closeEditAutorise() {
+      this.addUserDialog = false;
     },
 
-    closeDelete() {
-      this.dialogDelete = false;
+    // DELETE FILE 
+    deleteFile(item) {
+      this.editedItem = Object.assign({}, item); 
+      this.deleteFileDialog = true;
     },
-
-          // confirm deleted of one variante
-    deleteItemVarinteConfirm() {
+    deleteFileConfirm() {
       axios
         .delete(
           "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
@@ -712,21 +555,18 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.closeDeleteOnevariante();
+      this.closeDeleteFile();
+    },
+    closeDeleteFile() {
+      this.deleteFileDialog = false;
     },
 
-    closeDeleteOnevariante() {
-      this.dialogDeleteOneVariante = false;
+    // DELETE USER AUTORISATION 
+    deleteItemAutorisation(relationitem) {
+      this.oneAutorisation = Object.assign({}, relationitem); 
+      this.deleteUserDialog = true;
     },
-
-    // FOR ACCEPT VISITE
-    acceptItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
-      this.dialogAccept = true;
-    },
-    acceptVisite() {
+    deleteUserAutorisation() {
       axios
         .delete(
           "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
@@ -754,54 +594,15 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.closeDeleteOnevariante();
+      this.closeDeleteUserAutorisation();
     },
-    closeAcceptVisite() {
-      this.dialogAccept = false;
+    closeDeleteUserAutorisation() {
+      this.deleteUserDialog = false;
     },
 
-
-    // FOR ACCEPT VISITE
-    reportItem(item) {
-      this.editedIndex = this.Visites.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.Visites_id };
-      this.dialogAccept = true;
-    },
-    reportVisite() {
-      axios
-        .delete(
-          "Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
-        )
-        .then((response) => {
-          this.VisiteaAddingResponse = response.data;
-
-          if (this.VisiteaAddingResponse.message == "success") {
-            // Annulation effectuée
-            this.VisiteaAddingResponse.message = "Suppression effectuée";
-            this.addingSuccess = !this.addingSuccess;
-            setTimeout(() => {
-              this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
-            }, 3000);
-          } else if (this.VisiteaAddingResponse.message != "success") {
-            this.addingfalse = !this.addingfalse;
-            setTimeout(() => {
-              this.addingfalse = !this.addingfalse;
-            }, 3000);
-          }
-        })
-        .catch((error) => {
-          this.VisiteaAddingResponse = error.message;
-          console.error("There was an error!", error);
-        });
-
-      this.closeReportVisite();
-    },
-    closeReportVisite() {
-      this.dialogAccept = false;
-    },
     
+
+ 
   },
 
   computed: {
@@ -923,7 +724,11 @@ export default {
   margin-right: 2px;
   text-align: center;
 }
-
+.notUser{
+  display: flex;
+  flex-direction:column;
+  text-align: center;
+}
 
 
 /* Edit travel */
@@ -936,7 +741,12 @@ export default {
   /* background-color:#b71c1c; */
 }
 .updateForm {
-  height: 250px;
+  height: 170px;
+  width: 110%;
+  overflow-y: scroll;
+}
+.updateForm1 {
+  height: 100px;
   width: 110%;
   overflow-y: scroll;
 }
@@ -965,30 +775,6 @@ export default {
 }
 
 /* Delete travel */
-.deleteIMG {
-  margin-left: 35%;
-  margin-bottom: 0px;
-  /* background-color:red; */
-  border: 3px solid grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.CancelVerification {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 5px;
-  margin-bottom: 30px;
-}
-.verificationAction {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.verificationAction > button {
-  width: 150px;
-}
 
 /* Confirme Delete travel */
 .confirmTitle {

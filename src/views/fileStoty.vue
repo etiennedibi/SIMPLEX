@@ -1,0 +1,125 @@
+<template>
+  <div class="bodyBox">
+    <div class="TheBoxBody ForTravelDeclaration">
+      <p class="sectionTitle">Historique des visites</p>
+      <v-row>
+        <v-col cols="12" md="3" lg="3" class="leftNumber">
+          <div class="stat1">
+            <h1>-</h1>
+            <h5>RDV Enregistrés</h5>
+          </div>
+          <div class="stat1 stat2">
+            <div class="N-icon icon2">
+              <v-icon color="white">mdi-account-cancel</v-icon>
+            </div>
+            <h1 style="color: white"> {{ canceRDVNumber }}</h1>
+            <h5 style="color: white">RDV annulés</h5>
+          </div>
+        </v-col>
+        <v-col cols="12" md="9" lg="9">
+          <allFileStory></allFileStory>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import allFileStory from "../components/Task/allFileStory";
+
+export default {
+  name: "RdvStory",
+  components: {
+    allFileStory,
+  },
+
+  data() {
+    return {
+      // componentKey: 0,
+      visiteNumber:"",
+      canceRDVNumber:"",
+    };
+  },
+
+  methods: {
+    // ------------------------
+    // RE-RENDER CHILD  COMPONENT
+    // ------------------------
+    // forceRerender() {
+    //     this.componentKey = this.$store.state.travelcomponentKey;
+    //     // console.log(this.componentKey);
+    //   }
+  },
+
+  computed: {
+    ...mapGetters(["Analytics"]),
+    
+    
+  },
+  created() {
+    this.$store.dispatch("init_allVisite");
+    this.visiteNumber = this.$store.getters.AllVisitesStorys.visites.length;
+    this.canceRDVNumber = this.$store.getters.AllVisitesStorys.visites_annulle.length;
+  },
+};
+</script>
+
+<style scoped>
+/* .TheBoxBody{
+    height: 60vh;
+    margin-top: 0px;
+} */
+.ForTravelDeclaration {
+  /* background: white;
+  text-align: center; */
+  /* background: red; */
+}
+.sectionTitle {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  /* text-align: start; */
+}
+.lolplp {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.stat1 {
+  background: white;
+  height: 26.2vh;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stat2{
+    background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
+
+}
+.N-icon {
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #356eea24;
+  border-radius: 100px;
+}
+.icon2{
+  background: #1A223124;
+}
+.stat1 h1 {
+  margin-bottom: -10px;
+  font-size: 35px;
+}
+.stat1 h5 {
+  color: var(--font-color);
+}
+</style>

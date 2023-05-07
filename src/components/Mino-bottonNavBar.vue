@@ -109,7 +109,7 @@
                 <p>FICHIERS PARTAGES</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'UserFileManage' }">
+            <router-link :to="{ name: 'fileStoty' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE DES FICHIERS</p>

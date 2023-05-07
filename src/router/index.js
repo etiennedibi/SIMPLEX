@@ -13,6 +13,7 @@ import taskStory from "../views/taskStory.vue";
 import UserTaskManage from "../views/UserTaskManage.vue";
 import fileManage from "../views/fileManage.vue";
 import UserFileManage from "../views/UserFileManage.vue";
+import fileStoty from "../views/fileStoty.vue";
 
 
 
@@ -159,6 +160,12 @@ const routes = [
     path: "/UserFileManage",
     name: "UserFileManage",
     component: UserFileManage,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/fileStoty",
+    name: "fileStoty",
+    component: fileStoty,
     beforeEnter: ifAuthenticated,
   },
   {

@@ -36,7 +36,7 @@
         <v-col cols="12" md="12" lg="12" class="box">
           <div class="stationListboxWrapper">
             <v-data-iterator
-              :items="items"
+              :items="AllUserSharefiles"
               :items-per-page.sync="itemsPerPage"
               :page="page"
               :search="search"
@@ -62,7 +62,7 @@
 
                 <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
                 <v-dialog
-                  v-model="dialog"
+                  v-model="fileShowDialog"
                   width="800"
                   overlay-color="black"
                   overlay-opacity="0.8"
@@ -72,7 +72,8 @@
                     <v-card-text>
                       <v-container>
                         <v-row class="detailsTemplate">
-                          <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/>
+                          <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
+                          <embed :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
                         </v-row>
                       </v-container>
                     </v-card-text>
@@ -90,19 +91,24 @@
                     md="2"
                     lg="2"
                   >
-                    <div class="InvBox" >
+                    <div class="InvBox" @click="showItem(item)">
                       <div>
                         <v-icon color="mainBlueColor">mdi-file-document</v-icon>
-                        <p>{{ item.name }}</p>
-                        <p>{{ item.date }}</p>
-                        <div class="fileAction" style="padding-bottom:10px">
+                        <p>{{ item.intule }}</p>
+                        <p>{{ item.created_at }}</p>
+                        <div class="authorBox">
+                          <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                          <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                          <p>{{item.nom}} {{item.prenoms}}</p>
+                        </div>
+                        <!-- <div class="fileAction" style="padding-bottom:10px">
                           <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
                             <v-icon color="mainBlueColor" style="font-size:20px">mdi-file-download</v-icon>
                           </v-btn>
                           <v-btn icon color="mainBlueColor" @click.stop="openDialog(item)">
                             <v-icon color="mainBlueColor" style="font-size:20px">mdi-file-eye</v-icon>
                           </v-btn>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </v-col>
@@ -145,6 +151,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -156,7 +163,7 @@ export default {
   data: () => ({
     
     // For the list dialog
-    dialog: true,
+    // dialog: true,
     selectedItem: {},
     /* FOR DATA ITERATOR */
     itemsPerPageArray: [4, 8, 12],
@@ -353,7 +360,7 @@ export default {
     ],
 
     // FOR PROJECT DETAILS
-    dialogProjet:false,
+    fileShowDialog:false,
     // POUR VOIR
     editedItem: {},
 
@@ -424,11 +431,17 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Analytics", "items"]),
+    ...mapGetters(["AllUserSharefiles"]),
 
     numberOfPages() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
+      return Math.ceil(this.AllUserSharefiles.length / this.itemsPerPage);
     },
+  },
+
+  created() {
+    this.$store.dispatch("init_all_user_share_file")
+
+    this.new_file.auteur = localStorage.getItem("user-id");
   },
 
   methods: {
@@ -446,18 +459,20 @@ export default {
     },
 
     /* FOR ITEM DIALOG OPEN */
-    openDialog(item) {
-      this.selectedItem = Object.assign({}, item);
-      this.$store.state.OneSTation = this.selectedItem.id;
-
-      this.$store.state.forceRdeDeclared += 1;
-
-      this.dialog = !this.dialog;
-    },
-
-     showItem(item) {
+        // ------------------------
+    // Show File
+    // ------------------------
+    showItem(item) {
       this.editedItem = Object.assign({}, item);
-      this.dialogProjet = true;
+      this.fileShowDialog = true;
+      axios({ url: "/api/v1/users/increment_acces_number/"+this.editedItem.id_autorisation, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
     },
     // ------------------------
     // DATA
@@ -507,6 +522,7 @@ export default {
   color: white;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 /*  */
 
@@ -557,6 +573,28 @@ export default {
   margin-top: -8px;
   color: var(--Important-font-color);;
 
+}
+
+.authorBox{
+  height: 25px;
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.authorBox img {
+  height: 20px;
+  width:20px;
+  margin-right:7px;
+  border-radius: 100px;
+  border: solid 2px;
+  border-color: var(--main-blue-important);
+}
+.authorBox p{
+  font-size:7px !important;
+  line-height: 13px !important;
+  font-weight: normal !important;
 }
 
 .InvBox2 {

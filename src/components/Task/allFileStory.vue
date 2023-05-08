@@ -34,8 +34,8 @@
               </div>
               <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
                 <div class="userinfo">
-                  <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
-                  <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                  <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                   <p>{{item.nom}} {{item.prenoms}}</p>
                 </div>
                 <div class="actionBox">

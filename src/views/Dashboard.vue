@@ -28,7 +28,7 @@
                 <v-icon color="mainBlueColor">mdi-clipboard-list</v-icon>
               </div>
               <h1 v-if="UndoTaskNumber>0">{{ UndoTaskNumber }}</h1>
-              <h1 v-if="UndoTaskNumber<=0">0</h1>
+              <h1 v-if="(UndoTaskNumber<=0) || (UndoTaskNumber==undefined)">0</h1>
               <h6>Tâches en cours</h6>
             </div>
           </v-col>
@@ -37,7 +37,8 @@
               <div class="N-icon">
                 <v-icon color="mainBlueColor">mdi-file-plus</v-icon>
               </div>
-              <h1>-</h1>
+              <h1 v-if="UnseeFileNumber>0">{{ UnseeFileNumber }}</h1>
+              <h1 v-if="(UnseeFileNumber<=0) || (UnseeFileNumber==undefined)">0</h1>
               <h6 style="text-align:center">nouveaux Fichiers <br> partagés</h6>
             </div>
           </v-col>
@@ -64,10 +65,192 @@
         </v-row>
       </v-container>
     </div>
+
+
+    <!-- EDIT DIALOG -->
+    <v-dialog v-model="adminInfos" max-width="370" persistent>
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  editIMGO">
+              <img src="@/assets/icone/staff.png" alt="" srcset="" />
+            </div>
+            <p style="text-align:center; font-weight:bold;">COMMENCEZ VOTRE <br> IDENTIFIACTTION COMME ADMINISTRATEUR</p>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      height="40"
+                      v-model="editedItem.nom"
+                      :rules="[() => !!editedItem.nom]"
+                      ref="dep_date"
+                      type="text"
+                      value=""
+                      label="Nom"
+                      persistent-hint
+                      append-icon="mdi-account"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      append-icon="mdi-account-outline"
+                      height="40"
+                      v-model="editedItem.prenoms"
+                      :rules="[() => !!editedItem.prenoms]"
+                      ref="dest_place"
+                      type="text"
+                      label="Prenoms"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      height="40"
+                      v-model="editedItem.email"
+                      :rules="[() => !!editedItem.email,(v) => /.+@.+/.test(v)]"
+                      ref="dep_time"
+                      type="text"
+                      label="e-mail"
+                      append-icon="mdi-at"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      append-icon="mdi-phone"
+                      height="40"
+                      v-model="editedItem.contact"
+                      :rules="[() => !!editedItem.contact,(v) => /[0-9]+/i.test(v)]"
+                      ref="pla_number"
+                      type="text"
+                      maxlength="10"
+                      label="Numero de telephone"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      height="40"
+                      v-model="editedItem.date_naissance"
+                      :rules="[() => !!editedItem.date_naissance]"
+                      ref="car_infos"
+                      type="date"
+                      prefix="Né le : "
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      solo
+                      append-icon="mdi-map-marker"
+                      height="40"
+                      v-model="editedItem.lieu_naissance"
+                      :rules="[() => !!editedItem.lieu_naissance]"
+                      ref="car_matri"
+                      type="text"
+                      label="Lieux d'habitation"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col> 
+                   <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                    background-color="#356eea24"
+                      solo
+                      height="40"
+                      append-icon="mdi-matrix"
+                      v-model="editedItem.departement"
+                      :rules="[() => !!editedItem.departement]"
+                      ref="dep_date"
+                      type="text"
+                      value=""
+                      label="Département ou service"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                    background-color="#356eea24"
+                      solo
+                      append-icon="mdi-matrix"
+                      height="40"
+                      v-model="editedItem.fonction"
+                      :rules="[() => !!editedItem.fonction]"
+                      ref="dest_place"
+                      type="text"
+                      label="Post occupé"
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>  
+                  <p style="text-align:center; font-style:italic;font-size:10px">
+                    ces informations sont necessaires pour vous identifier comme un utilisateur.
+                    Elles seront prises en compte dès votre prochaine connexion
+                  </p>
+              </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <p
+            class="simplex-btn"
+            style="background:grey"
+            @click="closeEdit"
+            >Annuler</p
+          > -->
+          <p
+            class="simplex-btn"
+            @click="editItemConfirm"
+            >Enregistrer</p
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+    <transition name="slide">
+      <v-alert
+        v-if="addingSuccess"
+        elevation="13"
+        type="success"
+        max-width="300"
+        class="alert"
+        color="mainBlueColor"
+      >
+        Employer enregistré avec succes</v-alert
+      >
+    </transition>
+    <transition name="slide">
+      <v-alert
+        v-if="addingfalse"
+        elevation="13"
+        type="error"
+        max-width="300"
+        class="alert"
+        color="error"
+      >
+        Erreur lors de l'ajout</v-alert
+      >
+    </transition>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -79,129 +262,27 @@ export default {
   data: () => ({
     // FOR TIMER
     timestamp: "",
-    /* FOR  SERVICE STATS */
-    showChart: false,
+    // DATA
+    role:"",
+    adminInfos:false,
+    editedItem: {},
+    profilIMG:"",
 
-    series: [
-      //     {
-      // name: 'series7',
-      // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
-      // },
-      // {
-      // name: 'series2',
-      // data: [11, 32, 22, 12, 30, 52,0, 32, 45, 33, 14, 22]
-      // },
-      // {
-      // name: 'series3',
-      // data: [20, 50, 10, 83, 56, 22,20, 50, 20, 19, 30, 120]
-      // }
-    ],
-
-    chartOptions: {
-      chart: {
-        id: "FirstChart",
-        type: "area",
-        sparkline: {
-          enabled: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Aug",
-          "Sep",
-          "Oct",
-        ],
-      },
-    },
-
-    /* FOR SERVICE MARCK */
-    series2: [45, 55, 30],
-
-    chartOptions2: {
-      chart: {
-        // width: 380,
-        type: 'polarArea'
-      },
-      fill: {
-        opacity: 1
-      },
-      stroke: {
-        width: 1,
-        colors: undefined
-      },
-      yaxis: {
-          show: false
-        },
-      legend: {
-          position: 'bottom'
-        },
-      plotOptions: {
-          polarArea: {
-            rings: {
-              strokeWidth: 0
-            },
-            spokes: {
-              strokeWidth: 0
-            },
-          }
-        },
-      // theme: {
-      //   monochrome: {
-      //     enabled: true,
-      //     shadeTo: 'light',
-      //     shadeIntensity: 0.6
-      //   }
-      // },
-
-      colors: ["#3e886d", "#4c5d70", "#b6bbc2"],
-      labels: ["SBTA", "ABOUSSOUAN", "VOUS 4eme"],
-    },
+    addingSuccess: false,
+    addingfalse: false,
   }),
 
   mounted() {
     setTimeout(() => {
-      this.updateChart();
-      this.showChart = true;
-    }, 500);
+      if (this.role==1) {
+       this.activeAdminUpdate();
+      }
+     
+    }, 100);
+    
   },
 
   methods: {
-    // ------------------------
-    // DATA
-    // ------------------------
-    updateChart() {
-      this.series = this.Analytics.GraphData.series;
-      this.chartOptions = {
-        ...this.chartOptions,
-        ...{
-          xaxis: {
-            categories: this.Analytics.GraphData.month,
-          },
-        },
-      };
-
-      this.series2 = this.Ratings.rates;
-      this.chartOptions2 = {
-        labels: this.Ratings.station,
-      };
-    },
-
     getNow() {
         const today = new Date();
         const time = this.padzero(today.getHours()) + ":" + this.padzero(today.getMinutes());
@@ -211,18 +292,67 @@ export default {
     padzero(num) {
         return num<10? "0"+ num:num
     },
+
+    activeAdminUpdate(){
+      if (!this.Current_employer) {
+        this.adminInfos = true;
+        console.log(this.Current_employer);
+      }
+    },
+    editItemConfirm() {
+      axios
+        ({ url: "/api/v1/users/update_first_admin", data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          // console.log(response.data);
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Annulation effectuée
+            this.VisiteaAddingResponse;
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+               this.$store.dispatch("init_current_employer_infos");
+            }, 3000);
+            this.closeEdit();
+          } else if (!this.VisiteaAddingResponse) {
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+    },
+
+    closeEdit() {
+      this.adminInfos = false;
+    },
     
   },
 
   computed: {
-    ...mapGetters(["LastMessages","EmployersNumber","UndoTaskNumber"]),
+    ...mapGetters(["Current_employer","LastMessages","EmployersNumber","UndoTaskNumber"]),
   },
 
+
   created() {
+    this.$store.dispatch("init_current_employer_infos")
     this.$store.dispatch("init_message");
     this.$store.dispatch("init__employer_number");
     this.$store.dispatch("init_task_undo_number");
+    this.$store.dispatch("init_file_undo_number");
+    
     setInterval(this.getNow, 1000);
+    this.editedItem.user_id = localStorage.getItem("user-id");
+    this.editedItem.compagnie_id = localStorage.getItem("user-compagnie");
+    this.role = localStorage.getItem("user-role");
+    // this.activeAdminUpdate()
+    
   },
 
 };
@@ -346,5 +476,19 @@ export default {
   margin-top: 5%;
   height: 80%;
 }
+
+
+
+/* Edit travel */
+.editIMGO {
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
+}
+
+
 
 </style>

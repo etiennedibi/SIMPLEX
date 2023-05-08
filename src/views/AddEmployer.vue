@@ -195,6 +195,20 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-select
                     background-color="#356eea24"
+                    v-model="newTravel_1.department_second_id"
+                    :rules="[() => !!newTravel_1.department_second_id]"
+                    :items="Services"
+                    item-text="nom_departement"
+                    item-value="id"
+                    label="Département d'instruction (optionnnel)"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
                     v-model="newTravel_1.id_type_contrat"
                     :rules="[() => !!newTravel_1.id_type_contrat]"
                     :items="Contracts"
@@ -411,6 +425,7 @@ export default {
           formData.append('fiche_poste', this.newTravel_1.fiche_poste);
           formData.append('id_fonction', this.newTravel_1.id_fonction);
           formData.append('department_id', this.newTravel_1.department_id);
+          formData.append('department_second_id', this.newTravel_1.department_second_id);
           formData.append('role_id', this.newTravel_1.role_id);
           formData.append('id_type_contrat', this.newTravel_1.id_type_contrat);
           formData.append('date_debut', this.newTravel_1.date_debut);

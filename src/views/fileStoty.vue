@@ -1,19 +1,21 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
-      <p class="sectionTitle">Historique des visites</p>
+      <p class="sectionTitle">Historique des fichiers</p>
       <v-row>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <h1>-</h1>
-            <h5>RDV Enregistrés</h5>
+            <!-- <h5>RDV Enregistrés</h5> -->
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
-              <v-icon color="white">mdi-account-cancel</v-icon>
+              <v-icon color="white">mdi-file</v-icon>
             </div>
-            <h1 style="color: white"> {{ canceRDVNumber }}</h1>
-            <h5 style="color: white">RDV annulés</h5>
+            <h1 style="color: white" v-if="!fileNumber">0</h1>
+            <h1 style="color: white" v-if="fileNumber"> {{ fileNumber }}</h1>
+             <!-- || (UnseeFileNumber==undefined)">0 -->
+            <h5 style="color: white">Fichiers stockés</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
@@ -37,7 +39,7 @@ export default {
   data() {
     return {
       // componentKey: 0,
-      visiteNumber:"",
+      fileNumber:"",
       canceRDVNumber:"",
     };
   },
@@ -53,14 +55,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Analytics"]),
+    ...mapGetters(["AllUserCompagniefiles"]),
     
     
   },
   created() {
-    this.$store.dispatch("init_allVisite");
-    this.visiteNumber = this.$store.getters.AllVisitesStorys.visites.length;
-    this.canceRDVNumber = this.$store.getters.AllVisitesStorys.visites_annulle.length;
+    this.$store.dispatch("init_all_compnies_file");
+    this.fileNumber = this.$store.getters.AllUserCompagniefiles.length;
+    // this.canceRDVNumber = this.$store.getters.AllVisitesStorys.visites_annulle.length;
   },
 };
 </script>

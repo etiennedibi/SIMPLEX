@@ -4,6 +4,7 @@ const state = {
   allUserfiles: [],
   allUserSharefiles: [],
   allUserCompagniefiles: [],
+  unseeFileNumber: '',
 };
 
 const getters = {
@@ -14,9 +15,18 @@ const getters = {
     let files = state.allUserfiles.map((file) => {
       const dateDebut = file.updated_at.split('T')
       file.updated_at = dateDebut[0]
+
+      if ((file.fichier.indexOf('.pdf')> -1)||(file.fichier.indexOf('.PDF')> -1)) {
+        file.extenssion = 'pdf'
+      } else if ((file.fichier.indexOf('.png')> -1)||(file.fichier.indexOf('.jpeg')> -1)||(file.fichier.indexOf('.jpg')> -1)){
+        file.extenssion = 'img'
+      }else{
+        file.extenssion = 'other'
+      }
+
       return file
     });
-    console.log(files);
+    // console.log(files);
     return files;
   },
 
@@ -27,9 +37,16 @@ const getters = {
     let files = state.allUserSharefiles.map((file) => {
       const dateDebut = file.created_at.split('T')
       file.created_at = dateDebut[0]
+      if ((file.fichier.indexOf('.pdf')> -1)||(file.fichier.indexOf('.PDF')> -1)) {
+        file.extenssion = 'pdf'
+      } else if ((file.fichier.indexOf('.png')> -1)||(file.fichier.indexOf('.jpeg')> -1)||(file.fichier.indexOf('.jpg')> -1)){
+        file.extenssion = 'img'
+      }else{
+        file.extenssion = 'other'
+      }
       return file
     });
-    console.log(files);
+    // console.log(files);
     return files;
   },
 
@@ -45,6 +62,13 @@ const getters = {
     return files;
   },
 
+  UnseeFileNumber: (state) => {
+    let project = state.unseeFileNumber;
+
+    return project;
+
+  },
+
 };
 
 const mutations = {
@@ -58,6 +82,10 @@ const mutations = {
 
   SET_ALL_COMPAGNIE_FILES(state, data) {
     state.allUserCompagniefiles = data;
+  },
+
+  SET_UNSEE_FILE_NUMBER(state, data) {
+    state.unseeFileNumber = data;
   },
 
 };
@@ -101,6 +129,21 @@ const actions = {
       })
       .catch((error) => console.log(error));
   },
+
+  init_file_undo_number: ({ commit },) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "/api/v1/users/File_number/"+localStorage.getItem("user-id")
+          // localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        console.log("kaka",res.data.filenumber);
+        commit("SET_UNSEE_FILE_NUMBER", res.data.filenumber);
+      })
+      .catch((error) => console.log(error));
+  },
+
 
 };
 

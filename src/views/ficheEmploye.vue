@@ -13,14 +13,15 @@
             <v-card-text>
               <v-container>
                 <v-row class="detailsTemplate">
-                  <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/>
+                  <embed :src="`${axios.defaults.baseURL}${fileToShow}`" width="100%" height="670px"/>
+                  <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
                 </v-row>
               </v-container>
             </v-card-text>
           </v-card>
         </v-dialog>
       <!-- END PRDUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
-      <v-container v-if="Current_employer" fluid class="pouletBr">
+      <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="8" lg="8">
             <div class="Jumbultron">
@@ -48,13 +49,13 @@
           <v-col cols="12" md="4" lg="4">
             <div class="statWrapper1">
               <div>
-               <div><p><v-icon>mdi-manjaro</v-icon> </p>CV</div>
-               <div><p><v-icon>mdi-file-document-plus</v-icon> </p>motivation</div>
-               <div><p><v-icon>mdi-card-account-details</v-icon> </p>identité</div>
+               <div @click="showfileDialog('/uploads/user/cv/'+Current_employer.CV)" v-if="Current_employer.CV"><p><v-icon>mdi-manjaro</v-icon> </p>CV</div>
+               <div @click="showfileDialog('/uploads/user/lm/'+Current_employer.LM)" v-if="Current_employer.LM"><p><v-icon>mdi-file-document-plus</v-icon> </p>motivation</div>
+               <div @click="showfileDialog('/uploads/user/piece_identite/'+Current_employer.piece_identite)" v-if="Current_employer.piece_identite"><p><v-icon>mdi-card-account-details</v-icon> </p>identité</div>
               </div>
               <div>
-               <div><p><v-icon>mdi-file-document-check</v-icon> </p>Fiche de post</div>
-               <div><p><v-icon>mdi-file-sign</v-icon> </p>  contat</div>
+               <div @click="showfileDialog('/uploads/user/fichePost/'+Current_employer.fiche_poste)" v-if="Current_employer.fiche_poste"><p><v-icon>mdi-file-document-check</v-icon> </p>Fiche de post</div>
+               <div @click="showfileDialog('/uploads/user/contrat/'+Current_employer.contrat)" v-if="Current_employer.contrat"><p><v-icon>mdi-file-sign</v-icon> </p>  contat</div>
               </div>
                
             </div>
@@ -74,7 +75,7 @@
                   <p><span>Date de naissance</span><br>{{ Current_employer.date_naissance }}</p>
                   <p><span>Lieu d'habitation</span><br>{{ Current_employer.lieu_naissance }}</p>
                 </div>
-                <div>CDI</div>
+                <div>{{ Current_employer.anagramme }}</div>
                </div>
             </div>
           </v-col>
@@ -86,12 +87,12 @@
               <span>{{ Current_employer.date_fin }} </span>
               <span>Durée contrat:</span>
               <span>{{ Current_employer.duree_contrat }} </span>
-              <!-- <span>{{ Current_employer.type_contrat }}</span> -->
+              <span>{{ Current_employer.type_contrat }}</span>
             </div>
           </v-col>
         </v-row>
       </v-container>
-      <v-container v-if="!Current_employer" fluid class="pouletBr stationListboxWrapper2">
+      <!-- <v-container v-if="!Current_employer" fluid class="pouletBr stationListboxWrapper2">
        <v-icon x-large color="mainBlueColor"> mdi-alert-circle-outline </v-icon>
         Veuillez renseigner vos informations personnelles et professionnelles,<br>
         pour accéder à votre fiche employé.
@@ -103,9 +104,9 @@
             style="color: white;margin-top:20px"
             v-on:click.prevent="adminInfos=!adminInfos"
             >Renseigner</v-btn
-          >
+          > -->
          <!-- EDIT DIALOG -->
-        <v-dialog v-model="adminInfos" max-width="400">
+        <!-- <v-dialog v-model="adminInfos" max-width="400">
           <v-card>
             <v-card-text>
               <v-container>
@@ -380,9 +381,8 @@
               >
             </v-card-actions>
           </v-card>
-        </v-dialog>
-
-      </v-container>
+        </v-dialog> -->
+      <!-- </v-container> -->
     </div>
 
     <transition name="slide">
@@ -504,9 +504,8 @@ export default {
       this.adminInfos = false;
     },
 
-    showfileDialog() {
-
-
+    showfileDialog(item) {
+      this.fileToShow = item
       this.showFile = true;
     },
 
@@ -667,6 +666,7 @@ export default {
 }
 .depBox div:nth-child(1){
   height:33vh;
+  max-width: 60%;
   /* background:red; */
 }
 .depBox div:nth-child(1) span{
@@ -721,6 +721,7 @@ export default {
 .statWrapper1 .v-icon {
   font-size:25px;
   color: var(--main-blue-important);
+  cursor: pointer;
 }
 
 .statWrapper2 {

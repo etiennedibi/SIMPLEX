@@ -1,6 +1,25 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
+        <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
+        <v-dialog
+          v-model="showFile"
+          width="800"
+          overlay-color="black"
+          overlay-opacity="0.8"
+          mainBlueColor
+        >
+          <v-card tile>
+            <v-card-text>
+              <v-container>
+                <v-row class="detailsTemplate">
+                  <embed :src="`${axios.defaults.baseURL}${fileToShow}`" width="100%" height="670px"/>
+                  <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
        <!-- SHOW DIALOG -->
       <v-dialog v-model="dialog" max-width="1000">
         <v-card>
@@ -63,13 +82,13 @@
                 <v-col cols="12" md="4" lg="4">
                   <div class="statWrapper1">
                     <div>
-                    <div><p><v-icon>mdi-manjaro</v-icon> </p>CV</div>
-                    <div><p><v-icon>mdi-file-document-plus</v-icon> </p>motivation</div>
-                    <div><p><v-icon>mdi-card-account-details</v-icon> </p>identité</div>
+                      <div @click="showfileDialog('/uploads/user/cv/'+editedItem.CV)" v-if="editedItem.CV"><p><v-icon>mdi-manjaro</v-icon> </p>CV</div>
+                      <div @click="showfileDialog('/uploads/user/lm/'+editedItem.LM)"  v-if="editedItem.LM"><p><v-icon>mdi-file-document-plus</v-icon> </p>motivation</div>
+                      <div @click="showfileDialog('/uploads/user/piece_identite/'+editedItem.piece_identite)" v-if="editedItem.piece_identite"><p><v-icon>mdi-card-account-details</v-icon> </p>identité</div>
                     </div>
-                    <div>
-                    <div><p><v-icon>mdi-file-document-check</v-icon> </p>Fiche de post</div>
-                    <div><p><v-icon>mdi-file-sign</v-icon> </p>  contat</div>
+                      <div>
+                      <div @click="showfileDialog('/uploads/user/fichePost/'+editedItem.fiche_poste)" v-if="editedItem.fiche_poste"><p><v-icon>mdi-file-document-check</v-icon> </p>Fiche de post</div>
+                      <div @click="showfileDialog('/uploads/user/contrat/'+editedItem.contrat)" v-if="editedItem.contrat"><p><v-icon>mdi-file-sign</v-icon> </p>  contat</div>
                     </div>
                     
                   </div>
@@ -86,8 +105,8 @@
                           <p><span>Habitation</span><br> {{ editedItem.lieu_naissance }}</p>
                           <p><span>contact</span><br>{{ editedItem.contact }}</p>
                           <p><span>E-mail</span><br>{{ editedItem.email }}</p>
-                          <p><span>Date de naissance</span><br>{{ editedItem.lieu_naissance }}</p>
-                          <p><span>Lieu d'habitation</span><br>{{ editedItem.date_naissance }}</p>
+                          <p><span>Date de naissance</span><br>{{ editedItem.date_naissance }}</p>
+                          <p><span>Lieu d'habitation</span><br>{{ editedItem.lieu_naissance }}</p>
                       </div>
                       <div>{{ editedItem.anagramme }} </div>
                     </div>
@@ -244,6 +263,19 @@
                   >
                   </v-select>
                 </v-col>
+                <v-col cols="12" md="11" lg="11">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="editedItem.department_second_id"
+                    :items="Services"
+                    item-text="nom_departement"
+                    item-value="id"
+                    label="Département d'instruction (optionnnel)"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
 
                 <v-col cols="12" md="11" lg="11">
                   <v-select
@@ -280,6 +312,7 @@
                     background-color="#356eea24"
                     v-model="editedItem.date_fin"
                     :rules="[() => !!editedItem.date_fin]"
+                    :disabled="disableFieldInCaseOfCDI"
                     ref="car_matri"
                     type="date"
                     prefix="Fin du contrat : "
@@ -296,6 +329,7 @@
                     height="40"
                     v-model="editedItem.duree_contrat"
                     :rules="[() => !!editedItem.duree_contrat]"
+                    :disabled="disableFieldInCaseOfCDI"
                     ref="pl_price"
                     type="text"
                     label="Durée du contrat : "
@@ -545,6 +579,8 @@ export default {
     // FOR DIALOG
     dialog: false,
     editedItem: {},
+    showFile:false,
+    fileToShow:"",
     
     // For USER edit
     VisiteaAddingResponse: "",
@@ -577,6 +613,11 @@ export default {
     showItem(item) {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+    },
+
+    showfileDialog(item) {
+      this.fileToShow = item
+      this.showFile = true;
     },
 
     // ------------------------
@@ -699,6 +740,11 @@ export default {
     numberOfPages () {
         return Math.ceil(this.Employers.length / this.itemsPerPage)
       },
+
+    disableFieldInCaseOfCDI() {
+      if(this.editedItem.the_contrat_id==1) return true
+      else return false
+    }
   },
 
   created() {
@@ -964,7 +1010,7 @@ export default {
   font-size:13px;
   overflow: hidden;
   overflow-y: auto;
-  /* background-color: red; */
+  /* background-color: green; */
   padding-left: 10px;
   text-transform: uppercase;
   font-weight: bold;
@@ -972,6 +1018,7 @@ export default {
 }
 .depBox div:nth-child(1){
   height:33vh;
+  max-width: 60%;
   /* background:red; */
 }
 .depBox div:nth-child(1) span{
@@ -1026,6 +1073,7 @@ export default {
 .statWrapper1 .v-icon {
   font-size:25px;
   color: var(--main-blue-important);
+  cursor: pointer;
 }
 
 .statWrapper2 {

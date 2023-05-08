@@ -14,7 +14,16 @@
           <v-container>
             <v-row class="detailsTemplate">
               <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
-              <embed :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
+              <embed v-if="editedItem.extenssion=='pdf'" :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
+              <div v-if="editedItem.extenssion=='other'" class="downloadBox">
+                <a :href="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`">
+                  <v-icon color="mainBlueColor" large>mdi-download-circle</v-icon>
+                </a>
+                <p>{{editedItem.fichier}}</p>
+              </div>
+              <div v-if="editedItem.extenssion=='img'" class="ImgloadBox">
+                <img :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" alt="" srcset="">
+              </div>
             </v-row>
           </v-container>
         </v-card-text>
@@ -133,8 +142,8 @@
               </div>
               <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
                 <div class="userinfo">
-                  <img v-if="editedItem.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
-                  <img v-if="!editedItem.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                  <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                  <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                   <p>{{item.nom}} {{item.prenoms}}</p>
                 </div>
                 <div class="actionBox">
@@ -325,6 +334,7 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+// import WebViewer from "../WebViewer.vue";
 
 export default {
   name: "UserFileList",
@@ -690,6 +700,26 @@ export default {
   width: 100%;
   margin-top:1vh;
   /* background: red; */
+}
+.downloadBox{
+  height: 50vh;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ImgloadBox{
+  margin-top: 20px;
+  height: 50vh;
+  width:70vw;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.ImgloadBox > img{
+  max-height: 50vh;
+  max-width: 98%;
 }
 .oneUserbox{
   height: 70px;

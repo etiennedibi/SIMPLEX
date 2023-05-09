@@ -28,6 +28,15 @@
         <p style="margin-top:25px">communiqués</p>
       </div>
     </router-link>
+    <router-link :to="{ name: 'chat' }">
+      <div class="timeBox">
+        <!-- <div>35</div> -->
+        <v-icon style="transform: rotate(0deg)" color="mainBlueColor" x-large class="messgaeicon"
+          >mdi-forum-outline</v-icon
+        >
+        <p style="margin-top:25px">chat</p>
+      </div>
+    </router-link>
     <div class="footerBox">
       <div class="locationBox">
         <div>
@@ -154,12 +163,13 @@ export default {
 }
 
 .timeBox {
-  height: 260px;
+  /* height: 260px; */
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background-color:red; */
   /* cursor: pointer; */
 }
 .timeBox div:nth-child(1) {

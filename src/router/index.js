@@ -43,6 +43,7 @@ import ServiceManagment from "../views/serviceManagment.vue";
 
 import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
+import chat from "../views/chat.vue";
 
 import login from "../views/login.vue";
 // import abonnement from "../views/abonnementChekpage.vue";
@@ -77,6 +78,15 @@ const routes = [
     name: "Messagerie",
     component: Messagerie,
     beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/chat",
+    name: "chat",
+    component: chat,
+    beforeEnter: ifAuthenticated,
+    meta: {
+      plainLayout: true,
+    }
   },
   {
     path: "/param",

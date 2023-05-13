@@ -295,8 +295,8 @@ export default {
 
     activeAdminUpdate(){
       if ((!this.Current_employer)||(this.Current_employer == undefined)) {
-        this.adminInfos = true;
         console.log(this.Current_employer);
+        this.adminInfos = true;
       }
     },
     editItemConfirm() {

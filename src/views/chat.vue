@@ -55,6 +55,7 @@
                     color="white"
                     filled
                     rounded
+                    height="20"
                     dense
                     background-color="mainBlueColor"
                   ></v-text-field>
@@ -219,12 +220,39 @@
                       <div class="theInput">
                         <v-textarea
                         filled
+                        auto-grow
                         background-color="#f5f5ff"
                         clearable
                         clear-icon="mdi-close-circle"
-                        height="80"
+                        rows="3"
                         name="input-7-4"
+                        v-model="input"
                       ></v-textarea>
+                      <emoji-picker @emoji="insert" :search="search">
+                        <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
+                          <button type="button">open</button>
+                        </div>
+                        <div slot="emoji-picker" slot-scope="{ emojis, insert }">
+                          <div>
+                            <div>
+                              <input type="text" v-model="search">
+                            </div>
+                            <div>
+                              <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                <h5>{{ category }}</h5>
+                                <div>
+                                  <span
+                                    v-for="(emoji, emojiName) in emojiGroup"
+                                    :key="emojiName"
+                                    @click="insert(emoji)"
+                                    :title="emojiName"
+                                  >{{ emoji }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </emoji-picker>
                       </div>
                       <v-btn icon>
                         <v-icon color="mainBlueColor" style="font-size:30px; transform:rotate(-25deg)">mdi-send-variant</v-icon>
@@ -247,7 +275,8 @@
           <v-icon v-if="drawer">mdi-close-circle</v-icon>
         </v-btn>
       </template>
-      <span>Details</span>
+      <span v-if="!drawer">Details</span>
+      <span v-if="drawer">fermer</span>
     </v-tooltip>      
     <v-navigation-drawer v-model="drawer" floating right app>
       <div class="profilSpace">
@@ -281,6 +310,8 @@
   </v-main>
 </template>
 
+<script src="https://unpkg.com/vue-emoji-picker/dist/vue-emoji-picker.js"></script>
+
 <script>
 // import Vue from 'vue'
 export default {
@@ -291,11 +322,15 @@ export default {
     // USER SEACH
     drawer: null,
     SeachActive:false,
-    
+    // EMOJI PICKER
+    input: '',
+    search: '',
   }),
 
   methods: {
-   
+   insert(emoji) {
+      this.input += emoji
+    },
   },
 };
 </script>
@@ -399,6 +434,7 @@ export default {
   display:flex;
   justify-content:center;
   align-items:center;
+  /* background: red; */
 }
 .seach{
   width:80%;
@@ -406,6 +442,7 @@ export default {
   border-radius:10px;
   background:var(--main-blue-important);
   display: flex;
+  /* background:green; */
 }
 /* .theme--light.v-input input, .theme--light.v-input textarea {
   color: white !important;
@@ -432,6 +469,9 @@ export default {
   background:#356eea24;
 }
 .onUserActive{
+  background:var(--main-blue-important);
+}
+.onUserActive:hover{
   background:var(--main-blue-important);
 }
 .user-profil{
@@ -531,13 +571,15 @@ export default {
 .imputWrapper{
   height: 12.5vh;
   display: flex;
-  align-items: center;
-  justify-content:space-between
+  align-items: flex-start;
+  justify-content:space-between;
+  /* background:red; */
 }
 .theInput{
   height: 100%;
   width:90%;
   background:var(--main-white-color);
+  overflow-y: auto;
 }
 
 

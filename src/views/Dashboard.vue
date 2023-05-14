@@ -278,7 +278,7 @@ export default {
        this.activeAdminUpdate();
       }
      
-    }, 100);
+    }, 1000);
     
   },
 

@@ -64,6 +64,7 @@ const getters = {
 
   UnseeFileNumber: (state) => {
     let project = state.unseeFileNumber;
+    console.log("pippipopop",project);
 
     return project;
 
@@ -138,8 +139,8 @@ const actions = {
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        console.log("kaka",res.data.filenumber);
-        commit("SET_UNSEE_FILE_NUMBER", res.data.filenumber);
+        // console.log("kakaooppppp",res.data.fileNumber);
+        commit("SET_UNSEE_FILE_NUMBER", res.data.fileNumber);
       })
       .catch((error) => console.log(error));
   },

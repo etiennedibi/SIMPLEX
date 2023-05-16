@@ -336,7 +336,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Current_employer","LastMessages","EmployersNumber","UndoTaskNumber"]),
+    ...mapGetters(["Current_employer","LastMessages","EmployersNumber","UndoTaskNumber", "UnseeFileNumber"]),
   },
 
 

@@ -70,38 +70,21 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          
-        </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
+           <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == '0'"
+          class="statuBtn">
+            <div class="status" style="background: #037CB831;">en cours</div>
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ACCORDE'"
+          class="statuBtn">
+            <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
+          </v-btn>
+          <v-btn icon color="mainBlueColor" 
+          v-if="item.etat_demande == 'CONGE_ANNULÉ'"
+          class="statuBtn">
+            <div class="status" style="background: #FC070794; color:white;">refusé</div>
+          </v-btn>
         </template>
       </v-data-table>
     </div>
@@ -321,6 +304,16 @@ export default {
   font-weight: bold;
   letter-spacing: normal;
   text-transform: none;
+}
+.statuBtn{
+  margin-left: 30px;
+}
+.status{
+  display:inline-block;
+  padding: 5px;
+  border-radius:50px;
+  font-size:8px;
+  font-weight: bold
 }
 
 .theSeachBar {

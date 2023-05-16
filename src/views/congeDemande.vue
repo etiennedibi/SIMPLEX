@@ -203,7 +203,12 @@ export default {
     this.$store.dispatch("init_conge");
     this.new_conge_ask.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_conge_ask.id_user = localStorage.getItem("user-id");
-    this.new_conge_ask.id_departement = localStorage.getItem("user-department");
+    if (localStorage.getItem("user-department-second")) {
+       this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
+    } else {
+       this.new_conge_ask.id_departement = localStorage.getItem("user-department");
+    }
+   
   },
 };
 </script>

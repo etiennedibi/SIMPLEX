@@ -110,7 +110,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getAllconge" 
+        "/api/v1/admin/getAllconge/"+localStorage.getItem("user-compagnie")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

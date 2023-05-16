@@ -196,7 +196,6 @@
                   <v-select
                     background-color="#356eea24"
                     v-model="newTravel_1.department_second_id"
-                    :rules="[() => !!newTravel_1.department_second_id]"
                     :items="Services"
                     item-text="nom_departement"
                     item-value="id"

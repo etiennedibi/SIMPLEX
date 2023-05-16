@@ -69,7 +69,7 @@
                   <p v-if="Current_employer.role_id==2"><span>Attribution</span><br>MANAGEUR</p>
                   <p v-if="Current_employer.role_id==3"><span>Attribution</span><br>TEAM LEAD</p>
                   <p v-if="Current_employer.role_id==4"><span>Attribution</span><br>STANDARD</p>
-                  <p><span>Habitation</span><br> {{ Current_employer.lieu_naissance }}</p>
+                  <!-- <p><span>Habitation</span><br> {{ Current_employer.lieu_naissance }}</p> -->
                   <p><span>contact</span><br>{{ Current_employer.contact }}</p>
                   <p><span>E-mail</span><br>{{ Current_employer.email }}</p>
                   <p><span>Date de naissance</span><br>{{ Current_employer.date_naissance }}</p>

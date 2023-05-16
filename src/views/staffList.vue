@@ -102,7 +102,7 @@
                           <p v-if="editedItem.role_id==2"><span>Attribution</span><br>MANAGEUR</p>
                           <p v-if="editedItem.role_id==3"><span>Attribution</span><br>TEAM LEAD</p>
                           <p v-if="editedItem.role_id==4"><span>Attribution</span><br>STANDARD</p>
-                          <p><span>Habitation</span><br> {{ editedItem.lieu_naissance }}</p>
+                          <!-- <p><span>Habitation</span><br> {{ editedItem.lieu_naissance }}</p> -->
                           <p><span>contact</span><br>{{ editedItem.contact }}</p>
                           <p><span>E-mail</span><br>{{ editedItem.email }}</p>
                           <p><span>Date de naissance</span><br>{{ editedItem.date_naissance }}</p>
@@ -828,6 +828,7 @@ export default {
   color: var(--Important-font-color);
   display: flex;
   justify-content: space-around;
+  cursor: pointer;
 }
 
 .price {

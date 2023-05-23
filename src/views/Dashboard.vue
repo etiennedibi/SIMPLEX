@@ -112,12 +112,12 @@
                     <v-text-field
                       solo
                       height="40"
-                      v-model="editedItem.email"
-                      :rules="[() => !!editedItem.email,(v) => /.+@.+/.test(v)]"
+                      v-model="editedItem.password"
+                      :rules="[() => !!editedItem.password]"
                       ref="dep_time"
                       type="text"
-                      label="e-mail"
-                      append-icon="mdi-at"
+                      label="mot de passe actualié"
+                      append-icon="mdi-eye"
                       persistent-hint
                       required
                     ></v-text-field>
@@ -197,7 +197,7 @@
                   </v-col>  
                   <p style="text-align:center; font-style:italic;font-size:10px">
                     ces informations sont necessaires pour vous identifier comme un utilisateur.
-                    Elles seront prises en compte dès votre prochaine connexion
+                   <span style="color:red">Elles seront prises en compte dès votre prochaine connexion</span> 
                   </p>
               </v-row>
               </v-container>
@@ -315,6 +315,9 @@ export default {
                this.$store.dispatch("init_current_employer_infos");
             }, 3000);
             this.closeEdit();
+            this.$store.dispatch("auth_logout").then(() => {
+              this.$router.push("/login");
+            });
           } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {

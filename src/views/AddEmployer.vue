@@ -177,6 +177,20 @@
                     height="40"
                   >
                   </v-select>
+                <v-col cols="12" md="4" lg="4">
+                  <v-select
+                    background-color="#356eea24"
+                    v-model="newTravel_1.department_second_id"
+                    :rules="[() => !!newTravel_1.department_second_id]"
+                    :items="Services"
+                    item-text="nom_departement"
+                    item-value="id"
+                    label="Département d'instruction"
+                    solo
+                    height="40"
+                  >
+                  </v-select>
+                </v-col>
                 </v-col>
                 <v-col cols="12" md="4" lg="4">
                   <v-select
@@ -195,25 +209,14 @@
                 <v-col cols="12" md="4" lg="4">
                   <v-select
                     background-color="#356eea24"
-                    v-model="newTravel_1.department_second_id"
-                    :items="Services"
-                    item-text="nom_departement"
-                    item-value="id"
-                    label="Département d'instruction (optionnnel)"
-                    solo
-                    height="40"
-                  >
-                  </v-select>
-                </v-col>
-                <v-col cols="12" md="4" lg="4">
-                  <v-select
-                    background-color="#356eea24"
                     v-model="newTravel_1.id_type_contrat"
                     :rules="[() => !!newTravel_1.id_type_contrat]"
                     :items="Contracts"
                     item-text="type_contrat"
                     item-value="id"
                     label="type de contrat"
+                    return-object
+                    @change="onItemChange"
                     solo
                     height="40"
                   >
@@ -355,7 +358,7 @@ export default {
   data: () => ({
 
     //FOR-CDI-CHECK
-    CDI_check:false, 
+    disableFieldInCaseOfCDI:false, 
 
     row: "check",
     DayType: true,
@@ -407,6 +410,15 @@ export default {
   }),
 
   methods: {
+
+    onItemChange(item){
+      if (item.type_contrat == "Contrat à durée indéterminée") {
+        this.disableFieldInCaseOfCDI = true
+      }else{
+         this.disableFieldInCaseOfCDI = false
+      }
+    },
+
     submit1() {
       // for intermadiate station 
       if (this.$refs.form1.validate()) {
@@ -426,7 +438,7 @@ export default {
           formData.append('department_id', this.newTravel_1.department_id);
           formData.append('department_second_id', this.newTravel_1.department_second_id);
           formData.append('role_id', this.newTravel_1.role_id);
-          formData.append('id_type_contrat', this.newTravel_1.id_type_contrat);
+          formData.append('id_type_contrat', this.newTravel_1.id_type_contrat.id);
           formData.append('date_debut', this.newTravel_1.date_debut);
           formData.append('date_fin', this.newTravel_1.date_fin);
           formData.append('duree_contrat', this.newTravel_1.duree_contrat);
@@ -472,10 +484,11 @@ export default {
     ...mapGetters(["Works","Contracts","Services","Rights"]),
 
     // newTravel_1.id_type_contrat
-    disableFieldInCaseOfCDI() {
-      if(this.newTravel_1.id_type_contrat==1) return true
-      else return false
-    }
+    // disableFieldInCaseOfCDI() {
+    //   console.log(this.newTravel_1.id_type_contrat);
+    //   if(this.newTravel_1.id_type_contrat==1) return true
+    //   else return false
+    // }
   },
 
   created() {

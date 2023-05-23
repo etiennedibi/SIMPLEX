@@ -285,6 +285,8 @@
                     item-text="type_contrat"
                     item-value="id"
                     label="type de contrat"
+                    return-object
+                    @change="onItemChange"
                     solo
                     height="40"
                   >
@@ -583,6 +585,7 @@ export default {
     fileToShow:"",
     
     // For USER edit
+    disableFieldInCaseOfCDI:false,
     VisiteaAddingResponse: "",
     dialogEdit: false,
     editedIndex: -1,
@@ -623,6 +626,15 @@ export default {
     // ------------------------
     // For Profil Edited
     // ------------------------
+    onItemChange(item){
+      if (item.type_contrat == "Contrat à durée indéterminée") {
+        this.editedItem.date_fin = null
+        this.editedItem.duree_contrat = null
+        this.disableFieldInCaseOfCDI = true
+      }else{
+         this.disableFieldInCaseOfCDI = false
+      }
+    },
     editItem(item) {
       this.editedIndex = this.Employers.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -643,7 +655,7 @@ export default {
       formData.append('id_fonction', this.editedItem.the_fonction_id);
       formData.append('department_id', this.editedItem.the_department_id);
       formData.append('role_id', this.editedItem.role_id);  
-      formData.append('id_type_contrat', this.editedItem.the_contrat_id);
+      formData.append('id_type_contrat', this.editedItem.the_contrat_id.id);
       formData.append('date_debut', this.editedItem.date_debut);
       formData.append('date_fin', this.editedItem.date_fin);
       formData.append('duree_contrat', this.editedItem.duree_contrat);
@@ -741,10 +753,10 @@ export default {
         return Math.ceil(this.Employers.length / this.itemsPerPage)
       },
 
-    disableFieldInCaseOfCDI() {
-      if(this.editedItem.the_contrat_id==1) return true
-      else return false
-    }
+    // disableFieldInCaseOfCDI() {
+    //   if(this.editedItem.the_contrat_id==1) return true
+    //   else return false
+    // }
   },
 
   created() {

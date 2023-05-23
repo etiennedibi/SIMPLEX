@@ -177,6 +177,7 @@
                     height="40"
                   >
                   </v-select>
+                </v-col>
                 <v-col cols="12" md="4" lg="4">
                   <v-select
                     background-color="#356eea24"
@@ -190,7 +191,6 @@
                     height="40"
                   >
                   </v-select>
-                </v-col>
                 </v-col>
                 <v-col cols="12" md="4" lg="4">
                   <v-select

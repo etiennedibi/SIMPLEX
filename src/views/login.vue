@@ -55,7 +55,7 @@
     </v-form>
     <div class="signInFooterBox">
       <!-- <img src="@/assets/icone/1-MinordC.png" alt="" /> -->
-      <p>By Blooraid for the Bloostore </p>
+      <p>© 2023. All rights reserved. Privacy Policy</p>
     </div>
 
     <!-- ALERT -->
@@ -219,7 +219,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: black;
-  font-size: 18px;
+  font-size: 14px;
   box-shadow: -1px -10px 25px -1px rgba(28, 28, 28, 0.384);
 }
 .signInFooterBox img {

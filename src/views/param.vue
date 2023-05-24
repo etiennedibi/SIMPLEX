@@ -398,7 +398,6 @@ export default {
     },
 
     editItemConfirm() {
-      if (this.$refs.form2.validate()) {
         
         axios({ url: "/api/v1/admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
@@ -425,8 +424,6 @@ export default {
         });
 
       this.closeEdit();
-
-      }
     },
 
     closeEdit() {

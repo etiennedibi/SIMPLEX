@@ -332,13 +332,13 @@
             <div class="comentsWrapper">
               <div class="commentBox"  v-for="(item) in editedItem.coments" :key="item.index">
                 <div v-if="item.id == new_Coment.id_user">
-                  <p>
-                  {{ item.commentaire }}
-                  </p>
                   <div class="avartCommt" v-if="item.avatar">
                     <img :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
                   </div>
                   <p style="padding:0px;background:white;" v-else>{{ item.nom }}</p>
+                  <p>
+                  {{ item.commentaire }}
+                  </p>
                 </div>
                 <div v-else>
                   <div class="avartCommt" v-if="item.avatar">

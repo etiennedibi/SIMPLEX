@@ -51,7 +51,7 @@
                 <span>+</span> <span>0{{ EmployersNumber - 1}}</span> <span>Utilisateurs</span>
                 <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
                </p>
-               <p v-if="EmployersNumber<1">
+               <p v-if="EmployersNumber<=1">
                 <span></span> <span>01</span> <span>Utilisateurs</span>
                 <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
                </p>

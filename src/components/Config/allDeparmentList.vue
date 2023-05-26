@@ -68,6 +68,20 @@
                         required
                       ></v-text-field>
                     </v-col> 
+                    <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        label="niveau structurel"
+                        ref="matri"
+                        v-model="editedItem.ordre"
+                        type="number"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col> 
                     <div style="width:92%; padding: 15px 10px 0px 10px">
                       <v-textarea
                         solo

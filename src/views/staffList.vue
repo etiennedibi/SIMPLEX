@@ -270,7 +270,7 @@
                     :items="Services"
                     item-text="nom_departement"
                     item-value="id"
-                    label="Département d'instruction (optionnnel)"
+                    label="Département d'instruction"
                     solo
                     height="40"
                   >
@@ -643,6 +643,7 @@ export default {
     },
 
     editItemConfirm() {
+      // console.log(this.editedItem);
       const formData = new FormData();
       formData.append('email', this.editedItem.email);
       formData.append('date_naissance', this.editedItem.date_naissance);
@@ -654,6 +655,7 @@ export default {
       formData.append('fiche_poste', this.editedItem.fiche_poste);
       formData.append('id_fonction', this.editedItem.the_fonction_id);
       formData.append('department_id', this.editedItem.the_department_id);
+      formData.append('department_second_id', this.editedItem.department_second_id);
       formData.append('role_id', this.editedItem.role_id);  
       formData.append('id_type_contrat', this.editedItem.the_contrat_id.id);
       formData.append('date_debut', this.editedItem.date_debut);
@@ -662,7 +664,7 @@ export default {
       formData.append('the_user_id', this.editedItem.the_user_id);
       formData.append('the_employe_id', this.editedItem.the_employe_id);
       formData.append('the_contrat_id', this.editedItem.the_contrat_id);
-
+      
       axios
         ({ url: "/api/v1/users/update_employe", data: formData, method: "PUT" })
         .then((response) => {
@@ -685,7 +687,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.VisiteaAddingResponse = error.message;
+          this.VisiteaAddingResponse = error.message + "iygeuie";
           console.error("There was an error!", error);
         });
 

@@ -62,6 +62,10 @@
                 <p>FICHE EMPLOYE</p>
               </div>
             </router-link>
+              <div class="tab1">
+                <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>ORGANIGRAMME</p>
+              </div>
           </div>
         </div>
       </div>
@@ -198,6 +202,51 @@
         </div>
       </div>
     </div>
+
+
+    <!-- SHOW ORGANIGRAMME DIALOG -->
+    <v-dialog
+      v-model="showOrganigramme"
+      width="850"
+      overlay-color="black"
+      overlay-opacity="0.8"
+      mainBlueColor
+    >
+      <v-card tile>
+        <v-card-text>
+          <v-container>
+            <v-row class="detailsTemplate">
+             <div class="ORHeader">
+              <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
+              <div><p>Blooraid consortium <br> RCCM: THFY-GG67H</p></div>
+             </div>
+             <div class="ORBody">
+              <div class="ORniveau">
+                <div class="ORdprt">
+                  <p>Direction genérale</p>
+                  <div class="employe">
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <div class="oneEmploye"  v-bind="attrs" v-on="on">
+                          <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
+                          <p>Directeur général</p>
+                        </div>
+                      </template>
+                      <span>Poluis Agathon opllll kjo</span>
+                    </v-tooltip> 
+                    
+                  </div>
+                </div>
+              </div>
+             </div>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+
   </div>
 </template>
 
@@ -230,6 +279,9 @@ export default {
 
     // For User
     role: "",
+
+    // For Organigramme
+    showOrganigramme:true
   }),
 
   methods: {
@@ -529,6 +581,107 @@ export default {
 .router-link-exact-active > .tab1 #travelMenuClick {
   background: red;
 }
+
+
+
+
+
+
+
+
+
+
+/* FOR ORGANIGRAMME */
+.ORHeader{
+  /* background: red; */
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 12px;
+  height: 100px;
+}
+.ORHeader > img{
+  height:60px;
+  border-radius:7px;
+}
+.ORHeader p{
+  max-width:200px;
+  /* background: rgb(43, 255, 0); */
+}
+
+.ORBody{
+  width: 100%;
+  /* background: blue; */
+}
+.ORniveau{
+  margin:10px 0px;
+  padding:10px 0px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  /* background: green; */
+  overflow-x: scroll;
+}
+.ORdprt{
+  min-height:120px;
+  width:30%;
+  background:#356eea24;
+  margin:0px 2px;
+  border-radius:5px;
+  padding:5px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ORdprt > p{
+  text-transform: uppercase;
+  font-size:8px;
+  line-height:14px;
+  width: fit-content;
+  padding: 0px 10px;
+  font-weight:bold;
+  letter-spacing:3px;
+  background:rgb(255, 255, 255);  
+}
+.employe {
+ /* background: pink; */
+ cursor:pointer;
+ display: flex;
+ flex-wrap: wrap;
+ height:150px;
+ overflow-y: auto;
+}
+.oneEmploye {
+ margin:5px;
+ /* background: rgb(164, 236, 203); */
+ width:fit-content;
+ height:fit-content;
+ 
+}
+.oneEmploye > p{
+ font-size:7px;
+ width: 40px;
+ line-height:8px;
+ /* background:white; */
+ margin-top:-2px;
+}
+.oneEmploye > img{
+  height: 23px;
+  width:23px;
+  border:3px solid white;
+  border-radius: 100px;
+}
+
+
+
+
+
+
+
+
 
 
 /*++++++++++++++++

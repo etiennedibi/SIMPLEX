@@ -16,7 +16,7 @@
               <v-form ref="form1">
                 <v-container fluid class="addservice">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12">
+                    <v-col cols="12" md="12" lg="12" style="margin-top:15px;" class="inputCol">
                       <v-text-field
                         height="40"
                         solo
@@ -30,6 +30,21 @@
                         required
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="12" lg="12" class="inputCol">
+                      <v-text-field
+                        height="40"
+                        solo
+                        ref="location"
+                        type="text"
+                        v-model="new_service.ordre"
+                        :rules="[() => !!new_service.ordre, (v) => /[0-9]+/i.test(v)]"
+                        maxlength="2"
+                        value=""
+                        label="Niveau structurel"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <div style="width:100%; padding: 0px 10px; margin-top:5px;">
                       <v-textarea 
                         solo
@@ -38,7 +53,7 @@
                         :rules="[() => !!new_service.description_departement]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="4"
+                        rows="3"
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
@@ -254,6 +269,9 @@ export default {
   border-radius: 100px;
 }
 
+.inputCol {
+  margin-bottom: -12px;
+}
 /* 
 .statWrapper{
     height: 270px;

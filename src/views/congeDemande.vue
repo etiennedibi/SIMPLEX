@@ -77,7 +77,7 @@
                         v-model="new_conge_ask.motif_conge"
                         rows="3"
                         name="input-7-4"
-                        label="Justification"
+                        label="Motif"
                         class="the-message-area"
                       ></v-textarea>
                     </div>
@@ -203,12 +203,13 @@ export default {
     this.$store.dispatch("init_conge");
     this.new_conge_ask.compagnie_id = localStorage.getItem("user-compagnie");
     this.new_conge_ask.id_user = localStorage.getItem("user-id");
-
-    if (localStorage.getItem("user-department-second")) {
-       this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
-    } else {
-       this.new_conge_ask.id_departement = localStorage.getItem("user-department");
-    }
+    this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
+    // Qaund les departement second n'étaient pas obligatoire
+    // if (localStorage.getItem("user-department-second")) {
+    //    this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
+    // } else {
+    //    this.new_conge_ask.id_departement = localStorage.getItem("user-department");
+    // }
    
   },
 };

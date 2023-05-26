@@ -96,7 +96,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        Type de Contrat Enregistré avec succes</v-alert
+        {{ContractaAddingResponse}}</v-alert
       >
     </transition>
     <transition name="slide">
@@ -108,7 +108,7 @@
         class="alert"
         color="error"
       >
-        Echec d'enregistrement </v-alert
+        {{ContractaAddingResponse}}</v-alert
       >
     </transition>
   </div>
@@ -149,25 +149,33 @@ export default {
         .then((response) => {
           this.ContractaAddingResponse = response.data;
           console.log(response.data);
-          if (this.ContractaAddingResponse) {
+          if (!this.ContractaAddingResponse.message) {
+            this.ContractaAddingResponse = "Type de Contrat Enregistré avec succes"
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
               this.$store.dispatch("init_contract");
             }, 3000);
-          } else {
+            this.$refs.form1.reset();
+          } else if (response.data.message == "Contrat déjà exitant") {
+            this.ContractaAddingResponse = response.data.message
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
             }, 3000);
-          }
+          } else {
+            this.ContractaAddingResponse = "Echec d'enregistrement"
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          } 
         })
         .catch((error) => {
           this.ContractaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
-      this.$refs.form1.reset();
       }
       
     },

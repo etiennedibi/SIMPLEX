@@ -62,10 +62,10 @@
                 <p>FICHE EMPLOYE</p>
               </div>
             </router-link>
-              <div class="tab1">
-                <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>ORGANIGRAMME</p>
-              </div>
+            <div class="tab1" v-on:click.stop="showOrganigrammeItem">
+              <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+              <p>ORGANIGRAMME</p>
+            </div>
           </div>
         </div>
       </div>
@@ -217,22 +217,26 @@
           <v-container>
             <v-row class="detailsTemplate">
              <div class="ORHeader">
-              <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-              <div><p>Blooraid consortium <br> RCCM: THFY-GG67H</p></div>
+              <!-- <img src="@/assets/img/avatarProfil.jpg" alt="" srcset=""> -->
+              <img v-if="Organigramme.comagnie.logo" :src="`${axios.defaults.baseURL}/uploads/user/logo/${Organigramme.comagnie.logo}`"/>
+              <v-icon v-if="!Organigramme.comagnie.logo" style="font-size:40px">mdi-weather-tornado</v-icon>
+              <div><p>{{Organigramme.comagnie.Denomination}}<br> RCCM: {{Organigramme.comagnie.RCCM}}</p></div>
              </div>
              <div class="ORBody">
-              <div class="ORniveau">
-                <div class="ORdprt">
-                  <p>Direction genérale</p>
+              <div class="ORniveau"  v-for="(item) in Organigramme.result" :key="item.index">
+                <div class="ORdprt" v-for="(dprt) in item.departements" :key="dprt.index">
+                  <p>{{dprt.nom_departement}}</p>
                   <div class="employe">
-                    <v-tooltip bottom>
+                    <v-tooltip bottom v-for="(empl) in dprt.employes" :key="empl.index">
                       <template v-slot:activator="{ on, attrs }">
                         <div class="oneEmploye"  v-bind="attrs" v-on="on">
-                          <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                          <p>Directeur général</p>
+                          <!-- <img src="@/assets/img/avatarProfil.jpg" alt="" srcset=""> -->
+                          <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                          <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                          <p>{{empl.nom_fonction}}</p>
                         </div>
                       </template>
-                      <span>Poluis Agathon opllll kjo</span>
+                      <span>{{empl.nom}} {{empl.prenoms}}</span>
                     </v-tooltip> 
                     
                   </div>
@@ -251,6 +255,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "MinoBottonNavBar",
 
@@ -281,10 +286,18 @@ export default {
     role: "",
 
     // For Organigramme
-    showOrganigramme:true
+    showOrganigramme:false
   }),
 
   methods: {
+    // ------------------------
+    // Show Organigramme
+    // ------------------------
+    showOrganigrammeItem() {
+      this.$store.dispatch("init_organigrame");
+      this.showOrganigramme = true;
+    },
+
     activeMenu0: function () {
       this.isActive0 = true;
       this.isActive = false;
@@ -332,9 +345,14 @@ export default {
     },
   },
 
+  computed: {
+    ...mapGetters(["Organigramme"]),
+
+  },
+
   created() {
-    this.$store.dispatch("init_analitic");
-    this.$store.dispatch("init_ratings");
+    // this.$store.dispatch("init_analitic");
+    this.$store.dispatch("init_organigrame");
     this.role = localStorage.getItem("user-role");
 
     // this.$store.dispatch("init_check");

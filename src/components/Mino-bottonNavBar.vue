@@ -66,6 +66,12 @@
               <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
               <p>ORGANIGRAMME</p>
             </div>
+            <router-link :to="{ name: 'CVManage' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>GESTION DES CV</p>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>

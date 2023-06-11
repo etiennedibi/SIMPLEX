@@ -20,6 +20,8 @@ import service from "./modules/service";
 import work from "./modules/work";
 import conge from "./modules/conge";
 import user from "./modules/user";
+import chat from "./modules/chat";
+
 
 
 
@@ -39,6 +41,10 @@ export default new Vuex.Store({
     // For email response
     ResponseTopic:"",
     response_of_id: 0,
+
+    // FOR CHAT
+    AllConncersationMessage :"",
+
   },
   getters: {},
   mutations: {},
@@ -64,5 +70,6 @@ export default new Vuex.Store({
     work,
     conge,
     user,
+    chat,
   },
 });

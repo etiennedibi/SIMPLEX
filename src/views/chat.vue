@@ -62,108 +62,16 @@
                 </div>
               </div>
               <div class="userBox">
-                <div class="onUser onUserActive">
-                  <div class="user-profil">
+                <div  v-for="(item) in Chat_notifs" :key="item.index" class="onUser onUserActive">
+                  <div class="user-profil" v-on:click="displayMessage(item)">
                     <img src="@/assets/img/team2.jpg" alt="" srcset="">
                   </div>
                   <div>
-                    <p>Agrey Stephane</p>
+                    <p>{{item.nom}}</p>
                     <p>Developpement web</p>
                   </div>
                   <div>
-                    <p>09:30</p>
-                    <!-- <span class="number">30</span> -->
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Niango Paul</p>
-                    <p>Responsable Relation </p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <span class="number">30</span>
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/profile-pic(3).png" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Gourou Abigaël</p>
-                    <p>responsable commercial </p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <!-- <span class="number">30</span> -->
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/profile-pic(1).png" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Coré Yvan</p>
-                    <p>Responsable Relation </p>
-                  </div>
-                  <div>
-                    <p>13:00</p>
-                    <span class="number">02</span>
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Eliphase Bletro</p>
-                    <p>Cyber inspector</p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <span class="number">03</span>
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Eliphase Bletro</p>
-                    <p>Cyber inspector</p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <span class="number">03</span>
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Eliphase Bletro</p>
-                    <p>Cyber inspector</p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <span class="number">03</span>
-                  </div>
-                </div>
-                <div class="onUser">
-                  <div class="user-profil">
-                    <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="">
-                  </div>
-                  <div>
-                    <p>Eliphase Bletro</p>
-                    <p>Cyber inspector</p>
-                  </div>
-                  <div>
-                    <p>09:30</p>
-                    <span class="number">03</span>
+                    <p>{{displayDate(item.updated_at)}}</p>
                   </div>
                 </div>
               </div>
@@ -171,10 +79,10 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12" md="12" lg="12" class="messagewrapper">
-                  <div>
+                  <div v-if="messageview">
                     <div class="messageHeader">
                       <div>
-                        <p>Office chat </p>
+                        <p>{{conversation.nom}}</p>
                         <p>Discussion initié le 20-04-2022</p>
                       </div>
                       <div class="seachMessage">
@@ -287,6 +195,9 @@
 
 <script>
 // import Vue from 'vue'
+import { mapGetters } from "vuex";
+import SocketioService from '../services/socketio.service';
+import { formatDateForChat } from "../Utils/WorkDate";
 export default {
   name: "chat",
   components: {},
@@ -295,11 +206,37 @@ export default {
     // USER SEACH
     drawer: null,
     SeachActive:false,
+
+    // MESSAGE VIEW
+    messageview:false,
+    conversation:'',
+    allMessage:'',
     
   }),
 
   methods: {
-   
+    
+    displayMessage(item){
+      this.messageview = true
+    // GET message from SOCKET
+      SocketioService.getConversation(localStorage.getItem("user-id"), item.nom_room);
+      // this.conversation = item
+      // this.allMessage = this.$store.state.AllConncersationMessage 
+      // console.log('lllllllll::::', this.allMessage);    
+    },
+    displayDate(date) {
+      return formatDateForChat(date);
+    },
+
+  },
+
+  computed: {
+    ...mapGetters(["Chat_notifs"]),
+
+  },
+
+  created() {
+    this.$store.dispatch("init_chat_notif");
   },
 };
 </script>

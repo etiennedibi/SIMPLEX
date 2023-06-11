@@ -62,6 +62,7 @@
 
 <script>
 // import axios from "axios";
+import SocketioService from '../services/socketio.service';
 export default {
   name: "MinoProfilBar",
   components: {},
@@ -84,6 +85,8 @@ export default {
     this.uUser = localStorage.getItem("user-name");
     this.profilIMG = localStorage.getItem("user-profil");
     this.role = localStorage.getItem("user-role");
+    // CONNECTER LE SOCKET
+    SocketioService.saveMe(localStorage.getItem("user-id"));
     
     
   },

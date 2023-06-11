@@ -6,14 +6,17 @@ import vuetify from "./plugins/vuetify";
 import "./plugins/apexcharts";
 import axios from "axios";
 import VueAxios from "vue-axios";
-
+// import socketio from 'socket.io';
+// import VueSocketIO from 'vue-socket.io';
 import "./assets/styles/global.css";
+
+// export const SocketInstance = socketio('http://localhost:3333');
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
 
-axios.defaults.baseURL = "http://127.0.0.1:3333";
+axios.defaults.baseURL = "https://mino-api.blooraid-consortium.com";
 // pour garder l'autorisation dans le header, lorsqu'il y a rechargement de page. parcequ'au recharegment
 // le header est suprimé, mais pas le localeStorage  "https://mino-api.blooraid-consortium.com"
 const token = localStorage.getItem("user-token");

@@ -17,9 +17,11 @@
 </template>
 
 <script>
+
 import MinoProfilBar from "@/components/Mino-ProfilBar.vue";
 import MinoBottonNavBar from "@/components/Mino-bottonNavBar.vue";
 import MinoTopBar from "@/components/Mino-TopBar.vue";
+import SocketioService from './services/socketio.service.js';
 
 export default {
   name: "App",
@@ -32,5 +34,13 @@ export default {
   data: () => ({
     //
   }),
+
+  created() {
+    SocketioService.setupSocketConnection();
+  },
+
+  beforeUnmount() {
+    SocketioService.disconnect();
+  }
 };
 </script>

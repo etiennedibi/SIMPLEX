@@ -429,7 +429,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_user_file")
+              this.$store.dispatch("init_all_cv_file")
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             // Modification effectuée
@@ -459,7 +459,7 @@ export default {
     deleteFileConfirm() {
       axios
         .delete(
-          "/api/v1/users/delete_file/" + this.editedItem.the_fichiers_id
+          "/api/v1/admin/destroy_cv/" + this.editedItem.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -470,7 +470,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_user_file")
+              this.$store.dispatch("init_all_cv_file")
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.VisiteaAddingResponse.message = "Echec de l'operation";

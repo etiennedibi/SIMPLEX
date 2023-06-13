@@ -20,8 +20,8 @@
                        <v-file-input
                         chips
                         height="60"
-                         v-model="new_file.fichier"
-                        :rules="[() => !!new_file.fichier]"
+                         v-model="new_file.cv"
+                        :rules="[() => !!new_file.cv]"
                         solo
                         label="Telecharger un CV"
                         prepend-icon="mdi-file"
@@ -34,8 +34,8 @@
                         label="nom du stagiaire"
                         background-color="#356eea24"
                         ref="desc"
-                        v-model="new_file.intule"
-                        :rules="[() => !!new_file.intule]"
+                        v-model="new_file.nom_stagiaire"
+                        :rules="[() => !!new_file.nom_stagiaire]"
                         append-icon="mdi-call-missed"
                         type="text"
                         value=""
@@ -47,9 +47,9 @@
                       <v-text-field
                         height="70"
                         solo
-                        label="mots clés"
+                        label="mots clés séparés par des virgules"
                         ref="desc"
-                        v-model="new_file.category"
+                        v-model="new_file.motscles"
                         append-icon="mdi-call-missed"
                         type="text"
                         value=""
@@ -57,7 +57,6 @@
                         required
                       ></v-text-field>
                     </v-col>
-    
                     <v-col cols="12" md="12" lg="12" style="margin-top:20px">
                       <v-btn
                         large
@@ -111,6 +110,7 @@
   </div>
 </template>
 
+
 <script>
 
 // import Vue from "vue";
@@ -118,7 +118,6 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import cvListe from "../components/Administration/cvListe.vue";
 import DeepCVList from "../components/Administration/DeepCVList.vue";
-
 
 
 export default {
@@ -133,28 +132,12 @@ export default {
     // FOR DEEP SEACH
     switch1: false,
     // isdeepSeach: "DEEP SEACH",
+    extractedText: "poluetr",
 
     // FOR FORM SENDING
     new_file: {
-      auteur: "",
-      autorisation: [],
-      compagnie_id: "",
+      motscles:""
     },
-
-    // test:[
-    //   {nom:'ali', the_user_id:2},
-    //   {nom:'ali', the_user_id:3},
-    //   {nom:'ali', the_user_id:4},
-    //   {nom:'ali', the_user_id:5},
-    //   {nom:'ali', the_user_id:6},
-    //   {nom:'ali', the_user_id:7},
-    //   {nom:'ali', the_user_id:8},
-    //   {nom:'ali', the_user_id:9},
-    //   {nom:'ali', the_user_id:10},
-    //   {nom:'ali', the_user_id:11},
-    //   {nom:'ali', the_user_id:12},
-      
-    // ],
 
     fileAddingResponse: "",
     addingSuccess: false,
@@ -171,13 +154,11 @@ export default {
     submit1() {
       if (this.$refs.form1.validate()) {
         const formData = new FormData();
-          formData.append('fichier', this.new_file.fichier);
-          formData.append('intule', this.new_file.intule);
-          formData.append('autorisation', this.new_file.autorisation);
-          formData.append('auteur', this.new_file.auteur);
-          formData.append('compagnie_id', this.new_file.compagnie_id);
-
-        axios({ url: "/api/v1/users/store_file", data: formData, method: "POST" })
+          formData.append('nom_stagiaire', this.new_file.nom_stagiaire);
+          formData.append('cv', this.new_file.cv);
+          formData.append('motscles', this.new_file.motscles);
+        console.log(formData);
+        axios({ url: "/api/v1/admin/addCV", data: formData, method: "POST" })
         .then((response) => {
           this.fileAddingResponse = response.data;
           console.log(response.data);
@@ -186,7 +167,7 @@ export default {
             this.$refs.form1.reset();
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-            this.$store.dispatch("init_all_user_file")
+            this.$store.dispatch("init_all_cv_file")
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -200,7 +181,7 @@ export default {
           console.error("There was an error!", error);
         });
       }
-     
+
     },
 
   },
@@ -243,6 +224,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.forme1{
+  width:100%;
 }
 /* ,
 .middleBox {

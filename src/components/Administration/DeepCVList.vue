@@ -14,16 +14,8 @@
           <v-container>
             <v-row class="detailsTemplate">
               <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
-              <embed v-if="editedItem.extenssion=='pdf'" :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
-              <div v-if="editedItem.extenssion=='other'" class="downloadBox">
-                <a :href="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`">
-                  <v-icon color="mainBlueColor" large>mdi-download-circle</v-icon>
-                </a>
-                <p>{{editedItem.fichier}}</p>
-              </div>
-              <div v-if="editedItem.extenssion=='img'" class="ImgloadBox">
-                <img :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" alt="" srcset="">
-              </div>
+              <embed :src="`${axios.defaults.baseURL}/uploads/fichierCV/${editedItem.cv_file}`" width="100%" height="670px"/>
+         
             </v-row>
           </v-container>
         </v-card-text>
@@ -264,42 +256,43 @@
     <v-row justify-md="center">
       <v-col cols="12" md="10" lg="10">
         <v-text-field
-          v-model="search"
+          v-model="search.seach"
           solo
           height="30"
           hide-details
           label="Entrez un l'élément à rechercher dans les cv"
           class="theSeachBar"
+          v-on:keyup.enter="submit"
         ></v-text-field>
       </v-col>
     </v-row>
     <!-- START DATA TABLE -->
-    <div class="dataWrapper">
+    <div class="seach_int" v-if="seachingStatus == 0">
+      <v-icon large color="blue">mdi-database-search-outline</v-icon>
+      Aucune recherche effectuée
+    </div>
+    <div class="seach_int" v-if="seachingStatus == 1">
+      <v-icon large color="red">mdi-alert-octagon-outline</v-icon>
+      Aucune correspondance
+    </div>
+    <div class="dataWrapper" v-if="seachingStatus == 2">
       <v-data-table
         dense
         :headers="headers"
-        :items="AllUserfiles"
-        :search="search"
+        :items="searchResult"
         :items-per-page="-1"
         hide-default-footer
       >
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
+        <template v-slot:[`item.cles`]="{ item }">
+          <span class="oneSkills" v-for="(skill) in item.cles" :key="skill.index">
+            {{ skill.cle}}
+          </span>  
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="deleteFile(item)"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="showAutoriseItem(item.users_autorises)"
-            ><v-icon small> mdi-account-group </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="editItemAutorise(item)"
-            ><v-icon small> mdi-account-multiple-plus </v-icon></v-btn
           >
         </template>
       </v-data-table>
@@ -342,52 +335,31 @@ export default {
 
   data: () => ({
     // For the table
-    search: "",
+    search: {seach:""},
+    seachingStatus:0,
+    searchResult:[],
     headers: [
       {
-        text: "NOM STAGIAIRE",
+        text: "STAGIAIRE",
         align: "start",
         sortable: true,
-        value: "intule",
+        value: "nom_stagiaire",
       },
-      { text: "MOTS CLES", value: "updated_at" },
+      { text: "MOTS CLES", value: "cles" },
+      { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
       {
-        nom_visiteur: "Frozen Yao Partrick Frozen Yao Partrick Frozen Yao",
-        date_rdv: "21-01-2021",
-        heure_rdv: "10:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
+        nom_visiteur: "Frozen Yao Partrick",
+        date_rdv:  ["Communy", "imprimeur"],
       },
       {
         nom_visiteur: "Ice cream ",
-        date_rdv: "01-01-2021",
-        heure_rdv: "10:30",
-        details: {
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000,
-        },
+        date_rdv:  ["managment", "blood", "slot", "developpeur", "politique"],
       },
       {
-        nom_visiteur: "Eclair",
-        date_rdv: "25-03-2021",
-        heure_rdv: "14:30",
-        details: {
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000,
-        },
+        nom_visiteur: "Eclair Frozen",
+        date_rdv: ["Communy managment", "imprimeur"],
       },
     ],
 
@@ -463,43 +435,22 @@ export default {
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
-    editItemConfirm() {
-        const formData = new FormData();
-          formData.append('intule', this.editedItem.intule);
-          formData.append('fichier', this.editedItem.fichier);
-          formData.append('id', this.editedItem.the_fichiers_id);
-
-        axios({ url: "/api/v1/users/update_file", data: formData, method: "PUT" })
+    submit() {
+        axios({ url: "/api/v1/admin/deepSeach", data: this.search , method: "POST" })
         .then((response) => {
-          this.VisiteaAddingResponse = response.data;
-          if (this.VisiteaAddingResponse) {
-            // Modification effectuée
-            this.VisiteaAddingResponse.message = "modification effectuée";
-            this.addingSuccess = !this.addingSuccess;
-            setTimeout(() => {
-              this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_user_file")
-            }, 3000);
-          } else if (!this.VisiteaAddingResponse) {
-            // Modification effectuée
-            this.addingfalse = !this.addingfalse;
-            this.VisiteaAddingResponse.message = "échec de l'operation";
-            setTimeout(() => {
-              this.addingfalse = !this.addingfalse;
-            }, 3000);
+          if (response.data.result.length > 0) {
+            this.seachingStatus = 2
+            this.searchResult = response.data.result
+          } else{
+            this.seachingStatus = 1
           }
+          
         })
         .catch((error) => {
           this.VisiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
-
-      this.closeEdit();
     },
-    closeEdit() {
-      this.dialogEdit = false;
-    },
-
     // ------------------------
     // EDIT USER AUTORISE
     // ------------------------
@@ -639,6 +590,15 @@ export default {
 </script>
 
 <style scoped>
+.seach_int{
+  /* background:red; */
+  height:100%;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
 .tableWrapperDiv {
   height: 55vh;
   background: white;
@@ -772,6 +732,15 @@ export default {
   display: flex;
   flex-direction:column;
   text-align: center;
+}
+
+.oneSkills{
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 2px;
+  border-radius:100px;
+  background:#037CB831;
+  /* color:black; */
 }
 
 

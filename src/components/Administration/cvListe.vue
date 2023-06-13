@@ -14,16 +14,7 @@
           <v-container>
             <v-row class="detailsTemplate">
               <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
-              <embed v-if="editedItem.extenssion=='pdf'" :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" width="100%" height="670px"/>
-              <div v-if="editedItem.extenssion=='other'" class="downloadBox">
-                <a :href="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`">
-                  <v-icon color="mainBlueColor" large>mdi-download-circle</v-icon>
-                </a>
-                <p>{{editedItem.fichier}}</p>
-              </div>
-              <div v-if="editedItem.extenssion=='img'" class="ImgloadBox">
-                <img :src="`${axios.defaults.baseURL}/uploads/fichier/${editedItem.fichier}`" alt="" srcset="">
-              </div>
+              <embed :src="`${axios.defaults.baseURL}/uploads/fichierCV/${editedItem.cv_file}`" width="100%" height="670px"/>
             </v-row>
           </v-container>
         </v-card-text>
@@ -198,64 +189,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <!-- UPDATE USER AUTORISATION BY ADDING NEW -->
-    <v-dialog v-model="addUserDialog" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle  editIMGO">
-              <v-icon color="mainBlueColor" large>
-                 mdi-file
-                </v-icon>
-            </div>
-            <form class="updateForm1">
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="11" md="11" lg="11">
-                      <v-select
-                        v-model="editedItem.autorisation"
-                        :items="Employers"
-                        item-text="nom"
-                        item-value="the_user_id"
-                        multiple
-                        label="collaborateurs autorisés"
-                        solo
-                        height="80"
-                      >
-                      <template v-slot:selection="{ item, index }">
-                          <v-chip v-if="index < 2">
-                            <span>{{ item.nom }}</span>
-                          </v-chip>
-                          <span
-                            v-if="index === 2"
-                            class="grey--text text-caption"
-                          >
-                            (+{{ new_file.autorisation.length - 2}} autres)
-                          </span>
-                        </template>
-                      </v-select>
-                    </v-col>        
-                </v-row>
-              </v-container>
-            </form>
-          </v-container>
-        </v-card-text>
 
-        <v-card-actions style="display:flex;justify-content:space-around">
-          <p
-            class="simplex-btn"
-            style="background:grey"
-            @click="closeEditAutorise"
-            >Annuler</p
-          >
-          <p
-            class="simplex-btn"
-            @click="editItemConfirmAutorise"
-            >Enregistrer</p
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
 
 
@@ -278,28 +212,26 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="AllUserfiles"
+        :items="CVfiles"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
       >
+        <template v-slot:[`item.cles`]="{ item }">
+          <span class="oneSkills" v-for="(skill) in item.cles" :key="skill.index">
+            {{ skill.cle }}
+          </span>  
+        </template>
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" @click="editItem(item)"
+          <!-- <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          >
+          > -->
           <v-btn icon color="mainBlueColor" @click="deleteFile(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="showAutoriseItem(item.users_autorises)"
-            ><v-icon small> mdi-account-group </v-icon></v-btn
-          >
-          <v-btn icon color="mainBlueColor" @click="editItemAutorise(item)"
-            ><v-icon small> mdi-account-multiple-plus </v-icon></v-btn
           >
         </template>
       </v-data-table>
@@ -345,50 +277,26 @@ export default {
     search: "",
     headers: [
       {
-        text: "NOM STAGIAIRE",
+        text: "STAGIAIRE",
         align: "start",
         sortable: true,
-        value: "intule",
+        value: "nom_stagiaire",
       },
-      { text: "MOTS CLES", value: "updated_at" },
+      { text: "MOTS CLES", value: "cles" },
       { text: "PLUS", value: "actions", sortable: false },
     ],
     items: [
       {
-        nom_visiteur: "Frozen Yao Partrick Frozen Yao Partrick Frozen Yao",
-        date_rdv: "21-01-2021",
-        heure_rdv: "10:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
+        nom_visiteur: "Frozen Yao Partrick",
+        date_rdv:  ["Communy", "imprimeur"],
       },
       {
         nom_visiteur: "Ice cream ",
-        date_rdv: "01-01-2021",
-        heure_rdv: "10:30",
-        details: {
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000,
-        },
+        date_rdv:  ["managment", "blood", "slot", "developpeur", "politique"],
       },
       {
-        nom_visiteur: "Eclair",
-        date_rdv: "25-03-2021",
-        heure_rdv: "14:30",
-        details: {
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000,
-        },
+        nom_visiteur: "Eclair Frozen",
+        date_rdv: ["Communy managment", "imprimeur"],
       },
     ],
 
@@ -443,6 +351,7 @@ export default {
     // ------------------------
     showItem(item) {
       this.editedItem = Object.assign({}, item);
+      console.log("dddd");
       this.fileShowDialog = true;
     },
     // ------------------------
@@ -629,12 +538,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllUserfiles","Employers"]),
+    ...mapGetters(["CVfiles"]),
   },
 
   created() {
-    this.$store.dispatch("init_all_user_file");
-    this.$store.dispatch("init_employers")
+    this.$store.dispatch("init_all_cv_file");
   },
 };
 </script>
@@ -687,7 +595,14 @@ export default {
   border-radius:50px;
   font-size:10px;
 }
-
+.oneSkills{
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 2px;
+  border-radius:100px;
+  background:#037CB831;
+  /* color:black; */
+}
 .theSeachBar {
   /* margin-left: 50px; */
   margin-bottom: 10px;

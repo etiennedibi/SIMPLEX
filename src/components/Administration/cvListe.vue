@@ -37,9 +37,9 @@
                        <v-file-input
                         chips
                         height="60"
-                         v-model="editedItem.fichier"
+                         v-model="editedItem.cv"
                         solo
-                        label="choisir un fichier"
+                        label="Nouveau cv"
                         prepend-icon="mdi-file"
                       ></v-file-input>
                     </v-col>
@@ -47,17 +47,47 @@
                       <v-text-field
                         height="60"
                         solo
-                        label="Itutilé du fichier"
+                        label="Nom du stagiaire"
                         background-color="#356eea24"
                         ref="desc"
-                        v-model="editedItem.intule"
+                        v-model="editedItem.nom_stagiaire"
                         append-icon="mdi-call-missed"
                         type="text"
                         value=""
                         persistent-hint
                         required
                       ></v-text-field>
-                    </v-col>            
+                    </v-col> 
+                     <v-col cols="11" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        label="Email"
+                        background-color="#356eea24"
+                        ref="desc"
+                        v-model="editedItem.email"
+                        append-icon="mdi-call-missed"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="11" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        solo
+                        label="profession"
+                        background-color="#356eea24"
+                        ref="desc"
+                        v-model="editedItem.profession"
+                        append-icon="mdi-call-missed"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                 </v-row>
               </v-container>
             </form>
@@ -227,9 +257,9 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <!-- <v-btn icon color="mainBlueColor" @click="editItem(item)"
+          <v-btn icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          > -->
+          >
           <v-btn icon color="mainBlueColor" @click="deleteFile(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
@@ -375,11 +405,13 @@ export default {
     },
     editItemConfirm() {
         const formData = new FormData();
-          formData.append('intule', this.editedItem.intule);
-          formData.append('fichier', this.editedItem.fichier);
-          formData.append('id', this.editedItem.the_fichiers_id);
+          formData.append('cv', this.editedItem.cv);
+          formData.append('nom_stagiaire', this.editedItem.nom_stagiaire);
+          formData.append('profession', this.editedItem.profession);
+          formData.append('email', this.editedItem.email);
+          formData.append('id', this.editedItem.id);
 
-        axios({ url: "/api/v1/users/update_file", data: formData, method: "PUT" })
+        axios({ url: "/api/v1/admin/updateCV", data: formData, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
@@ -388,7 +420,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_all_user_file")
+              this.$store.dispatch("init_all_cv_file")
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             // Modification effectuée

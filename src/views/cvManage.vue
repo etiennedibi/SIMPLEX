@@ -19,7 +19,7 @@
                     <v-col cols="12" md="12" lg="12" >
                        <v-file-input
                         chips
-                        height="60"
+                        height="50"
                          v-model="new_file.cv"
                         :rules="[() => !!new_file.cv]"
                         solo
@@ -29,7 +29,7 @@
                     </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="60"
+                        height="50"
                         solo
                         label="nom du stagiaire"
                         background-color="#356eea24"
@@ -45,7 +45,38 @@
                     </v-col>
                      <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="70"
+                        height="50"
+                        solo
+                        label="email"
+                        ref="desc"
+                        v-model="new_file.email"
+                        :rules="[() => !!new_file.email]"
+                        append-icon="mdi-call-missed"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="50"
+                        solo
+                        label="profession"
+                        background-color="#356eea24"
+                        ref="desc"
+                        v-model="new_file.profession"
+                        :rules="[() => !!new_file.profession]"
+                        append-icon="mdi-call-missed"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="50"
                         solo
                         label="mots clés séparés par des virgules"
                         ref="desc"
@@ -155,6 +186,8 @@ export default {
       if (this.$refs.form1.validate()) {
         const formData = new FormData();
           formData.append('nom_stagiaire', this.new_file.nom_stagiaire);
+          formData.append('profession', this.new_file.profession);
+          formData.append('email', this.new_file.email);
           formData.append('cv', this.new_file.cv);
           formData.append('motscles', this.new_file.motscles);
         console.log(formData);
@@ -224,6 +257,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top:20px;
+  /* background-color:red; */
+  overflow-x: hidden;
 }
 .forme1{
   width:100%;
@@ -236,6 +272,7 @@ export default {
   height: 55vh;
   background-color:red;
 } */
+
 .addcongeAsk::-webkit-scrollbar {
   width: 7px;
 }
@@ -268,7 +305,7 @@ export default {
 @media (min-width: 960px) {
   .col-md-12 {
     height: 85px;
-    margin-bottom: -15px;
+    margin-bottom: -25px;
   }
 }
 /*++++++++++++++++

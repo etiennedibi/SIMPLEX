@@ -66,6 +66,24 @@
               <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
               <p>ORGANIGRAMME</p>
             </div>
+            <router-link :to="{ name: 'AddPaie' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>ELABORATION FICHE DE PAIE</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'PaieStoty' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>HISTORIQUE FICHES DE PAIE</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'UserPaieFile' }">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>FICHE DE PAIE</p>
+              </div>
+            </router-link>
             <router-link :to="{ name: 'CVManage' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>

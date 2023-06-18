@@ -226,6 +226,374 @@
                 </v-card>
                 </v-dialog>
 
+                <!-- EDIT ENTREPRISE INFO -->
+                <v-dialog v-model="dialogEditEntreprise" max-width="370">
+                <v-card>
+                    <v-card-text>
+                    <v-container>
+                        <div class="  editIMGO">
+                        <p style="text-align:center; font-weight:bold">MODIFICATION DES INFORMATIONS DE L'ENTREPRISE</p>
+                        </div>
+                        <form ref="form2"  class="updateForm updatestationAdminForm">
+                        <v-container fluid>
+                            <v-row>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="Denomination"
+                                append-icon="mdi-domain"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                v-model="EntrepriseInfo.Denomination"
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.Anagramme "
+                                label="sigle "
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.Objet_social  "
+                                label="Objet_social  "
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.RCCM"
+                                label="RCCM"
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-file-input
+                                chips
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.logo"
+                                label="Logo"
+                                prepend-icon="mdi-camera"
+                              ></v-file-input>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </form>
+                    </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="Titlecolor"
+                        rounded
+                        small
+                        depressed
+                        @click="closeEditEntreprise"
+                        style="color: white"
+                        >Annuler</v-btn
+                    >
+                    <v-btn
+                        color="mainBlueColor"
+                        rounded
+                        small
+                        depressed
+                        @click="editEntrepriseConfirm"
+                        style="color: white"
+                        >Enregistrer</v-btn
+                    >
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+
+                 <!-- EDIT PAIE INFO -->
+                <v-dialog v-model="dialogEditPaie" max-width="370">
+                <v-card>
+                    <v-card-text>
+                    <v-container>
+                        <div class="  editIMGO">
+                        <p style="text-align:center; font-weight:bold">CONFIGURATION GENERALE DES FICHES DE PAIES</p>
+                        </div>
+                        <form ref="form2"  class="updateForm updatestationAdminForm">
+                        <v-container fluid>
+                            <v-row>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="Commune"
+                                append-icon="mdi-domain"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                v-model="EntrepriseInfo.commune"
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.code_adresse "
+                                label="code adresse"
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.boite_postale"
+                                label="Boite postale"
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.contact"
+                                label="contact"
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                label="Quartier"
+                                append-icon="mdi-domain"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                v-model="EntrepriseInfo.quartier"
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.rue "
+                                label="rue "
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                v-model="EntrepriseInfo.ilot"
+                                label="Ilot"
+                                append-icon="mdi-domain"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                background-color="#3e886d4a"
+                                label="Forme Juridique"
+                                append-icon="mdi-credit-card"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                v-model="EntrepriseInfo.forme_juridique"
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.service_impot "
+                                label="Service impôt "
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                background-color="#3e886d4a"
+                                v-model="EntrepriseInfo.cc"
+                                label="N°CC"
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                background-color="#3e886d4a"
+                                label="N°CNPS"
+                                append-icon="mdi-credit-card"
+                                ref="matri"
+                                type="text"
+                                value=""
+                                v-model="EntrepriseInfo.cnps"
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.periode "
+                                label="periode "
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                solo
+                                background-color="#3e886d4a"
+                                v-model="EntrepriseInfo.date_de_paie"
+                                label="Date de paie"
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.code_ets"
+                                label="code ets"
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="12" lg="12">
+                                <v-text-field
+                                height="45"
+                                background-color="#3e886d4a"
+                                solo
+                                v-model="EntrepriseInfo.code_activite"
+                                label="code activite"
+                                append-icon="mdi-credit-card-outline"
+                                ref="total_name"
+                                type="text"
+                                value=""
+                                persistent-hint
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </form>
+                    </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="Titlecolor"
+                        rounded
+                        small
+                        depressed
+                        @click="closeEditPaie"
+                        style="color: white"
+                        >Annuler</v-btn
+                    >
+                    <v-btn
+                        color="mainBlueColor"
+                        rounded
+                        small
+                        depressed
+                        @click="editPaieConfirm"
+                        style="color: white"
+                        >Enregistrer</v-btn
+                    >
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+
                 
 
 
@@ -268,6 +636,32 @@
                       <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
                       <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
                       <h5>d'authenfication </h5>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="3" lg="3">
+                    <div class="numberWrapper" @click="editEntreprise">
+                      <div class="N-icon">
+                        <v-icon  color="mainBlueColor">mdi-domain</v-icon>
+                        <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
+                      </div>
+                      <h1>DETAILS</h1>
+                      <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
+                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
+                      <h5>Entreprise</h5>
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="3" lg="3">
+                    <div class="numberWrapper" @click="editPaie">
+                      <div class="N-icon">
+                        <v-icon  color="mainBlueColor">mdi-credit-card-settings-outline</v-icon>
+                        <!-- <v-icon  v-if="item.role_id == 2" color="mainBlueColor">mdi-archive</v-icon>
+                        <v-icon  v-if="item.role_id == 3" color="#bf6f69">mdi-truck-delivery</v-icon> -->
+                      </div>
+                      <h1>CONFIGURATION</h1>
+                      <!-- <h1 v-if="item.role_id == 2">COLIS</h1>
+                      <h1 v-if="item.role_id == 3">EXPEDITIONS</h1> -->
+                      <h5>fiche de paie</h5>
                     </div>
                   </v-col>
                 </v-row>
@@ -363,8 +757,14 @@ export default {
     dialog: false,
     // avatar: "",
     user_id: "",
+    compagnie_id:"",
     // password: "",
     UserInfo: {
+      
+    },
+
+    // CORPORATION
+    EntrepriseInfo: {
       
     },
 
@@ -373,6 +773,8 @@ export default {
     dialogEdit: false,
     dialogEditAcces:false,
     dialogEditImg:false,
+    dialogEditEntreprise:false,
+    dialogEditPaie:false,
     editedIndex: -1,
 
     // For staion deleted
@@ -510,6 +912,90 @@ export default {
     },
 
 
+
+    // ------------------------
+    // For Entreprise Edited
+    // ------------------------
+    editEntreprise() {
+      this.dialogEditEntreprise = true;
+    },
+
+    editEntrepriseConfirm() {
+        
+        axios({ url: "/api/v1/admin/update_compagnies/"+this.compagnie_id, data: this.EntrepriseInfo, method: "PUT" })
+        .then((response) => {
+          this.staionaAddingResponse = response.data;
+          if (this.staionaAddingResponse) {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+            }, 3000);
+          } else if (!this.staionaAddingResponse.message) {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "echec de l'operation";
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.staionaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEditEntreprise();
+    },
+
+    closeEditEntreprise() {
+      this.dialogEditEntreprise = false;
+    },
+
+
+    // ------------------------
+    // For Paie Config
+    // ------------------------
+    editPaie() {
+      this.dialogEditPaie = true;
+    },
+
+    editPaieConfirm() {
+        this.EntrepriseInfo.compagnie_id = this.compagnie_id
+        axios({ url: "/api/v1/admin/add_config_paie_compagnie", data: this.EntrepriseInfo, method: "POST" })
+        .then((response) => {
+          this.staionaAddingResponse = response.data;
+          if (this.staionaAddingResponse) {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+            }, 3000);
+          } else if (!this.staionaAddingResponse.message) {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "echec de l'operation";
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.staionaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEditPaie();
+    },
+
+    closeEditPaie() {
+      this.dialogEditPaie = false;
+    },
+
+
+
   },
 
 
@@ -527,6 +1013,7 @@ export default {
   created() {
     this.$store.dispatch("init_adminitrator");
     this.user_id = localStorage.getItem("user-id");
+    this.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>
@@ -546,7 +1033,7 @@ export default {
   height: 55vh;
   /* background: red; */
   border-radius: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* padding: 25px; */
   /* padding-bottom: 50px; */
   display: flex;

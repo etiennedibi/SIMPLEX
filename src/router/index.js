@@ -20,6 +20,9 @@ import fileStoty from "../views/fileStoty.vue";
 import AddEmployer from "../views/AddEmployer.vue";
 import StaffList from "../views/staffList.vue";
 import FicheEmploye from "../views/ficheEmploye.vue";
+import UserPaieFile from "../views/UserPaieFile.vue";
+import PaieStoty from "../views/PaieStoty.vue";
+import AddPaie from "../views/AddPaie.vue";
 import CVManage from "../views/cvManage.vue";
 
 
@@ -209,6 +212,24 @@ const routes = [
     path: "/FicheEmploye",
     name: "FicheEmploye",
     component: FicheEmploye,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/UserPaieFile",
+    name: "UserPaieFile",
+    component: UserPaieFile,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/PaieStoty",
+    name: "PaieStoty",
+    component: PaieStoty,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/AddPaie",
+    name: "AddPaie",
+    component: AddPaie,
     beforeEnter: ifAuthenticated,
   },
   {

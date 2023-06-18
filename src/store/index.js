@@ -22,6 +22,7 @@ import conge from "./modules/conge";
 import user from "./modules/user";
 import chat from "./modules/chat";
 import cvfile from "./modules/cvfile";
+import paieFile from "./modules/paieFile";
 
 
 
@@ -74,5 +75,6 @@ export default new Vuex.Store({
     user,
     chat,
     cvfile,
+    paieFile,
   },
 });

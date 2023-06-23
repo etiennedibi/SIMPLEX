@@ -3,6 +3,9 @@ import axios from "axios";
 const state = {
   allPaiefiles: [],
   allUserPaiefiles: [],
+  userPaieConfig:"",
+  compagniePaieConfig:"",
+  compagnieInfo:"",
 };
 
 const getters = {
@@ -18,6 +21,29 @@ const getters = {
     return files;
   },
 
+  UserPaieConfig: (state) => {
+    let files;
+    if (state.userPaieConfig == undefined) {
+      files = ""
+    } else {
+      files = state.userPaieConfig;
+    }
+    
+    return files;
+  },
+
+  CompagniePaieConfig: (state) => {
+    let files = state.compagniePaieConfig;
+
+    return files;
+  },
+
+  CompagnieInfos: (state) => {
+    let files = state.compagnieInfo;
+
+    return files;
+  },
+
 
 };
 
@@ -28,6 +54,18 @@ const mutations = {
 
   SET_ALL_USER_PAIE_FILES(state, data) {
     state.allUserPaiefiles = data;
+  },
+
+  SET_USER_PAIE_CONFIG(state, data) {
+    state.userPaieConfig = data;
+  },
+
+  SET_COMPAGNIE_PAIE_CONFIG(state, data) {
+    state.compagniePaieConfig = data;
+  },
+
+  SET_COMPAGNIE_INFO(state, data) {
+    state.compagnieInfo = data;
   },
 
 };
@@ -55,6 +93,46 @@ const actions = {
       .then((res) => {
         // console.log(res.data);
         commit("SET_ALL_USER_PAIE_FILES", res.data.Paiefile);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_user_paie_config: ({ commit}, salared) => {
+    // Vue.prototype.$http
+    console.log("uoier", salared);
+    axios
+      .get(
+        "/api/v1/admin/get_oneUser_paieFile/"+salared
+      )
+      .then((res) => {
+        // console.log(res.data);
+        commit("SET_USER_PAIE_CONFIG", res.data.Paiefile[0]);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_compagnie_paie_config: ({ commit }) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "/api/v1/admin/get_config_paie_compagnie/"+localStorage.getItem("user-compagnie")
+      )
+      .then((res) => {
+        // console.log(res.data.result);
+        commit("SET_COMPAGNIE_PAIE_CONFIG", res.data.result);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_compagnie_info: ({ commit }) => {
+    // Vue.prototype.$http
+    axios
+      .get(
+        "/api/v1/admin/show_compagnies/"+localStorage.getItem("user-compagnie")
+      )
+      .then((res) => {
+        // console.log(res.data[0]);
+        commit("SET_COMPAGNIE_INFO", res.data[0]);
       })
       .catch((error) => console.log(error));
   },

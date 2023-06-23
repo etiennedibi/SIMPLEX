@@ -1,6 +1,49 @@
 <template>
   <div class="tableWrapperDiv">
 
+      <!-- DELETE FILE DIALOG -->
+    <v-dialog v-model="deleteFileDialog" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
+            <div class="imgAndTitle  deleteIMG">
+                <v-icon color="red" large>
+                  mdi-close
+                </v-icon>
+              </div>
+            <v-container>
+              <div class="CancelVerification">
+                Cette action supprimera la fiche de paie de <br />
+                <b>{{editedItem.nom}} {{editedItem.prenoms}}</b> <br>
+                datant de <br>
+                <b>{{editedItem.periode_paie}}</b> 
+              </div>
+              <div class="verificationAction">
+                <v-btn
+                  color="grey"
+                  
+                  depressed
+                  @click="closeDeleteFile"
+                  style="color: white"
+                  >Non</v-btn
+                >
+                <v-btn
+                  color="red"
+                  
+                  depressed
+                  @click="deleteFileConfirm"
+                  style="color: white"
+                  >Confirmer</v-btn
+                >
+              </div>
+            </v-container>
+            </v-container>
+          
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <!-- SHOW FILE DIALOG -->
     <v-dialog
       v-model="fileShowDialog"
@@ -16,33 +59,6 @@
               <!-- <embed src="https://projects.listic.univ-smb.fr/theses/these_Ratcliffe.pdf#toolbar=0" width="100%" height="800px"/> -->
               <embed :src="`${axios.defaults.baseURL}/uploads/paieFile/${editedItem.fiche_paie}`" width="100%" height="670px"/>
             </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <!-- SHOW USER AUTORISE -->
-    <v-dialog v-model="autoriseUserDialog" max-width="370"> 
-      <v-card>
-        <v-card-text>
-          <v-container class="showDialog">
-            <div class="imgAndTitle">
-              <v-icon large color="mainBlueColor"> mdi-account-group </v-icon>
-            </div>
-            <div class="userliste">
-              <div v-if="IsExistUserList" class="notUser">
-                Aucun collaborateur n'est autorisé à consulter ce fichier
-              </div>
-              <div  v-for="(item) in relatiionItem" :key="item.index" class="oneUserbox">
-                <div class="userinfo">
-                  <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
-                  <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
-                  <p>{{item.nom}} {{item.prenoms}}</p>
-                </div>
-                <div class="actionBox">
-                  <p><span>{{item.nombre_acces}}</span> accès</p>
-                </div>    
-              </div>
-            </div>
           </v-container>
         </v-card-text>
       </v-card>
@@ -69,7 +85,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="AllUserPaiefiles"
+        :items="AllPaiefiles"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -81,15 +97,46 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-credit-card </v-icon></v-btn
           >
+
+          <v-btn icon color="mainBlueColor" @click="deleteFile(item)"
+            ><v-icon small> mdi-trash-can </v-icon></v-btn
+          >
         </template>
       </v-data-table>
     </div>
 
+
+
+
+    <transition name="slide">
+      <v-alert
+        v-if="addingSuccess"
+        elevation="13"
+        type="success"
+        max-width="300"
+        class="alert"
+        color="mainBlueColor"
+        >{{ VisiteaAddingResponse.message }}</v-alert
+      >
+    </transition>
+    <transition name="slide">
+      <v-alert
+        v-if="addingfalse"
+        elevation="13"
+        type="error"
+        max-width="300"
+        class="alert"
+        color="error"
+      >
+        {{ VisiteaAddingResponse.message }}</v-alert
+      >
+    </transition>
   
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -124,6 +171,14 @@ export default {
     autoriseUserDialog: false,
     IsExistUserList:false,
     relatiionItem: {},
+
+    // ---Delete-----------
+    deleteFileDialog: false,
+    VisiteaAddingResponse: "",
+
+    // for alerte
+    addingSuccess: false,
+    addingfalse: false,
     
   }),
 
@@ -135,15 +190,46 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.fileShowDialog = true;
     },
-    // ------------------------
-    // Show User autorise
-    // ------------------------
-    showAutoriseItem(relationitem) {
-      this.relatiionItem = Object.assign({}, relationitem);
-      if (relationitem.length==0) {
-        this.IsExistUserList = true
-      }else {this.IsExistUserList = false}
-      this.autoriseUserDialog = true;
+    
+
+     // DELETE FILE 
+    deleteFile(item) {
+      this.editedItem = Object.assign({}, item); 
+      this.deleteFileDialog = true;
+    },
+    deleteFileConfirm() {
+      axios
+        .delete(
+          "/api/v1/admin/delete_oneUser_paieFile/" + this.editedItem.id
+        )
+        .then((response) => {
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse) {
+            // Annulation effectuée
+            this.VisiteaAddingResponse.message = "Suppression effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.$store.dispatch("init_all_paie_file")
+            }, 3000);
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "Echec de l'operation";
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeDeleteFile();
+    },
+    closeDeleteFile() {
+      this.deleteFileDialog = false;
     },
 
 
@@ -154,11 +240,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllUserPaiefiles"]),
+    ...mapGetters(["AllPaiefiles"]),
   },
 
   created() {
-    this.$store.dispatch("init_all_user_paie_file");
+    this.$store.dispatch("init_all_paie_file");
   },
 };
 </script>

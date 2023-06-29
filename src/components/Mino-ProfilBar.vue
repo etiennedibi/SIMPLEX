@@ -28,7 +28,7 @@
         <p style="margin-top:25px">communiqués</p>
       </div>
     </router-link>
-    <!-- <router-link :to="{ name: 'chat' }"> -->
+    <router-link :to="{ name: 'chat' }">
       <div class="timeBox">
         <!-- <div>35</div> -->
         <v-icon style="transform: rotate(0deg)" color="mainBlueColor" x-large class="messgaeicon"
@@ -36,7 +36,7 @@
         >
         <p style="margin-top:25px">chat</p>
       </div>
-    <!-- </router-link> -->
+    </router-link>
     <div class="footerBox">
       <div class="locationBox">
         <div>

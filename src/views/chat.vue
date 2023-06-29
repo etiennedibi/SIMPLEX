@@ -2,9 +2,11 @@
 <v-main>
   <div class="ChatMainWrapper">
     <div class="leftBox">
-      <div class="TopWrapper">
+      <v-icon @click="$router.go(-1)">mdi-arrow-left-bold-circle</v-icon>
+      <v-icon>mdi-information-slab-box</v-icon>
+      <!-- <div class="TopWrapper">
         <div class="logo">        
-          <!-- <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="" /> -->
+          <img src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
           <v-icon @click="$router.go(-1)">mdi-arrow-left-bold-circle</v-icon>
         </div>
         <div style="border-bottom:1px solid grey; margin-bottom:10px;" class="itembox">
@@ -38,7 +40,7 @@
       </div>
       <div class="BottomWrapper">
         <v-icon>mdi-information-slab-box</v-icon>
-      </div>
+      </div> -->
     </div>
 
     <div class="mainBox">
@@ -62,16 +64,17 @@
                 </div>
               </div>
               <div class="userBox">
-                <div  v-for="(item) in Chat_notifs" :key="item.index" class="onUser onUserActive">
-                  <div class="user-profil" v-on:click="displayMessage(item)">
-                    <img src="@/assets/img/team2.jpg" alt="" srcset="">
+                <div  v-for="(item) in Chat_notifs" :key="item.index" class="onUser onUserActive" v-on:click="displayMessage(item)">
+                  <div class="user-profil">
+                    <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                    <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
                   </div>
                   <div>
                     <p>{{item.nom}}</p>
                     <p>Developpement web</p>
                   </div>
                   <div>
-                    <p>{{displayDate(item.updated_at)}}</p>
+                    <!-- <p>{{displayDate(item.updated_at)}}</p> -->
                   </div>
                 </div>
               </div>
@@ -79,47 +82,51 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12" md="12" lg="12" class="messagewrapper">
+                  <div v-if="!messageview">
+                    <div class="masssageEmptyBox">
+                      <div>
+                        <p>Simplex-chat</p>
+                        <p>Veuillez selectionner ou <br> initialiser une nouvelle discussion</p>
+                        <img src="@/assets/img/talking-1988_256.gif" alt="" srcset="">
+                      </div>
+                    </div>
+                  </div>
                   <div v-if="messageview">
                     <div class="messageHeader">
                       <div>
                         <p>{{conversation.nom}}</p>
-                        <p>Discussion initié le 20-04-2022</p>
+                        <p>Discussion initié le {{displayDate(conversation.created_at)}}</p>
                       </div>
                       <div class="seachMessage">
                                   
                       </div>
                     </div>
                     <div class="messageWrapper">
-                      <div class="oneMessage">
-                        <div class="theMessage">
-                          <p class="theMessageText">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis, ratione fugit? Quae quidem illo fugit consectetur saepe et, officia temporibus, corrupti at mollitia sapiente, dicta est esse dolores repellendus aut?
-                          </p>
-                          <div class="messageDetails">
-                            <v-icon>mdi-check-all</v-icon> 09:20
+                      <div v-for="(item) in allMessage" :key="item.index">
+
+                        <div  v-if="item.id_auteur == theUser" class="oneMessage OwnerMessage">
+                          <div class="theMessage Owner">
+                            <p class="theMessageText" style="text-align:right">
+                             {{item.content_text}}
+                            </p>
+                            <div class="messageDetails">
+                              <v-icon>mdi-check-all</v-icon> {{displayDate(item.created_at)}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div v-else class="oneMessage">
+                          <div class="theMessage">
+                            <p class="theMessageText">
+                              {{item.content_text}}
+                            </p>
+                            <div class="messageDetails">
+                              <v-icon>mdi-check-all</v-icon> {{displayDate(item.created_at)}}
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="oneMessage OwnerMessage">
-                        <div class="theMessage Owner">
-                          <p class="theMessageText" style="text-align:right">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis.
-                          </p>
-                          <div class="messageDetails">
-                            <v-icon>mdi-check-all</v-icon> 09:20
-                          </div>
-                        </div>
-                      </div>
-                      <div class="oneMessage ">
-                        <div class="theMessage ">
-                          <p class="theMessageText" style="text-align:right">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis.
-                          </p>
-                          <div class="messageDetails">
-                            <v-icon>mdi-check-all</v-icon> 09:20
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                     <div class="imputWrapper">
                       <v-btn icon>
@@ -211,6 +218,7 @@ export default {
     messageview:false,
     conversation:'',
     allMessage:'',
+    theUser:'',
     
   }),
 
@@ -220,9 +228,10 @@ export default {
       this.messageview = true
     // GET message from SOCKET
       SocketioService.getConversation(localStorage.getItem("user-id"), item.nom_room);
-      // this.conversation = item
-      // this.allMessage = this.$store.state.AllConncersationMessage 
-      // console.log('lllllllll::::', this.allMessage);    
+      this.conversation = item
+      // this.conversation.created_at = formatDateForChat(date)
+      this.allMessage = this.$store.state.AllConncersationMessage 
+      console.log(this.conversation, this.allMessage);    
     },
     displayDate(date) {
       return formatDateForChat(date);
@@ -237,6 +246,7 @@ export default {
 
   created() {
     this.$store.dispatch("init_chat_notif");
+    this.theUser = localStorage.getItem("user-id");
   },
 };
 </script>
@@ -253,7 +263,25 @@ export default {
   height: 100vh;
   width:100px;
   background: white;
+  /* FOR ACTUAL */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+/* ACTUAL CHAT START */
+.leftBox > .v-icon{
+  font-size:22px;
+  color:var( --Important-font-color);
+}
+.leftBox > .v-icon:nth-child(1){
+  font-size:25px;
+  margin-bottom: 20px;
+  color:red
+}
+/* ACTUAL CHAT END */
+
+/* CHAT FEATURE FOR UPDATE START */
 .TopWrapper{
   height: 90vh;
   width:100%;
@@ -317,6 +345,8 @@ export default {
   font-size:22px;
   color:var( --Important-font-color);
 }
+
+/* CHAT FEATURE FOR UPDATE END */
 
 
 
@@ -489,8 +519,31 @@ export default {
 }
 
 
-
-
+.masssageEmptyBox{
+  /* background:red; */
+  height: 92vh;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+.masssageEmptyBox > div{
+  height: 45vh;
+  width:35%;
+  padding:10px;
+  background: #e1f5ff;
+  border-radius: 10px;
+  text-align: center;
+  font-size:12px;
+}
+.masssageEmptyBox > div p:nth-child(1){
+  font-weight: bold;
+  font-size:16px;
+}
+.masssageEmptyBox > div img{
+  margin-top: 10px;
+  height:150px;
+  width:150px;
+}
 
 .oneMessage{
   /* background:yellow; */

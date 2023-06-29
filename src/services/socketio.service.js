@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-// import store from "../store";
+import store from "../store";
 
 class SocketioService {
   socket;
@@ -13,9 +13,9 @@ class SocketioService {
       console.log(data);
     })
 
-    this.socket.on('allMessage', (data) => {;
-      this.$store.state.AllConncersationMessage = data.chat_message
-      console.log(this.$store.state.AllConncersationMessage);
+    this.socket.on('allMessage', (data) => {
+      store.state.AllConncersationMessage = data.chat_message
+      // console.log(store.state.AllConncersationMessage);
     })
     
 

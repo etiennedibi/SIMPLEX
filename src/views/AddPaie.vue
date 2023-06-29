@@ -1352,6 +1352,7 @@ export default {
     chooseSalared(item){
        this.SalaredChoosen = item
        this.showemploye = false
+       this.dataToEdit = "" // Adding to resolved a bug
 
        this.$store.dispatch("init_user_paie_config", this.SalaredChoosen.the_user_id)
       if (this.UserPaieConfig  !== "") {
@@ -1360,7 +1361,7 @@ export default {
           }, 500);
        }else{
         this.dataToEdit = {
-              civilite:"0", matricule:"", sexe:"",
+              civilite:"", matricule:"", sexe:"",
               part_igr:"", categorie:"", numero_cnps:"",
               anciennete:"", salaire:""
             }

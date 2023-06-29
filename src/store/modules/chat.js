@@ -36,7 +36,7 @@ const actions = {
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        console.log(res.data.chat_notifs);
+        // console.log(res.data.chat_notifs);
         commit("SET_CHAT_NOTIF", res.data.chat_notifs);
       })
       .catch((error) => console.log(error));

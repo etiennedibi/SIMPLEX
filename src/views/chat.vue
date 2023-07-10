@@ -1,6 +1,35 @@
 <template>
 <v-main>
   <div class="ChatMainWrapper">
+
+     <!-- LISTE EMPLOYER -->
+      <v-dialog v-model="showemploye" max-width="370">
+      <v-card>
+          <v-card-text>
+          <v-container>
+              <div class="editIMGO">
+              <p style="text-align:center; font-weight:bold">DISCUTER AVEC</p>
+              </div>
+              <v-container fluid class="addcongeAsk">
+              <v-row>
+                <v-col cols="12" md="12" lg="12" v-for="(item) in Employers" :key="item.index" style="display:flex; justify-content:center;">
+                  <div v-if="item.the_user_id != theUser" class="user_box" @click="chooseSalared(item)">
+                      <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
+                      <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                      <div class="user_info">
+                        <p>{{item.nom}} {{item.prenoms}}</p>
+                        <p>{{item.nom_fonction}}</p>
+                      </div>
+                  </div>
+                </v-col>
+              </v-row>  
+            </v-container>
+          </v-container>
+          </v-card-text>
+
+      </v-card>
+      </v-dialog>
+
     <div class="leftBox">
       <v-icon @click="$router.go(-1)">mdi-arrow-left-bold-circle</v-icon>
       <v-icon>mdi-information-slab-box</v-icon>
@@ -50,21 +79,12 @@
             <div class="userBoxWrapper">
               <div class="seachBox">
                 <div class="seach">
-                  <v-icon style="color:white; font-size:25px; margin:0px 5px;">mdi-magnify</v-icon>
-                  <v-text-field
-                    hide-details
-                    label="Rechercher"
-                    color="white"
-                    filled
-                    rounded
-                    height="20"
-                    dense
-                    background-color="mainBlueColor"
-                  ></v-text-field>
+                  <v-icon style="color:black; font-size:25px; margin:0px 5px;">mdi-forum-plus</v-icon>
+                  <p @click="showemploye = true">Nouvelle discussion</p>
                 </div>
               </div>
               <div class="userBox">
-                <div  v-for="(item) in Chat_notifs" :key="item.index" class="onUser onUserActive" v-on:click="displayMessage(item)">
+                <div  v-for="(item) in AllConversation" :key="item.index" class="onUser onUserActive" v-on:click="displayMessage(item)">
                   <div class="user-profil">
                     <img v-if="item.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${item.avatar}`"/>
                     <img v-if="!item.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
@@ -95,7 +115,8 @@
                     <div class="messageHeader">
                       <div>
                         <p>{{conversation.nom}}</p>
-                        <p>Discussion initié le {{displayDate(conversation.created_at)}}</p>
+                        <p v-if="conversation.created_at">Discussion initié le {{displayDate(conversation.created_at)}}</p>
+                        <p v-else style="font-size:12px">Nouvelle discussion avec <b>{{SalaredChoosen.nom}} {{SalaredChoosen.prenoms}}</b></p>
                       </div>
                       <div class="seachMessage">
                                   
@@ -133,6 +154,7 @@
                         <v-icon>mdi-emoticon-outline</v-icon>
                       </v-btn>
                       <div class="theInput">
+                      <v-form ref="form1" >
                         <v-textarea
                         filled
                         auto-grow
@@ -140,11 +162,17 @@
                         clearable
                         clear-icon="mdi-close-circle"
                         rows="3"
+                        v-model="message"
+                        v-on:keyup.enter="SendMessageForInit"
                         name="input-7-4"
                       ></v-textarea>
+                      </v-form>
                       </div>
                       <v-btn icon>
-                        <v-icon color="mainBlueColor" style="font-size:30px; transform:rotate(-25deg)">mdi-send-variant</v-icon>
+                        <v-icon color="mainBlueColor" 
+                        style="font-size:30px; transform:rotate(-25deg)"
+                         v-on:click.prevent="SendMessageForInit"
+                        >mdi-send-variant</v-icon>
                       </v-btn>
                     </div>
                   </div>
@@ -169,12 +197,28 @@
     </v-tooltip>      
     <v-navigation-drawer v-model="drawer" floating right app>
       <div class="profilSpace">
-          <div class="userImg"><img src="@/assets/img/team2.jpg" alt=""></div>
-          <p>Agrey Stephane</p>
+          <div class="userImg" v-if="SalaredChoosen">
+            <img v-if="SalaredChoosen.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${SalaredChoosen.avatar}`"/>
+            <img v-if="!SalaredChoosen.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+          </div>
+          <p  v-if="SalaredChoosen">{{SalaredChoosen.nom}} {{SalaredChoosen.prenoms}}</p>
           <!-- <p>de</p> -->
-          <p>Service Development</p>
+          <p  v-if="SalaredChoosen">{{SalaredChoosen.nom_fonction}}</p>
+
+          <div class="userImg" v-if="conversation">
+            <img v-if="conversation.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${conversation.avatar}`"/>
+            <img v-if="!conversation.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+          </div>
+          <p  v-if="conversation">{{conversation.nom}}</p>
+
       </div>
-      <div class="notification">
+      <div class="otherForProfilSpace">
+        <p>Note</p>
+        <p>
+         <b>simplex-chat</b> utilise un chiffrement de bout en bout pour garantir la confidentialité de vos échanges. Nous protégeons également contre les menaces en ligne. Si vous rencontrez un problème, signalez-le facilement. Votre sécurité est notre priorité absolue.
+        </p>  
+      </div>
+      <!-- <div class="notification"> A EMPLEMENTER DANS LA MAJ DES GROUPE
         <p class="titleStyle2">Spaces <v-icon>mdi-bullhorn</v-icon></p>
 
         <div class="mail">
@@ -189,7 +233,7 @@
             <div><v-icon>mdi-message</v-icon></div>
             <div><p>AIDI - Team pigiste</p><p>Depuis Mars 2023</p></div>
         </div>
-      </div>
+      </div> -->
     </v-navigation-drawer> 
 
 
@@ -214,39 +258,98 @@ export default {
     drawer: null,
     SeachActive:false,
 
+    // LISTE EMPLOYE
+    showemploye: false,
+    SalaredChoosen:"",
+    seachChatRoom:"",
+
+    // CONVERSATION
+    AllConversation:"",
+
     // MESSAGE VIEW
     messageview:false,
     conversation:'',
     allMessage:'',
     theUser:'',
+
+    // MESSAGE SEND
+    message:'',
     
   }),
 
   methods: {
     
     displayMessage(item){
+      this.SalaredChoosen = ""
       this.messageview = true
     // GET message from SOCKET
-      SocketioService.getConversation(localStorage.getItem("user-id"), item.nom_room);
+      SocketioService.getMessages(localStorage.getItem("user-id"), item.nom_room);
       this.conversation = item
       // this.conversation.created_at = formatDateForChat(date)
       this.allMessage = this.$store.state.AllConncersationMessage 
+
+      this.drawer = true
       console.log(this.conversation, this.allMessage);    
     },
     displayDate(date) {
       return formatDateForChat(date);
     },
 
+
+    chooseSalared(item){
+      this.conversation = '',
+      this.allMessage = '',
+
+       this.SalaredChoosen = item
+       this.showemploye = false
+       this.seachChatRoom = this.theUser + "_" + this.SalaredChoosen.the_user_id
+       const chatSeach02 = this.SalaredChoosen.the_user_id + "_" + this.theUser
+       if (this.Chat_notifs.length == 0) {
+        this.messageview = true
+          this.drawer = true
+       } else {
+        for (let index = 0; index < this.Chat_notifs.length; index++) {
+        // VERIFIER SI LA conversation existe
+        if ((this.Chat_notifs[index].nom_room == this.seachChatRoom )|| (this.Chat_notifs[index].nom_room == chatSeach02)) {
+          this.displayMessage(this.Chat_notifs[index])
+          break
+        } else {
+          this.messageview = true
+          this.drawer = true
+        }
+        
+       }
+       }
+       
+      
+      
+    },
+
+    SendMessageForInit(){
+    // Send message from SOCKET
+      SocketioService.sendFirstMessage(localStorage.getItem("user-id"), this.SalaredChoosen.the_user_id, this.message);
+      this.$refs.form1.reset();
+      this.allMessage = this.$store.state.AllConncersationMessage 
+      this.AllConversation = this.$store.state.AllNotification
+    },
+
+
   },
 
   computed: {
-    ...mapGetters(["Chat_notifs"]),
+    ...mapGetters(["Chat_notifs", "Employers"]),
 
   },
 
   created() {
     this.$store.dispatch("init_chat_notif");
+    this.$store.dispatch("init_employers")
     this.theUser = localStorage.getItem("user-id");
+
+    // GET message from SOCKET
+    SocketioService.getConversation(localStorage.getItem("user-id"));
+    this.AllConversation = this.$store.state.AllNotification
+     console.log(this.$store.state.AllNotification);
   },
 };
 </script>
@@ -378,8 +481,46 @@ export default {
   border-radius:10px;
   background:var(--main-blue-important);
   display: flex;
-  /* background:green; */
+  /* color: white; */
+  background:#e1f5ff;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
 }
+
+.user_box{
+  height:10vh;
+  background:#356eea24;
+  width:90%;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  cursor: pointer;
+}
+.user_box img {
+  height: 40px;
+  width:40px;
+  margin-right:7px;
+  margin-left:7px;
+  border-radius: 100px;
+  border: solid 2px;
+  border-color: var(--main-blue-important);
+}
+.user_info{
+  /* background:yellow; */
+  height:100%;
+  margin-right:7px;
+  font-size:8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.user_info > p:nth-child(1){
+  font-size:12px;
+  margin-bottom:-12px;
+  font-weight:bold;
+}
+
 /* .theme--light.v-input input, .theme--light.v-input textarea {
   color: white !important;
 } */
@@ -628,6 +769,28 @@ export default {
     width: 70px;
     border-radius: 100px;
     transform: rotate(-45deg);
+}
+
+/* ----DETAIL----------*/
+.otherForProfilSpace{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.otherForProfilSpace p:nth-child(1){
+  background: var(--main-white-color);
+  width: fit-content;
+  text-align: center;
+  padding:2px 18px;
+  font-size:10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.otherForProfilSpace p:nth-child(2){
+  text-align:justify;
+  padding: 0px 25px;
+  font-size:10px;
 }
 
 /*----NOTIFICATION-----*/

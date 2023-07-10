@@ -47,6 +47,7 @@ export default new Vuex.Store({
 
     // FOR CHAT
     AllConncersationMessage :"",
+    AllNotification: "",
 
   },
   getters: {},

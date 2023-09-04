@@ -16,7 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
 
-axios.defaults.baseURL = "https://synthesia.globalbch.cloud";
+axios.defaults.baseURL = "https://coiffure.startup-invest.online";
 // pour garder l'autorisation dans le header, lorsqu'il y a rechargement de page. parcequ'au recharegment
 // le header est suprimé, mais pas le localeStorage  "https://mino-api.blooraid-consortium.com"
 const token = localStorage.getItem("user-token");

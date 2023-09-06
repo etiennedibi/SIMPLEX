@@ -1355,6 +1355,7 @@ export default {
        this.dataToEdit = "" // Adding to resolved a bug
 
        this.$store.dispatch("init_user_paie_config", this.SalaredChoosen.the_user_id)
+       console.log(this.UserPaieConfig);
       if (this.UserPaieConfig  !== "") {
           setTimeout(() => {
             this.dataToEdit = this.UserPaieConfig

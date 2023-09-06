@@ -13,11 +13,12 @@
                 </p>
               </div>
                <div v-if="!LastMessages">
-                <h3>Bienvenue sur SIMPLEX</h3>
+                <h3>Hello {{theUser}} !</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                  Ex ut fugit quaerat obcaecati delectus fugit dolorum adipisci illo 
-                  blanditiis commodi vitae?
+                  Bienvenue sur SIMPLEX, votre SI-RH et votre solution de gestion des visites. 
+                  Profitez de fonctionnalités qui simplifient les actions. <br>
+                  Vous pouvez vous aidé du manuel d'utilisation, pour parcourir le menu. 
+                  
                 </p>
               </div>
             </div>
@@ -266,6 +267,7 @@ export default {
     role:"",
     adminInfos:false,
     editedItem: {},
+    theUser:"",
     profilIMG:"",
 
     addingSuccess: false,
@@ -353,6 +355,7 @@ export default {
     setInterval(this.getNow, 1000);
     this.editedItem.user_id = localStorage.getItem("user-id");
     this.editedItem.compagnie_id = localStorage.getItem("user-compagnie");
+    this.theUser = localStorage.getItem("user-name");
     this.role = localStorage.getItem("user-role");
     // this.activeAdminUpdate()
     

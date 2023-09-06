@@ -99,13 +99,13 @@ const actions = {
 
   init_user_paie_config: ({ commit}, salared) => {
     // Vue.prototype.$http
-    console.log("uoier", salared);
+    // console.log("uoier", salared);
     axios
       .get(
         "/api/v1/admin/get_oneUser_paieFile/"+salared
       )
       .then((res) => {
-        // console.log(res.data);
+        // console.log(res.data.Paiefile[0]);
         commit("SET_USER_PAIE_CONFIG", res.data.Paiefile[0]);
       })
       .catch((error) => console.log(error));
@@ -131,8 +131,7 @@ const actions = {
         "/api/v1/admin/show_compagnies/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
-        // console.log(res.data[0]);
-        commit("SET_COMPAGNIE_INFO", res.data[0]);
+        commit("SET_COMPAGNIE_INFO", res.data.result[0]);
       })
       .catch((error) => console.log(error));
   },

@@ -87,7 +87,7 @@
             <router-link :to="{ name: 'CVManage' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DES CV</p>
+                <p>GESTION DES CORRESPONDANT</p>
               </div>
             </router-link>
           </div>
@@ -178,12 +178,12 @@
                 <p>HISTORIQUE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
+            <!-- <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>BILAN DES PRESENCES</p>
               </div>
-            </router-link>
+            </router-link> -->
           </div>
         </div>
       </div>

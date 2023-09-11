@@ -5,7 +5,7 @@
     </div>
     <v-form class="signInBodyBox">
       <div>
-        <v-row>
+        <v-row style="justify-content:center">
           <v-col cols="12" sm="12" md="6" lg="6">
             <v-text-field
               solo
@@ -16,23 +16,7 @@
               height="90"
               type="text"
               :rules="[() => !!userCredentials.email]"
-              label="email"
-              persistent-hint
-              required
-              v-on:keyup.enter="submit"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="12" md="6" lg="6">
-            <v-text-field
-              solo
-              rounded
-              ref="anag"
-              v-model="userCredentials.password"
-              background-color="white"
-              height="90"
-              type="password"
-              :rules="[() => !!userCredentials.password]"
-              label="mot de passe"
+              label="email de recuperation"
               persistent-hint
               required
               v-on:keyup.enter="submit"
@@ -55,8 +39,8 @@
     </v-form>
     <div class="signInFooterBox">
       <!-- <img src="@/assets/icone/1-MinordC.png" alt="" /> -->
-      <router-link :to="{ name: 'passwordRecupBegin' }">
-      <p style="color: black"># procedure de recuperation de mot de passe #</p>
+      <router-link :to="{ name: 'login' }">
+        <p style="color: black"># Annuler la procedure #</p>
       </router-link>
     </div>
 
@@ -80,6 +64,7 @@
 
 <script>
 // import Vue from 'vue'
+import axios from "axios";
 export default {
   name: "login",
   components: {},
@@ -92,8 +77,6 @@ export default {
     // for companies adding
     userCredentials: {
       email: "",
-      password: "",
-      softLevel: "station",
     },
 
     companyaddingResponse: "",
@@ -101,14 +84,13 @@ export default {
 
   methods: {
     submit() {
-      this.$store
-        .dispatch("auth_request", this.userCredentials)
+      axios({ url: "/api/v1/forgotPassword", data: this.userCredentials, method: "POST" })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/passwordRecup");
         })
         .catch((authError) => {
           this.companyaddingResponse =
-            "Le email ou le mot de passe est incorrecte";
+            "Ce compte est introuvable";
           this.addingfalse = !this.addingfalses;
           setTimeout(() => {
             this.addingfalse = false;

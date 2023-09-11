@@ -5,8 +5,24 @@
     </div>
     <v-form class="signInBodyBox">
       <div>
-        <v-row>
+        <v-row style="justify-content:center">
           <v-col cols="12" sm="12" md="6" lg="6">
+            <v-text-field
+              solo
+              rounded
+              ref="deno"
+              v-model="userCredentials.token"
+              background-color="white"
+              height="90"
+              type="passsword"
+              :rules="[() => !!userCredentials.token]"
+              label="Code de recuperation"
+              persistent-hint
+              required
+              v-on:keyup.enter="submit"
+            ></v-text-field>
+          </v-col>
+           <v-col cols="12" sm="12" md="6" lg="6">
             <v-text-field
               solo
               rounded
@@ -14,29 +30,34 @@
               v-model="userCredentials.email"
               background-color="white"
               height="90"
-              type="text"
+              type="email"
               :rules="[() => !!userCredentials.email]"
-              label="email"
+              label="email de recuperation"
               persistent-hint
               required
               v-on:keyup.enter="submit"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="12" md="6" lg="6">
+           <v-col cols="12" sm="12" md="6" lg="6">
             <v-text-field
               solo
               rounded
-              ref="anag"
-              v-model="userCredentials.password"
+              ref="deno"
+              v-model="userCredentials.newPassword"
               background-color="white"
               height="90"
-              type="password"
-              :rules="[() => !!userCredentials.password]"
-              label="mot de passe"
+              type="text"
+              :rules="[() => !!userCredentials.newPassword]"
+              label="Nouveau mot de passe"
               persistent-hint
               required
               v-on:keyup.enter="submit"
             ></v-text-field>
+          </v-col>
+           <v-col cols="12" sm="12" md="6" lg="6"  style="display:flex; justify-content: center; align-items:center">
+            <div class="submitBouton" v-on:click.prevent="submit">
+                <v-icon color="mainBlueColor" size="40">mdi-arrow-right-thin</v-icon>
+              </div>
           </v-col>
         </v-row>
       </div>
@@ -47,16 +68,12 @@
                 </div>
                 <p>mot de passe oublié ?</p> -->
       </div>
-      <div>
-        <div class="submitBouton" v-on:click.prevent="submit">
-          <v-icon color="mainBlueColor" size="40">mdi-arrow-right-thin</v-icon>
-        </div>
-      </div>
+      
     </v-form>
     <div class="signInFooterBox">
       <!-- <img src="@/assets/icone/1-MinordC.png" alt="" /> -->
-      <router-link :to="{ name: 'passwordRecupBegin' }">
-      <p style="color: black"># procedure de recuperation de mot de passe #</p>
+      <router-link :to="{ name: 'login' }">
+        <p style="color: black"># Annuler la procedure #</p>
       </router-link>
     </div>
 
@@ -80,6 +97,7 @@
 
 <script>
 // import Vue from 'vue'
+import axios from "axios";
 export default {
   name: "login",
   components: {},
@@ -92,8 +110,8 @@ export default {
     // for companies adding
     userCredentials: {
       email: "",
-      password: "",
-      softLevel: "station",
+      token: "",
+      newPassword:"",
     },
 
     companyaddingResponse: "",
@@ -101,14 +119,13 @@ export default {
 
   methods: {
     submit() {
-      this.$store
-        .dispatch("auth_request", this.userCredentials)
+      axios({ url: "/api/v1/RecuPPassword", data: this.userCredentials, method: "PUT" })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/login");
         })
         .catch((authError) => {
           this.companyaddingResponse =
-            "Le email ou le mot de passe est incorrecte";
+            "Recuperation impossible, veillez reprendre la procedure";
           this.addingfalse = !this.addingfalses;
           setTimeout(() => {
             this.addingfalse = false;

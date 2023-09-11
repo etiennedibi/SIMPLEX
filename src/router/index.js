@@ -50,7 +50,8 @@ import param from "../views/param.vue";
 import chat from "../views/chat.vue";
 
 import login from "../views/login.vue";
-// import abonnement from "../views/abonnementChekpage.vue";
+import passwordRecupBegin from "../views/passwordRecupBegin.vue";
+import passwordRecup from "../views/passwordRecup.vue";
 
 Vue.use(VueRouter);
 
@@ -272,6 +273,24 @@ const routes = [
     path: "/login",
     name: "login",
     component: login,
+    beforeEnter: ifNotAuthenticated,
+    meta: {
+      plainLayout: true,
+    },
+  },
+  {
+    path: "/passwordRecupBegin",
+    name: "passwordRecupBegin",
+    component: passwordRecupBegin,
+    beforeEnter: ifNotAuthenticated,
+    meta: {
+      plainLayout: true,
+    },
+  },
+  {
+    path: "/passwordRecup",
+    name: "passwordRecup",
+    component: passwordRecup,
     beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,

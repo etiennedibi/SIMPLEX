@@ -34,6 +34,7 @@ import ExpeditionSheet from "../views/Expedition2Management.vue";
 
 import CongeDemande from "../views/congeDemande.vue";
 import BilanConge from "../views/bilanConge.vue";
+import Disponibilite from "../views/Disponibilite.vue";
 import BilanAbsence from "../views/bilanAbsence.vue";
 import Congemanagment from "../views/congemanagment.vue";
 import CongeStory from "../views/congeStory.vue";
@@ -267,6 +268,12 @@ const routes = [
     path: "/BilanAbsence",
     name: "BilanAbsence",
     component: BilanAbsence,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/Disponibilite",
+    name: "Disponibilite",
+    component: Disponibilite,
     beforeEnter: ifAuthenticated,
   },
   {

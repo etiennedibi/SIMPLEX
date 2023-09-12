@@ -10,63 +10,78 @@
         </v-col>
         <v-col cols="12" md="3" lg="6">
           <div class="stat1 stat3">
-            <div class="ListBox">
+            <!-- <div class="ListBox">
               <img src="@/assets/img/team2.jpg" alt="" srcset="">
-            </div>
-            <div class="ListBox">
-              <img src="@/assets/img/profile-pic(1).png" alt="" srcset="">
-            </div>
-            <div class="ListBox">
-              <img src="@/assets/img/profile-pic(3).png" alt="" srcset="">
-            </div>
-            
+            </div>        -->
+            <v-tooltip bottom v-for="(empl) in DisponibilityList" :key="empl.index">
+              <template v-slot:activator="{ on, attrs }">
+                <div v-if="empl.id_disponibility == 1" class="ListBox" v-bind="attrs" v-on="on">
+                  <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                  <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                </div>
+                <div v-if="empl.id_disponibility == 2 || empl.id_disponibility == 3" class="ListBox ListBox1" v-bind="attrs" v-on="on">
+                  <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                  <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                </div>
+                <div v-if="empl.id_disponibility == 4" class="ListBox ListBox2" v-bind="attrs" v-on="on">
+                  <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                  <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                </div>
+              </template>
+              <span>{{empl.nom}} {{empl.prenoms}}</span>
+            </v-tooltip> 
+
+                <!-- <div v-if="empl.id_disponibility == 2 || empl.id_disponibility == 3" class="ListBox ListBox1" v-bind="attrs" v-on="on">
+                  <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                  <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                </div>
+                <div v-if="empl.id_disponibility == 3" class="ListBox ListBox2" v-bind="attrs" v-on="on">
+                  <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
+                  <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
+                </div>
+              </template> -->
           </div>
         </v-col>
         <v-col cols="12" md="3" lg="3">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainBlueColor">mdi-weather-cloudy-clock</v-icon>
+              <v-icon color="mainBlueColor">mdi-calendar-badge</v-icon>
             </div>
-            <h1>12500</h1>
-            <h5 style="text-align:center">minutes <br> de présence employé</h5>
+            <h2>{{ today }}</h2>
+            <h5 style="text-align:center">Date <br> du bilan quotidien</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9" >
           <div class="stat1 stat4">
-            <v-form class="signInBodyBox">
-                <v-row>
-                  <v-col cols="12" sm="12" md="10" lg="10">
-                    <v-text-field
-                      solo
-                      ref="deno"
-                      background-color="white"
-                      height="40"
-                      type="number"
-                      prefix="Frequence actualisation QRcode : "
-                      suffix="min"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-            </v-form>
             <v-btn
               medium
               depressed
+              desable
               color="mainBlueColor"
               style="color: white"
-              v-on:click.prevent="submit1"
-              >MODIFIER</v-btn
+              >PRESENT</v-btn
+            >
+            <v-btn
+              medium
+              depressed
+              desable
+              color="orange"
+              style="color: white"
+              >INDISPONIBLE</v-btn
+            >
+            <v-btn
+              medium
+              depressed
+              desable
+              color="red"
+              style="color: white"
+              >ABSENT</v-btn
             >
           </div>
         </v-col>
         <v-col cols="12" md="3" lg="3" >
           <div class="stat1 stat2">
-            <div class="N-icon icon2">
-              <v-icon color="white">mdi-account-group</v-icon>
-            </div>
-            <h1 style="color: white">3</h1>
-            <h5 style="color: white">Présence du jour</h5>
+            <h1>{{ timestamp }}</h1>
           </div>
         </v-col>
       </v-row>
@@ -85,26 +100,39 @@ export default {
 
   data() {
     return {
-      // componentKey: 0,
+      timestamp:"",
+      today:"",
     };
   },
 
   methods: {
-    // ------------------------
-    // RE-RENDER CHILD  COMPONENT
-    // ------------------------
-    // forceRerender() {
-    //     this.componentKey = this.$store.state.travelcomponentKey;
-    //     // console.log(this.componentKey);
-    //   }
+    getNow() {
+        const today = new Date();
+        const thedate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        const time = this.padzero(today.getHours()) + ":" + this.padzero(today.getMinutes());
+        this.timestamp = time;
+        this.today = thedate;
+    },
+    padzero(num) {
+        return num<10? "0"+ num:num
+    },
   },
 
   computed: {
-    ...mapGetters(["Analytics"]),
+    ...mapGetters(["DisponibilityList"]),
     forceRerender() {
       return this.$store.state.travelcomponentKey;
       // console.log(this.componentKey);
     },
+  },
+
+
+
+   created() {
+    this.$store.dispatch("init_list_disponibility")
+    
+    setInterval(this.getNow, 1000);
+    
   },
 };
 </script>
@@ -147,7 +175,8 @@ export default {
   padding: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 0px 100px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -171,6 +200,12 @@ export default {
   border-radius: 100px;
   margin: 3px;
 }
+.ListBox1{
+  background: rgba(255, 166, 0, 0.459);
+}
+.ListBox2{
+  background: rgba(255, 0, 0, 0.459);
+}
 .ListBox img{
   height: 30px;
   width: 30px;
@@ -178,8 +213,14 @@ export default {
 }
 .stat2{
     background: linear-gradient(to right bottom,  #356eea, #037bb8, #9238ce);
-
+    color:white;
 }
+.stat2 > h1 {
+  display: inline-block;
+  padding: 5px 25px;
+  border: solid 1px white;
+}
+
 .N-icon {
   height: 35px;
   width: 35px;

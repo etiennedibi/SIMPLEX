@@ -178,12 +178,18 @@
                 <p>HISTORIQUE</p>
               </div>
             </router-link>
-            <!-- <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
+            <router-link :to="{ name: 'Disponibilite' }" v-if="this.role==1">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>DIPONIBILITE</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>BILAN DES PRESENCES</p>
               </div>
-            </router-link> -->
+            </router-link>
           </div>
         </div>
       </div>

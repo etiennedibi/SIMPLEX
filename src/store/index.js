@@ -19,6 +19,7 @@ import contract from "./modules/contract";
 import service from "./modules/service";
 import work from "./modules/work";
 import conge from "./modules/conge";
+import disponibility from "./modules/disponibility";
 import user from "./modules/user";
 import chat from "./modules/chat";
 import cvfile from "./modules/cvfile";
@@ -74,6 +75,7 @@ export default new Vuex.Store({
     work,
     conge,
     user,
+    disponibility,
     chat,
     cvfile,
     paieFile,

@@ -2,7 +2,7 @@
   <div class="bodyBox">
     <div class="TheBoxBody">
       <div class="sectionTitle">
-        <p>Gestion des CV</p>
+        <p>Gestion des correspondants</p>
         <v-switch
           inset
           v-model="switch1"
@@ -23,7 +23,7 @@
                          v-model="new_file.cv"
                         :rules="[() => !!new_file.cv]"
                         solo
-                        label="Telecharger un CV"
+                        label="Document référent"
                         prepend-icon="mdi-file"
                       ></v-file-input>
                     </v-col>
@@ -31,7 +31,7 @@
                       <v-text-field
                         height="50"
                         solo
-                        label="nom du stagiaire"
+                        label="Nom complet / Denominantion"
                         background-color="#356eea24"
                         ref="desc"
                         v-model="new_file.nom_stagiaire"
@@ -62,7 +62,7 @@
                       <v-text-field
                         height="50"
                         solo
-                        label="profession"
+                        label="Domaine d'activité"
                         background-color="#356eea24"
                         ref="desc"
                         v-model="new_file.profession"

@@ -21,25 +21,25 @@
               <div v-if="UserDisponity.id_disponibility == 1">
                 <h3>[ DISPONIBLE ]</h3>
                 <p>
-                  Votre disponibilité est reste visible pour l'accueil. Cela aidera notre SIMPLEX à mieux vous assister. Merci pour votre collaboration.
+                  Votre disponibilité est visible pour l'accueil. Cela aidera SIMPLEX à mieux vous assister. Merci pour votre collaboration.
                 </p>
               </div>
               <div v-if="UserDisponity.id_disponibility == 2">
                 <h3>[ EN PAUSE ]</h3>
                 <p>
-                  Vous avez d'indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
+                  Vous avez indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
                 </p>
               </div>
               <div v-if="UserDisponity.id_disponibility == 3">
                 <h3>[ EN REUNION ]</h3>
                 <p>
-                  Vous avez d'indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
+                  Vous avez indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
                 </p>
               </div>
               <div v-if="UserDisponity.id_disponibility == 4">
                 <h3>[ A L'EXTERIEUR ]</h3>
                 <p>
-                  Vous avez d'indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
+                  Vous avez indiquer votre indisponibilité pour <b>{{UserDisponity.motif}} min,</b><br> depuis <b>{{displayDate(UserDisponity.updated_at)}}</b>
                 </p>
               </div>
             </div>

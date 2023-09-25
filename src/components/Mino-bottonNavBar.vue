@@ -21,6 +21,12 @@
                 <p>GESTION DES RDV</p>
               </div>
             </router-link>
+            <router-link :to="{ name: 'RdvAccueil' }">
+              <div class="tab1">
+                <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>GESTION DE L'ACCEUIL</p>
+              </div>
+            </router-link>
             <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>

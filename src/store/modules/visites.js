@@ -3,6 +3,7 @@ import axios from "axios";
 const state = {
   userVisite: [],
   allVisitesStory: {},
+  allvisiteAccueil: []
 };
 
 const getters = {
@@ -17,6 +18,12 @@ const getters = {
 
     return allVisitesStorys;
   },
+
+  AllvisiteAccueil: (state) => {
+    let allvisiteAccueils = state.allvisiteAccueil;
+
+    return allvisiteAccueils;
+  },
 };
 
 const mutations = {
@@ -26,6 +33,10 @@ const mutations = {
 
   SET_ALLVISITES(state, data) {
     state.allVisitesStory = data;
+  },
+
+  SET_ALLVISITESACCUEIL(state, data) {
+    state.allvisiteAccueil = data;
   },
 };
 
@@ -62,6 +73,18 @@ const actions = {
       .then((res) => {
         // console.log(res.data.visites);
         commit("SET_ALLVISITES", res.data);
+      })
+      .catch((error) => console.log(error));
+  },
+
+  init_allVisiteAccueil: ({ commit }) => {
+  axios
+      .get(
+        "/api/v1/rdv/visit_list/"+localStorage.getItem("user-compagnie")
+      )
+      .then((res) => {
+        // console.log(res.data.visites);
+        commit("SET_ALLVISITESACCUEIL", res.data.visites);
       })
       .catch((error) => console.log(error));
   },

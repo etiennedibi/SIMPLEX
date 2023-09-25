@@ -1,5 +1,10 @@
 <template>
-  <div class="tableWrapperDiv">
+  <div class="bodyBox">
+    <div class="TheBoxBody ForTravelDeclaration">
+      <p class="sectionTitle">Gestion de l'accueil</p>
+      <v-row>
+        <v-col cols="12" md="12" lg="12">
+          <div class="tableWrapperDiv">
 
     <!-- BEFORE DELETE WHITHDRAWAL DIALOG -->
     <v-dialog v-model="BeforeDialogDelete" max-width="370">
@@ -42,45 +47,7 @@
       </v-card>
     </v-dialog>
 
-    <!-- DELETE WHITHDRAWAL NATURE DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="370">
-      <v-card>
-        <v-card-text>
-          <div class="confirmTitle">AVERTISSEMENT !</div>
-          <v-container>
-            <div class="CancelVerification">
-              Cette action supprimera le type de colis
-              <b>{{ editedItem.denomination }}</b> et toutes les variantes de
-              prix qui y sont liées.<br />
-              <br />
-              <span style="font-weight: bold"
-                >voulez-vous vraiment supprimer <br />
-                ce type de colis ?</span
-              >
-            </div>
-            <div class="verificationAction">
-              <v-btn
-                color="Titlecolor"
-                rounded
-                depressed
-                @click="closeDelete"
-                style="color: white"
-                >Non</v-btn
-              >
-              <v-btn
-                color="mainBlueColor"
-                rounded
-                depressed
-                @click="deleteItemConfirm"
-                style="color: white"
-                >Oui</v-btn
-              >
-            </div>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
+    
     <!-- DELETE-CANCEL VISITE ON   DIALOG -->
     <v-dialog v-model="dialogDeleteOneVariante" max-width="370">
       <v-card>
@@ -225,47 +192,6 @@
       </v-card>
     </v-dialog>
 
-     <!-- DONE VISITE DIALOG -->
-    <v-dialog v-model="dialogDone" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle  deleteIMG">
-                <v-icon color="red" large>
-                  mdi-good
-                </v-icon>
-              </div>
-            <v-container>
-              <div class="CancelVerification">
-                Souhaitez-vous marquer comme effectuée, la visite de  <br />
-                <b>{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }} ?</b> 
-              </div>
-              <div class="verificationAction">
-                <v-btn
-                  color="grey"
-                  
-                  depressed
-                  @click="closeDoneVisite"
-                  style="color: white"
-                  >Non</v-btn
-                >
-                <v-btn
-                  color="mainBlueColor"
-                  
-                  depressed
-                  @click="DoneVisite  "
-                  style="color: white"
-                  >oui</v-btn
-                >
-              </div>
-            </v-container>
-            </v-container>
-          
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
-
 
     <!-- EDIT VISITE DIALOG -->
     <v-dialog v-model="dialogEdit" max-width="370">
@@ -279,65 +205,48 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        label="Nom"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="editedItem.nom_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        background-color="#356eea24"
-                        label="Prenoms"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="editedItem.prenoms_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        label="Telephone"
-                        v-model="editedItem.contact_visiteur"
-                        append-icon="mdi-phone"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
+                    <v-select
+                    v-if="!editedItem.id_departement"
+                      background-color="#356eea24"
+                      v-model="editedItem.id_user_employer"
+                      :rules="[() => !!editedItem.id_user_employer]"
+                      :items="Employers"
+                      item-text="nom"
+                      item-value="the_user_id"
+                      label="Selectionner l'employe"
+                      solo
+                      height="60"
+                    >
+                    </v-select>
+                    <v-select
+                    v-if="editedItem.id_departement"
+                      background-color="#356eea24"
+                      v-model="editedItem.id_user_employer"
+                      :rules="[() => !!editedItem.id_user_employer]"
+                      :items="DprtDisponibilityList"
+                      item-text="nom"
+                      item-value="id_user"
+                      label="Selection un employé du département"
+                      solo
+                      height="60"
+                    >
+                    </v-select>
+                    <!-- <v-select
+                      background-color="#356eea24"
+                      v-model="newTravel_1.department_id"
+                      :rules="[() => !!newTravel_1.department_id]"
+                      :items="Services"
+                      item-text="nom_departement"
+                      item-value="id"
+                      label="Selectionner l'employe"
+                      solo
+                      height="60"
+                    >
+                    </v-select> -->
                     </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        height="60"
-                        solo
                         background-color="#356eea24"
-                        label="email"
-                        append-icon="mdi-at"
-                        ref="desc"
-                        v-model="editedItem.email_visiteur"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                   
-                    <!-- <v-col cols="12" md="12" lg="12">
-                      <v-text-field
                         height="60"
                         solo
                         v-model="editedItem.date_rdv"
@@ -353,7 +262,6 @@
                       <v-text-field
                         height="60"
                         solo
-                        background-color="#356eea24"
                         v-model="editedItem.heure_rdv"
                         ref="transport"
                         type="time"
@@ -363,7 +271,7 @@
                         append-icon="mdi-clock-time-eight"
                         required
                       ></v-text-field>
-                    </v-col> -->
+                    </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="60"
@@ -382,7 +290,6 @@
                       <v-textarea
                         solo
                         clearable
-                        background-color="#356eea24"
                         clear-icon="mdi-close-circle"
                         rows="5"
                         name="input-7-4"
@@ -504,12 +411,6 @@
             </div>
             <div class="statElment">
               <div>
-                <h5>EMAIL</h5>
-                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.email_visiteur }}</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <div>
                 <h5>TELEPHONE</h5>
                 <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
               </div>
@@ -520,6 +421,50 @@
                   <h4 style="font-weight:normal;font-size:12px">{{ editedItem.duree_rdv }}</h4>
                 </div>
               </div>
+              <div v-if="editedItem.id_departement" class="statElment">
+                <div>
+                  <h5>DEPARTEMENT</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.departement.nom_departement }}</h4>
+                </div>
+              </div>
+              <div v-if="editedItem.nom_complet_employe" class="statElment">
+                <div>
+                  <h5>VISITE DEMANDEE POUR</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_complet_employe }}</h4>
+                </div>
+              </div>
+              <div v-if="editedItem.TheUser" class="statElment">
+                <div>
+                  <h5>VISITE ATTRIBUE A</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4>
+                </div>
+              </div>
+            <div v-if="editedItem.employer" class="statElment">
+              <div>
+                <v-tooltip  v-if="editedItem.employer.id_disponibility == 5" bottom>
+                  <template v-slot:activator="{ on, attrs }"> 
+                    <h5>EMPLOYE <span  class="disponibility" style="background:red" v-bind="attrs" v-on="on"></span></h5>
+                  </template>
+                  <span><b>[Absent]</b></span>
+                </v-tooltip>
+                <v-tooltip v-if="(editedItem.employer.id_disponibility == 2) || (editedItem.employer.id_disponibility == 3) || (editedItem.employer.id_disponibility == 4)" bottom>
+                  <template v-slot:activator="{ on, attrs }"> 
+                    <h5>EMPLOYE <span  class="disponibility" style="background:orange" v-bind="attrs" v-on="on"></span></h5>
+                  </template>
+                  <span v-if="editedItem.employer.id_disponibility == 2"><b>[En pause]</b> pour <b>{{editedItem.employer.motif}} min,</b><br> depuis <b>{{displayDate(editedItem.employer.updated_at)}}</b></span>
+                  <span v-if="editedItem.employer.id_disponibility == 3"><b>[En reunion]</b> pour <b>{{editedItem.employer.motif}} min,</b><br> depuis <b>{{displayDate(editedItem.employer.updated_at)}}</b></span>
+                  <span v-if="editedItem.employer.id_disponibility == 4"><b>[A l'exterieur]</b> pour <b>{{editedItem.employer.motif}} min,</b><br> depuis <b>{{displayDate(editedItem.employer.updated_at)}}</b></span>
+                </v-tooltip>
+                <v-tooltip  v-if="editedItem.employer.id_disponibility == 1" bottom>
+                  <template v-slot:activator="{ on, attrs }"> 
+                    <h5>EMPLOYE <span  class="disponibility" style="background:green" v-bind="attrs" v-on="on"></span></h5>
+                  </template>
+                  <span><b>[Disponible]</b></span>
+                </v-tooltip>
+                 <!-- v-if="editedItem.id_disponibility == 4"  -->
+                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4>
+              </div>
+            </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF</h5>
@@ -574,7 +519,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="UserVisites"
+        :items="AllvisiteAccueil"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -586,37 +531,44 @@
             ><v-icon small> mdi-eye-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
+          v-if="((item.auteur_visite !== 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
           @click="editItem(item)"
             ><v-icon small> mdi-pencil-outline </v-icon></v-btn
           >
-          <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
-            @click="deleteOneItemVriante(item)"
-            ><v-icon small>mdi-cancel </v-icon></v-btn
-          >
-          <!-- <v-btn icon color="green"  
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') && (item.etat_visite !== 'ACCEPTED') && (item.etat_visite !== 'REFUSED')))"
-           @click="acceptItem(item)"
-            ><v-icon small> mdi-account-check </v-icon></v-btn
-          >  -->
-          <v-btn icon color="mainBlueColor" 
-          v-if="(item.auteur_visite == 'Ajouté depuis administration')"
-          @click="reportItem(item)"
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
-          >
-          <!-- <v-btn icon color="red" 
-          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED') && (item.etat_visite !== 'REFUSED')))" 
+          <v-btn icon color="red" 
+          v-if="((item.auteur_visite !== 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED')))" 
           @click="RejecttItem(item)"  
             ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
-          >         -->
-          <v-btn icon color="green" 
-          v-if="item.etat_visite !== 'DONE'" 
-          @click="DoneItem(item)"  
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
           >        
-
+          
         </template>
+        <template v-slot:[`item.id`]="{ item }">
+          #{{ item.id }}
+        </template>
+        <template v-slot:[`item.etat_visite`]="{ item }">
+          <!-- <v-btn icon color="mainBlueColor" class="statuBtn">
+            <div v-if="item.etat_visite == 'EN_ATENTE'" class="status" style="background: #037CB831; color:grey;">EN ATTENTE</div>
+            <div v-if="item.etat_visite == 'DONE'" class="status" style="background: #0DA36C94; color:white;">EFFECTUE</div>
+            <div v-if="item.etat_visite == 'REFUSED'" class="status" style="background: #FC070794; color:white;">REFUSE</div>
+          </v-btn> -->
+          
+          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite == 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
+            Annulée </v-chip
+          >
+          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite !== 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
+            Refusée </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'ACCEPTED'" color="#aeaeae">
+            Accepté </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'DONE'" color="green">
+            Effectué </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'EN_ATENTE'" color="#aeaeae">
+            En attente</v-chip
+          >
+        </template>
+        
       </v-data-table>
     </div>
 
@@ -644,151 +596,39 @@
       >
     </transition>
   </div>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import { formatDateForChat } from "../Utils/WorkDate";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "undoVisitList",
-  components: {},
+  name: "RdvAccueil",
+  components: {
+    // allVisitStory,
+  },
 
-  data: () => ({
-    // For the table
+  data: ()=>({
+       // For the table
     search: "",
     headers: [
+      { text: "CODE", value: "id", sortable: true, },
       {
         text: "NOM",
         align: "start",
-        sortable: true,
+        // sortable: true,
         value: "nom_visiteur",
       },
-      { text: "DATE", value: "date_rdv" },
+      { text: "DATE", value: "date_rdv", sortable: true, },
       { text: "HEURE", value: "heure_rdv" },
+      { text: "STATUS", value: "etat_visite" },
       { text: "DETAILS", value: "actions", sortable: false },
-    ],
-    items: [
-      {
-        nom_visiteur: "Frozen Yao Partrick ",
-        date_rdv: "21-01-2021",
-        heure_rdv: "10:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        nom_visiteur: "Ice cream ",
-        date_rdv: "01-01-2021",
-        heure_rdv: "10:30",
-        details: {
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000,
-        },
-      },
-      {
-        nom_visiteur: "Eclair",
-        date_rdv: "25-03-2021",
-        heure_rdv: "14:30",
-        details: {
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000,
-        },
-      },
-      {
-        nom_visiteur: "Cupcake",
-        date_rdv: "25-03-2021",
-        heure_rdv: "12:39",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Gingerbread",
-        date_rdv: "25-04-2021",
-        heure_rdv: "13:40",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Jelly bean",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Lollipop",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Honeycomb",
-        date: "15-02-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Donut",
-        date: "25-03-2021",
-        post: "09:30",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "KitKat",
-        date: "25-03-2021",
-        post: "20:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
+      
     ],
 
 
@@ -830,13 +670,15 @@ export default {
   // For Visite Reject
     dialogReject:false,
     visiteToRject:{},
-
-  // For Visite Done
-    dialogDone:false,
-    visiteToDone:{},
+    
   }),
 
   methods: {
+    // DATE DISPLAY
+    displayDate(date) {
+      return formatDateForChat(date);
+    },
+
     // ------------------------
     // Show Profil infomation
     // ------------------------
@@ -849,14 +691,19 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedIndex = this.AllvisiteAccueil.indexOf(item);
       this.editedItem = Object.assign({}, item);
+
+      if (this.editedItem.id_departement) {
+        this.$store.dispatch("init_dprt_list_disponibility", this.editedItem.id_departement)
+      }
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
       // this.editedItem.id_visite = this.editedItem.id;
+      console.log(this.editedItem);
       axios
         ({ url: "/api/v1/rdv/update_visite_planifie/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
@@ -869,7 +716,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_allVisiteAccueil");
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.VisiteaAddingResponse.message = "echec de l'operation";
@@ -909,7 +756,7 @@ export default {
     },
 
     deleteOneItemVriante(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedIndex = this.AllvisiteAccueil.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDeleteOneVariante = true;
       // this.BeforeDialogDelete = false;
@@ -927,7 +774,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_allVisiteAccueil");
             }, 3000);
           } else if (!this.VisiteaAddingResponse) {
             this.addingfalse = !this.addingfalse;
@@ -982,7 +829,7 @@ export default {
     },
     // FOR ACCEPT VISITE
     acceptItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedIndex = this.AllvisiteAccueil.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.visiteToAccpet = { id_visite: this.editedItem.id, dure_permis: this.editedItem.duree_rdv};
       this.dialogAccept = true;
@@ -1000,7 +847,7 @@ export default {
           this.addingSuccess = !this.addingSuccess;
           setTimeout(() => {
             this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_userVisite");
+              this.$store.dispatch("init_allVisiteAccueil");
           }, 3000);
         } else if (!this.VisiteaAddingResponse) {
           this.VisiteaAddingResponse.message = "echec de l'operation";
@@ -1023,7 +870,7 @@ export default {
 
     // FOR REPORT VISITE
     reportItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedIndex = this.AllvisiteAccueil.indexOf(item);
       this.editedItem = Object.assign({}, item);
       // this.itemToDelete = { id: this.editedItem.Visites_id };
       this.dialogReport = true;
@@ -1042,7 +889,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_userVisite");
+               this.$store.dispatch("init_allVisiteAccueil");
             }, 3000);
           } else if (this.VisiteaAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;
@@ -1066,7 +913,7 @@ export default {
       
     // FOR REJECT VISITE
     RejecttItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
+      this.editedIndex = this.AllvisiteAccueil.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.visiteToRject = { 
         id_visite: this.editedItem.id, 
@@ -1087,7 +934,7 @@ export default {
           this.addingSuccess = !this.addingSuccess;
           setTimeout(() => {
             this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_userVisite");
+              this.$store.dispatch("init_allVisiteAccueil");
               console.log("populase");
           }, 3000);
         } else if (!this.VisiteaAddingResponse) {
@@ -1108,66 +955,39 @@ export default {
     closeRejectVisite() {
       this.dialogReject = false;
     },
-
-
-    // FOR DONE VISITE
-    DoneItem(item) {
-      this.editedIndex = this.UserVisites.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.visiteToDone = { 
-        id_visite: this.editedItem.id, 
-        };
-      this.dialogDone = true;
-    },
-    DoneVisite() {
-      console.log(this.editedItem.id);
-      axios
-        ({ url: "/api/v1/rdv/marquer_visit_effectue", data: {id_visite: this.editedItem.id, }, method: "POST" })
-      .then((response) => {
-        // console.log(response.data);
-        this.VisiteaAddingResponse = response.data;
-
-        if (this.VisiteaAddingResponse) {
-          // Annulation effectuée
-          this.VisiteaAddingResponse.message = "RDV effectué";
-          this.addingSuccess = !this.addingSuccess;
-          setTimeout(() => {
-            this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_userVisite");
-              console.log("populase");
-          }, 3000);
-        } else if (!this.VisiteaAddingResponse) {
-          this.VisiteaAddingResponse.message = "echec de l'operation";
-          this.addingfalse = !this.addingfalse;
-          setTimeout(() => {
-            this.addingfalse = !this.addingfalse;
-          }, 3000);
-        }
-      })
-      .catch((error) => {
-        this.VisiteaAddingResponse = error.message;
-        console.error("There was an error!", error);
-      });
-
-      this.closeDoneVisite();
-    },
-    closeDoneVisite() {
-      this.dialogDone = false;
-    },
     
   },
 
   computed: {
-    ...mapGetters(["UserVisites"]),
+    ...mapGetters(["AllvisiteAccueil", "Employers", "DprtDisponibilityList"]),
   },
 
   created() {
-    this.$store.dispatch("init_userVisite");
+    this.$store.dispatch("init_allVisiteAccueil");
+    this.$store.dispatch("init_employers")
   },
 };
 </script>
 
 <style scoped>
+/* .TheBoxBody{
+    height: 60vh;
+    margin-top: 0px;
+} */
+.ForTravelDeclaration {
+  /* background: white;
+  text-align: center; */
+  /* background: red; */
+}
+.sectionTitle {
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  /* text-align: start; */
+}
+
+
 .tableWrapperDiv {
   height: 55vh;
   background: white;
@@ -1205,12 +1025,30 @@ export default {
   letter-spacing: normal;
   text-transform: none;
 }
+.statuBtn{
+  margin-left: 30px;
+}
+.status{
+  display:inline-block;
+  padding: 5px;
+  border-radius:50px;
+  font-size:10px;
+}
 
 .theSeachBar {
   /* margin-left: 50px; */
   margin-bottom: 5vh!important;
 }
 
+
+/* SHOW */
+.statElment .disponibility{
+  display:inline-block;
+  height: 12px;
+  width: 12px;
+  border-radius:100px;
+  /* background:red; */
+}
 
 /* Edit travel */
 .editIMGO {
@@ -1273,4 +1111,7 @@ export default {
   /* width: 370px; */
   text-align: center;
 }
+
+
+
 </style>

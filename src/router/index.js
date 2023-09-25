@@ -5,6 +5,7 @@ import store from "../store";
 import Dashboard from "../views/Dashboard.vue";
 
 import RdvStory from "../views/rdvStory.vue";
+import RdvAccueil from "../views/rdvAcceuil.vue";
 import VisiteDeclaration from "../views/VisiteDeclaration.vue";
 
 import TaskDeclaration from "../views/TaskDeclaration.vue";
@@ -104,6 +105,12 @@ const routes = [
     path: "/RdvStory",
     name: "RdvStory",
     component: RdvStory,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/RdvAccueil",
+    name: "RdvAccueil",
+    component: RdvAccueil,
     beforeEnter: ifAuthenticated,
   },
   {

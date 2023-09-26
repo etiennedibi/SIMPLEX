@@ -150,6 +150,35 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+     <v-dialog v-model="diaologTicket" max-width="470" persistent>
+      <v-card>
+        <v-card-text>
+          <v-container id="maketopdf">
+            <div class="ticketBox">
+              <div class="ticketHeader">
+                <p>{{VisiteaAddingResponse.data.provide_at}}</p>
+                 <v-icon style="font-size:30px">mdi-ticket-confirmation</v-icon>
+              </div>
+              <div><h1>VISITEUR</h1><br> <p style="text-align:center; margin-top:-10px">#{{VisiteaAddingResponse.data.id}}</p> </div>
+              <p class="ticketFooter">{{VisiteaAddingResponse.data.nom_visiteur}} {{VisiteaAddingResponse.data.prenoms_visiteur}}</p>
+            </div>
+          </v-container>
+          
+          <v-container>
+            <div style="display:flex; justify-content:center;">
+            <v-btn
+              color="mainBlueColor"
+              large
+              depressed
+              @click="exportPaieFile"
+              style="color: white"
+              >Generer le pass</v-btn
+            >
+          </div>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
 
      <!-- REJECT VISITE DIALOG -->
@@ -246,7 +275,6 @@
                     </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
-                        background-color="#356eea24"
                         height="60"
                         solo
                         v-model="editedItem.date_rdv"
@@ -262,6 +290,7 @@
                       <v-text-field
                         height="60"
                         solo
+                        background-color="#356eea24"
                         v-model="editedItem.heure_rdv"
                         ref="transport"
                         type="time"
@@ -269,20 +298,6 @@
                         prefix="heure de visite : "
                         persistent-hint
                         append-icon="mdi-clock-time-eight"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        solo
-                        v-model="editedItem.duree_rdv"
-                        ref="jjj"
-                        type="time"
-                        label="heure"
-                        prefix="Durée de visite : "
-                        persistent-hint
-                        append-icon="mdi-timer"
                         required
                       ></v-text-field>
                     </v-col>
@@ -415,12 +430,12 @@
                 <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
               </div>
             </div>
-              <div class="statElment">
+              <!-- <div class="statElment">
                 <div>
                   <h5>DUREE DU RDV</h5>
                   <h4 style="font-weight:normal;font-size:12px">{{ editedItem.duree_rdv }}</h4>
                 </div>
-              </div>
+              </div> -->
               <div v-if="editedItem.id_departement" class="statElment">
                 <div>
                   <h5>DEPARTEMENT</h5>
@@ -443,13 +458,13 @@
               <div>
                 <v-tooltip  v-if="editedItem.employer.id_disponibility == 5" bottom>
                   <template v-slot:activator="{ on, attrs }"> 
-                    <h5>EMPLOYE <span  class="disponibility" style="background:red" v-bind="attrs" v-on="on"></span></h5>
+                    <h5>DISPONIBILITE EMPLOYE <span  class="disponibility" style="background:red" v-bind="attrs" v-on="on"></span></h5>
                   </template>
                   <span><b>[Absent]</b></span>
                 </v-tooltip>
                 <v-tooltip v-if="(editedItem.employer.id_disponibility == 2) || (editedItem.employer.id_disponibility == 3) || (editedItem.employer.id_disponibility == 4)" bottom>
                   <template v-slot:activator="{ on, attrs }"> 
-                    <h5>EMPLOYE <span  class="disponibility" style="background:orange" v-bind="attrs" v-on="on"></span></h5>
+                    <h5>DISPONIBILITE EMPLOYE <span  class="disponibility" style="background:orange" v-bind="attrs" v-on="on"></span></h5>
                   </template>
                   <span v-if="editedItem.employer.id_disponibility == 2"><b>[En pause]</b> pour <b>{{editedItem.employer.motif}} min,</b><br> depuis <b>{{displayDate(editedItem.employer.updated_at)}}</b></span>
                   <span v-if="editedItem.employer.id_disponibility == 3"><b>[En reunion]</b> pour <b>{{editedItem.employer.motif}} min,</b><br> depuis <b>{{displayDate(editedItem.employer.updated_at)}}</b></span>
@@ -457,14 +472,20 @@
                 </v-tooltip>
                 <v-tooltip  v-if="editedItem.employer.id_disponibility == 1" bottom>
                   <template v-slot:activator="{ on, attrs }"> 
-                    <h5>EMPLOYE <span  class="disponibility" style="background:green" v-bind="attrs" v-on="on"></span></h5>
+                    <h5>DISPONIBILITE EMPLOYE <span  class="disponibility" style="background:green" v-bind="attrs" v-on="on"></span></h5>
                   </template>
                   <span><b>[Disponible]</b></span>
                 </v-tooltip>
                  <!-- v-if="editedItem.id_disponibility == 4"  -->
-                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4>
+                <!-- <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4> -->
               </div>
             </div>
+              <div class="statElment" v-if="editedItem.report != 0">
+                <div>
+                  <h5>NOMBRE DE REPORT </h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.report }}</h4>
+                </div>
+              </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF</h5>
@@ -526,20 +547,26 @@
       >
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"  (item.etat_visite != 'REFUSED') || -->
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite !== 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
+          v-if="((item.auteur_visite !== 'Ajouté depuis administration') && ((item.etat_visite !== 'REFUSED') || (item.etat_visite !== 'DONE')))" 
           @click="editItem(item)"
             ><v-icon small> mdi-pencil-outline </v-icon></v-btn
           >
           <v-btn icon color="red" 
-          v-if="((item.auteur_visite !== 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED')))" 
+          v-if="((item.auteur_visite !== 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') || (item.etat_visite == 'ACCEPTED') || (item.etat_visite !== 'DONE') ))" 
           @click="RejecttItem(item)"  
             ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
-          >        
+          >       
+
+          <v-btn icon color="green"  
+          v-if="((item.auteur_visite != 'Ajouté depuis administration') && ((item.etat_visite == 'EN_ATENTE') && (item.etat_visite !== 'ACCEPTED') && (item.etat_visite !== 'REFUSED') && (item.etat_visite !== 'DONE')))"
+           @click="acceptItem(item)"
+            ><v-icon small> mdi-account-check </v-icon></v-btn
+          >  
           
         </template>
         <template v-slot:[`item.id`]="{ item }">
@@ -607,6 +634,9 @@ import axios from "axios";
 import { formatDateForChat } from "../Utils/WorkDate";
 import { mapGetters } from "vuex";
 
+import jsPDF  from "jspdf";
+import html2canvas from "html2canvas";
+
 export default {
   name: "RdvAccueil",
   components: {
@@ -649,7 +679,7 @@ export default {
     },
 
     // For Visite edit
-    VisiteaAddingResponse: "",
+    VisiteaAddingResponse: {data:"",},
     dialogEdit: false,
     editedIndex: -1,
 
@@ -666,6 +696,7 @@ export default {
     // For Visite Accept
     dialogAccept:false,
     visiteToAccpet:{},
+    diaologTicket:false,
 
   // For Visite Reject
     dialogReject:false,
@@ -767,7 +798,7 @@ export default {
         ({ url: "/api/v1/rdv/cancel_visite_planifie/"+this.editedItem.id,  method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
-
+          
           if (this.VisiteaAddingResponse) {
             // Annulation effectuée
             this.VisiteaAddingResponse.message = "Annulation effectuée";
@@ -844,11 +875,9 @@ export default {
         if (this.VisiteaAddingResponse) {
           // Annulation effectuée
           this.VisiteaAddingResponse.message = "RDV accepté";
-          this.addingSuccess = !this.addingSuccess;
-          setTimeout(() => {
-            this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_allVisiteAccueil");
-          }, 3000);
+          console.log(this.VisiteaAddingResponse);
+          this.$store.dispatch("init_allVisiteAccueil");
+          this.diaologTicket = true
         } else if (!this.VisiteaAddingResponse) {
           this.VisiteaAddingResponse.message = "echec de l'operation";
           this.addingfalse = !this.addingfalse;
@@ -866,6 +895,22 @@ export default {
     },
     closeAcceptVisite() {
       this.dialogAccept = false;
+    },
+    async exportPaieFile(){
+
+        //Downloading
+        var downloading = document.getElementById("maketopdf");
+        var doc = new jsPDF('p', 'pt', 'b6');
+        await html2canvas(downloading, {}).then((canvas) => {
+            doc.addImage(canvas.toDataURL("image/jpeg"), 'PNG', 30, 5, 290, 450);
+        })
+        // doc.save(`${this.VisiteaAddingResponse.nom_visiteur} ${this.VisiteaAddingResponse.prenoms_visiteur} -- ${this.VisiteaAddingResponse.updatedAt}`);
+        doc.save("pouletBraise");
+
+        //End of downloading
+        // this.diaologTicket = true
+        // document.getElementById("downloadButton").innerHTML = "Click to download";
+
     },
 
     // FOR REPORT VISITE
@@ -1092,6 +1137,29 @@ export default {
   padding-top: 0px;
 }
 
+.ticketBox{
+  border:solid 1px var(--main-green-color);
+  height:300px;
+  margin: 20px 0px;
+  padding:10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.ticketHeader{
+  width: 100%;
+  display: flex;
+  justify-content: space-between ;
+}
+.ticketHeader > p{
+  display: inline-block;
+}
+.ticketFooter{
+  padding: 1px;
+  text-transform: uppercase;
+  border:solid 1px black;
+}
 .ReportForm{
   height: 200px;
   /* overflow-y: clip; */

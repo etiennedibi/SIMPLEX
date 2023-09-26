@@ -231,8 +231,8 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  deleteIMG">
-                <v-icon color="red" large>
-                  mdi-good
+                <v-icon color="mainBlueColor" large>
+                  mdi-check-circle
                 </v-icon>
               </div>
             <v-container>
@@ -520,6 +520,12 @@
                   <h4 style="font-weight:normal;font-size:12px">{{ editedItem.duree_rdv }}</h4>
                 </div>
               </div>
+              <div class="statElment" v-if="editedItem.report != 0">
+                <div>
+                  <h5>NOMBRE DE REPORT </h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.report }}</h4>
+                </div>
+              </div>
             <div class="statElment">
               <div>
                 <h5>MOTIF</h5>
@@ -586,12 +592,12 @@
             ><v-icon small> mdi-eye-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
+          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED')&&(item.etat_visite !== 'DONE'))" 
           @click="editItem(item)"
             ><v-icon small> mdi-pencil-outline </v-icon></v-btn
           >
           <v-btn icon color="mainBlueColor" 
-          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED'))" 
+          v-if="((item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'REFUSED')&&(item.etat_visite !== 'DONE'))" 
             @click="deleteOneItemVriante(item)"
             ><v-icon small>mdi-cancel </v-icon></v-btn
           >
@@ -601,7 +607,7 @@
             ><v-icon small> mdi-account-check </v-icon></v-btn
           >  -->
           <v-btn icon color="mainBlueColor" 
-          v-if="(item.auteur_visite == 'Ajouté depuis administration')"
+          v-if="(item.auteur_visite == 'Ajouté depuis administration')&&(item.etat_visite !== 'DONE')"
           @click="reportItem(item)"
             ><v-icon small> mdi-redo-variant </v-icon></v-btn
           >
@@ -610,10 +616,10 @@
           @click="RejecttItem(item)"  
             ><v-icon small> mdi-close-circle-multiple-outline </v-icon></v-btn
           >         -->
-          <v-btn icon color="green" 
+          <v-btn icon color="mainBlueColor" 
           v-if="item.etat_visite !== 'DONE'" 
           @click="DoneItem(item)"  
-            ><v-icon small> mdi-redo-variant </v-icon></v-btn
+            ><v-icon small> mdi-check-circle-outline </v-icon></v-btn
           >        
 
         </template>
@@ -1031,7 +1037,7 @@ export default {
     reportVisite() {
       this.editedItem.id_visite = this.editedItem.id;
       axios
-        ({ url: "/api/v1/rdv/update_date_visite", data: this.editedItem, method: "POST" })
+        ({ url: "/api/v1/rdv/report", data: this.editedItem, method: "POST" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;

@@ -921,8 +921,13 @@ export default {
     },
 
     editEntrepriseConfirm() {
-        
-        axios({ url: "/api/v1/admin/update_compagnies/"+this.compagnie_id, data: this.EntrepriseInfo, method: "PUT" })
+        const formData = new FormData();
+       formData.append('logo', this.EntrepriseInfo.logo);
+       formData.append('RCCM', this.EntrepriseInfo.RCCM);
+       formData.append('Objet_social', this.EntrepriseInfo.Objet_social);
+       formData.append('Anagramme', this.EntrepriseInfo.Anagramme);
+       formData.append('Denomination', this.EntrepriseInfo.Denomination);
+        axios({ url: "/api/v1/admin/update_compagnies/"+this.compagnie_id, data: formData, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {

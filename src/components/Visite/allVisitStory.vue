@@ -27,8 +27,31 @@
                 <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
               </div>
             </div>
-            <div class="statElment">
-              
+              <div v-if="editedItem.id_departement" class="statElment">
+                <div>
+                  <h5>DEPARTEMENT</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.departement.nom_departement }}</h4>
+                </div>
+              </div>
+              <div v-if="editedItem.nom_complet_employe" class="statElment">
+                <div>
+                  <h5>VISITE DEMANDEE POUR</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_complet_employe }}</h4>
+                </div>
+              </div>
+              <div v-if="editedItem.TheUser" class="statElment">
+                <div>
+                  <h5>VISITE ATTRIBUE A</h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4>
+                </div>
+              </div>
+              <div class="statElment" v-if="editedItem.report != 0">
+                <div>
+                  <h5>NOMBRE DE REPORT </h5>
+                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.report }}</h4>
+                </div>
+              </div>
+            <div class="statElment">     
               <div>
                 <h5>MOTIF</h5>
                 <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.objet }}</h4>
@@ -81,6 +104,9 @@
           >
           <v-chip style="color:white" small v-if="item.etat_visite == 'ACCEPTED'" color="#aeaeae">
             Accepté </v-chip
+          >
+          <v-chip style="color:white" small v-if="item.etat_visite == 'DONE'" color="green">
+            Effectué </v-chip
           >
           <v-chip style="color:white" small v-if="item.etat_visite == 'EN_ATENTE'" color="#aeaeae">
             En attente</v-chip

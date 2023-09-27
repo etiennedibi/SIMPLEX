@@ -1,7 +1,7 @@
 <template>
   <div class="singInContentBox">
     <div class="signInHeaderBox">
-      <img src="@/assets/icone/simplexLogo.jpeg" alt="" srcset="" />
+      <img src="@/assets/icone/simplexLogo.png" alt="" srcset="" />
     </div>
     <v-form class="signInBodyBox">
       <div>

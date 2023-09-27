@@ -7,7 +7,7 @@
     <div class="header2">
       <router-link :to="{ name: 'Dashboard' }">
         <div class="Header2logoBox">
-          <img src="@/assets/icone/simplexLogo.jpeg" alt="" srcset="" />
+          <img src="@/assets/icone/simplexLogo.png" alt="" srcset="" />
         </div>
       </router-link>
     </div>

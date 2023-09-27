@@ -72,13 +72,13 @@
               <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
               <p>ORGANIGRAMME</p>
             </div>
-            <router-link :to="{ name: 'AddPaie' }">
+            <router-link :to="{ name: 'AddPaie' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ELABORATION FICHE DE PAIE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'PaieStoty' }">
+            <router-link :to="{ name: 'PaieStoty' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>HISTORIQUE FICHES DE PAIE</p>

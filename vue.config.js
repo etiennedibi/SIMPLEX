@@ -6,18 +6,19 @@ module.exports = {
         builderOptions: {
             productName: "Simplex",
             appId: 'simplex.com',
+            copyright: 'Copyright © Blooraid-Consortium 2023',
             win: {
                 "target": [
                     "nsis"
                 ],
-              icon: 'public/simplexLogo.png',
+              icon: 'public/simplexLogo.jpeg',
               "requestedExecutionLevel": "requireAdministrator"
             },
             "nsis": {
                 "installerIcon": "public/simplexfav.ico",
                 "uninstallerIcon": "public/simplexfav.ico",
-                "uninstallDisplayName": "CPU Monitor",
-                "license": "license.txt",
+                "uninstallDisplayName": "Simplex-Uninstaller",
+                "license": "public/license.txt",
                 "oneClick": false,
                 "allowToChangeInstallationDirectory": true
             }
